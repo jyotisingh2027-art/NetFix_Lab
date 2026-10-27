@@ -12,7 +12,7 @@
   },
   "vars": {
     "SUPABASE_URL": "https://wupybzrnzgvpgmorizen.supabase.co",
-    "COURSE_PRODUCT_ID": "pdt_0NqeoLFwchKisY2Dd0pUD"
+    "COURSE_PRODUCT_ID": "pdt_0NqfRKUMMpNNhjEP89Y29"
   },
   "keep_vars": true,
   "observability": { "enabled": true }
