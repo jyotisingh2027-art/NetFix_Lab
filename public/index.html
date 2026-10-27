@@ -1089,6 +1089,11 @@ const Auth = {
     const r = await sb.auth.resetPasswordForEmail(email.trim(), {redirectTo:location.origin + location.pathname + "?reset=1"});
     return r.error ? {error:r.error.message} : {};
   },
+  async emailRegistered(email){
+    const r = await sb.rpc("email_registered", {p_email:email.trim()});
+    if(r.error) return null;          // unknown: fall back to sending the link anyway
+    return r.data === true;
+  },
   async newPassword(pw){
     const r = await sb.auth.updateUser({password:pw});
     return r.error ? {error:/different from the old/i.test(r.error.message) ? "Choose a password you have not used before." : r.error.message} : {};
@@ -1271,6 +1276,40 @@ function afterAuth(){
   if(a && a.pay){ showHome(); openPay(a.lesson); } else openProfile();
 }
 
+/* ---------- forgot password: verify the email, then send the reset link ---------- */
+function openForgot(email){
+  $("#auth").innerHTML = `
+    <div class="authwrap">
+      <div class="authside">${panel(P("phone","router","worried","happy","question",["l:I forgot my password!","r:No problem. Tell me your email and I will send you a reset link."],"Forgot your password?"))}</div>
+      <div class="box authbox">
+        <h2>Reset your password</h2>
+        <p>Enter the email you signed up with. If we find your account, we will email you a link to choose a new password.</p>
+        <form id="forgotForm" novalidate>
+          <label for="frEmail">Email</label><input id="frEmail" type="email" autocomplete="email" value="${esc(email || "")}">
+          <p class="msg" id="frMsg" role="alert"></p>
+          <button class="btn" type="submit" id="frGo">Send reset link</button>
+        </form>
+        <p class="fine">Remembered it? <button class="linkbtn" type="button" data-view="login">Back to log in</button></p>
+      </div>
+    </div>`;
+  show("auth"); $("#frEmail").focus();
+}
+async function submitForgot(){
+  const em = $("#frEmail").value.trim(), m = $("#frMsg"), say = (t, ok) => { m.className = "msg" + (ok ? " good" : ""); m.innerHTML = t; };
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) return say("That email does not look right. Check it and try again.");
+  if(!USE_SB) return say("Password reset is not available right now. Please try again in a moment.");
+  const btn = $("#frGo"); btn.disabled = true; say("Checking...", true);
+  let known = null; try{ known = await Auth.emailRegistered(em); }catch(e){}
+  if(known === false){
+    btn.disabled = false;
+    return say(`We could not find an account for <b>${esc(em)}</b>. Check the spelling, or <button class="linkbtn" type="button" data-view="signup">create a free account</button>.`);
+  }
+  say("Sending...", true);
+  const r = await Auth.reset(em); btn.disabled = false;
+  if(r.error) return say(/rate|security purposes/i.test(r.error) ? "Please wait a minute before asking for another email." : esc(r.error));
+  say(`Reset link sent to <b>${esc(em)}</b>. Open the email and tap the link to choose a new password. Check your spam folder if it is not in your inbox.`, true);
+}
+
 /* ---------- set a new password (from the reset email) ---------- */
 function openNewPassword(){
   $("#auth").innerHTML = `
@@ -1411,16 +1450,7 @@ document.addEventListener("click", async e => {
   else if(t.id === "payX") closePay();
   else if(t.id === "logout"){ await Auth.logout(); updateHeader(); showHome(); }
   else if(t.id === "checkPay"){ await Auth.refresh(); openProfile(S.unlocked ? "Payment found. Everything is unlocked." : "No payment yet. It can take a minute to arrive."); }
-  else if(t.id === "forgot"){
-    const em = $("#fEmail").value.trim(), m = $("#authMsg");
-    m.className = "msg";
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){ m.textContent = "Type your email above first, then tap \u201cForgot your password?\u201d again."; $("#fEmail").focus(); return; }
-    if(!USE_SB){ m.textContent = "Password reset is not available right now. Please try again in a moment."; return; }
-    t.disabled = true; m.textContent = "Sending...";
-    const r = await Auth.reset(em); t.disabled = false;
-    if(r.error){ m.textContent = /rate|security purposes/i.test(r.error) ? "Please wait a minute before asking for another email." : r.error; return; }
-    m.className = "msg good"; m.textContent = "If an account exists for " + em + ", a reset link is on its way. Check your inbox and spam folder.";
-  }
+  else if(t.id === "forgot"){ const em = $("#fEmail") ? $("#fEmail").value.trim() : ""; openForgot(em); }
   else if(t.classList.contains("opt")){
     const fb = $("#fb"), all = document.querySelectorAll("#quiz .opt");
     const ln = +$("#reader").dataset.n;
@@ -1433,6 +1463,7 @@ document.addEventListener("submit", async e => {
   if(id === "authForm"){ e.preventDefault(); await submitAuth(); }
   else if(id === "contactForm"){ e.preventDefault(); await submitContact(); }
   else if(id === "pwForm"){ e.preventDefault(); await submitNewPassword(); }
+  else if(id === "forgotForm"){ e.preventDefault(); await submitForgot(); }
   else if(id === "nameForm"){
     e.preventDefault(); const v = $("#pName").value.trim();
     if(v.length < 2){ const m = $("#nameMsg"); m.className = "msg"; m.textContent = "Please enter a name."; return; }

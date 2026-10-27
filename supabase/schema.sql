@@ -287,3 +287,19 @@ grant execute on function public.set_my_name(text)              to authenticated
 grant execute on function public.track_visit(text, text, text)  to anon, authenticated;
 grant execute on function public.track_event(text, int, text)   to anon, authenticated;
 grant execute on function public.send_contact(text, text, text) to anon, authenticated;
+
+-- Used by the "Forgot your password?" page: is this email registered?
+create or replace function public.email_registered(p_email text)
+returns boolean
+language sql
+stable
+security definer
+set search_path = ''
+as $$
+  select exists (
+    select 1 from auth.users
+    where lower(email) = lower(trim(p_email)) and deleted_at is null
+  );
+$$;
+revoke all on function public.email_registered(text) from public;
+grant execute on function public.email_registered(text) to anon, authenticated;
