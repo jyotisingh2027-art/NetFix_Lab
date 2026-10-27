@@ -1,0 +1,8 @@
+{
+  // Cloudflare Worker that serves the static NetFixLab site on netfixlab.tech
+  "name": "netfix-lab",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./public"
+  }
+}
