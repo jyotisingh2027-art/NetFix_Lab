@@ -1,12 +1,1347 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NetFix Lab - CCNA troubleshooting puzzles</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<!doctype html><html><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<title>NetFixLab: learn home networking from a comic</title>
+<meta name="description" content="Beginner networking course taught through comics. Learn how your home network works and fix common problems yourself. First 3 lessons free.">
+</head><body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bangers&family=Comic+Neue:wght@400;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout concept: the site is an old print comic. Cream newsprint, thick ink borders, Ben-Day halftone dots, speed lines, jagged sound-effect bursts, caption boxes and cover-style title art. */
+:root{
+  --bg:#f0e6c8; --fg:#14213d; --muted:#5a5342; --ink:#14213d;
+  --paper:#fbf4dd; --paper2:#f3e7c4; --bubble:#ffffff; --code:#fff3c4;
+  --blue:#1f6fd1; --btn-fg:#ffffff; --yellow:#ffd23f; --green:#1c8f5f; --coral:#e63a2e;
+  --shadow:#14213d; --ok-bg:#d3f0d9; --bad-bg:#ffd9d3;
+  --disp:"Bangers","Impact","Arial Black",sans-serif;
+  --comic:"Comic Neue","Comic Sans MS",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1830; --fg:#f3ead0; --muted:#b9b394; --ink:#c9bfa0;
+    --paper:#1a2442; --paper2:#222f55; --bubble:#26335c; --code:#2a3963;
+    --blue:#6aa5ff; --btn-fg:#0f1830; --yellow:#ffd23f; --green:#3fd39c; --coral:#ff7b6e;
+    --shadow:#04070f; --ok-bg:#15402f; --bad-bg:#4d2025; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1830; --fg:#f3ead0; --muted:#b9b394; --ink:#c9bfa0;
+  --paper:#1a2442; --paper2:#222f55; --bubble:#26335c; --code:#2a3963;
+  --blue:#6aa5ff; --btn-fg:#0f1830; --yellow:#ffd23f; --green:#3fd39c; --coral:#ff7b6e;
+  --shadow:#04070f; --ok-bg:#15402f; --bad-bg:#4d2025; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.55 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+.wrap{max-width:1080px;margin-inline:auto}
+h1,h2,h3{font-family:var(--disp);font-weight:400;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.6rem,3.4vw,2.2rem);line-height:1.1}
+p{margin:0}
+code{font-family:var(--mono);font-size:.86em;background:var(--code);padding:1px 6px;border-radius:4px;border:1.5px solid var(--ink);white-space:nowrap}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.kicker{font:700 .78rem var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* header */
+.top{display:flex;align-items:center;gap:20px;padding-block:18px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg);font:400 1.5rem var(--disp)}
+.logo .lab{color:var(--blue)}
+.top nav{margin-left:auto;display:flex;gap:22px}
+.top nav a{color:var(--fg);font-weight:700;text-decoration:none;font-size:.95rem}
+.top nav a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:5px}
+@media (max-width:700px){.top nav{display:none}.top .btn{margin-left:auto}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:700 1rem var(--body);background:var(--blue);color:var(--btn-fg);
+  border:3px solid var(--ink);border-radius:6px;padding:10px 18px;cursor:pointer;box-shadow:4px 4px 0 var(--shadow);text-decoration:none}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--shadow)}
+.btn.alt{background:var(--paper);color:var(--fg)}
+.btn.ink{background:#12203a;color:#fff;border-color:#12203a}
+.btn.sm{padding:7px 14px;font-size:.92rem}
+@media (prefers-reduced-motion:no-preference){.btn{transition:transform .08s,box-shadow .08s}.btn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--shadow)}}
+
+main{display:flex;flex-direction:column;gap:76px;padding-bottom:56px}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;padding:clamp(18px,4vw,40px);background-color:var(--paper);
+  background-image:radial-gradient(color-mix(in srgb,var(--ink) 16%,transparent) 1.5px,transparent 2px);background-size:15px 15px;
+  border:3px solid var(--ink);box-shadow:8px 8px 0 var(--shadow);border-radius:8px}
+@media (min-width:860px){.hero{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:center}}
+.hero h1{font-size:clamp(2.1rem,5vw,3.5rem);line-height:1.08;margin:10px 0 16px}
+mark{background:var(--yellow);color:#12203a;padding:0 .15em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.lead{font-size:1.15rem;max-width:34em}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin:24px 0 16px}
+.facts{font-size:.9rem;color:var(--muted);font-weight:700}
+
+/* why */
+.whyhead{margin-bottom:22px}
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.why div{padding:6px 22px 6px 18px;border-left:4px solid var(--ink)}
+.why h3{font-size:1.15rem;line-height:1.2;margin-bottom:8px}
+.why p{color:var(--muted)}
+
+/* lessons */
+.parthead{margin:34px 0 16px;display:flex;flex-direction:column;gap:4px}
+.parthead p{color:var(--muted)}
+.prog{margin-top:8px;font-weight:700;color:var(--muted);font-size:.95rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:20px}
+.card{display:flex;flex-direction:column;gap:10px;text-align:left;font:inherit;color:var(--fg);background:var(--paper);border:3px solid var(--ink);border-radius:6px;
+  padding:14px;cursor:pointer;box-shadow:5px 5px 0 var(--shadow);min-width:0}
+@media (prefers-reduced-motion:no-preference){.card{transition:transform .1s,box-shadow .1s}.card:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--shadow)}}
+.crow{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.thumb{width:76px;height:76px;border:3px solid var(--ink);border-radius:4px;background-color:var(--paper2);
+  background-image:radial-gradient(color-mix(in srgb,var(--ink) 18%,transparent) 1.2px,transparent 1.7px);background-size:9px 9px;display:block}
+.thumb svg{width:100%;height:100%;display:block}
+.tag{display:inline-flex;align-items:center;gap:5px;font:700 .75rem var(--body);letter-spacing:.06em;text-transform:uppercase;border:2.5px solid var(--ink);border-radius:20px;padding:3px 10px;background:var(--paper2)}
+.tag.free,.tag.read{background:var(--ok-bg)}
+.meta{font:500 .78rem var(--mono);color:var(--muted)}
+.ct{font:700 1.15rem/1.25 var(--body)}
+.cb{color:var(--muted);font-size:.96rem}
+.ctext{display:flex;flex-direction:column;gap:3px}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px;margin-top:22px}
+.plan{padding:24px;border:3px solid var(--ink);border-radius:6px;background:var(--paper);box-shadow:6px 6px 0 var(--shadow);display:flex;flex-direction:column;gap:14px;min-width:0}
+.plan.featured{--ink:#12203a;--shadow:#12203a;--fg:#12203a;--muted:#34425e;background:var(--yellow);color:#12203a}
+.plan h3{font-size:1.3rem}
+.price{font:400 2.6rem/1 var(--disp)}
+.price small{font:700 .95rem var(--body);color:var(--muted)}
+.plan ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px;flex:1}
+.plan .btn{align-self:flex-start}
+
+/* faq */
+details{border-top:3px solid var(--ink);padding:14px 0}
+details:last-of-type{border-bottom:3px solid var(--ink)}
+summary{cursor:pointer;font-weight:700;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:400 1.4rem/1 var(--disp)}
+details[open] summary::after{content:"\2212"}
+details p{margin-top:8px;color:var(--muted);max-width:40em}
+
+footer{border-top:3px solid var(--ink);padding-block:22px 36px;display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;color:var(--muted);font-size:.92rem}
+.linkbtn{background:none;border:0;color:var(--muted);font:inherit;text-decoration:underline;cursor:pointer;padding:0}
+
+/* comic panels */
+.pn{display:flex;flex-direction:column;background:var(--paper);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--shadow);border-radius:6px;overflow:hidden;min-width:0}
+.cap{background:var(--yellow);color:#12203a;font:700 .86rem var(--body);padding:6px 12px;border-bottom:3px solid var(--ink)}
+.art{display:block;width:100%;height:auto;background-color:var(--paper2);
+  background-image:radial-gradient(color-mix(in srgb,var(--ink) 15%,transparent) 1.3px,transparent 1.8px);background-size:11px 11px}
+.talk{display:flex;flex-direction:column;gap:10px;padding:14px;flex:1}
+.bub{max-width:90%;background:var(--bubble);border:3px solid var(--ink);border-radius:16px;padding:7px 12px 10px}
+.bub.l{align-self:flex-start;border-top-left-radius:3px}
+.bub.r{align-self:flex-end;border-top-right-radius:3px}
+.bub p{font-size:1rem;line-height:1.45}
+.who{display:flex;align-items:center;gap:6px;font:700 .7rem var(--body);letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.who i{width:10px;height:10px;border-radius:50%;border:2px solid var(--ink);display:inline-block}
+@media (prefers-reduced-motion:no-preference){
+  .wifi path{animation:pulse 2.2s ease-in-out infinite}
+  .wifi path:nth-child(2){animation-delay:.25s}.wifi path:nth-child(3){animation-delay:.5s}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+}
+
+/* reader */
+#reader{gap:26px}
+.rhead{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.rhead h1{font-size:clamp(1.8rem,4.4vw,2.8rem);line-height:1.1}
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:26px;padding-right:6px;padding-bottom:6px}
+.box{border:3px solid var(--ink);border-radius:6px;padding:18px 20px;background:var(--paper);display:flex;flex-direction:column;gap:8px}
+.box h3{font-size:1.05rem}
+.box.take{background:var(--yellow);color:#12203a;--ink:#12203a}
+.box.take code{background:#fff8dc;color:#12203a}
+.box.tip{border-style:dashed}
+.opts{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+.opt{font:inherit;text-align:left;color:var(--fg);background:var(--bg);border:3px solid var(--ink);border-radius:6px;padding:10px 14px;cursor:pointer}
+.opt.ok{background:var(--ok-bg)}.opt.bad{background:var(--bad-bg)}
+.fb{font-weight:700;min-height:1.5em}
+.rnav{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between}
+
+/* modal */
+.overlay{position:fixed;inset:0;background:rgba(6,10,20,.66);display:grid;place-items:center;padding:16px;z-index:50;overflow-y:auto}
+.sheet{position:relative;width:min(520px,100%);background:var(--paper);border:3px solid var(--ink);box-shadow:8px 8px 0 var(--shadow);border-radius:8px;padding:28px 24px 24px;display:flex;flex-direction:column;gap:14px}
+.sheet h2{font-size:1.7rem}
+.sheet ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
+.x{position:absolute;top:8px;right:8px;width:40px;height:40px;border:3px solid var(--ink);border-radius:6px;background:var(--bg);color:var(--fg);font:700 1.4rem/1 var(--body);cursor:pointer}
+.fine{font-size:.85rem;color:var(--muted)}
+</style>
+<style>
+/* old-school print overrides */
+body{margin:0}
+[hidden]{display:none!important}
+h1,h2,h3{letter-spacing:.03em;line-height:1}
+h2{font-size:clamp(2.1rem,4.6vw,3.2rem)}
+.logo{font-size:2.2rem;letter-spacing:.05em}
+.hero h1{font-size:clamp(2.9rem,6.6vw,5rem);line-height:.98;margin:12px 0 18px}
+.price{font-size:3.4rem}
+.plan h3,.why h3,.box h3{font-size:1.6rem}
+.why p{font-size:1rem}
+.kicker{font-family:var(--comic);font-weight:700}
+.btn{font-family:var(--comic);font-weight:700;text-transform:uppercase;letter-spacing:.05em;border-radius:0;font-size:.95rem}
+.hero{border-radius:0;border-width:4px;box-shadow:9px 9px 0 var(--shadow)}
+code{background:#fff3c4;color:#14213d;border-color:#14213d}
+
+/* cover fan in hero */
+.fan{position:relative;aspect-ratio:1/1;width:100%;max-width:520px;margin-inline:auto}
+.fan .c{position:absolute;width:56%;aspect-ratio:3/4;border:4px solid var(--ink);box-shadow:6px 6px 0 var(--shadow);background:#fff;overflow:hidden}
+.fan .c svg,.cv svg,.bigcover svg{display:block;width:100%;height:100%}
+.fan .c1{left:0;top:12%;transform:rotate(-7deg)}
+.fan .c2{right:0;top:0;transform:rotate(6deg)}
+.fan .c3{left:22%;top:20%;transform:rotate(-1deg);z-index:2}
+
+/* shelf of covers */
+.grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:30px 24px}
+.card{padding:0;background:none;border:0;box-shadow:none;gap:12px;align-items:stretch}
+.card:hover{transform:none;box-shadow:none}
+.cv{display:block;position:relative;aspect-ratio:3/4;border:4px solid var(--ink);box-shadow:6px 6px 0 var(--shadow);background:#fff;overflow:hidden}
+.tagpos{align-self:flex-start;color:#14213d}
+.tag{background:#fff3c4;border-color:#14213d;color:#14213d;border-radius:0}
+.tag.free,.tag.read{background:#c8efc9}
+@media (prefers-reduced-motion:no-preference){.card:hover .cv{transform:translate(-3px,-3px) rotate(-1deg);box-shadow:10px 10px 0 var(--shadow)}.cv{transition:transform .12s,box-shadow .12s}}
+.meta{font-family:var(--comic);font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em}
+
+/* panels */
+.pn{border-width:4px;border-radius:0;box-shadow:8px 8px 0 var(--shadow);background:var(--paper)}
+.artwrap{position:relative;border-bottom:4px solid var(--ink)}
+.art{background:none}
+.cap{position:absolute;top:9px;left:9px;max-width:68%;background:#fff3c4;color:#14213d;border:3px solid #14213d;box-shadow:3px 3px 0 #14213d;
+  font:700 .78rem/1.25 var(--comic);text-transform:uppercase;letter-spacing:.04em;padding:5px 9px}
+.talk{padding:24px 16px 16px;gap:16px;background-color:var(--paper);
+  background-image:radial-gradient(color-mix(in srgb,var(--ink) 20%,transparent) 1.2px,transparent 1.7px);background-size:8px 8px}
+.bub{position:relative;max-width:92%;background:#fff;color:#14213d;border:3px solid #14213d;border-radius:24px;padding:7px 15px 10px}
+.bub.l,.bub.r{border-radius:24px}
+.bub p{font:700 .93rem/1.35 var(--comic);text-transform:uppercase;letter-spacing:.02em}
+.bub .who{color:#5a5342}
+.bub .who i{border-color:#14213d}
+.bub code{font-size:.9em}
+.bub::before,.bub::after{content:"";position:absolute;width:0;height:0;border-style:solid}
+.bub::before{top:-18px;border-width:0 10px 18px 10px;border-color:transparent transparent #14213d transparent}
+.bub::after{top:-12px;border-width:0 7px 13px 7px;border-color:transparent transparent #fff transparent}
+.bub.l::before{left:28px}.bub.l::after{left:31px}
+.bub.r::before{right:28px}.bub.r::after{right:31px}
+
+/* reader: cover first, then the comic */
+.cover-view{display:grid;gap:34px;grid-template-columns:minmax(0,1fr);justify-items:center;align-items:center}
+@media (min-width:800px){.cover-view{grid-template-columns:minmax(0,430px) minmax(0,1fr);justify-items:start}}
+.bigcover{width:min(100%,430px);aspect-ratio:3/4;border:5px solid var(--ink);box-shadow:11px 11px 0 var(--shadow);background:#fff;overflow:hidden}
+.cinfo{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.cinfo h1{font-size:clamp(2.6rem,5.4vw,4rem);line-height:1}
+.rhead h1{font-size:clamp(2.2rem,4.8vw,3.4rem)}
+.box{border-radius:0;border-width:4px}
+.opt{border-radius:0;font-family:var(--comic);font-weight:700}
+.sheet,.x{border-radius:0}
+.sheet h2{font-size:2.2rem}
+</style>
+<style>
+/* header actions, why, about, accounts */
+.top .actions{display:flex;gap:10px;align-items:center}
+@media (max-width:700px){.top .actions{margin-left:auto}.top .actions .btn{margin-left:0}}
+.av{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--yellow);color:#14213d;border:2px solid var(--ink);font:400 .95rem/1 var(--disp);margin-right:6px}
+
+.scene{margin:46px 0 34px;padding:24px clamp(16px,3vw,30px);border:4px solid var(--ink);background:var(--paper);box-shadow:8px 8px 0 var(--shadow);display:flex;flex-direction:column;gap:10px;max-width:46rem}
+.stamp{align-self:flex-start;background:#fff3c4;color:#14213d;border:3px solid #14213d;padding:4px 10px;font:700 .82rem var(--comic);text-transform:uppercase;letter-spacing:.05em;margin-top:-42px;box-shadow:3px 3px 0 #14213d}
+.scene p{font-size:1.12rem}
+.scene .punch{font:400 clamp(2rem,4.4vw,2.9rem)/1 var(--disp);color:var(--coral);letter-spacing:.04em}
+
+.aboutgrid{display:grid;gap:34px;grid-template-columns:minmax(0,1fr);margin-top:22px}
+@media (min-width:900px){.aboutgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}}
+.abouttext{display:flex;flex-direction:column;gap:28px}
+.abouttext h3{font-size:1.8rem;margin-bottom:8px}
+.abouttext ul{margin:10px 0 0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
+.me{border:4px solid var(--ink);background:var(--paper);padding:22px;box-shadow:7px 7px 0 var(--shadow);display:flex;flex-direction:column;gap:10px}
+.credit{align-self:flex-start;background:#fff3c4;color:#14213d;border:3px solid #14213d;padding:6px 14px;display:flex;flex-direction:column;box-shadow:3px 3px 0 #14213d;transform:rotate(-1.5deg);margin-bottom:6px}
+.credit span{font:700 .7rem var(--comic);text-transform:uppercase;letter-spacing:.12em}
+.credit b{font:400 1.6rem/1.1 var(--disp);letter-spacing:.04em}
+
+/* contact */
+.contactgrid{display:grid;gap:30px;grid-template-columns:minmax(0,1fr);margin-top:20px}
+@media (min-width:880px){.contactgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}}
+.ctalk{display:flex;flex-direction:column;gap:12px}
+.ctalk ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
+form textarea{width:100%;font:inherit;padding:10px 12px;border:3px solid var(--ink);background:var(--bg);color:var(--fg);border-radius:0;resize:vertical}
+
+/* auth */
+#auth,#profile{gap:26px}
+.authwrap{display:grid;gap:34px;grid-template-columns:minmax(0,1fr);align-items:start;max-width:980px;margin-inline:auto;width:100%}
+@media (min-width:820px){.authwrap{grid-template-columns:minmax(0,400px) minmax(0,1fr)}}
+.authside{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.authside .pn{width:100%}
+.perks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.perks li{display:flex;gap:10px;align-items:flex-start;font-weight:700}
+.perks li i{flex:none;display:grid;place-items:center;width:24px;height:24px;border:3px solid var(--ink);background:var(--yellow);color:#14213d;font:400 .9rem/1 var(--disp);font-style:normal;box-shadow:2px 2px 0 var(--ink)}
+.social{display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:520px){.social{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.sbtn{display:flex;align-items:center;justify-content:center;gap:8px;font:700 .88rem var(--comic);white-space:nowrap;padding:11px 8px;border:3px solid var(--ink);background:#fff;color:#14213d;cursor:pointer;box-shadow:4px 4px 0 var(--shadow);border-radius:0}
+.sbtn:hover{transform:translate(-1px,-1px)}
+.sbtn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--shadow)}
+.sbtn.fb{background:#1877f2;color:#fff}
+.or{display:flex;align-items:center;gap:12px;margin:14px 0 2px;font:700 .8rem var(--comic);text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.or::before,.or::after{content:"";flex:1;height:3px;background:var(--ink);opacity:.25}
+.linkbtn{background:none;border:0;padding:6px 0;font:inherit;font-weight:700;color:var(--blue);text-decoration:underline;cursor:pointer;align-self:flex-start}
+.top .logo .mark{flex:none}
+.authside p{color:var(--muted)}
+.authbox{padding:24px;gap:12px}
+.authbox h2{font-size:2.3rem}
+.tabs{display:flex}
+.tab{flex:1;font:700 .95rem var(--comic);text-transform:uppercase;letter-spacing:.05em;padding:10px;border:3px solid var(--ink);background:var(--paper2);color:var(--fg);cursor:pointer;border-radius:0}
+.tab+.tab{border-left:0}
+.tab.on{background:var(--yellow);color:#14213d}
+form label{display:block;font-weight:700;margin:12px 0 4px}
+form input{width:100%;font:inherit;padding:10px 12px;border:3px solid var(--ink);background:var(--bg);color:var(--fg);border-radius:0}
+.msg{min-height:1.5em;font-weight:700;color:var(--coral);margin-top:8px}
+.msg.good{color:var(--green)}
+.hint,.fine{font-size:.85rem;color:var(--muted)}
+form .btn{margin-top:6px}
+
+/* profile */
+.profile{display:grid;gap:30px;grid-template-columns:minmax(0,1fr);align-items:start}
+@media (min-width:880px){.profile{grid-template-columns:minmax(0,340px) minmax(0,1fr)}}
+.pcard{padding:22px;gap:10px}
+.pcard h2{font-size:2.1rem;word-break:break-word}
+.pcard .em{word-break:break-all;color:var(--muted)}
+.avatar{width:84px;height:84px;border-radius:50%;background:var(--yellow);color:#14213d;border:4px solid var(--ink);display:grid;place-items:center;font:400 2.6rem/1 var(--disp);box-shadow:4px 4px 0 var(--shadow)}
+.bar{height:18px;border:3px solid var(--ink);background:var(--paper2)}
+.bar i{display:block;height:100%;background:var(--blue)}
+.minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,104px),1fr));gap:16px;padding-bottom:6px}
+.mini{font:inherit;color:var(--fg);background:none;border:0;padding:0;cursor:pointer;display:flex;flex-direction:column;gap:7px;text-align:center}
+.mini .cv{box-shadow:4px 4px 0 var(--shadow);border-width:3px}
+.mini:not(.is-done) .cv svg{filter:grayscale(.85);opacity:.75}
+.mini .mk{font:700 .72rem var(--comic);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:inline-flex;gap:4px;justify-content:center;align-items:center}
+.mini.is-done .mk{color:var(--green)}
+.prow{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+</style>
+<div class="wrap">
+<header class="top">
+  <a class="logo" href="#top" data-go="top" aria-label="NetFixLab home">
+    <svg class="mark" width="44" height="44" viewBox="0 0 40 40" aria-hidden="true"><g fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10 L13 38 M20 10 L27 38 M10.5 38 H29.5"/><path d="M16.9 22 H23.1 M15.2 30 H24.8 M16.9 22 L24.8 30 M23.1 22 L15.2 30"/></g><g fill="none" stroke-linecap="round"><path d="M24.2 5.8 A6 6 0 0 1 24.2 14.2 M27.8 2.2 A11 11 0 0 1 27.8 17.8 M15.8 5.8 A6 6 0 0 0 15.8 14.2 M12.2 2.2 A11 11 0 0 0 12.2 17.8" stroke="var(--ink)" stroke-width="5.2"/><path d="M24.2 5.8 A6 6 0 0 1 24.2 14.2 M27.8 2.2 A11 11 0 0 1 27.8 17.8 M15.8 5.8 A6 6 0 0 0 15.8 14.2 M12.2 2.2 A11 11 0 0 0 12.2 17.8" stroke="#ffd23f" stroke-width="2.6"/></g><circle cx="20" cy="10" r="3.2" fill="var(--yellow)" stroke="var(--ink)" stroke-width="2.4"/></svg>
+    <span>NetFix<span class="lab">Lab</span></span>
+  </a>
+  <nav aria-label="Main">
+    <a href="#lessons" data-go="lessons">Lessons</a>
+    <a href="#about" data-go="about">About</a>
+    <a href="#pricing" data-go="pricing">Pricing</a>
+    <a href="#faq" data-go="faq">Questions</a>
+    <a href="#contact" data-go="contact">Contact</a>
+  </nav>
+  <div class="actions">
+    <button class="btn alt sm" id="authBtn" data-view="login">Log in</button>
+    <button class="btn sm" data-buy id="topBuy">Unlock all</button>
+  </div>
+</header>
+
+<main id="home">
+  <section class="hero" id="top">
+    <div>
+      <p class="kicker">Networking for complete beginners</p>
+      <h1>Your home runs on a network. <mark>Learn it from a comic.</mark></h1>
+      <p class="lead">NetFixLab teaches you how the internet reaches your devices and how to fix common problems yourself. One short comic lesson at a time, no jargon, no tech background needed.</p>
+      <div class="cta">
+        <button class="btn" data-open="1">Read lesson 1, free</button>
+        <a class="btn alt" href="#lessons" data-go="lessons">See all 12 lessons</a>
+      </div>
+      <p class="facts">12 comic lessons · first 3 free · one payment, no subscription</p>
+    </div>
+    <div class="fan" id="fan" aria-hidden="true"></div>
+  </section>
+
+  <section id="why">
+    <div class="whyhead"><p class="kicker">Why this course exists</p><h2>You use it all day. Nobody ever showed you how it works.</h2></div>
+    <div class="scene">
+      <span class="stamp">Saturday, 9:02 PM</span>
+      <p>The movie freezes. You restart the TV. You blame the Wi-Fi. You unplug something at random and hope for the best.</p>
+      <p class="punch">Sound familiar?</p>
+      <p>NetFixLab turns that guesswork into a calm routine you can run in minutes, and it starts with knowing what is really going on inside that little box.</p>
+    </div>
+    <div class="why">
+      <div><h3>Software gets the spotlight</h3><p>Everyone knows software. Hardly anyone talks about networking, the quiet system that carries every app, video and message to your screen.</p></div>
+      <div><h3>You touch it all day</h3><p>Your phone, TV, speaker and doorbell are all on a network right now. One small box in your hallway keeps them talking.</p></div>
+      <div><h3>Fix it before you call</h3><p>Most home problems follow a few patterns. Learn them once and skip the hour on hold with your provider.</p></div>
+    </div>
+  </section>
+
+  <section id="lessons">
+    <p class="kicker">The course</p>
+    <h2>Twelve lessons, two parts</h2>
+    <p class="prog" id="prog"></p>
+    <div class="parthead"><h3 id="ph1"></h3><p id="pd1"></p></div>
+    <div class="grid" id="grid1"></div>
+    <div class="parthead"><h3 id="ph2"></h3><p id="pd2"></p></div>
+    <div class="grid" id="grid2"></div>
+  </section>
+
+  <section id="about">
+    <p class="kicker">About</p>
+    <h2>The comic, and the person behind it</h2>
+    <div class="aboutgrid">
+      <div id="aboutPanel"></div>
+      <div class="abouttext">
+        <div>
+          <h3>About NetFixLab</h3>
+          <p>NetFixLab explains networking the way a comic would. Devices talk, argue, break and get fixed, and you learn what is really happening along the way. Every issue ends with a takeaway, a try-it-yourself task and a quick quiz.</p>
+          <ul>
+            <li>Part 1 builds the basics, one picture at a time.</li>
+            <li>Part 2 teaches a calm routine for the problems you will really meet at home.</li>
+            <li>The first three issues are free. One payment opens the rest.</li>
+          </ul>
+        </div>
+        <div class="me">
+          <div class="credit"><span>Created by</span><b id="authorName">Jyoti Kumari Singh</b></div>
+          <h3 id="aboutHi">Hi, I'm Jyoti Kumari Singh.</h3>
+          <p>I worked as a Network Consulting Engineer at Cisco, helping businesses keep their networks running.</p>
+          <p>Along the way I noticed something. My friends use the network every single day, but most of them do not know what it is, how it works, or what to do when something goes wrong. When the Wi-Fi drops, we all do the same thing: call the service provider and wait.</p>
+          <p>You do not need to anymore. NetFixLab is the guide I wished they had: short, visual and honest about what you can fix yourself, and when it really is time to call your provider.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <p class="kicker">Pricing</p>
+    <h2>Start free. Pay once for the rest.</h2>
+    <div class="plans">
+      <article class="plan">
+        <h3>Free preview</h3>
+        <p class="price">Free</p>
+        <ul><li>Lessons 1 to 3: networks, network engineers and IP addresses</li><li>Comics, takeaways and quizzes included</li><li>No sign-up needed to read</li></ul>
+        <button class="btn alt" data-open="1">Start lesson 1</button>
+      </article>
+      <article class="plan featured">
+        <h3>Full course</h3>
+        <p class="price"><span data-price></span> <small>one-time</small></p>
+        <ul><li>All 12 lessons, including the whole troubleshooting part</li><li>A comic, a quiz and a try-it task in every lesson</li><li>Saved to your account, so you can read on any device</li><li>Pay once. No subscription.</li></ul>
+        <button class="btn ink" data-buy>Unlock all lessons</button>
+      </article>
+    </div>
+  </section>
+
+  <section id="faq">
+    <p class="kicker">Questions</p>
+    <h2 style="margin-bottom:18px">Before you start</h2>
+    <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
+    <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
+    <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
+    <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
+    <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
+  </section>
+  <section id="contact">
+    <p class="kicker">Contact us</p>
+    <h2>Say hello, ask a question, or suggest a lesson</h2>
+    <div class="contactgrid">
+      <div class="ctalk">
+        <p>Stuck on a lesson? Have a home-network problem you would like turned into a comic? Tell me. I read every message.</p>
+        <ul>
+          <li>Questions about the course or your account</li>
+          <li>Ideas for new issues</li>
+          <li>Something in a lesson that is unclear or wrong</li>
+        </ul>
+        <p class="fine" id="contactMail"></p>
+      </div>
+      <form class="box" id="contactForm" novalidate>
+        <label for="cName">Your name</label>
+        <input id="cName" autocomplete="name">
+        <label for="cEmail">Email</label>
+        <input id="cEmail" type="email" autocomplete="email">
+        <label for="cMsg">Message</label>
+        <textarea id="cMsg" rows="5"></textarea>
+        <p class="msg" id="contactMsg" role="status"></p>
+        <button class="btn" type="submit" id="contactGo">Send message</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<main id="reader" hidden></main>
+<main id="auth" hidden></main>
+<main id="profile" hidden></main>
+
+<footer>
+  <span>NetFixLab · netfixlab.tech · Created by Jyoti Kumari Singh, ex-Cisco Network Consulting Engineer.</span>
+  <button class="linkbtn" id="reset">Reset demo (clears progress and unlock)</button>
+</footer>
+</div>
+
+<div class="overlay" id="pay" hidden role="dialog" aria-modal="true" aria-labelledby="payT">
+  <div class="sheet">
+    <button class="x" id="payX" aria-label="Close">&times;</button>
+    <p class="kicker">Lessons 4 to 12</p>
+    <h2 id="payT">Keep reading?</h2>
+    <p>The first three lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <ul><li>Modems, Wi-Fi, DNS and DHCP explained</li><li>The whole troubleshooting part, including ping</li><li>No subscription, ever</li></ul>
+    <div id="payAct"></div>
+    <p class="fine" id="payNote"></p>
+  </div>
+</div>
+<script>
+/* ---------- config ---------- */
+// Set paymentLink to a Razorpay / Stripe payment link to take real payments.
+// While it is empty the site runs in demo mode: the unlock button works without charging.
+const CONFIG = {
+  price: "\u20B9499",      // shown on the site
+  paymentLink: "",          // Stripe or Razorpay payment link; empty = demo mode
+  supabaseUrl: "",          // from Supabase: Project Settings > API
+  supabaseKey: "",          // the public anon key (never the service role key)
+  authorName: "Jyoti Kumari Singh",
+  contactEmail: ""          // optional, shown in the Contact section
+};
+const FREE_COUNT = 3;
+
+/* ---------- devices: realistic hardware with expressive faces ---------- */
+const FACE = "#14213d", INK = "#14213d";
+const COL = { laptop:"#c9d3e6", phone:"#26c2b0", router:"#ff7a2f", modem:"#35c28a", server:"#9a7bff", dns:"#e63a2e", wall:"#d94a3d" };
+const CH = {
+  laptop:{name:"Lappy",what:"laptop"}, phone:{name:"Fonz",what:"phone"}, router:{name:"Rooty",what:"router"},
+  modem:{name:"Modo",what:"modem"}, server:{name:"Servo",what:"server"}, dns:{name:"Dee",what:"DNS directory"}, wall:{name:"Wally",what:"firewall"}
+};
+let GID = 0;
+const n1 = v => (+v).toFixed(1);
+const sk = w => `stroke="${INK}" stroke-width="${w || 3}" stroke-linejoin="round" stroke-linecap="round"`;
+const lin = (id, c1, c2, horiz) => `<linearGradient id="${id}" x1="0" y1="0" x2="${horiz ? 1 : 0}" y2="${horiz ? 0 : 1}"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient>`;
+const stateOf = m => (m === "worried" || m === "shock" || m === "sad") ? "bad" : m === "confused" ? "warn" : "ok";
+const LEDC = {ok:"#3fe08f", warn:"#ffb52e", bad:"#ff4b3e", off:"#4a5471"};
+const led = (x, y, c, r) => { r = r || 3; return `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" stroke="${INK}" stroke-width="1.5"/><circle cx="${x-r*.3}" cy="${y-r*.3}" r="${r*.35}" fill="#fff" opacity=".75"/>`; };
+const shadow = w => `<ellipse cx="0" cy="-1" rx="${w}" ry="5" fill="rgba(20,33,61,.38)"/>`;
+const badge = (x, y, s, r) => {
+  r = r || 10;
+  const c = s === "ok" ? "#2bb673" : s === "bad" ? "#e63a2e" : "#ffb52e";
+  const mark = s === "ok" ? `<path d="M${x-r*.5} ${y} L${x-r*.1} ${y+r*.4} L${x+r*.55} ${y-r*.4}" fill="none" stroke="#fff" stroke-width="${n1(r*.28)}" stroke-linecap="round" stroke-linejoin="round"/>`
+    : s === "bad" ? `<path d="M${x-r*.4} ${y-r*.4} L${x+r*.4} ${y+r*.4} M${x+r*.4} ${y-r*.4} L${x-r*.4} ${y+r*.4}" stroke="#fff" stroke-width="${n1(r*.28)}" stroke-linecap="round"/>`
+    : `<text x="${x}" y="${y+r*.48}" text-anchor="middle" font-family="Bangers, Impact, sans-serif" font-size="${r*1.5}" fill="#14213d">?</text>`;
+  return `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" ${sk(2)}/>${mark}`;
+};
+
+/* the face: eyes, brows, mouth and extras change with the mood */
+function face(cx, ey, gap, my, mood, look, k, fc){
+  k = k || 1; fc = fc || "#14213d";
+  const D = "#14213d", lx = cx - gap, rx = cx + gap, px = look*2.6*k, e = 8.5*k;
+  const eye = (x, sc, pk) => { sc = sc || 1; return `<circle cx="${n1(x)}" cy="${n1(ey)}" r="${n1(e*sc)}" fill="#fff" stroke="${D}" stroke-width="${n1(2.5*k)}"/><circle cx="${n1(x+px*sc)}" cy="${n1(ey+k)}" r="${n1(3.8*k*(pk||1))}" fill="${D}"/>`; };
+  const st = `fill="none" stroke="${fc}" stroke-width="${n1(3*k)}" stroke-linecap="round" stroke-linejoin="round"`;
+  const drop = (x, y, c) => `<path d="M${n1(x)} ${n1(y-6*k)} Q${n1(x+5*k)} ${n1(y+1*k)} ${n1(x)} ${n1(y+5*k)} Q${n1(x-5*k)} ${n1(y+1*k)} ${n1(x)} ${n1(y-6*k)}Z" fill="${c}" stroke="${D}" stroke-width="${n1(1.2*k)}"/>`;
+  let s, m;
+  switch(mood){
+    case "proud":
+      s = eye(lx) + `<path d="M${n1(rx-e)} ${n1(ey+k)} q${n1(e)} ${n1(-e*1.15)} ${n1(e*2)} 0" fill="none" stroke="${D}" stroke-width="${n1(3.2*k)}" stroke-linecap="round"/>`;
+      m = `<path d="M${n1(cx-13*k)} ${n1(my-2*k)} Q${n1(cx)} ${n1(my+18*k)} ${n1(cx+13*k)} ${n1(my-2*k)} Z" fill="${D}" stroke="${D}" stroke-width="${n1(2.5*k)}" stroke-linejoin="round"/><path d="M${n1(cx-8*k)} ${n1(my+1*k)} H${n1(cx+8*k)}" stroke="#fff" stroke-width="${n1(2.4*k)}" stroke-linecap="round"/>`;
+      break;
+    case "worried":
+      s = eye(lx) + eye(rx) + `<path d="M${n1(lx-9*k)} ${n1(ey-11*k)} L${n1(lx+6*k)} ${n1(ey-17*k)} M${n1(rx-6*k)} ${n1(ey-17*k)} L${n1(rx+9*k)} ${n1(ey-11*k)}" ${st}/>` + drop(rx + e + 6*k, ey - 4*k, "#8fd3ff");
+      m = `<path d="M${n1(cx-10*k)} ${n1(my+6*k)} Q${n1(cx)} ${n1(my-5*k)} ${n1(cx+10*k)} ${n1(my+6*k)}" ${st}/>`;
+      break;
+    case "confused":
+      s = eye(lx) + eye(rx) + `<path d="M${n1(rx-8*k)} ${n1(ey-15*k)} q${n1(8*k)} ${n1(-6*k)} ${n1(16*k)} ${n1(-1*k)}" ${st}/>`;
+      m = `<path d="M${n1(cx-11*k)} ${n1(my+2*k)} L${n1(cx-5*k)} ${n1(my-2*k)} L${n1(cx+1*k)} ${n1(my+3*k)} L${n1(cx+7*k)} ${n1(my-1*k)} L${n1(cx+11*k)} ${n1(my+2*k)}" ${st}/>`;
+      break;
+    case "shock":
+      s = eye(lx,1.25,.55) + eye(rx,1.25,.55) + `<path d="M${n1(lx-9*k)} ${n1(ey-17*k)} q${n1(9*k)} ${n1(-8*k)} ${n1(18*k)} 0 M${n1(rx-9*k)} ${n1(ey-17*k)} q${n1(9*k)} ${n1(-8*k)} ${n1(18*k)} 0" ${st}/>`;
+      m = `<ellipse cx="${n1(cx)}" cy="${n1(my+4*k)}" rx="${n1(6.5*k)}" ry="${n1(9*k)}" fill="${fc === D ? D : '#e8f0ff'}" stroke="${D}" stroke-width="${n1(2*k)}"/>`;
+      break;
+    case "sad":
+      s = eye(lx) + eye(rx) + `<path d="M${n1(lx-9*k)} ${n1(ey-12*k)} L${n1(lx+7*k)} ${n1(ey-17*k)} M${n1(rx-7*k)} ${n1(ey-17*k)} L${n1(rx+9*k)} ${n1(ey-12*k)}" ${st}/>` + drop(lx - 2*k, ey + 16*k, "#8fd3ff");
+      m = `<path d="M${n1(cx-9*k)} ${n1(my+7*k)} Q${n1(cx)} ${n1(my-3*k)} ${n1(cx+9*k)} ${n1(my+7*k)}" ${st}/>`;
+      break;
+    default:
+      s = eye(lx) + eye(rx);
+      m = `<path d="M${n1(cx-12*k)} ${n1(my)} Q${n1(cx)} ${n1(my+12*k)} ${n1(cx+12*k)} ${n1(my)}" ${st}/>`;
+  }
+  return s + m;
+}
+
+function laptop(s, mood, look){
+  const g = "g" + (++GID), dark = s !== "ok", fc = dark ? "#e8f0ff" : "#14213d";
+  const defs = `<defs>${lin(g+"a","#eef1f7","#a9b3c9")}${lin(g+"b","#5fb0ff","#2a6fca")}${lin(g+"c","#c3cbdc","#7d88a3")}</defs>`;
+  const f = t => ({y:-46 + 38*t, x:64 + 22*t});
+  const rows = [.10,.23,.36,.49,.62]; let keys = "";
+  for(let r=0;r<4;r++){
+    const a = f(rows[r] + .014), b = f(rows[r+1] - .014);
+    for(let c=0;c<12;c++){
+      const u0 = -1 + c*2/12 + .02, u1 = -1 + (c+1)*2/12 - .02;
+      keys += `M${n1(u0*a.x*.9)} ${n1(a.y)}L${n1(u1*a.x*.9)} ${n1(a.y)}L${n1(u1*b.x*.9)} ${n1(b.y)}L${n1(u0*b.x*.9)} ${n1(b.y)}Z`;
+    }
+  }
+  const p0 = f(.70), p1 = f(.92);
+  const pad = `M${n1(-p0.x*.3)} ${n1(p0.y)}L${n1(p0.x*.3)} ${n1(p0.y)}L${n1(p1.x*.3)} ${n1(p1.y)}L${n1(-p1.x*.3)} ${n1(p1.y)}Z`;
+  const bg = s === "ok" ? `url(#${g}b)` : s === "bad" ? "#1b2236" : "#262a46";
+  const scr = `<rect x="-52" y="-122" width="104" height="70" fill="${bg}"/>`
+    + `<rect x="-52" y="-122" width="104" height="9" fill="#fff" opacity=".2"/><circle cx="-46" cy="-117.5" r="1.7" fill="#ff5f56"/><circle cx="-41" cy="-117.5" r="1.7" fill="#ffbd2e"/><circle cx="-36" cy="-117.5" r="1.7" fill="#27c93f"/>`
+    + badge(43, -117.5, s, 5)
+    + face(0, -93, 21, -70, mood, look, 1.05, fc);
+  return shadow(92) + defs
+    + `<rect x="-58" y="-128" width="116" height="82" rx="7" fill="#1e2539" ${sk(3.5)}/>` + scr
+    + `<path d="M-52 -122 L-4 -122 L-52 -74 Z" fill="#fff" opacity=".10"/><circle cx="0" cy="-125.3" r="1.4" fill="#5b6785"/>`
+    + `<rect x="-62" y="-48" width="124" height="4" rx="2" fill="#7d88a3" ${sk(2)}/>`
+    + `<path d="M-64 -46H64L86 -8H-86Z" fill="url(#${g}a)" ${sk(3.5)}/><path d="${keys}" fill="#4a5471"/>`
+    + `<path d="${pad}" fill="#d3dae9" stroke="${INK}" stroke-width="1.5"/>`
+    + `<rect x="-86" y="-8" width="172" height="8" rx="3" fill="url(#${g}c)" ${sk(3.5)}/><rect x="-14" y="-8" width="28" height="3" rx="1.5" fill="#6a7592"/>`;
+}
+
+function phone(s, mood, look){
+  const g = "g" + (++GID), dark = s !== "ok", fc = dark ? "#e8f0ff" : "#14213d";
+  const bg = s === "ok" ? `url(#${g}b)` : s === "bad" ? "#2a3148" : "#34304a";
+  const wc = s === "bad" ? "#8a93ab" : "#ffffff";
+  const arc = (r, c) => `<path d="M${n1(-r*.7071)} ${n1(-36-r*.7071)} A${r} ${r} 0 0 1 ${n1(r*.7071)} ${n1(-36-r*.7071)}" fill="none" stroke="${c}" stroke-width="5" stroke-linecap="round"/>`;
+  return shadow(40) + `<defs>${lin(g+"b","#4aa5f5","#1b5fb8")}</defs>`
+    + `<path d="M-15 -6 L-22 0 H22 L15 -6Z" fill="#55607c" ${sk(2.5)}/>`
+    + `<rect x="36" y="-104" width="3" height="14" rx="1.5" fill="#55607c"/><rect x="-39" y="-112" width="3" height="22" rx="1.5" fill="#55607c"/>`
+    + `<rect x="-35" y="-136" width="70" height="132" rx="13" fill="#1f2638" ${sk(3.5)}/>`
+    + `<rect x="-31" y="-132" width="62" height="124" rx="9" fill="${bg}"/>`
+    + face(0, -100, 13, -80, mood, look, .8, fc)
+    + arc(8, wc) + arc(16, s === "warn" ? "#8a93ab" : wc) + arc(24, s === "ok" ? wc : "#8a93ab") + `<circle cx="0" cy="-36" r="3.8" fill="${wc}"/>`
+    + badge(21, -26, s, 7.5)
+    + `<rect x="-9" y="-128" width="18" height="5" rx="2.5" fill="#0b0f1c"/><rect x="-12" y="-14" width="24" height="3" rx="1.5" fill="#fff" opacity=".8"/>`
+    + `<path d="M-31 -132 L4 -132 L-31 -92 Z" fill="#fff" opacity=".12"/>`;
+}
+
+function router(s, mood, look){
+  const g = "g" + (++GID);
+  const ant = (x, dx) => `<path d="M${x-4} -46 L${x+dx-3} -126 L${x+dx+3} -126 L${x+4} -46Z" fill="url(#${g}a)" ${sk(3)}/><rect x="${x+dx-4.5}" y="-131" width="9" height="7" rx="3.5" fill="#2b3350" ${sk(2)}/>`
+    + `<path d="M${x+1} -52 L${x+dx+1} -120" stroke="#fff" stroke-width="1.6" opacity=".25"/><circle cx="${x}" cy="-46" r="6" fill="#39425f" ${sk(2.5)}/>`;
+  const cols = s === "ok" ? ["ok","ok","ok","ok","ok"] : s === "bad" ? ["ok","ok","bad","bad","off"] : ["ok","warn","warn","off","off"];
+  const lx = [-58,-47,-36,40,51];
+  return shadow(80) + `<defs>${lin(g+"a","#46507a","#161b2e",true)}${lin(g+"b","#3e4869","#171c30")}</defs>`
+    + ant(-54,-9) + ant(0,0) + ant(54,9)
+    + `<rect x="-72" y="-50" width="144" height="50" rx="8" fill="url(#${g}b)" ${sk(3.5)}/><rect x="-67" y="-47" width="134" height="5" rx="2.5" fill="#fff" opacity=".13"/>`
+    + face(0, -33, 17, -17, mood, look, .85, "#e8f0ff")
+    + cols.map((c,i) => led(lx[i], -8, LEDC[c], 3.2)).join("");
+}
+
+function modem(s, mood, look){
+  const g = "g" + (++GID);
+  const cols = s === "ok" ? ["ok","ok","ok","ok"] : s === "bad" ? ["ok","bad","bad","off"] : ["ok","warn","off","off"];
+  return shadow(66) + `<defs>${lin(g+"a","#f1f3f9","#b3bbd0")}</defs>`
+    + `<path d="M52 -30 C80 -30 78 -4 100 -4" fill="none" stroke="${INK}" stroke-width="9" stroke-linecap="round"/><path d="M52 -30 C80 -30 78 -4 100 -4" fill="none" stroke="#3a4157" stroke-width="5" stroke-linecap="round"/><path d="M56 -32 C80 -33 78 -7 98 -7" fill="none" stroke="#fff" stroke-width="1.4" opacity=".35"/>`
+    + `<rect x="98" y="-10" width="11" height="12" rx="2" fill="#d8b24f" ${sk(2.5)}/>`
+    + `<rect x="-52" y="-76" width="104" height="76" rx="8" fill="url(#${g}a)" ${sk(3.5)}/>`
+    + face(0, -62, 18, -47, mood, look, .9, "#14213d")
+    + `<rect x="-41" y="-30" width="82" height="22" rx="4" fill="#1a2033" stroke="#5b6785" stroke-width="1.5"/>`
+    + cols.map((c,i) => led(-27 + i*18, -22, LEDC[c], 3.4) + `<rect x="${-32 + i*18}" y="-14.5" width="10" height="2.2" rx="1.1" fill="#6a7592"/>`).join("");
+}
+
+function server(s, mood, look){
+  const g = "g" + (++GID);
+  const unit = i => {
+    const y = -76 + i*35, c = i === 0 ? s : "ok";
+    let bays = ""; for(let j=0;j<4;j++) bays += `<rect x="${-38 + j*13}" y="${y+8}" width="11" height="15" rx="1.5" fill="#0f1424" stroke="#6a7592" stroke-width="1.2"/>`;
+    return `<rect x="-45" y="${y}" width="90" height="31" rx="2" fill="url(#${g}a)" ${sk(2.5)}/>` + bays
+      + `<rect x="18" y="${y+9}" width="20" height="4" rx="2" fill="#8b95ad"/><path d="M18 ${y+19}H38M18 ${y+23}H38" stroke="#5b6785" stroke-width="1.6"/>`
+      + led(31, y+5, LEDC[c], 2.8) + `<circle cx="-48" cy="${y+5}" r="1.6" fill="#8b95ad"/><circle cx="48" cy="${y+5}" r="1.6" fill="#8b95ad"/>`;
+  };
+  return shadow(60) + `<defs>${lin(g+"a","#6b7692","#3a4260")}${lin(g+"d","#1a2038","#0b0f1c")}</defs>`
+    + `<rect x="-51" y="-146" width="102" height="146" rx="4" fill="#1c2236" ${sk(3.5)}/>`
+    + `<rect x="-45" y="-140" width="90" height="58" rx="3" fill="url(#${g}d)" stroke="#6a7592" stroke-width="1.5"/><path d="M-45 -140 L-8 -140 L-45 -104 Z" fill="#fff" opacity=".07"/>`
+    + face(0, -118, 19, -98, mood, look, .95, "#e8f0ff") + led(37, -132, LEDC[s], 2.8)
+    + [0,1].map(unit).join("")
+    + `<rect x="-46" y="-4" width="14" height="4" fill="#0f1424"/><rect x="32" y="-4" width="14" height="4" fill="#0f1424"/>`;
+}
+
+function dns(s, mood, look){
+  const g = "g" + (++GID);
+  return shadow(54) + `<defs>${lin(g+"a","#ee5442","#a82a20",true)}${lin(g+"b","#7d1f18","#4d120e",true)}</defs>`
+    + `<rect x="-38" y="-9" width="78" height="9" rx="1.5" fill="#fff3c4" ${sk(2.5)}/><path d="M-36 -6H38M-36 -3H38" stroke="#c9b98a" stroke-width="1"/>`
+    + `<rect x="-41" y="-124" width="82" height="118" rx="3" fill="url(#${g}a)" ${sk(3.5)}/>`
+    + `<rect x="-41" y="-124" width="15" height="118" rx="3" fill="url(#${g}b)" ${sk(3.5)}/>`
+    + `<rect x="-41" y="-106" width="15" height="3" fill="#f1c453"/><rect x="-41" y="-64" width="15" height="3" fill="#f1c453"/><rect x="-41" y="-30" width="15" height="3" fill="#f1c453"/>`
+    + `<rect x="-19" y="-114" width="52" height="94" rx="2" fill="none" stroke="#f1c453" stroke-width="2"/>`
+    + `<text x="7" y="-96" text-anchor="middle" font-family="Bangers, Impact, sans-serif" font-size="22" fill="#f1c453" stroke="#7a1d15" stroke-width="1" letter-spacing="1">DNS</text>`
+    + face(7, -72, 11, -55, mood, look, .75, "#14213d")
+    + `<text x="7" y="-33" text-anchor="middle" font-family="Comic Neue, sans-serif" font-weight="700" font-size="11" fill="#f1c453">A-Z</text>`
+    + badge(30, -18, s, 8);
+}
+
+function wall(s, mood, look){
+  const g = "g" + (++GID);
+  let mortar = "";
+  for(let r=0;r<6;r++){
+    const y0 = -114 + r*19;
+    if(r > 0) mortar += `M-64 ${y0}H64`;
+    (r % 2 ? [-48,-16,16,48] : [-32,0,32]).forEach(x => { mortar += `M${x} ${y0}V${y0+19}`; });
+  }
+  const crack = s === "bad" ? `<path d="M-46 -20 L-34 -40 L-42 -54 L-52 -66" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>` : "";
+  return shadow(72) + `<defs>${lin(g+"a","#dc694d","#a8412c")}${lin(g+"b","#d9dfeb","#8590a8")}</defs>`
+    + `<rect x="-64" y="-114" width="128" height="114" fill="url(#${g}a)" ${sk(3.5)}/>`
+    + `<path d="${mortar}" stroke="#f0d9bf" stroke-width="2.2" fill="none"/>`
+    + `<rect x="-68" y="-124" width="136" height="12" rx="2" fill="#8d97ad" ${sk(3)}/>`
+    + `<rect x="-36" y="-108" width="72" height="44" rx="16" fill="#f6c4b0" stroke="${INK}" stroke-width="2.5"/>`
+    + face(0, -92, 15, -75, mood, look, .9, "#14213d")
+    + `<g transform="scale(.6)"><path d="M0 -100 L27 -90 V-62 C27 -44 12 -33 0 -27 C-12 -33 -27 -44 -27 -62 V-90 Z" fill="url(#${g}b)" ${sk(4)}/>`
+    + `<path d="M0 -86 C10 -74 14 -66 11 -57 C8 -49 -2 -46 -8 -52 C-13 -58 -9 -67 -3 -72 C-2 -66 0 -64 3 -62 C5 -70 2 -78 0 -86Z" fill="#ff7a2f" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/>`
+    + `<path d="M0 -68 C5 -62 6 -58 3 -55 C0 -53 -4 -55 -4 -59 C-4 -62 -1 -64 0 -68Z" fill="#ffd23f"/></g>`
+    + crack + led(50, -104, LEDC[s], 3.6);
+}
+
+function drawChar(key, mood, look){
+  const s = stateOf(mood);
+  switch(key){
+    case "laptop": return laptop(s, mood, look);
+    case "phone": return phone(s, mood, look);
+    case "router": return router(s, mood, look);
+    case "modem": return modem(s, mood, look);
+    case "server": return server(s, mood, look);
+    case "dns": return dns(s, mood, look);
+    case "wall": return wall(s, mood, look);
+  }
+  return "";
+}
+
+/* ---------- decor between characters ---------- */
+function env(x){ return `<rect x="${x}" y="112" width="32" height="22" rx="3" fill="#fff7dd" stroke="${INK}" stroke-width="3"/><path d="M${x} 114 L${x+16} 126 L${x+32} 114" fill="none" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/>`; }
+function deco(k){
+  switch(k){
+    case "wifi": return `<g class="wifi" fill="none" stroke="#1f6fd1" stroke-width="7" stroke-linecap="round"><path d="M227.3 127.3 A18 18 0 0 1 252.7 127.3"/><path d="M216 116 A34 34 0 0 1 264 116"/><path d="M204.6 104.6 A50 50 0 0 1 275.4 104.6"/></g><circle cx="240" cy="141" r="6" fill="#1f6fd1"/>`;
+    case "packet": return `<path d="M178 132 H300" stroke="${INK}" stroke-width="3" stroke-dasharray="1 9" stroke-linecap="round"/>${env(196)}${env(254)}<path d="M296 124 L305 132 L296 140" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+    case "cable": return `<path d="M168 188 C195 158 215 218 240 188 S285 158 312 188" fill="none" stroke="${INK}" stroke-width="11" stroke-linecap="round"/><path d="M168 188 C195 158 215 218 240 188 S285 158 312 188" fill="none" stroke="#1f6fd1" stroke-width="5" stroke-linecap="round"/>`;
+    case "broken": return `<path d="M180 130 H224 M256 130 H300" stroke="${INK}" stroke-width="3" stroke-dasharray="1 9" stroke-linecap="round"/><path d="M226 116 L254 144 M254 116 L226 144" stroke="#e63a2e" stroke-width="9" stroke-linecap="round"/>`;
+    case "check": return `<circle cx="240" cy="130" r="30" fill="#1c9d6d" stroke="${INK}" stroke-width="4"/><path d="M226 130 L236 141 L256 118" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>`;
+    case "question": return `<text x="240" y="152" text-anchor="middle" font-family="Bangers, Impact, sans-serif" font-size="92" fill="#ffd23f" stroke="${INK}" stroke-width="5" paint-order="stroke" stroke-linejoin="round">?</text>`;
+  }
+  return "";
+}
+/* ---------- print-style art (replaces the first version) ---------- */
+let UID = 0;
+const PRINT = {sky:"#7fc1f0", sun:"#ffe27a", rose:"#f5958a"};
+const BGS = ["sky","sun","rose","sun","sky","rose"];
+const BANG = "Bangers, Impact, sans-serif";
+function jag(cx, cy, n, R, r){
+  const pts = [];
+  for(let i=0;i<n*2;i++){
+    const rad = i%2 ? r : R*(i%4===0 ? 1 : 0.84), a = i*Math.PI/n - Math.PI/2;
+    pts.push((cx+rad*Math.cos(a)).toFixed(1)+","+(cy+rad*Math.sin(a)).toFixed(1));
+  }
+  return pts.join(" ");
+}
+function burst(t, cx, cy, k){
+  if(!t) return "";
+  cx = cx || 240; cy = cy || 52; k = k || 1;
+  const fs = (t.length<=4 ? 26 : t.length<=6 ? 21 : 16)*k;
+  return `<g transform="rotate(-8 ${cx} ${cy})"><polygon points="${jag(cx+3,cy+4,16,46*k,31*k)}" fill="#14213d"/>`
+    + `<polygon points="${jag(cx,cy,16,46*k,31*k)}" fill="#e63a2e" stroke="#14213d" stroke-width="3" stroke-linejoin="round"/>`
+    + `<text x="${cx}" y="${(cy+fs*0.34).toFixed(1)}" text-anchor="middle" font-family="${BANG}" font-size="${fs}" fill="#fff3c4" stroke="#14213d" stroke-width="${3*k}" paint-order="stroke" stroke-linejoin="round" letter-spacing="1">${t}</text></g>`;
+}
+function rays(cx, cy, n, fill, op, len){
+  let d = "";
+  for(let i=0;i<n;i++){
+    const a0 = i*2*Math.PI/n, a1 = a0 + Math.PI/n*0.9;
+    d += `M${cx} ${cy}L${(cx+len*Math.cos(a0)).toFixed(1)} ${(cy+len*Math.sin(a0)).toFixed(1)}L${(cx+len*Math.cos(a1)).toFixed(1)} ${(cy+len*Math.sin(a1)).toFixed(1)}Z`;
+  }
+  return `<path d="${d}" fill="${fill}" opacity="${op}"/>`;
+}
+function halftone(id, w, h){
+  return `<defs><pattern id="${id}p" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><circle cx="3.5" cy="3.5" r="1.6" fill="#14213d"/></pattern>`
+    + `<linearGradient id="${id}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#000"/></linearGradient>`
+    + `<mask id="${id}m"><rect width="${w}" height="${h}" fill="url(#${id}g)"/></mask></defs>`;
+}
+function dots(id, w, h, op){ return `<rect width="${w}" height="${h}" fill="url(#${id}p)" mask="url(#${id}m)" opacity="${op}"/>`; }
+
+/* ---------- panels ---------- */
+const P = (a,b,ma,mb,dc,lines,cap,sfx) => ({a,b,ma,mb,dc,lines,cap:cap||"",sfx:sfx||""});
+function fmt(s){ return s.replace(/\{\{(.+?)\}\}/g,"<code>$1</code>").replace(/\n/g,"<br>"); }
+function art(p, bgk){
+  const A = CH[p.a], B = CH[p.b], id = "a" + (++UID), strong = !!p.sfx || p.dc === "broken";
+  const label = `Comic panel: ${A.name} the ${A.what} and ${B.name} the ${B.what}`;
+  return `<svg class="art" viewBox="0 0 480 230" role="img" aria-label="${label}">` + halftone(id,480,230)
+    + `<rect width="480" height="230" fill="${PRINT[bgk] || PRINT.sky}"/>`
+    + rays(240,120,strong ? 22 : 16,"#fff",strong ? .5 : .2,520)
+    + dots(id,480,230,.45)
+    + `<rect y="205" width="480" height="25" fill="rgba(20,33,61,.2)"/><path d="M0 205H480" stroke="${INK}" stroke-width="3"/>`
+    + deco(p.dc)
+    + `<g transform="translate(96 205) scale(1)">${drawChar(p.a,p.ma,1)}</g>`
+    + `<g transform="translate(384 205) scale(1)">${drawChar(p.b,p.mb,-1)}</g>`
+    + burst(p.sfx) + `</svg>`;
+}
+function bub(line, p){
+  const side = line[0], key = side === "l" ? p.a : p.b;
+  return `<div class="bub ${side}"><span class="who"><i style="background:${COL[key]}"></i>${CH[key].name}</span><p>${fmt(line.slice(2))}</p></div>`;
+}
+function panel(p, i){
+  const bg = p.bg || BGS[(i || 0) % BGS.length];
+  return `<div class="pn"><div class="artwrap">${art(p,bg)}${p.cap ? `<div class="cap">${p.cap}</div>` : ""}</div><div class="talk">${p.lines.map(l => bub(l,p)).join("")}</div></div>`;
+}
+/* ---------- lessons 1-6 ---------- */
+const PARTS = [null,
+  {n:"Part 1 · Networking from zero", d:"No jargon assumed. Start here."},
+  {n:"Part 2 · Fix your own network", d:"A calm routine for the problems everyone hits."}];
+const LESSONS = [
+{t:"What is a network, really?", b:"Meet the devices in your home and the box that connects them.", m:4, star:"router", part:1,
+ pan:[
+  P("laptop","phone","happy","happy","wifi",["l:Fonz, I just loaded a video from the other side of the world. How did it get here?","r:Same way my messages arrive, Lappy. We are not alone. We are on a network."],"Saturday morning, a living room."),
+  P("laptop","router","confused","happy","packet",["l:Okay, but what is a network, exactly?","r:Two or more devices that can send data to each other. Phones, laptops, TVs, printers, even the smart bulb."]),
+  P("laptop","router","happy","proud","packet",["l:So you are like a post office?","r:Exactly. Data travels in small packages. I read each address and send it the right way."]),
+  P("router","server","proud","happy","cable",["l:Past the front door, one cable leads to your internet provider, and from there to millions of other networks. That network of networks is the internet.","r:I live out there. I am a computer that stores a website and answers when someone asks."],"And beyond the router...")],
+ take:"A network is devices that can talk to each other. Your router is the post office in the middle, and the internet is many networks joined together.",
+ tip:"Count the devices in your home that connect to the internet. Phones, TVs, speakers, bulbs, a watch. Most people guess too low.",
+ q:{q:"Which device passes data between your devices and the internet?",o:["Router","Monitor","Speaker"],why:"The router connects every device at home to the internet and sends each message to the right place."}},
+
+{t:"What does a network engineer do?", b:"The job behind every video call that just works.", m:4, star:"wall", part:1,
+ pan:[
+  P("laptop","router","shock","confused","broken",["l:Nothing loads! Is it me, or is it the network?","r:Time to call the network engineer."],"Monday, 9:02 AM, a busy office.","NO WI-FI"),
+  P("router","server","happy","proud","none",["l:A network engineer designs, builds and looks after networks like mine. They decide where I sit, how I am set up, and who can talk to whom.","r:And they keep us running so well that nobody notices. That is the job."]),
+  P("wall","laptop","proud","happy","check",["l:I am the firewall. The engineer writes my rules, so the right traffic gets in and the bad traffic stays out.","r:So they protect us too?","l:Security is a big part of the job."]),
+  P("laptop","server","confused","happy","question",["l:Everyone knows what software is. Why does nobody know about this job?","r:Because when a network works, nobody thinks about it. Like plumbing, until the tap stops."])],
+ take:"Network engineers plan, build, secure and fix networks. It is a real career with many paths, including cloud, security and automation.",
+ tip:"Ask three friends what a network engineer does. Notice how few can answer.",
+ q:{q:"What is a network engineer's main job?",o:["Design, secure and fix networks","Write mobile apps","Repair phone screens"],why:"Network engineers design, secure and fix networks so everyone else can just use them."}},
+
+{t:"IP addresses: a house number for every device", b:"How your router knows which device a message is for.", m:5, star:"phone", part:1,
+ pan:[
+  P("laptop","router","confused","happy","question",["l:How does the router know a message is for me and not for Fonz?","r:Every device on my network gets an IP address. Think of it as a house number on our street."],"Every device needs an address."),
+  P("router","phone","happy","happy","packet",["l:Most home networks use addresses like {{192.168.1.24}}. The first three numbers are the street. The last one is the house.","r:So {{192.168.1.25}} is my neighbour."]),
+  P("phone","laptop","shock","shock","broken",["l:What if we both claim {{192.168.1.30}}?","r:Then messages get mixed up. Two devices on one network cannot share an address."],"","CLASH!"),
+  P("router","server","proud","happy","cable",["l:The internet has addresses too. The one the whole world sees for your home is the public IP, and your internet provider assigns it.","r:Inside your home the addresses are private. Outside, everything looks like it comes from one address."],"What about outside the house?")],
+ take:"Every device has an IP address, like a house number. Home addresses are private, often starting {{192.168}}. Your router shows one public address to the internet.",
+ tip:"Find your phone's IP: open Wi-Fi settings and tap the info icon next to your network. On Windows, open Command Prompt and type {{ipconfig}}.",
+ q:{q:"Can two devices on the same home network share one IP address?",o:["No, it causes a conflict","Yes, always","Only phones can"],why:"Each device needs its own address, or the router cannot tell where a message should go."}},
+
+{t:"Modem vs router: two boxes, two jobs", b:"Which box does what, and what its lights are telling you.", m:5, star:"modem", part:1,
+ pan:[
+  P("modem","router","proud","happy","cable",["l:I am the modem. I speak the language of your provider's line, fibre or cable. I am the translator at the front door.","r:And I share that connection with every device in your home, by Wi-Fi and by cable."],"Two boxes, one confusion."),
+  P("modem","router","happy","happy","none",["l:Plenty of homes have just one box that does both jobs.","r:Same two jobs, one shell. Providers often call it a combo box or a gateway."]),
+  P("laptop","router","worried","confused","broken",["l:The internet is down on my laptop. Should I blame you?","r:First ask: is it only you, or everyone? One device points to that device. Everything down points to me, the modem, or the provider."],"Who is to blame?"),
+  P("router","laptop","happy","happy","check",["l:Check my lights. Steady green usually means healthy. Red or blinking on the internet light often means a problem on the provider's side.","r:Colours differ between brands, so keep the manual or a photo of the label handy."])],
+ take:"The modem connects your home to the provider. The router shares that connection with your devices. Many homes have both in one box.",
+ tip:"Find your box. Take a photo of the label and the lights while everything works, so you can compare when something breaks.",
+ q:{q:"Which device shares your internet with all your devices?",o:["Router","Modem","Printer"],why:"The router shares the connection. The modem only connects your home to the provider."}},
+
+{t:"Wi-Fi or cable? Pick the right road", b:"Why a wire is steadier and why walls hurt Wi-Fi.", m:5, star:"laptop", part:1,
+ pan:[
+  P("laptop","router","happy","happy","wifi",["l:Wi-Fi sends data through the air as radio waves. No wires, so I can walk around.","r:Convenient, but the signal gets weaker as it travels."],"Road one: Wi-Fi."),
+  P("laptop","router","proud","happy","cable",["l:A cable, called Ethernet, sends data along a wire.","r:It is usually steadier and quicker to respond. Walls and neighbours cannot disturb it."],"Road two: cable."),
+  P("phone","router","worried","confused","wifi",["l:Why is my Wi-Fi weak in the bedroom?","r:Thick walls, mirrors, microwaves and other people's Wi-Fi all weaken the signal. Distance does too."]),
+  P("router","phone","happy","happy","wifi",["l:I broadcast on two lanes. The {{2.4 GHz}} lane reaches farther but is slower. The {{5 GHz}} lane is faster but reaches less far.","r:Newer routers may add a {{6 GHz}} lane too. Faster again, shorter reach."])],
+ take:"Use a cable for things that stay put, such as a TV or a desktop. Use Wi-Fi for things that move. 2.4 GHz travels farther, 5 GHz is faster up close.",
+ tip:"Run a speed test next to the router, then in your farthest room. The difference shows what distance costs you.",
+ q:{q:"Which Wi-Fi band usually reaches farther but is slower?",o:["2.4 GHz","5 GHz","Bluetooth"],why:"Lower frequencies travel farther through walls, but carry data more slowly."}},
+
+{t:"DNS: the internet's phonebook", b:"Why you can type a name and still reach a number.", m:5, star:"dns", part:1,
+ pan:[
+  P("laptop","dns","confused","happy","question",["l:I want to visit netfixlab.tech, but I only understand numbers!","r:Computers find each other by IP address. Names are easier for people, so I translate."],"You type a name..."),
+  P("laptop","dns","happy","proud","packet",["l:What is the address for netfixlab.tech?","r:One moment, checking my records. Here is the number."]),
+  P("laptop","server","proud","happy","check",["l:Got it. Now I can go straight to the server.","r:Hello! Here is the page you asked for."],"...and the page appears.","HELLO!"),
+  P("laptop","dns","sad","worried","broken",["l:Dee is not answering. Websites will not open by name!","r:If the internet works by number but fails by name, DNS is the usual suspect. Switching to another DNS service, such as {{1.1.1.1}} or {{8.8.8.8}}, often fixes it."],"When the phonebook goes missing...")],
+ take:"DNS turns names into IP addresses. If sites fail by name but work by number, suspect DNS.",
+ tip:"In Command Prompt or Terminal type {{nslookup google.com}} and look at the address that comes back.",
+ q:{q:"What does DNS do?",o:["Turns website names into IP addresses","Makes Wi-Fi faster","Blocks viruses"],why:"DNS translates the names people type into the numbers computers use."}},
+/* ---------- lessons 7-12 ---------- */
+{t:"DHCP: who hands out the addresses?", b:"How a new device gets online without you typing anything.", m:4, star:"router", part:1,
+ pan:[
+  P("phone","router","happy","proud","wifi",["l:I just joined the Wi-Fi. Who gave me my address?","r:I did. I run a service called DHCP. It lends each new device an unused address for a while."],"A new phone walks in."),
+  P("phone","router","happy","happy","packet",["l:Can I have an address, the way out, and a DNS server please?","r:Here is your address. I am the gateway, your door to the internet. And here is a DNS server."],"","HI!"),
+  P("laptop","router","shock","sad","broken",["l:My address starts with {{169.254}}. What does that mean?","r:You asked for an address and nobody answered, so you made one up. That address will not reach the internet."],"Sometimes it goes wrong."),
+  P("laptop","router","confused","happy","check",["l:How do I fix it?","r:Turn Wi-Fi off and on again on your device. If that fails, restart me, then ask again."])],
+ take:"DHCP gives devices their address, gateway and DNS automatically. An address starting {{169.254}} means the device could not get one.",
+ tip:"Turn your phone's Wi-Fi off and on. For a moment, it asks the router for an address all over again.",
+ q:{q:"A device shows an address starting 169.254. What most likely happened?",o:["It could not get an address from DHCP","It has the fastest connection","It is using a public IP"],why:"A 169.254 address is self-assigned. It appears when the device asked for an address and got no answer."}},
+
+{t:"The five-step fix routine", b:"A calm routine that solves most home problems.", m:5, star:"laptop", part:2,
+ pan:[
+  P("laptop","router","sad","confused","broken",["l:Step one. Is it only me? Try another device on the same Wi-Fi.","r:One device failing points to that device. Everything failing points to me, the modem, or the provider."],"Something is wrong. Do not panic."),
+  P("laptop","phone","confused","happy","wifi",["l:Step two. Restart the device, or switch Wi-Fi or airplane mode off and on.","r:That alone clears a surprising number of problems."]),
+  P("router","modem","confused","happy","cable",["l:Step three. Check cables and lights. Push each cable in until it clicks.","r:A loose cable and a dead light tell you more than any setting."]),
+  P("router","modem","worried","proud","cable",["l:Step four. Restart in order. Unplug both and wait 30 seconds.","r:Plug the modem in first and let its lights settle. Then plug in the router."]),
+  P("laptop","router","proud","happy","check",["l:Step five. Still stuck? Call your provider and say what you found.","r:Tell them which devices fail, what the lights show and what you already tried. You will skip half the script."])],
+ take:"1. One device or all?\n2. Restart the device.\n3. Check cables and lights.\n4. Restart modem first, then router.\n5. Call the provider with your notes.",
+ tip:"Practice step one now, while nothing is broken. See which devices are on your Wi-Fi at the moment.",
+ q:{q:"In which order do you power the equipment back on?",o:["Modem first, then router","Router first, then modem","Any order"],why:"The modem needs to be online before the router asks it for a connection."}},
+
+{t:"Connected to Wi-Fi, but no internet", b:"Full bars, nothing loads. Where to look.", m:6, star:"phone", part:2,
+ pan:[
+  P("phone","router","shock","confused","broken",["l:Full Wi-Fi bars, but nothing loads!","r:That means you and I can talk. The road out to the internet is the part that is blocked."],"","NO NET"),
+  P("laptop","router","confused","happy","question",["l:Where do I start?","r:Same as always. Is it every device or just one? If it is one device, forget the network on that device and join again."]),
+  P("laptop","router","confused","happy","wifi",["l:I am at a café and still nothing.","r:Public Wi-Fi often needs a sign-in page first. Open a plain site like {{neverssl.com}} to make that page appear."]),
+  P("router","modem","worried","worried","broken",["l:If every device fails, look at the modem lights, then restart in order.","r:Still dark? Your provider may have an outage. Check their app or status page on mobile data."])],
+ take:"Connected to Wi-Fi is not the same as connected to the internet. Work outward: one device or all, then router and modem, then provider.",
+ tip:"Find your provider's outage page now, using mobile data, before you need it.",
+ q:{q:"Wi-Fi shows connected, but nothing loads on any device. Where do you look first?",o:["Router, modem and provider","Laptop screen brightness","Buy a new laptop"],why:"When every device fails, the shared parts are the suspects: router, modem and provider."}},
+
+{t:"Why is my internet slow?", b:"Five suspects, and how to question each one.", m:6, star:"router", part:2,
+ pan:[
+  P("laptop","router","sad","happy","packet",["l:Everything crawls!","r:Start with a speed test. Use a cable if you can, so Wi-Fi is not the suspect."],"Everything crawls.","SLOW"),
+  P("router","phone","happy","confused","packet",["l:Many devices sharing one line each get a slice. Streaming, downloads and updates all take a slice.","r:Pause the big ones and test again."]),
+  P("router","laptop","confused","happy","wifi",["l:Place me in the middle of the home, up high, in the open. Not in a cupboard or behind the TV.","r:And keep microwaves and thick walls out of our way."]),
+  P("laptop","server","confused","worried","question",["l:Try three different websites. If only one is slow, the problem may be that site.","r:Not you, me. I am having a busy day."]),
+  P("router","modem","proud","happy","check",["l:Compare your speed test with the plan you pay for.","r:If even a cable gives far less, send the result to your provider."])],
+ take:"Test by cable, pause heavy downloads, move the router to a central open spot, try several sites, then compare with your plan.",
+ tip:"Run a speed test now and write the numbers down. You will want a baseline when it feels slow.",
+ q:{q:"Where is the best place for a Wi-Fi router?",o:["Central, raised and in the open","Inside a cupboard","Behind the TV in a corner"],why:"Signal is strongest in the open and closer to the middle of the home."}},
+
+{t:"Ping: ask the network a question", b:"A two-minute test that tells you where the break is.", m:7, star:"server", part:2,
+ pan:[
+  P("laptop","server","happy","happy","packet",["l:Ping sends a tiny message and waits for the reply. Like shouting Marco and waiting for Polo.","r:Polo!"],"","PING!"),
+  P("laptop","server","proud","happy","packet",["l:The reply time shows in {{ms}}, milliseconds. Lower is better.","r:As a rough guide, under 50 ms feels great at home. Past 150 ms you notice lag in calls and games."]),
+  P("server","laptop","confused","shock","broken",["r:Request timed out. Nobody answered!","l:Silence is useful information too."],"And when nobody replies...","TIMEOUT"),
+  P("laptop","router","happy","proud","check",["l:Rung one of the ladder. Ping your router, often {{192.168.1.1}}. Check the label on it.","r:No reply? The problem is inside your home: Wi-Fi, cable or me."]),
+  P("laptop","server","happy","happy","check",["l:Rung two. Ping {{8.8.8.8}}, a public server.","r:No reply here, but the router answered? The break is between your home and the internet."]),
+  P("laptop","dns","proud","happy","check",["l:Rung three. Ping a name, like {{google.com}}.","r:If the number worked but the name fails, it is me, DNS."])],
+ take:"Ping your router. Ping {{8.8.8.8}}. Ping a website name.\nThe first one to fail shows where the problem lives: your home, the internet link, or DNS.",
+ tip:"Open Command Prompt or Terminal and type {{ping 8.8.8.8}}. Windows stops after 4 replies. On a Mac, press Control and C to stop.",
+ q:{q:"{{ping 8.8.8.8}} works but {{ping google.com}} fails. What is likely?",o:["DNS","A broken router","An unplugged cable"],why:"The internet link works, because the number replied. Names fail, so the translation step, DNS, is the suspect."}},
+
+{t:"Keep your network safe", b:"Five small habits that lock the front door.", m:5, star:"wall", part:2,
+ pan:[
+  P("wall","router","proud","happy","check",["l:Your router is the front door. Change the default admin password on day one.","r:Default passwords are often printed on the label or easy to find online."]),
+  P("router","phone","happy","happy","wifi",["l:Use WPA3 for Wi-Fi, or WPA2 if that is all I support, with a long passphrase.","r:Never choose open Wi-Fi or the old WEP setting."]),
+  P("router","laptop","happy","proud","check",["l:Turn on a guest network for visitors and smart gadgets.","r:Then they cannot see your laptop, even if one of them is compromised."]),
+  P("router","server","confused","happy","packet",["l:Update my firmware. Updates fix security holes.","r:Many routers can do it automatically. Turn that on if you can."]),
+  P("wall","phone","worried","confused","question",["l:Look at the list of connected devices. Spot one you do not know?","r:Change the Wi-Fi password, then reconnect your own devices."])],
+ take:"Change default passwords, use WPA3 or WPA2, keep a guest network, update the router and check who is connected.",
+ tip:"Open your router's app or admin page and look at the list of connected devices. Name the ones you recognise.",
+ q:{q:"Which is the best Wi-Fi security setting for home?",o:["WPA3, or WPA2 if that is all you have","WEP","No password"],why:"WPA3 and WPA2 encrypt your traffic. WEP is broken and open Wi-Fi has no protection."}}
+];
+/* ---------- comic-book covers ---------- */
+const SCHEMES = {
+  red:    {bg:"#e8453c", ray:"#c42d27", title:"#fff3c4"},
+  blue:   {bg:"#2f8fdd", ray:"#1b6cc0", title:"#fff3c4"},
+  yellow: {bg:"#ffd23f", ray:"#ffb400", title:"#e63a2e"}
+};
+const COVERS = [
+ {l:["WHAT IS A","NETWORK?"], t:["MEET THE DEVICES","BEHIND YOUR WI-FI!"], s:"red", a:"laptop", b:"router", ma:"confused", mb:"proud", sfx:"HELLO!"},
+ {l:["THE JOB","NOBODY","KNOWS"], t:["THE PEOPLE KEEPING","YOU ONLINE"], s:"blue", a:"wall", b:"laptop", ma:"proud", mb:"worried", sfx:"WHO?!"},
+ {l:["HOUSE","NUMBERS","FOR DEVICES"], t:["IP ADDRESSES","EXPLAINED"], s:"yellow", a:"phone", b:"laptop", ma:"shock", mb:"worried", sfx:"CLASH!"},
+ {l:["TWO BOXES,","TWO JOBS"], t:["MODEM VS ROUTER","AND THEIR LIGHTS"], s:"red", a:"modem", b:"router", ma:"proud", mb:"happy", sfx:"ZAP!"},
+ {l:["WI-FI","VS CABLE"], t:["PICK THE RIGHT","ROAD FOR YOUR DATA"], s:"blue", a:"laptop", b:"router", ma:"happy", mb:"proud", sfx:"ZOOM!"},
+ {l:["THE","PHONEBOOK","OF THE WEB"], t:["HOW DNS TURNS NAMES","INTO NUMBERS"], s:"yellow", a:"laptop", b:"dns", ma:"confused", mb:"proud", sfx:"LOOKUP!"},
+ {l:["WHO GIVES","OUT THE","ADDRESSES?"], t:["DHCP, THE FRIENDLY","ADDRESS HANDER"], s:"red", a:"phone", b:"router", ma:"happy", mb:"proud", sfx:"HI!"},
+ {l:["THE 5-STEP","FIX-IT","ROUTINE"], t:["STAY CALM AND","FIX YOUR NETWORK"], s:"blue", a:"laptop", b:"router", ma:"proud", mb:"happy", sfx:"FIX!"},
+ {l:["WI-FI ON,","NET OFF!"], t:["CONNECTED, BUT","NOTHING LOADS?"], s:"yellow", a:"phone", b:"router", ma:"shock", mb:"confused", sfx:"NO NET"},
+ {l:["WHY IS IT","SO SLOW?!"], t:["FIVE SUSPECTS","AND HOW TO QUESTION THEM"], s:"red", a:"laptop", b:"router", ma:"sad", mb:"confused", sfx:"SLOW"},
+ {l:["PING!","PONG!"], t:["THE TWO-MINUTE TEST","THAT FINDS THE BREAK"], s:"blue", a:"laptop", b:"server", ma:"proud", mb:"happy", sfx:"PING!"},
+ {l:["LOCK THE","FRONT","DOOR"], t:["FIVE SMALL HABITS","FOR A SAFER NETWORK"], s:"yellow", a:"wall", b:"router", ma:"proud", mb:"happy", sfx:"SAFE!"}
+];
+function cover(n, mini){
+  const C = COVERS[n-1], L = LESSONS[n-1], sc = SCHEMES[C.s], id = "c" + (++UID);
+  const k = C.l.length, m = Math.max(...C.l.map(x => x.length));
+  const fs = k >= 3 ? (m > 9 ? 42 : 46) : (m <= 8 ? 60 : m <= 10 ? 54 : 48), lh = fs;
+  const tt = (x,y,extra) => `<text x="${x}" y="${y}" text-anchor="middle" font-family="${BANG}" font-size="${fs}" letter-spacing="1.5" ${extra}>`;
+  const title = C.l.map((t,i) => {
+    const y = 112 + i*lh;
+    return tt(184,y+5,`fill="#14213d" stroke="#14213d" stroke-width="7" stroke-linejoin="round"`) + t + "</text>"
+         + tt(180,y,`fill="${sc.title}" stroke="#14213d" stroke-width="7" paint-order="stroke" stroke-linejoin="round"`) + t + "</text>";
+  }).join("");
+  const label = mini ? `aria-hidden="true"` : `role="img" aria-label="Comic cover: ${L.t}"`;
+  return `<svg viewBox="0 0 360 480" ${label} preserveAspectRatio="xMidYMid slice">` + halftone(id,360,480)
+    + `<defs><radialGradient id="${id}v" cx=".5" cy=".5" r=".75"><stop offset=".6" stop-color="#6b4a12" stop-opacity="0"/><stop offset="1" stop-color="#6b4a12" stop-opacity=".4"/></radialGradient></defs>`
+    + `<rect width="360" height="480" fill="${sc.bg}"/>` + rays(180,290,28,sc.ray,1,600) + dots(id,360,480,.4)
+    + `<g transform="translate(108 428) scale(1.12)">${drawChar(C.a,C.ma,1)}</g>`
+    + `<g transform="translate(256 428) scale(1.12)">${drawChar(C.b,C.mb,-1)}</g>`
+    + burst(C.sfx,294,254,1.05) + title
+    + `<rect width="360" height="64" fill="#fff3c4"/><path d="M0 64H360" stroke="#14213d" stroke-width="5"/>`
+    + `<text x="208" y="49" text-anchor="middle" font-family="${BANG}" font-size="46" letter-spacing="2" fill="#e63a2e" stroke="#14213d" stroke-width="5" paint-order="stroke" stroke-linejoin="round">NETFIXLAB</text>`
+    + `<circle cx="40" cy="35" r="26" fill="#ffd23f" stroke="#14213d" stroke-width="4"/>`
+    + `<text x="40" y="26" text-anchor="middle" font-family="Comic Neue, sans-serif" font-weight="700" font-size="10" fill="#14213d">NO.</text>`
+    + `<text x="40" y="51" text-anchor="middle" font-family="${BANG}" font-size="28" fill="#14213d">${n}</text>`
+    + `<rect y="438" width="360" height="42" fill="#fff3c4"/><path d="M0 438H360" stroke="#14213d" stroke-width="4"/>`
+    + `<text x="180" y="456" text-anchor="middle" font-family="Comic Neue, sans-serif" font-weight="700" font-size="12.5" letter-spacing="1" fill="#14213d">${C.t[0]}</text>`
+    + `<text x="180" y="472" text-anchor="middle" font-family="Comic Neue, sans-serif" font-weight="700" font-size="12.5" letter-spacing="1" fill="#14213d">${C.t[1]}</text>`
+    + `<rect width="360" height="480" fill="url(#${id}v)"/></svg>`;
+}
+/* ---------- accounts: Supabase when configured, otherwise a demo store in this browser ---------- */
+let USE_SB = false, sb = null, USER = null;   // USER: {id, email, name, joined}
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function lsGet(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } }
+function lsSet(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+async function sha(t){
+  try{
+    const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("nfl:" + t));
+    return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2,"0")).join("");
+  }catch(e){ let h = 5381; for(const c of "nfl:" + t) h = ((h << 5) + h + c.charCodeAt(0)) | 0; return "x" + h; }
+}
+function loadSB(){
+  return new Promise(res => {
+    if(!CONFIG.supabaseUrl || !CONFIG.supabaseKey) return res(false);
+    const s = document.createElement("script");
+    s.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js";
+    s.onload = () => res(!!window.supabase); s.onerror = () => res(false);
+    document.head.appendChild(s);
+  });
+}
+const validDone = a => [...new Set(a)].filter(n => Number.isInteger(n) && n >= 1 && n <= LESSONS.length);
+
+const Auth = {
+  async init(){
+    if(await loadSB()){
+      USE_SB = true; sb = window.supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseKey);
+      const r = await sb.auth.getSession();
+      if(r.data && r.data.session) await Auth.adopt(r.data.session.user);
+      sb.auth.onAuthStateChange((ev) => { if(ev === "SIGNED_OUT" && USER){ USER = null; loadGuest(); updateHeader(); renderHome(); } });
+      window.addEventListener("focus", () => Auth.refresh());
+    } else {
+      const e = lsGet("nfl_session", null), u = e && lsGet("nfl_users", {})[e];
+      if(u) Auth.adoptDemo(e, u);
+    }
+  },
+  /* Supabase */
+  async adopt(u){
+    USER = {id:u.id, email:u.email, name:(u.user_metadata && u.user_metadata.full_name) || u.email.split("@")[0], joined:u.created_at};
+    await Auth.pull();
+  },
+  async pull(){
+    const r = await sb.from("profiles").select("full_name,progress,unlocked").eq("id", USER.id).maybeSingle();
+    const data = r.data, srv = (data && data.progress && data.progress.done) || [], guest = lsGet("nfl", {}).done || [];
+    S.done = validDone([...srv, ...guest]); S.unlocked = !!(data && data.unlocked);
+    if(data && data.full_name) USER.name = data.full_name;
+    if(S.done.length > validDone(srv).length) Auth.persist();
+  },
+  async refresh(){
+    if(!USE_SB || !USER) return;
+    try{ await Auth.pull(); updateHeader(); renderHome(); if(!$("#profile").hidden) renderProfile(); }catch(e){}
+  },
+  /* demo store */
+  adoptDemo(email, u){
+    USER = {id:email, email, name:u.name, joined:u.joined};
+    S.done = validDone([...(u.done || []), ...(lsGet("nfl", {}).done || [])]); S.unlocked = !!u.unlocked;
+    Auth.persist();
+  },
+  persist(){
+    if(!USER) return;
+    if(!USE_SB){
+      const us = lsGet("nfl_users", {}), r = us[USER.email];
+      if(r){ r.done = S.done; r.unlocked = S.unlocked; r.name = USER.name; lsSet("nfl_users", us); }
+      return;
+    }
+    clearTimeout(Auth._t);
+    Auth._t = setTimeout(() => { sb.from("profiles").upsert({id:USER.id, full_name:USER.name, progress:{done:S.done}}).then(() => {}, () => {}); }, 400);
+  },
+  async signup(name, email, pw){
+    email = email.trim().toLowerCase();
+    if(USE_SB){
+      const r = await sb.auth.signUp({email, password:pw, options:{data:{full_name:name}}});
+      if(r.error) return {error:r.error.message};
+      if(!r.data.session) return {confirm:true};
+      await Auth.adopt(r.data.user); return {};
+    }
+    const us = lsGet("nfl_users", {});
+    if(us[email]) return {error:"An account with this email already exists. Try logging in."};
+    us[email] = {name, hash:await sha(pw), joined:new Date().toISOString(), done:[], unlocked:false};
+    lsSet("nfl_users", us); lsSet("nfl_session", email); Auth.adoptDemo(email, us[email]); return {};
+  },
+  async login(email, pw){
+    email = email.trim().toLowerCase();
+    if(USE_SB){
+      const r = await sb.auth.signInWithPassword({email, password:pw});
+      if(r.error) return {error:"That email and password do not match. Check them and try again."};
+      await Auth.adopt(r.data.user); return {};
+    }
+    const us = lsGet("nfl_users", {}), u = us[email];
+    if(!u || u.hash !== await sha(pw)) return {error:"That email and password do not match. Check them and try again."};
+    lsSet("nfl_session", email); Auth.adoptDemo(email, u); return {};
+  },
+  async social(provider){
+    if(!USE_SB) return {error:"Social sign-in needs Supabase."};
+    const r = await sb.auth.signInWithOAuth({provider, options:{redirectTo:location.origin + location.pathname}});
+    return r.error ? {error:"Could not start " + provider + " sign-in. Make sure it is enabled in Supabase."} : {};
+  },
+  async logout(){
+    if(USE_SB){ try{ await sb.auth.signOut(); }catch(e){} } else lsSet("nfl_session", null);
+    USER = null; loadGuest();
+  },
+  async reset(email){
+    if(!USE_SB) return {error:"Password reset works once Supabase is connected."};
+    const r = await sb.auth.resetPasswordForEmail(email.trim(), {redirectTo:location.origin + location.pathname});
+    return r.error ? {error:r.error.message} : {};
+  },
+  async saveName(name){
+    USER.name = name;
+    if(USE_SB){ try{ await sb.auth.updateUser({data:{full_name:name}}); }catch(e){} }
+    Auth.persist();
+  },
+  async sendContact(m){
+    if(USE_SB){
+      const r = await sb.from("contact_messages").insert({name:m.name, email:m.email, message:m.message});
+      return r.error ? {error:"Could not send your message. Please try again in a moment."} : {};
+    }
+    const all = lsGet("nfl_msgs", []); all.push(Object.assign({at:new Date().toISOString()}, m)); lsSet("nfl_msgs", all);
+    return {demo:true};
+  }
+};
+/* ---------- state ---------- */
+const $ = s => document.querySelector(s);
+const S = { done: [], unlocked: false };
+let pending = null, lastFocus = null, AFTER = null;
+function loadGuest(){ const d = lsGet("nfl", {}); S.done = validDone(Array.isArray(d.done) ? d.done : []); S.unlocked = false; }
+function save(){ if(USER) Auth.persist(); else lsSet("nfl", {done:S.done}); }
+const isLocked = n => n > FREE_COUNT && !S.unlocked;
+const VIEWS = ["home","reader","auth","profile"];
+function show(v){ VIEWS.forEach(x => { $("#" + x).hidden = x !== v; }); window.scrollTo(0,0); }
+
+/* ---------- header ---------- */
+function updateHeader(){
+  const b = $("#authBtn");
+  if(USER){ b.innerHTML = `<span class="av">${esc(USER.name.charAt(0).toUpperCase())}</span>${esc(USER.name.split(" ")[0])}`; b.dataset.view = "profile"; b.setAttribute("aria-label","Your profile"); }
+  else { b.textContent = "Log in"; b.dataset.view = "login"; b.removeAttribute("aria-label"); }
+  $("#topBuy").hidden = S.unlocked;
+}
+
+/* ---------- home ---------- */
+const LOCK = '<svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" fill="currentColor"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="3"/></svg>';
+function card(n){
+  const L = LESSONS[n-1], done = S.done.includes(n), locked = isLocked(n);
+  const tag = done ? ["read","Read"] : n <= FREE_COUNT ? ["free","Free"] : locked ? ["lock", LOCK+" Locked"] : ["open","Open"];
+  return `<button class="card" data-open="${n}" aria-label="Lesson ${n}: ${L.t}${locked ? ", locked" : ""}">
+    <span class="cv">${cover(n,true)}</span>
+    <span class="ctext"><span class="tag ${tag[0]} tagpos">${tag[1]}</span><span class="meta">Issue ${n} · ${L.m} min read</span><span class="cb">${L.b}</span></span></button>`;
+}
+function renderHome(){
+  $("#ph1").textContent = PARTS[1].n; $("#pd1").textContent = PARTS[1].d;
+  $("#ph2").textContent = PARTS[2].n; $("#pd2").textContent = PARTS[2].d;
+  let g1 = "", g2 = "";
+  LESSONS.forEach((L,i) => { (L.part === 1 ? (g1 += card(i+1)) : (g2 += card(i+1))); });
+  $("#grid1").innerHTML = g1; $("#grid2").innerHTML = g2;
+  $("#prog").textContent = `${S.done.length} of ${LESSONS.length} lessons read` + (S.unlocked ? " · full course unlocked" : "");
+  document.querySelectorAll("[data-price]").forEach(e => e.textContent = CONFIG.price);
+  $("#topBuy").hidden = S.unlocked;
+}
+function showHome(){ show("home"); renderHome(); updateHeader(); }
+function go(id){ if($("#home").hidden) showHome(); const el = document.getElementById(id) || $("#top"); el.scrollIntoView({block:"start"}); }
+
+/* ---------- reader ---------- */
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; } return a; }
+function openLesson(n){
+  if(n < 1 || n > LESSONS.length) return;
+  if(isLocked(n)){ openPay(n); return; }
+  const L = LESSONS[n-1];
+  const opts = shuffle(L.q.o.map((t,i) => ({t, ok: i === 0})));
+  const last = n === LESSONS.length;
+  const kick = `${PARTS[L.part].n} · Issue ${n} of ${LESSONS.length} · ${L.m} min`;
+  $("#reader").innerHTML = `
+    <div class="cover-view" id="cv">
+      <div class="bigcover">${cover(n,false)}</div>
+      <div class="cinfo">
+        <button class="btn alt sm" data-go="lessons">← All lessons</button>
+        <p class="kicker">${kick}</p>
+        <h1>${L.t}</h1>
+        <p class="lead">${L.b}</p>
+        <button class="btn" data-read>Open the comic ▸</button>
+      </div>
+    </div>
+    <div id="pages" hidden>
+      <div class="rhead">
+        <button class="btn alt sm" data-cover>← Back to cover</button>
+        <p class="kicker">${kick}</p>
+        <h1>${L.t}</h1>
+      </div>
+      <div class="strip">${L.pan.map(panel).join("")}</div>
+      <div class="box take"><h3>Takeaway</h3><p>${fmt(L.take)}</p></div>
+      <div class="box tip"><h3>Try it yourself</h3><p>${fmt(L.tip)}</p></div>
+      <div class="box" id="quiz"><h3>Quick check</h3><p>${fmt(L.q.q)}</p>
+        <div class="opts">${opts.map(o => `<button class="opt" data-ok="${o.ok ? 1 : 0}">${o.t}</button>`).join("")}</div>
+        <p class="fb" id="fb" aria-live="polite"></p></div>
+      <div class="rnav">
+        ${n > 1 ? `<button class="btn alt" data-open="${n-1}">← Previous issue</button>` : "<span></span>"}
+        <button class="btn" data-next="${n}">${last ? "Finish the course" : "Next issue →"}</button>
+      </div>
+    </div>`;
+  $("#reader").dataset.n = n;
+  show("reader");
+}
+function finishLesson(n){
+  if(!S.done.includes(n)){ S.done.push(n); save(); }
+  if(n < LESSONS.length) openLesson(n+1); else go("lessons");
+}
+
+/* ---------- sign up / log in ---------- */
+const GSVG = '<svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.5 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.5 28.7A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.2.8-4.7l-7.9-6.1A24 24 0 0 0 0 24c0 3.9.9 7.5 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.9 2.3-8.4 2.3-6.3 0-11.6-4-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>';
+const FSVG = '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M13.5 22v-8.2h2.8l.5-3.4h-3.3V8.3c0-1 .3-1.7 1.7-1.7h1.7V3.6c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.6H7.4v3.4h2.8V22h3.3z"/></svg>';
+function openAuth(tab, msg){
+  const su = tab === "signup";
+  const art = su
+    ? P("router","laptop","happy","proud","wifi",["l:A new reader! Welcome to the lab!","r:Saved my seat. Teach me everything!"],"Join the lab")
+    : P("router","phone","confused","happy","question",["l:Password, please!","r:It is me! Let me back in!"],"Welcome back");
+  $("#auth").innerHTML = `
+    <div class="authwrap">
+      <div class="authside">
+        ${panel(art)}
+        <ul class="perks">
+          <li><i>\u2713</i>The first 3 issues are free, forever</li>
+          <li><i>\u2713</i>Your progress is saved on every device</li>
+          <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
+        </ul>
+      </div>
+      <div class="box authbox">
+        <div class="tabs" role="group" aria-label="Account">
+          <button class="tab ${su ? "" : "on"}" type="button" data-view="login" aria-pressed="${!su}">Log in</button>
+          <button class="tab ${su ? "on" : ""}" type="button" data-view="signup" aria-pressed="${su}">Sign up</button>
+        </div>
+        <h2>${su ? "Join the lab. It takes 30 seconds." : "Welcome back, reader"}</h2>
+        <form id="authForm" data-tab="${su ? "signup" : "login"}" novalidate>
+          ${su ? `<label for="fName">Your name</label><input id="fName" autocomplete="name">` : ""}
+          <label for="fEmail">Email</label><input id="fEmail" type="email" autocomplete="email">
+          <label for="fPass">Password</label><input id="fPass" type="password" autocomplete="${su ? "new-password" : "current-password"}">
+          ${su ? `<p class="hint">At least 8 characters.</p>` : ""}
+          <p class="msg" id="authMsg" role="alert">${esc(msg || "")}</p>
+          <button class="btn" type="submit" id="authGo">${su ? "Create my account" : "Log in"}</button>
+        </form>
+        <div class="or"><span>or ${su ? "sign up" : "log in"} with</span></div>
+        <div class="social">
+          <button class="sbtn" type="button" data-social="google">${GSVG}Continue with Google</button>
+          <button class="sbtn fb" type="button" data-social="facebook">${FSVG}Continue with Facebook</button>
+        </div>
+        ${!su && USE_SB ? `<button class="linkbtn" type="button" id="forgot">Forgot your password?</button>` : ""}
+        <p class="fine">${su ? "Already have an account? " : "New here? "}<button class="linkbtn" type="button" data-view="${su ? "login" : "signup"}">${su ? "Log in" : "Sign up free"}</button></p>
+        ${!USE_SB ? `<p class="fine">Demo mode: email accounts are saved only in this browser until Supabase is connected. Google and Facebook sign-in switch on once it is.</p>` : ""}
+      </div>
+    </div>`;
+  show("auth");
+  const first = $(su ? "#fName" : "#fEmail"); if(first && first.focus) first.focus();
+}
+async function socialLogin(provider){
+  const m = $("#authMsg");
+  if(!USE_SB){ m.textContent = "Google and Facebook sign-in need Supabase connected. For now, use the email form above."; return; }
+  if(AFTER) lsSet("nfl_after", AFTER);
+  const r = await Auth.social(provider);
+  if(r.error) m.textContent = r.error;
+}
+async function submitAuth(){
+  const su = $("#authForm").dataset.tab === "signup";
+  const name = su ? $("#fName").value.trim() : "", email = $("#fEmail").value.trim(), pw = $("#fPass").value;
+  const msg = $("#authMsg"), say = t => { msg.textContent = t; };
+  if(su && name.length < 2) return say("Please tell us your name.");
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return say("That email does not look right. Check it and try again.");
+  if(pw.length < 8) return say("Use a password with at least 8 characters.");
+  const btn = $("#authGo"); btn.disabled = true; say("One moment...");
+  let r; try{ r = su ? await Auth.signup(name, email, pw) : await Auth.login(email, pw); }catch(e){ r = {error:"Something went wrong. Please try again."}; }
+  btn.disabled = false;
+  if(r.error) return say(r.error);
+  if(r.confirm) return say("Check your email to confirm your account, then come back and log in.");
+  afterAuth();
+}
+function afterAuth(){
+  updateHeader(); renderHome();
+  const a = AFTER; AFTER = null;
+  if(a && a.pay){ showHome(); openPay(a.lesson); } else openProfile();
+}
+
+/* ---------- profile ---------- */
+function openProfile(note){
+  if(!USER){ openAuth("login"); return; }
+  const total = LESSONS.length, done = S.done.length, pct = Math.round(done/total*100);
+  const nxt = LESSONS.findIndex((L,i) => !S.done.includes(i+1) && !isLocked(i+1)) + 1;
+  const joined = USER.joined ? new Date(USER.joined).toLocaleDateString("en", {month:"long", year:"numeric"}) : "";
+  const minis = LESSONS.map((L,i) => {
+    const n = i+1, d = S.done.includes(n), lk = isLocked(n);
+    return `<button class="mini ${d ? "is-done" : ""}" data-open="${n}" aria-label="Issue ${n}: ${L.t}${d ? ", read" : lk ? ", locked" : ""}"><span class="cv">${cover(n,true)}</span><span class="mk">${d ? "✓ Read" : lk ? LOCK + " Locked" : "Unread"}</span></button>`;
+  }).join("");
+  const cont = nxt ? `<button class="btn" data-open="${nxt}">${done ? "Continue reading" : "Start reading"}</button>` : `<span class="tag read">You finished every issue</span>`;
+  const buy = S.unlocked ? "" : `<button class="btn alt" data-buy>Unlock all lessons</button>` + (USE_SB && CONFIG.paymentLink ? `<button class="btn alt" id="checkPay">I have paid, check my account</button>` : "");
+  $("#profile").innerHTML = `
+    <div class="profile">
+      <aside class="box pcard">
+        <div class="avatar" aria-hidden="true">${esc(USER.name.charAt(0).toUpperCase())}</div>
+        <h2>${esc(USER.name)}</h2>
+        <p class="em">${esc(USER.email)}</p>
+        ${joined ? `<p class="meta">Member since ${esc(joined)}</p>` : ""}
+        <span class="tag ${S.unlocked ? "free" : "open"}">${S.unlocked ? "Full course" : "Free preview"}</span>
+        <form id="nameForm" novalidate>
+          <label for="pName">Display name</label>
+          <input id="pName" value="${esc(USER.name)}" autocomplete="name">
+          <p class="msg good" id="nameMsg" role="status">${esc(note || "")}</p>
+          <button class="btn alt sm" type="submit">Save name</button>
+        </form>
+        <div class="prow"><button class="btn alt sm" id="logout" type="button">Log out</button></div>
+        ${!USE_SB ? `<p class="fine">Demo mode: this account lives only in this browser.</p>` : ""}
+      </aside>
+      <section class="box">
+        <h2>Your progress</h2>
+        <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${done}" aria-label="Issues read"><i style="width:${pct}%"></i></div>
+        <p><b>${done} of ${total}</b> issues read</p>
+        <div class="prow">${cont}${buy}</div>
+        <h3 style="margin-top:14px">Your shelf</h3>
+        <div class="minis">${minis}</div>
+      </section>
+    </div>`;
+  show("profile");
+}
+
+/* ---------- contact ---------- */
+function prefillContact(){
+  const n = $("#cName"), e = $("#cEmail");
+  if(USER && n && e){ if(!n.value) n.value = USER.name; if(!e.value) e.value = USER.email; }
+}
+async function submitContact(){
+  const name = $("#cName").value.trim(), email = $("#cEmail").value.trim(), message = $("#cMsg").value.trim();
+  const msg = $("#contactMsg"), say = (t, ok) => { msg.textContent = t; msg.className = "msg" + (ok ? " good" : ""); };
+  if(name.length < 2) return say("Please add your name.");
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return say("That email does not look right. Check it so I can reply.");
+  if(message.length < 5) return say("Write a short message first.");
+  const btn = $("#contactGo"); btn.disabled = true; say("Sending...", true);
+  let r; try{ r = await Auth.sendContact({name, email, message}); }catch(e){ r = {error:"Could not send your message. Please try again in a moment."}; }
+  btn.disabled = false;
+  if(r.error) return say(r.error);
+  $("#cMsg").value = "";
+  say(r.demo ? "Thanks! (Demo mode: saved on this device only until Supabase is connected.)" : "Thanks! Your message is on its way. I will reply by email.", true);
+}
+
+/* ---------- payment ---------- */
+function openPay(n){
+  pending = n || null; lastFocus = document.activeElement;
+  document.querySelectorAll("[data-price]").forEach(e => e.textContent = CONFIG.price);
+  if(!USER){
+    $("#payAct").innerHTML = `<button class="btn" data-view="signup" data-after="pay">Create a free account to unlock</button> <button class="linkbtn" data-view="login" data-after="pay">I already have an account</button>`;
+    $("#payNote").textContent = "Your purchase is saved to your account, so you can read on any device.";
+  } else if(CONFIG.paymentLink){
+    const q = (CONFIG.paymentLink.indexOf("?") < 0 ? "?" : "&") + "client_reference_id=" + encodeURIComponent(USER.id) + "&prefilled_email=" + encodeURIComponent(USER.email);
+    $("#payAct").innerHTML = `<a class="btn" href="${esc(CONFIG.paymentLink + q)}" target="_blank" rel="noopener">Pay ${esc(CONFIG.price)} once</a>`;
+    $("#payNote").textContent = "Secure checkout opens in a new tab. Come back here afterwards and your lessons unlock once the payment is confirmed.";
+  } else {
+    $("#payAct").innerHTML = USE_SB ? "" : `<button class="btn" id="demoUnlock">Unlock all lessons (demo)</button>`;
+    $("#payNote").textContent = USE_SB ? "Payments are not connected yet. Add your payment link in CONFIG." : "Demo mode: no money is taken. Add your Razorpay or Stripe payment link in CONFIG to charge real payments.";
+  }
+  $("#pay").hidden = false; $("#payX").focus();
+}
+function closePay(){ $("#pay").hidden = true; if(lastFocus && lastFocus.focus) lastFocus.focus(); }
+function unlock(){
+  if(!USER || USE_SB) return;
+  S.unlocked = true; save(); $("#pay").hidden = true; updateHeader();
+  const n = pending; pending = null;
+  if(n) openLesson(n); else renderHome();
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click", async e => {
+  const t = e.target.closest("[data-social],[data-open],[data-go],[data-buy],[data-next],[data-read],[data-cover],[data-view],.opt,#demoUnlock,#payX,#reset,#logout,#forgot,#checkPay");
+  if(!t) return;
+  if(t.matches("[data-social]")) await socialLogin(t.dataset.social);
+  else if(t.matches("[data-go]")){ e.preventDefault(); go(t.dataset.go); }
+  else if(t.matches("[data-view]")){
+    if(t.dataset.after === "pay"){ AFTER = {pay:true, lesson:pending}; $("#pay").hidden = true; }
+    if(t.dataset.view === "profile") openProfile(); else openAuth(t.dataset.view);
+  }
+  else if(t.matches("[data-open]")) openLesson(+t.dataset.open);
+  else if(t.matches("[data-buy]")) openPay(null);
+  else if(t.matches("[data-read]")){ $("#cv").hidden = true; $("#pages").hidden = false; window.scrollTo(0,0); }
+  else if(t.matches("[data-cover]")){ $("#pages").hidden = true; $("#cv").hidden = false; window.scrollTo(0,0); }
+  else if(t.matches("[data-next]")) finishLesson(+t.dataset.next);
+  else if(t.id === "demoUnlock") unlock();
+  else if(t.id === "payX") closePay();
+  else if(t.id === "logout"){ await Auth.logout(); updateHeader(); showHome(); }
+  else if(t.id === "checkPay"){ await Auth.refresh(); openProfile(S.unlocked ? "Payment found. Everything is unlocked." : "No payment yet. It can take a minute to arrive."); }
+  else if(t.id === "forgot"){ const em = $("#fEmail").value.trim(); const r = em ? await Auth.reset(em) : {error:"Type your email first, then tap this again."}; const m = $("#authMsg"); m.textContent = r.error || "Check your email for a reset link."; }
+  else if(t.id === "reset"){ S.done = []; S.unlocked = false; lsSet("nfl", {done:[]}); if(USER) Auth.persist(); showHome(); }
+  else if(t.classList.contains("opt")){
+    const fb = $("#fb"), all = document.querySelectorAll("#quiz .opt");
+    if(t.dataset.ok === "1"){ t.classList.add("ok"); all.forEach(b => b.disabled = true); fb.textContent = "Correct. " + LESSONS[+$("#reader").dataset.n - 1].q.why; }
+    else { t.classList.add("bad"); t.disabled = true; fb.textContent = "Not quite. Have another go."; }
+  }
+});
+document.addEventListener("submit", async e => {
+  const id = e.target.id;
+  if(id === "authForm"){ e.preventDefault(); await submitAuth(); }
+  else if(id === "contactForm"){ e.preventDefault(); await submitContact(); }
+  else if(id === "nameForm"){
+    e.preventDefault(); const v = $("#pName").value.trim();
+    if(v.length < 2){ const m = $("#nameMsg"); m.className = "msg"; m.textContent = "Please enter a name."; return; }
+    await Auth.saveName(v); updateHeader(); openProfile("Name saved.");
+  }
+});
+$("#pay").addEventListener("click", e => { if(e.target.id === "pay") closePay(); });
+document.addEventListener("keydown", e => { if(e.key === "Escape" && !$("#pay").hidden) closePay(); });
+
+/* ---------- start ---------- */
+function startPage(){
+  $("#fan").innerHTML = [1,11,6].map((n,i) => `<div class="c c${i+1}">${cover(n,true)}</div>`).join("");
+  $("#aboutPanel").innerHTML = panel(P("router","laptop","proud","happy","check",["l:Welcome to NetFixLab! Every lesson is a comic, and you are in it.","r:And every comic ends with something you can really fix at home."],"About NetFixLab"));
+  if(CONFIG.authorName){ $("#authorName").textContent = CONFIG.authorName; $("#aboutHi").textContent = "Hi, I'm " + CONFIG.authorName + "."; }
+  if(CONFIG.contactEmail) $("#contactMail").textContent = "Prefer email? Write to " + CONFIG.contactEmail + ".";
+}
+(async function start(){
+  loadGuest(); startPage(); renderHome(); updateHeader();
+  try{ await Auth.init(); }catch(e){}
+  updateHeader(); renderHome(); prefillContact();
+  const aft = lsGet("nfl_after", null); if(aft){ lsSet("nfl_after", null); if(USER){ if(aft.pay){ openPay(aft.lesson); } else openProfile(); } }
+})();
+</script>
+
+</body></html>
