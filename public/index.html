@@ -1344,7 +1344,7 @@ async function submitNewPassword(){
 }
 
 /* ---------- profile ---------- */
-function openProfile(note){
+function openProfile(note, bad){
   if(!USER){ openAuth("login"); return; }
   const total = LESSONS.length, done = S.done.length, pct = Math.round(done/total*100);
   const nxt = LESSONS.findIndex((L,i) => !S.done.includes(i+1) && !isLocked(i+1)) + 1;
@@ -1366,7 +1366,7 @@ function openProfile(note){
         <form id="nameForm" novalidate>
           <label for="pName">Display name</label>
           <input id="pName" value="${esc(USER.name)}" autocomplete="name">
-          <p class="msg good" id="nameMsg" role="status">${esc(note || "")}</p>
+          <p class="msg${bad ? "" : " good"}" id="nameMsg" role="status">${esc(note || "")}</p>
           <button class="btn alt sm" type="submit">Save name</button>
         </form>
         <div class="prow"><button class="btn alt sm" id="logout" type="button">Log out</button></div>
@@ -1408,7 +1408,9 @@ async function afterCheckout(){
   const q = new URLSearchParams(location.search), st = (q.get("status") || "").toLowerCase();
   try{ history.replaceState(null, "", location.pathname); }catch(e){}
   if(!USER){ openAuth("login", "Log in to see your unlocked lessons."); return; }
-  if(st && st !== "succeeded"){ openProfile("The payment did not go through, so nothing was charged. You can try again any time."); return; }
+  if(/^(failed|cancelled|canceled|declined|requires_payment_method|expired)$/.test(st)){
+    openProfile("The payment did not go through, so nothing was charged (Dodo status: " + st + "). You can try again any time.", true); return;
+  }
   openProfile("Payment received. Unlocking your lessons...");
   for(let i = 0; i < 10 && !S.unlocked; i++){
     await new Promise(r => setTimeout(r, i < 3 ? 1500 : 3000));
