@@ -931,7 +931,9 @@ function cover(n, mini){
     + `<rect width="360" height="480" fill="url(#${id}v)"/></svg>`;
 }
 /* ---------- accounts: Supabase when configured, otherwise a demo store in this browser ---------- */
-let USE_SB = false, sb = null, USER = null;   // USER: {id, email, name, joined}
+let USE_SB = false, sb = null, USER = null;
+let RECOVERY = /[?&]reset=1\b/.test(location.search) || /type=recovery/.test(location.hash);
+const EXISTS = "An account with this email already exists. Log in instead, or use \u201cForgot your password?\u201d if you can\u2019t remember it.";   // USER: {id, email, name, joined}
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function lsGet(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } }
 function lsSet(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
@@ -992,6 +994,7 @@ const Auth = {
   async init(){
     if(await loadSB()){
       USE_SB = true; sb = window.supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseKey);
+      sb.auth.onAuthStateChange((ev) => { if(ev === "PASSWORD_RECOVERY") RECOVERY = true; });
       const r = await sb.auth.getSession();
       if(r.data && r.data.session) await Auth.adopt(r.data.session.user);
       Track.visit();
@@ -1050,13 +1053,14 @@ const Auth = {
     email = email.trim().toLowerCase();
     if(USE_SB){
       const r = await sb.auth.signUp({email, password:pw, options:{data:{full_name:name}, emailRedirectTo:location.origin + location.pathname}});
-      if(r.error) return {error:r.error.message};
+      if(r.error) return {error:/already registered|already exists/i.test(r.error.message) ? EXISTS : r.error.message};
+      if(r.data.user && Array.isArray(r.data.user.identities) && r.data.user.identities.length === 0) return {error:EXISTS, exists:true};
       Track.event("signed_up");
       if(!r.data.session) return {confirm:true};
       await Auth.adopt(r.data.user); return {};
     }
     const us = lsGet("nfl_users", {});
-    if(us[email]) return {error:"An account with this email already exists. Try logging in."};
+    if(us[email]) return {error:EXISTS, exists:true};
     us[email] = {name, hash:await sha(pw), joined:new Date().toISOString(), done:[], unlocked:false};
     lsSet("nfl_users", us); lsSet("nfl_session", email); Auth.adoptDemo(email, us[email]); return {};
   },
@@ -1064,7 +1068,7 @@ const Auth = {
     email = email.trim().toLowerCase();
     if(USE_SB){
       const r = await sb.auth.signInWithPassword({email, password:pw});
-      if(r.error) return {error:"That email and password do not match. Check them and try again."};
+      if(r.error) return {error:/not confirmed/i.test(r.error.message) ? "Please confirm your email first. Check your inbox (and spam) for the link." : "That email and password do not match. Check them and try again."};
       await Auth.adopt(r.data.user); return {};
     }
     const us = lsGet("nfl_users", {}), u = us[email];
@@ -1082,8 +1086,12 @@ const Auth = {
   },
   async reset(email){
     if(!USE_SB) return {error:"Password reset works once Supabase is connected."};
-    const r = await sb.auth.resetPasswordForEmail(email.trim(), {redirectTo:location.origin + location.pathname});
+    const r = await sb.auth.resetPasswordForEmail(email.trim(), {redirectTo:location.origin + location.pathname + "?reset=1"});
     return r.error ? {error:r.error.message} : {};
+  },
+  async newPassword(pw){
+    const r = await sb.auth.updateUser({password:pw});
+    return r.error ? {error:/different from the old/i.test(r.error.message) ? "Choose a password you have not used before." : r.error.message} : {};
   },
   async saveName(name){
     USER.name = name;
@@ -1216,12 +1224,11 @@ function openAuth(tab, msg){
           ${su ? `<label for="fName">Your name</label><input id="fName" autocomplete="name">` : ""}
           <label for="fEmail">Email</label><input id="fEmail" type="email" autocomplete="email">
           <label for="fPass">Password</label><input id="fPass" type="password" autocomplete="${su ? "new-password" : "current-password"}">
-          ${su ? `<p class="hint">At least 8 characters.</p>` : ""}
+          ${su ? `<p class="hint">At least 8 characters.</p>` : `<button class="linkbtn" type="button" id="forgot">Forgot your password?</button>`}
           <p class="msg" id="authMsg" role="alert">${esc(msg || "")}</p>
           <button class="btn" type="submit" id="authGo">${su ? "Create my account" : "Log in"}</button>
         </form>
         ${socialButtons(su)}
-        ${!su && USE_SB ? `<button class="linkbtn" type="button" id="forgot">Forgot your password?</button>` : ""}
         <p class="fine">${su ? "Already have an account? " : "New here? "}<button class="linkbtn" type="button" data-view="${su ? "login" : "signup"}">${su ? "Log in" : "Sign up free"}</button></p>
         ${!USE_SB ? `<p class="fine">Demo mode: accounts are saved only in this browser.</p>` : ""}
       </div>
@@ -1253,6 +1260,7 @@ async function submitAuth(){
   const btn = $("#authGo"); btn.disabled = true; say("One moment...");
   let r; try{ r = su ? await Auth.signup(name, email, pw) : await Auth.login(email, pw); }catch(e){ r = {error:"Something went wrong. Please try again."}; }
   btn.disabled = false;
+  if(r.exists){ openAuth("login", EXISTS); $("#fEmail").value = email; $("#fPass").focus(); return; }
   if(r.error) return say(r.error);
   if(r.confirm) return say("Check your email to confirm your account, then come back and log in.");
   afterAuth();
@@ -1261,6 +1269,37 @@ function afterAuth(){
   updateHeader(); renderHome();
   const a = AFTER; AFTER = null;
   if(a && a.pay){ showHome(); openPay(a.lesson); } else openProfile();
+}
+
+/* ---------- set a new password (from the reset email) ---------- */
+function openNewPassword(){
+  $("#auth").innerHTML = `
+    <div class="authwrap">
+      <div class="authside">${panel(P("router","laptop","happy","proud","check",["l:New password time. Make it a long one!","r:Got it. Back to reading in a second."],"Reset your password"))}</div>
+      <div class="box authbox">
+        <h2>Choose a new password</h2>
+        <form id="pwForm" novalidate>
+          <label for="np1">New password</label><input id="np1" type="password" autocomplete="new-password">
+          <label for="np2">Type it again</label><input id="np2" type="password" autocomplete="new-password">
+          <p class="hint">At least 8 characters.</p>
+          <p class="msg" id="pwMsg" role="alert"></p>
+          <button class="btn" type="submit" id="pwGo">Save new password</button>
+        </form>
+      </div>
+    </div>`;
+  show("auth"); $("#np1").focus();
+}
+async function submitNewPassword(){
+  const a = $("#np1").value, b = $("#np2").value, m = $("#pwMsg"), say = t => { m.textContent = t; };
+  if(a.length < 8) return say("Use a password with at least 8 characters.");
+  if(a !== b) return say("The two passwords do not match.");
+  const btn = $("#pwGo"); btn.disabled = true; say("One moment...");
+  let r; try{ r = await Auth.newPassword(a); }catch(e){ r = {error:"Something went wrong. Please try again."}; }
+  btn.disabled = false;
+  if(r.error) return say(r.error);
+  RECOVERY = false;
+  try{ history.replaceState(null, "", location.pathname); }catch(e){}
+  updateHeader(); renderHome(); openProfile("Password updated. You are logged in.");
 }
 
 /* ---------- profile ---------- */
@@ -1372,7 +1411,16 @@ document.addEventListener("click", async e => {
   else if(t.id === "payX") closePay();
   else if(t.id === "logout"){ await Auth.logout(); updateHeader(); showHome(); }
   else if(t.id === "checkPay"){ await Auth.refresh(); openProfile(S.unlocked ? "Payment found. Everything is unlocked." : "No payment yet. It can take a minute to arrive."); }
-  else if(t.id === "forgot"){ const em = $("#fEmail").value.trim(); const r = em ? await Auth.reset(em) : {error:"Type your email first, then tap this again."}; const m = $("#authMsg"); m.textContent = r.error || "Check your email for a reset link."; }
+  else if(t.id === "forgot"){
+    const em = $("#fEmail").value.trim(), m = $("#authMsg");
+    m.className = "msg";
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){ m.textContent = "Type your email above first, then tap \u201cForgot your password?\u201d again."; $("#fEmail").focus(); return; }
+    if(!USE_SB){ m.textContent = "Password reset is not available right now. Please try again in a moment."; return; }
+    t.disabled = true; m.textContent = "Sending...";
+    const r = await Auth.reset(em); t.disabled = false;
+    if(r.error){ m.textContent = /rate|security purposes/i.test(r.error) ? "Please wait a minute before asking for another email." : r.error; return; }
+    m.className = "msg good"; m.textContent = "If an account exists for " + em + ", a reset link is on its way. Check your inbox and spam folder.";
+  }
   else if(t.classList.contains("opt")){
     const fb = $("#fb"), all = document.querySelectorAll("#quiz .opt");
     const ln = +$("#reader").dataset.n;
@@ -1384,6 +1432,7 @@ document.addEventListener("submit", async e => {
   const id = e.target.id;
   if(id === "authForm"){ e.preventDefault(); await submitAuth(); }
   else if(id === "contactForm"){ e.preventDefault(); await submitContact(); }
+  else if(id === "pwForm"){ e.preventDefault(); await submitNewPassword(); }
   else if(id === "nameForm"){
     e.preventDefault(); const v = $("#pName").value.trim();
     if(v.length < 2){ const m = $("#nameMsg"); m.className = "msg"; m.textContent = "Please enter a name."; return; }
@@ -1404,6 +1453,7 @@ function startPage(){
   loadGuest(); startPage(); renderHome(); updateHeader();
   try{ await Auth.init(); }catch(e){}
   updateHeader(); renderHome(); prefillContact();
+  if(RECOVERY){ if(USER) { openNewPassword(); return; } RECOVERY = false; openAuth("login", "That reset link has expired. Enter your email and tap \u201cForgot your password?\u201d for a new one."); return; }
   const aft = lsGet("nfl_after", null); if(aft){ lsSet("nfl_after", null); if(USER){ if(aft.pay){ openPay(aft.lesson); } else openProfile(); } }
 })();
 </script>
