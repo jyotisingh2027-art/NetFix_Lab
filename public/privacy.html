@@ -51,7 +51,7 @@ footer a{color:var(--muted)}
 <h2>2. Who handles your data for us</h2>
 <ul>
 <li><b>Supabase</b> stores accounts, progress, purchase records, contact messages and usage events (servers in Singapore).</li>
-<li><b>Cloudflare</b> hosts and delivers the website and runs the code that confirms payments.</li>
+<li><b>Cloudflare</b> hosts and delivers the website, runs the code that confirms payments, and provides <b>Cloudflare Web Analytics</b>, which counts page visits (page, referring site, country and device type) without cookies and without tracking you across sites.</li>
 <li><b>Dodo Payments</b> runs the checkout as the merchant of record. It collects your payment details, billing address and email under <a href="https://dodopayments.com/legal/privacy-policy" rel="noopener">its own privacy policy</a>, and sends us only the payment ID, amount, status and email.</li>
 <li><b>Google Fonts</b> and <b>jsDelivr</b> deliver fonts and a code library to your browser, which means they see your IP address when the page loads.</li>
 </ul>
@@ -90,5 +90,6 @@ footer a{color:var(--muted)}
 </article>
 <footer><a href="/privacy">Privacy policy</a><a href="/terms">Terms of use</a><a href="/refunds">Refund policy</a><a href="mailto:support@netfixlab.tech">support@netfixlab.tech</a></footer>
 </div>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ae48ba23391d47ee887b947ad47c1961"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
