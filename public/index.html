@@ -307,6 +307,17 @@ form .btn{margin-top:6px}
 .mini .mk{font:700 .72rem var(--comic);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:inline-flex;gap:4px;justify-content:center;align-items:center}
 .mini.is-done .mk{color:var(--green)}
 .prow{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.receipt{max-width:640px;margin-inline:auto;width:100%;padding:28px clamp(18px,4vw,34px);gap:14px}
+.receipt .badge{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font:700 .85rem var(--comic);text-transform:uppercase;letter-spacing:.06em;padding:6px 12px;border:3px solid #14213d;color:#14213d;box-shadow:3px 3px 0 #14213d}
+.receipt .badge.ok{background:#c8efc9}.receipt .badge.bad{background:#ffd9d3}.receipt .badge.wait{background:#fff3c4}
+.receipt h2{font-size:clamp(2.2rem,5vw,3rem)}
+.rlines{display:grid;grid-template-columns:minmax(0,auto) minmax(0,1fr);gap:8px 18px;margin:6px 0 4px;padding:14px 0;border-top:3px dashed var(--ink);border-bottom:3px dashed var(--ink)}
+.rlines dt{font-weight:700;color:var(--muted)}
+.rlines dd{margin:0;word-break:break-all}
+.plist{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.plist li{border:3px solid var(--ink);padding:10px 12px;display:flex;flex-wrap:wrap;gap:4px 16px;font-size:.95rem}
+.plist b{font-family:var(--comic)}
+@media print{header.top,footer,.receipt .prow{display:none!important}body{background:#fff}.receipt{box-shadow:none}}
 </style>
 <div class="wrap">
 <header class="top">
@@ -1014,10 +1025,12 @@ const Auth = {
     Track.visit();
   },
   async pull(){
-    const [pr, lp] = await Promise.all([
+    const [pr, lp, pu] = await Promise.all([
       sb.from("profiles").select("full_name,unlocked,created_at").eq("id", USER.id).maybeSingle(),
-      sb.from("lesson_progress").select("lesson,completed_at").eq("user_id", USER.id)
+      sb.from("lesson_progress").select("lesson,completed_at").eq("user_id", USER.id),
+      sb.from("purchases").select("dodo_payment_id,amount_cents,currency,status,created_at").eq("user_id", USER.id)
     ]);
+    S.purchases = ((pu && pu.data) || []).slice().sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)));
     const data = pr.data;
     S.unlocked = !!(data && data.unlocked);
     if(data && data.full_name) USER.name = data.full_name;
@@ -1035,7 +1048,7 @@ const Auth = {
   },
   async refresh(){
     if(!USE_SB || !USER) return;
-    try{ await Auth.pull(); updateHeader(); renderHome(); if(!$("#profile").hidden) renderProfile(); }catch(e){}
+    try{ await Auth.pull(); updateHeader(); renderHome(); if(!$("#profile").hidden && !$("#profile .receipt")) openProfile(); }catch(e){}
   },
   /* demo store */
   adoptDemo(email, u){
@@ -1116,9 +1129,9 @@ const Auth = {
 };
 /* ---------- state ---------- */
 const $ = s => document.querySelector(s);
-const S = { done: [], unlocked: false };
+const S = { done: [], unlocked: false, purchases: [] };
 let pending = null, lastFocus = null, AFTER = null;
-function loadGuest(){ const d = lsGet("nfl", {}); S.done = validDone(Array.isArray(d.done) ? d.done : []); S.unlocked = false; }
+function loadGuest(){ const d = lsGet("nfl", {}); S.done = validDone(Array.isArray(d.done) ? d.done : []); S.unlocked = false; S.purchases = []; }
 function save(){ if(USER) Auth.persist(); else lsSet("nfl", {done:S.done}); }
 const isLocked = n => n > FREE_COUNT && !S.unlocked;
 const VIEWS = ["home","reader","auth","profile"];
@@ -1377,6 +1390,7 @@ function openProfile(note, bad){
         <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${done}" aria-label="Issues read"><i style="width:${pct}%"></i></div>
         <p><b>${done} of ${total}</b> issues read</p>
         <div class="prow">${cont}${buy}</div>
+        ${purchaseList()}
         <h3 style="margin-top:14px">Your shelf</h3>
         <div class="minis">${minis}</div>
       </section>
@@ -1404,20 +1418,69 @@ async function submitContact(){
 }
 
 /* ---------- payment ---------- */
-async function afterCheckout(){
-  const q = new URLSearchParams(location.search), st = (q.get("status") || "").toLowerCase();
-  try{ history.replaceState(null, "", location.pathname); }catch(e){}
-  if(!USER){ openAuth("login", "Log in to see your unlocked lessons."); return; }
-  if(/^(failed|cancelled|canceled|declined|requires_payment_method|expired)$/.test(st)){
-    openProfile("The payment did not go through, so nothing was charged (Dodo status: " + st + "). You can try again any time.", true); return;
-  }
-  openProfile("Payment received. Unlocking your lessons...");
-  for(let i = 0; i < 10 && !S.unlocked; i++){
-    await new Promise(r => setTimeout(r, i < 3 ? 1500 : 3000));
+const money = (cents, cur) => { try{ return new Intl.NumberFormat("en-US", {style:"currency", currency:cur || "USD"}).format((cents || 0) / 100); }catch(e){ return "$" + ((cents || 0) / 100).toFixed(2); } };
+const when = d => { try{ return new Date(d).toLocaleString("en-US", {dateStyle:"medium", timeStyle:"short"}); }catch(e){ return String(d || ""); } };
+function purchaseList(){
+  if(!S.purchases || !S.purchases.length) return "";
+  return `<h3 style="margin-top:14px">Your purchase</h3><ul class="plist">${S.purchases.map(p =>
+    `<li><b>${p.status === "succeeded" ? "Paid" : p.status === "refunded" ? "Refunded" : esc(p.status)}</b><span>${esc(money(p.amount_cents, p.currency))}</span><span>${esc(when(p.created_at))}</span><span class="fine">Payment ID ${esc(p.dodo_payment_id)}</span></li>`).join("")}</ul>`;
+}
+function renderReceipt(r){
+  const ok = r.state === "success", bad = r.state === "failed", wait = r.state === "confirming" || r.state === "pending";
+  const badge = ok ? `<span class="badge ok">✓ Payment successful</span>` : bad ? `<span class="badge bad">✕ Payment not completed</span>` : `<span class="badge wait">⏳ Confirming payment</span>`;
+  const title = ok ? "Thank you! You’re all set." : bad ? "Your payment did not go through" : "Almost there...";
+  const lead = ok ? "All 12 lessons are now unlocked on your account, on every device."
+    : bad ? "Nothing was charged. You can try again with another card, or contact us if this keeps happening."
+    : r.state === "pending" ? "Your payment was received, but unlocking is taking longer than usual. It usually finishes within a minute. Tap “Check again” shortly."
+    : "Your payment was received. We are unlocking your lessons now. This page updates by itself.";
+  const p = r.purchase;
+  const lines = [
+    ["Item", "NetFixLab full course (lessons 4 to 12)"],
+    ["Amount", p ? money(p.amount_cents, p.currency) : CONFIG.price + " USD"],
+    ["Status", ok ? "Paid" : bad ? "Not completed" + (r.status ? " (" + r.status + ")" : "") : "Processing"],
+    ["Date", when(p ? p.created_at : r.at)],
+    ["Payment ID", (p && p.dodo_payment_id) || r.paymentId || "—"],
+    ["Email", r.email || (USER && USER.email) || ""]
+  ];
+  $("#profile").innerHTML = `
+    <section class="box receipt" aria-live="polite">
+      ${badge}
+      <h2>${title}</h2>
+      <p class="lead">${lead}</p>
+      <dl class="rlines">${lines.map(l => `<dt>${esc(l[0])}</dt><dd>${esc(l[1])}</dd>`).join("")}</dl>
+      ${ok ? `<p class="fine">Dodo Payments has also emailed a receipt to ${esc(r.email || USER.email)}. Keep this page or that email as your proof of purchase.</p>` : ""}
+      ${bad ? `<p class="fine">If money left your account, it is released automatically by your bank. Questions? Use the Contact form and quote the payment ID.</p>` : ""}
+      <div class="prow">
+        ${ok ? `<button class="btn" data-open="4">Start lesson 4 ▸</button>` : ""}
+        ${bad ? `<button class="btn" data-buy>Try again</button>` : ""}
+        ${r.state === "pending" ? `<button class="btn" id="recheck">Check again</button>` : ""}
+        ${ok ? `<button class="btn alt" type="button" onclick="window.print()">Print or save as PDF</button>` : ""}
+        <button class="btn alt" data-view="profile">Go to your profile</button>
+      </div>
+    </section>`;
+  show("profile");
+}
+let RECEIPT = null;
+async function confirmUnlock(){
+  for(let i = 0; i < 12 && !S.unlocked; i++){
+    await new Promise(r => setTimeout(r, i < 4 ? 1500 : 3000));
     try{ await Auth.pull(); }catch(e){}
   }
   updateHeader(); renderHome();
-  openProfile(S.unlocked ? "Thank you! All 12 lessons are unlocked." : "Payment received. Unlocking can take a minute: tap \u201cI have paid, check my account\u201d shortly.");
+  const p = (S.purchases || []).find(x => !RECEIPT.paymentId || x.dodo_payment_id === RECEIPT.paymentId) || (S.purchases || [])[0];
+  RECEIPT = Object.assign({}, RECEIPT, {state: S.unlocked ? "success" : "pending", purchase: p || null});
+  renderReceipt(RECEIPT);
+}
+async function afterCheckout(){
+  const q = new URLSearchParams(location.search), st = (q.get("status") || "").toLowerCase();
+  RECEIPT = {status: st, paymentId: q.get("payment_id") || "", email: q.get("email") || "", at: new Date().toISOString()};
+  try{ history.replaceState(null, "", location.pathname); }catch(e){}
+  if(!USER){ openAuth("login", "Log in to see your purchase and unlocked lessons."); return; }
+  if(/^(failed|cancelled|canceled|declined|requires_payment_method|expired)$/.test(st)){
+    RECEIPT.state = "failed"; renderReceipt(RECEIPT); return;
+  }
+  RECEIPT.state = "confirming"; renderReceipt(RECEIPT);
+  await confirmUnlock();
 }
 function openPay(n){
   pending = n || null; lastFocus = document.activeElement;
@@ -1449,7 +1512,7 @@ function unlock(){
 
 /* ---------- events ---------- */
 document.addEventListener("click", async e => {
-  const t = e.target.closest("[data-social],[data-open],[data-go],[data-buy],[data-next],[data-read],[data-cover],[data-view],.opt,#demoUnlock,#payX,#payGo,#logout,#forgot,#checkPay");
+  const t = e.target.closest("[data-social],[data-open],[data-go],[data-buy],[data-next],[data-read],[data-cover],[data-view],.opt,#demoUnlock,#payX,#payGo,#recheck,#logout,#forgot,#checkPay");
   if(!t) return;
   if(t.matches("[data-social]")) await socialLogin(t.dataset.social);
   else if(t.matches("[data-go]")){ e.preventDefault(); go(t.dataset.go); }
@@ -1461,6 +1524,7 @@ document.addEventListener("click", async e => {
   else if(t.matches("[data-buy]")) openPay(null);
   else if(t.matches("[data-read]")){ $("#cv").hidden = true; $("#pages").hidden = false; window.scrollTo(0,0); Track.event("comic_opened", +$("#reader").dataset.n); }
   else if(t.id === "payGo") Track.event("checkout_started", pending);
+  else if(t.id === "recheck"){ RECEIPT.state = "confirming"; renderReceipt(RECEIPT); await confirmUnlock(); }
   else if(t.matches("[data-cover]")){ $("#pages").hidden = true; $("#cv").hidden = false; window.scrollTo(0,0); }
   else if(t.matches("[data-next]")) finishLesson(+t.dataset.next);
   else if(t.id === "demoUnlock") unlock();
