@@ -6,6 +6,7 @@ A single static page (`public/index.html`), no build step. Pushing to `main` dep
 
 ## Going live with real accounts and payments
 Edit the `CONFIG` block near the top of the `<script>` in `public/index.html`:
-- `paymentLink`: a Razorpay or Stripe payment link (empty = demo unlock, no charge)
-- `supabaseUrl` / `supabaseKey`: Supabase project URL and public anon key (empty = accounts stored only in the visitor's browser)
+- `paymentLink`: the Dodo Payments link for the full-course product (empty = payments not open yet)
+- `supabaseUrl` / `supabaseKey`: Supabase project URL and publishable key (set). Database setup: run `supabase/schema.sql` once in the Supabase SQL editor.
+- `socialProviders`: add `"google"` / `"facebook"` after enabling them in Supabase Auth
 - `contactEmail`: shown in the Contact section

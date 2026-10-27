@@ -276,6 +276,7 @@ form textarea{width:100%;font:inherit;padding:10px 12px;border:3px solid var(--i
 .or::before,.or::after{content:"";flex:1;height:3px;background:var(--ink);opacity:.25}
 .linkbtn{background:none;border:0;padding:6px 0;font:inherit;font-weight:700;color:var(--blue);text-decoration:underline;cursor:pointer;align-self:flex-start}
 .top .logo .mark{flex:none}
+@media (max-width:480px){.top{gap:10px;flex-wrap:wrap}.logo{font-size:1.6rem;gap:6px}.logo .mark{width:34px;height:34px}.top .actions{gap:6px}.top .actions .btn.sm{padding:6px 9px;font-size:.78rem;letter-spacing:.02em}}
 .authside p{color:var(--muted)}
 .authbox{padding:24px;gap:12px}
 .authbox h2{font-size:2.3rem}
@@ -453,7 +454,6 @@ form .btn{margin-top:6px}
 
 <footer>
   <span>NetFixLab · netfixlab.tech · Created by Jyoti Kumari Singh, ex-Cisco Network Consulting Engineer.</span>
-  <button class="linkbtn" id="reset">Reset demo (clears progress and unlock)</button>
 </footer>
 </div>
 
@@ -470,13 +470,15 @@ form .btn{margin-top:6px}
 </div>
 <script>
 /* ---------- config ---------- */
-// Set paymentLink to a Razorpay / Stripe payment link to take real payments.
-// While it is empty the site runs in demo mode: the unlock button works without charging.
+// paymentLink: the Dodo Payments static link for the course product,
+// e.g. https://checkout.dodopayments.com/buy/pdt_xxx (empty = payments not open yet).
+// With supabaseUrl/supabaseKey empty the site falls back to a browser-only demo.
 const CONFIG = {
-  price: "$6",              // shown on the site (USD)
-  paymentLink: "",          // Stripe or Razorpay payment link; empty = demo mode
-  supabaseUrl: "",          // from Supabase: Project Settings > API
-  supabaseKey: "",          // the public anon key (never the service role key)
+  price: "$6",              // shown on the site (USD, one-time)
+  paymentLink: "",          // Dodo Payments link for the full-course product
+  supabaseUrl: "https://wupybzrnzgvpgmorizen.supabase.co",
+  supabaseKey: "sb_publishable_xMHhaDdwzmYnASq7P4D8oQ_VZSVTDIQ",   // publishable key: safe to be public
+  socialProviders: [],      // add "google" and/or "facebook" once enabled in Supabase
   authorName: "Jyoti Kumari Singh",
   contactEmail: ""          // optional, shown in the Contact section
 };
@@ -943,12 +945,48 @@ function loadSB(){
   return new Promise(res => {
     if(!CONFIG.supabaseUrl || !CONFIG.supabaseKey) return res(false);
     const s = document.createElement("script");
-    s.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js";
+    s.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js";
     s.onload = () => res(!!window.supabase); s.onerror = () => res(false);
     document.head.appendChild(s);
   });
 }
 const validDone = a => [...new Set(a)].filter(n => Number.isInteger(n) && n >= 1 && n <= LESSONS.length);
+
+/* ---------- anonymous course analytics: a random browser ID, no personal data ---------- */
+const Track = {
+  vid: null,
+  id(){
+    if(Track.vid) return Track.vid;
+    let v = null;
+    try{ v = localStorage.getItem("nfl_vid"); }catch(e){}
+    if(!v || !/^v_[a-z0-9]{12,40}$/.test(v)){
+      const b = new Uint8Array(12);
+      try{ crypto.getRandomValues(b); }catch(e){ for(let i=0;i<b.length;i++) b[i] = Math.random()*256|0; }
+      v = "v_" + Array.from(b, x => x.toString(36).padStart(2,"0")).join("").slice(0,24);
+      try{ localStorage.setItem("nfl_vid", v); }catch(e){}
+    }
+    return (Track.vid = v);
+  },
+  source(){
+    try{
+      const q = new URLSearchParams(location.search), utm = q.get("utm_source") || q.get("ref");
+      if(utm) return utm;
+      if(!document.referrer) return "direct";
+      const h = new URL(document.referrer).hostname.replace(/^www\./,"");
+      if(h === location.hostname.replace(/^www\./,"")) return "direct";
+      return h.split(".").slice(-2)[0] || h;
+    }catch(e){ return "direct"; }
+  },
+  device(){ return (window.matchMedia && matchMedia("(max-width: 760px)").matches) || /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : "desktop"; },
+  visit(){
+    if(!USE_SB) return;
+    sb.rpc("track_visit", {p_visitor:Track.id(), p_source:Track.source(), p_device:Track.device()}).then(() => {}, () => {});
+  },
+  event(ev, lesson){
+    if(!USE_SB) return;
+    sb.rpc("track_event", {p_visitor:Track.id(), p_lesson:lesson || null, p_event:ev}).then(() => {}, () => {});
+  }
+};
 
 const Auth = {
   async init(){
@@ -956,6 +994,7 @@ const Auth = {
       USE_SB = true; sb = window.supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseKey);
       const r = await sb.auth.getSession();
       if(r.data && r.data.session) await Auth.adopt(r.data.session.user);
+      Track.visit();
       sb.auth.onAuthStateChange((ev) => { if(ev === "SIGNED_OUT" && USER){ USER = null; loadGuest(); updateHeader(); renderHome(); } });
       window.addEventListener("focus", () => Auth.refresh());
     } else {
@@ -967,13 +1006,27 @@ const Auth = {
   async adopt(u){
     USER = {id:u.id, email:u.email, name:(u.user_metadata && u.user_metadata.full_name) || u.email.split("@")[0], joined:u.created_at};
     await Auth.pull();
+    Track.visit();
   },
   async pull(){
-    const r = await sb.from("profiles").select("full_name,progress,unlocked").eq("id", USER.id).maybeSingle();
-    const data = r.data, srv = (data && data.progress && data.progress.done) || [], guest = lsGet("nfl", {}).done || [];
-    S.done = validDone([...srv, ...guest]); S.unlocked = !!(data && data.unlocked);
+    const [pr, lp] = await Promise.all([
+      sb.from("profiles").select("full_name,unlocked,created_at").eq("id", USER.id).maybeSingle(),
+      sb.from("lesson_progress").select("lesson,completed_at").eq("user_id", USER.id)
+    ]);
+    const data = pr.data;
+    S.unlocked = !!(data && data.unlocked);
     if(data && data.full_name) USER.name = data.full_name;
-    if(S.done.length > validDone(srv).length) Auth.persist();
+    if(data && data.created_at) USER.joined = data.created_at;
+    const srv = validDone(((lp && lp.data) || []).filter(x => x.completed_at).map(x => x.lesson));
+    const guest = validDone(lsGet("nfl", {}).done || []).filter(n => !srv.includes(n) && !isLocked(n));
+    S.done = validDone([...srv, ...guest]);
+    // copy lessons read as a guest into the account, then clear the guest copy
+    for(const n of guest){ await Auth.record(n, "opened"); await Auth.record(n, "completed"); }
+    if(guest.length) lsSet("nfl", {done:[]});
+  },
+  record(n, action){
+    if(!USE_SB || !USER) return Promise.resolve();
+    return sb.rpc("record_progress", {p_lesson:n, p_action:action}).then(() => {}, () => {});
   },
   async refresh(){
     if(!USE_SB || !USER) return;
@@ -992,14 +1045,13 @@ const Auth = {
       if(r){ r.done = S.done; r.unlocked = S.unlocked; r.name = USER.name; lsSet("nfl_users", us); }
       return;
     }
-    clearTimeout(Auth._t);
-    Auth._t = setTimeout(() => { sb.from("profiles").upsert({id:USER.id, full_name:USER.name, progress:{done:S.done}}).then(() => {}, () => {}); }, 400);
   },
   async signup(name, email, pw){
     email = email.trim().toLowerCase();
     if(USE_SB){
-      const r = await sb.auth.signUp({email, password:pw, options:{data:{full_name:name}}});
+      const r = await sb.auth.signUp({email, password:pw, options:{data:{full_name:name}, emailRedirectTo:location.origin + location.pathname}});
       if(r.error) return {error:r.error.message};
+      Track.event("signed_up");
       if(!r.data.session) return {confirm:true};
       await Auth.adopt(r.data.user); return {};
     }
@@ -1035,12 +1087,12 @@ const Auth = {
   },
   async saveName(name){
     USER.name = name;
-    if(USE_SB){ try{ await sb.auth.updateUser({data:{full_name:name}}); }catch(e){} }
-    Auth.persist();
+    if(USE_SB){ try{ await sb.rpc("set_my_name", {p_name:name}); await sb.auth.updateUser({data:{full_name:name}}); }catch(e){} }
+    else Auth.persist();
   },
   async sendContact(m){
     if(USE_SB){
-      const r = await sb.from("contact_messages").insert({name:m.name, email:m.email, message:m.message});
+      const r = await sb.rpc("send_contact", {p_name:m.name, p_email:m.email, p_message:m.message});
       return r.error ? {error:"Could not send your message. Please try again in a moment."} : {};
     }
     const all = lsGet("nfl_msgs", []); all.push(Object.assign({at:new Date().toISOString()}, m)); lsSet("nfl_msgs", all);
@@ -1126,8 +1178,12 @@ function openLesson(n){
     </div>`;
   $("#reader").dataset.n = n;
   show("reader");
+  Track.event("cover_viewed", n);
+  Auth.record(n, "opened");
 }
 function finishLesson(n){
+  Track.event("lesson_completed", n);
+  Auth.record(n, "completed");
   if(!S.done.includes(n)){ S.done.push(n); save(); }
   if(n < LESSONS.length) openLesson(n+1); else go("lessons");
 }
@@ -1164,18 +1220,21 @@ function openAuth(tab, msg){
           <p class="msg" id="authMsg" role="alert">${esc(msg || "")}</p>
           <button class="btn" type="submit" id="authGo">${su ? "Create my account" : "Log in"}</button>
         </form>
-        <div class="or"><span>or ${su ? "sign up" : "log in"} with</span></div>
-        <div class="social">
-          <button class="sbtn" type="button" data-social="google">${GSVG}Continue with Google</button>
-          <button class="sbtn fb" type="button" data-social="facebook">${FSVG}Continue with Facebook</button>
-        </div>
+        ${socialButtons(su)}
         ${!su && USE_SB ? `<button class="linkbtn" type="button" id="forgot">Forgot your password?</button>` : ""}
         <p class="fine">${su ? "Already have an account? " : "New here? "}<button class="linkbtn" type="button" data-view="${su ? "login" : "signup"}">${su ? "Log in" : "Sign up free"}</button></p>
-        ${!USE_SB ? `<p class="fine">Demo mode: email accounts are saved only in this browser until Supabase is connected. Google and Facebook sign-in switch on once it is.</p>` : ""}
+        ${!USE_SB ? `<p class="fine">Demo mode: accounts are saved only in this browser.</p>` : ""}
       </div>
     </div>`;
   show("auth");
   const first = $(su ? "#fName" : "#fEmail"); if(first && first.focus) first.focus();
+}
+function socialButtons(su){
+  const on = USE_SB ? (CONFIG.socialProviders || []) : ["google","facebook"];
+  if(!on.length) return "";
+  const b = (on.includes("google") ? `<button class="sbtn" type="button" data-social="google">${GSVG}Continue with Google</button>` : "")
+          + (on.includes("facebook") ? `<button class="sbtn fb" type="button" data-social="facebook">${FSVG}Continue with Facebook</button>` : "");
+  return `<div class="or"><span>or ${su ? "sign up" : "log in"} with</span></div><div class="social">${b}</div>`;
 }
 async function socialLogin(provider){
   const m = $("#authMsg");
@@ -1271,15 +1330,19 @@ function openPay(n){
   if(!USER){
     $("#payAct").innerHTML = `<button class="btn" data-view="signup" data-after="pay">Create a free account to unlock</button> <button class="linkbtn" data-view="login" data-after="pay">I already have an account</button>`;
     $("#payNote").textContent = "Your purchase is saved to your account, so you can read on any device.";
-  } else if(CONFIG.paymentLink){
-    const q = (CONFIG.paymentLink.indexOf("?") < 0 ? "?" : "&") + "client_reference_id=" + encodeURIComponent(USER.id) + "&prefilled_email=" + encodeURIComponent(USER.email);
-    $("#payAct").innerHTML = `<a class="btn" href="${esc(CONFIG.paymentLink + q)}" target="_blank" rel="noopener">Pay ${esc(CONFIG.price)} once</a>`;
+  } else if(CONFIG.paymentLink && USE_SB){
+    const back = location.origin + location.pathname + "?paid=1";
+    const q = (CONFIG.paymentLink.indexOf("?") < 0 ? "?" : "&") + new URLSearchParams({
+      quantity:"1", email:USER.email, disableEmail:"true", metadata_user_id:USER.id, redirect_url:back
+    }).toString();
+    $("#payAct").innerHTML = `<a class="btn" id="payGo" href="${esc(CONFIG.paymentLink + q)}" target="_blank" rel="noopener">Pay ${esc(CONFIG.price)} once</a>`;
     $("#payNote").textContent = "Secure checkout opens in a new tab. Come back here afterwards and your lessons unlock once the payment is confirmed.";
   } else {
     $("#payAct").innerHTML = USE_SB ? "" : `<button class="btn" id="demoUnlock">Unlock all lessons (demo)</button>`;
-    $("#payNote").textContent = USE_SB ? "Payments are not connected yet. Add your payment link in CONFIG." : "Demo mode: no money is taken. Add your Razorpay or Stripe payment link in CONFIG to charge real payments.";
+    $("#payNote").textContent = USE_SB ? "Online payments open very soon. Your free account keeps your progress until then." : "Demo mode: no money is taken.";
   }
   $("#pay").hidden = false; $("#payX").focus();
+  Track.event("paywall_viewed", n || null);
 }
 function closePay(){ $("#pay").hidden = true; if(lastFocus && lastFocus.focus) lastFocus.focus(); }
 function unlock(){
@@ -1291,7 +1354,7 @@ function unlock(){
 
 /* ---------- events ---------- */
 document.addEventListener("click", async e => {
-  const t = e.target.closest("[data-social],[data-open],[data-go],[data-buy],[data-next],[data-read],[data-cover],[data-view],.opt,#demoUnlock,#payX,#reset,#logout,#forgot,#checkPay");
+  const t = e.target.closest("[data-social],[data-open],[data-go],[data-buy],[data-next],[data-read],[data-cover],[data-view],.opt,#demoUnlock,#payX,#payGo,#logout,#forgot,#checkPay");
   if(!t) return;
   if(t.matches("[data-social]")) await socialLogin(t.dataset.social);
   else if(t.matches("[data-go]")){ e.preventDefault(); go(t.dataset.go); }
@@ -1301,7 +1364,8 @@ document.addEventListener("click", async e => {
   }
   else if(t.matches("[data-open]")) openLesson(+t.dataset.open);
   else if(t.matches("[data-buy]")) openPay(null);
-  else if(t.matches("[data-read]")){ $("#cv").hidden = true; $("#pages").hidden = false; window.scrollTo(0,0); }
+  else if(t.matches("[data-read]")){ $("#cv").hidden = true; $("#pages").hidden = false; window.scrollTo(0,0); Track.event("comic_opened", +$("#reader").dataset.n); }
+  else if(t.id === "payGo") Track.event("checkout_started", pending);
   else if(t.matches("[data-cover]")){ $("#pages").hidden = true; $("#cv").hidden = false; window.scrollTo(0,0); }
   else if(t.matches("[data-next]")) finishLesson(+t.dataset.next);
   else if(t.id === "demoUnlock") unlock();
@@ -1309,11 +1373,11 @@ document.addEventListener("click", async e => {
   else if(t.id === "logout"){ await Auth.logout(); updateHeader(); showHome(); }
   else if(t.id === "checkPay"){ await Auth.refresh(); openProfile(S.unlocked ? "Payment found. Everything is unlocked." : "No payment yet. It can take a minute to arrive."); }
   else if(t.id === "forgot"){ const em = $("#fEmail").value.trim(); const r = em ? await Auth.reset(em) : {error:"Type your email first, then tap this again."}; const m = $("#authMsg"); m.textContent = r.error || "Check your email for a reset link."; }
-  else if(t.id === "reset"){ S.done = []; S.unlocked = false; lsSet("nfl", {done:[]}); if(USER) Auth.persist(); showHome(); }
   else if(t.classList.contains("opt")){
     const fb = $("#fb"), all = document.querySelectorAll("#quiz .opt");
-    if(t.dataset.ok === "1"){ t.classList.add("ok"); all.forEach(b => b.disabled = true); fb.textContent = "Correct. " + LESSONS[+$("#reader").dataset.n - 1].q.why; }
-    else { t.classList.add("bad"); t.disabled = true; fb.textContent = "Not quite. Have another go."; }
+    const ln = +$("#reader").dataset.n;
+    if(t.dataset.ok === "1"){ t.classList.add("ok"); all.forEach(b => b.disabled = true); fb.textContent = "Correct. " + LESSONS[ln - 1].q.why; Track.event("quiz_passed", ln); Auth.record(ln, "quiz_passed"); }
+    else { t.classList.add("bad"); t.disabled = true; fb.textContent = "Not quite. Have another go."; Track.event("quiz_wrong", ln); Auth.record(ln, "quiz_wrong"); }
   }
 });
 document.addEventListener("submit", async e => {
