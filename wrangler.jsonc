@@ -1,8 +1,19 @@
 {
-  // Cloudflare Worker that serves the static NetFixLab site on netfixlab.tech
+  // Cloudflare Worker for netfixlab.tech: serves ./public and the payment webhook.
+  // Secrets (set in the Cloudflare dashboard, never in this file):
+  //   DODO_WEBHOOK_SECRET, SUPABASE_SECRET_KEY
   "name": "netfix-lab",
+  "main": "src/worker.js",
   "compatibility_date": "2026-10-01",
   "assets": {
-    "directory": "./public"
-  }
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "SUPABASE_URL": "https://wupybzrnzgvpgmorizen.supabase.co",
+    "COURSE_PRODUCT_ID": "pdt_0NqeoLFwchKisY2Dd0pUD"
+  },
+  "keep_vars": true,
+  "observability": { "enabled": true }
 }

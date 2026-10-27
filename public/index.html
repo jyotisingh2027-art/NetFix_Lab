@@ -475,7 +475,9 @@ form .btn{margin-top:6px}
 // With supabaseUrl/supabaseKey empty the site falls back to a browser-only demo.
 const CONFIG = {
   price: "$6",              // shown on the site (USD, one-time)
-  paymentLink: "",          // Dodo Payments link for the full-course product
+  // Dodo Payments link for the full-course product. TEST mode while testing;
+  // for real payments change "test.checkout" to "checkout" (live product ID too).
+  paymentLink: "https://test.checkout.dodopayments.com/buy/pdt_0NqeoLFwchKisY2Dd0pUD",
   supabaseUrl: "https://wupybzrnzgvpgmorizen.supabase.co",
   supabaseKey: "sb_publishable_xMHhaDdwzmYnASq7P4D8oQ_VZSVTDIQ",   // publishable key: safe to be public
   socialProviders: [],      // add "google" and/or "facebook" once enabled in Supabase
@@ -1402,6 +1404,19 @@ async function submitContact(){
 }
 
 /* ---------- payment ---------- */
+async function afterCheckout(){
+  const q = new URLSearchParams(location.search), st = (q.get("status") || "").toLowerCase();
+  try{ history.replaceState(null, "", location.pathname); }catch(e){}
+  if(!USER){ openAuth("login", "Log in to see your unlocked lessons."); return; }
+  if(st && st !== "succeeded"){ openProfile("The payment did not go through, so nothing was charged. You can try again any time."); return; }
+  openProfile("Payment received. Unlocking your lessons...");
+  for(let i = 0; i < 10 && !S.unlocked; i++){
+    await new Promise(r => setTimeout(r, i < 3 ? 1500 : 3000));
+    try{ await Auth.pull(); }catch(e){}
+  }
+  updateHeader(); renderHome();
+  openProfile(S.unlocked ? "Thank you! All 12 lessons are unlocked." : "Payment received. Unlocking can take a minute: tap \u201cI have paid, check my account\u201d shortly.");
+}
 function openPay(n){
   pending = n || null; lastFocus = document.activeElement;
   document.querySelectorAll("[data-price]").forEach(e => e.textContent = CONFIG.price);
@@ -1413,8 +1428,8 @@ function openPay(n){
     const q = (CONFIG.paymentLink.indexOf("?") < 0 ? "?" : "&") + new URLSearchParams({
       quantity:"1", email:USER.email, disableEmail:"true", metadata_user_id:USER.id, redirect_url:back
     }).toString();
-    $("#payAct").innerHTML = `<a class="btn" id="payGo" href="${esc(CONFIG.paymentLink + q)}" target="_blank" rel="noopener">Pay ${esc(CONFIG.price)} once</a>`;
-    $("#payNote").textContent = "Secure checkout opens in a new tab. Come back here afterwards and your lessons unlock once the payment is confirmed.";
+    $("#payAct").innerHTML = `<a class="btn" id="payGo" href="${esc(CONFIG.paymentLink + q)}">Pay ${esc(CONFIG.price)} once</a>`;
+    $("#payNote").textContent = "Secure checkout by Dodo Payments. You come straight back here afterwards, and lessons 4 to 12 unlock as soon as the payment is confirmed.";
   } else {
     $("#payAct").innerHTML = USE_SB ? "" : `<button class="btn" id="demoUnlock">Unlock all lessons (demo)</button>`;
     $("#payNote").textContent = USE_SB ? "Online payments open very soon. Your free account keeps your progress until then." : "Demo mode: no money is taken.";
@@ -1485,6 +1500,7 @@ function startPage(){
   try{ await Auth.init(); }catch(e){}
   updateHeader(); renderHome(); prefillContact();
   if(RECOVERY){ if(USER) { openNewPassword(); return; } RECOVERY = false; openAuth("login", "That reset link has expired. Enter your email and tap \u201cForgot your password?\u201d for a new one."); return; }
+  if(/[?&]paid=1\b/.test(location.search)){ afterCheckout(); return; }
   const aft = lsGet("nfl_after", null); if(aft){ lsSet("nfl_after", null); if(USER){ if(aft.pay){ openPay(aft.lesson); } else openProfile(); } }
 })();
 </script>
