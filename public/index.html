@@ -307,6 +307,7 @@ form .btn{margin-top:6px}
 .mini .mk{font:700 .72rem var(--comic);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:inline-flex;gap:4px;justify-content:center;align-items:center}
 .mini.is-done .mk{color:var(--green)}
 .prow{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var(--muted)}
 .receipt{max-width:640px;margin-inline:auto;width:100%;padding:28px clamp(18px,4vw,34px);gap:14px}
 .receipt .badge{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font:700 .85rem var(--comic);text-transform:uppercase;letter-spacing:.06em;padding:6px 12px;border:3px solid #14213d;color:#14213d;box-shadow:3px 3px 0 #14213d}
 .receipt .badge.ok{background:#c8efc9}.receipt .badge.bad{background:#ffd9d3}.receipt .badge.wait{background:#fff3c4}
@@ -429,6 +430,7 @@ form .btn{margin-top:6px}
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first three lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -465,6 +467,7 @@ form .btn{margin-top:6px}
 
 <footer>
   <span>NetFixLab · netfixlab.tech · Created by Jyoti Kumari Singh, ex-Cisco Network Consulting Engineer.</span>
+  <nav class="legal" aria-label="Legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/refunds">Refunds</a><a href="mailto:support@netfixlab.tech">support@netfixlab.tech</a></nav>
 </footer>
 </div>
 
@@ -493,7 +496,7 @@ const CONFIG = {
   supabaseKey: "sb_publishable_xMHhaDdwzmYnASq7P4D8oQ_VZSVTDIQ",   // publishable key: safe to be public
   socialProviders: [],      // add "google" and/or "facebook" once enabled in Supabase
   authorName: "Jyoti Kumari Singh",
-  contactEmail: ""          // optional, shown in the Contact section
+  contactEmail: "support@netfixlab.tech"   // shown in the Contact section
 };
 const FREE_COUNT = 3;
 
@@ -1245,6 +1248,7 @@ function openAuth(tab, msg){
           <label for="fEmail">Email</label><input id="fEmail" type="email" autocomplete="email">
           <label for="fPass">Password</label><input id="fPass" type="password" autocomplete="${su ? "new-password" : "current-password"}">
           ${su ? `<p class="hint">At least 8 characters.</p>` : `<button class="linkbtn" type="button" id="forgot">Forgot your password?</button>`}
+          ${su ? `<p class="fine">By creating an account you agree to the <a href="/terms" target="_blank">terms of use</a> and <a href="/privacy" target="_blank">privacy policy</a>.</p>` : ""}
           <p class="msg" id="authMsg" role="alert">${esc(msg || "")}</p>
           <button class="btn" type="submit" id="authGo">${su ? "Create my account" : "Log in"}</button>
         </form>
@@ -1494,7 +1498,7 @@ function openPay(n){
       quantity:"1", email:USER.email, disableEmail:"true", metadata_user_id:USER.id, redirect_url:back
     }).toString();
     $("#payAct").innerHTML = `<a class="btn" id="payGo" href="${esc(CONFIG.paymentLink + q)}">Pay ${esc(CONFIG.price)} once</a>`;
-    $("#payNote").textContent = "Secure checkout by Dodo Payments. You come straight back here afterwards, and lessons 4 to 12 unlock as soon as the payment is confirmed.";
+    $("#payNote").innerHTML = `Secure checkout by Dodo Payments. You come straight back here afterwards, and lessons 4 to 12 unlock as soon as the payment is confirmed. By paying you agree to the <a href="/terms" target="_blank">terms</a> and the <a href="/refunds" target="_blank">refund policy</a>: all sales are final, so please try the free lessons first.`;
   } else {
     $("#payAct").innerHTML = USE_SB ? "" : `<button class="btn" id="demoUnlock">Unlock all lessons (demo)</button>`;
     $("#payNote").textContent = USE_SB ? "Online payments open very soon. Your free account keeps your progress until then." : "Demo mode: no money is taken.";
