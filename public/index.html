@@ -1552,6 +1552,246 @@ const bkFsSync = () => { const b = Book.el && Book.el.querySelector(".bk-fs"); i
 document.addEventListener("fullscreenchange", bkFsSync);
 document.addEventListener("webkitfullscreenchange", bkFsSync);
 
+/* ---------- Mac, the NetFixLab desktop pet ----------
+   An original retro computer buddy. Introduces itself on the landing page, pops up now and
+   then with a joke, cheers (and spins its head) when a chapter is finished.
+   MacPet.start(opts), MacPet.intro(), MacPet.joke(), MacPet.celebrate(issueNumber) */
+const MacPet = (() => {
+  const get = k => { try{ return localStorage.getItem(k); }catch(e){ return null; } };
+  const set = (k, v) => { try{ localStorage.setItem(k, v); }catch(e){} };
+  const still = () => window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const rnd = (a, b) => a + Math.random() * (b - a);
+
+  const JOKES = [
+    "I tried telling a UDP joke once. No idea if anyone got it.",
+    "Knock knock! (Who's there?) Broadcast! (Broadcast who?) EVERYBODY!!",
+    "Why did the packet cross the road? To reach the other subnet.",
+    "A router's favorite dance? The HOP.",
+    "Want to hear a TCP joke? ...Ready? ...You sure? ...OK, here it comes.",
+    "My favorite workout: bit-ups. Do eight and you've got a byte.",
+    "Why are switches never lost? They always know which port to take.",
+    "There's no place like 127.0.0.1. That's 'home', for computers.",
+    "Fun fact: the first message on the internet was 'LO'. It crashed before 'GIN'.",
+    "How do routers say goodbye? 'See you on the next hop!'",
+    "I'm not old. I'm VINTAGE hardware.",
+    "My name is Mac. No, not a MAC address. I'm much friendlier.",
+    "Ping! ...Pong! Just checking you're still there.",
+    "Why did the cable see a counselor? Too many twisted pairs.",
+    "I asked the router for directions. It said: 'next hop, then ask again.'",
+    "Why was the computer cold? It left its Windows open.",
+    "An IP address walks into a bar. The bartender says: 'Sorry, we're full. /32 only.'",
+    "What do you call a lazy packet? A slow-ket. ...I'll see myself out.",
+    "Pro tip: when the Wi-Fi acts up, restart the router first. I'm not saying it works every time. But it does a LOT.",
+    "Why did Fonz bring a ladder to class? To reach the higher layers.",
+    "I'd make a joke about 1s and 0s, but there are only 10 people who'd get it."
+  ];
+  const CHEERS = ["WOOHOO!", "YOU DID IT!", "AMAZING!", "HIGH FIVE!", "NAILED IT!"];
+
+  const head = () => `<svg class="mp-head-svg" viewBox="0 0 120 124" aria-hidden="true">
+    <defs><radialGradient id="mpGlow" cx=".5" cy=".45" r=".7"><stop offset="0" stop-color="#1c4a31"/><stop offset="1" stop-color="#0c2016"/></radialGradient></defs>
+    <circle cx="9" cy="50" r="6.5" fill="#d8cdb0" stroke="#14213d" stroke-width="3"/><circle cx="111" cy="50" r="6.5" fill="#d8cdb0" stroke="#14213d" stroke-width="3"/>
+    <rect x="10" y="4" width="100" height="114" rx="16" fill="#efe6cc" stroke="#14213d" stroke-width="4"/>
+    <rect x="18" y="9" width="58" height="5" rx="2.5" fill="#fff" opacity=".55"/>
+    <rect x="20" y="16" width="80" height="60" rx="11" fill="#d8cdb0" stroke="#14213d" stroke-width="3"/>
+    <rect x="26" y="22" width="68" height="48" rx="8" fill="url(#mpGlow)" stroke="#0a1a11" stroke-width="2"/>
+    <g stroke="#8dffb8" stroke-opacity=".08" stroke-width="1.5">${[0,1,2,3,4,5,6,7,8,9,10].map(i => `<path d="M28 ${26 + i * 4}H92"/>`).join("")}</g>
+    <g class="mp-face" fill="#8dffb8" stroke="#8dffb8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <g class="f-idle"><g class="mp-eyes" stroke="none"><rect x="44" y="35" width="8" height="12" rx="4"/><rect x="68" y="35" width="8" height="12" rx="4"/></g><path d="M50 55 Q60 62 70 55" fill="none"/></g>
+      <g class="f-happy"><path d="M41 44 Q48 34 55 44 M65 44 Q72 34 79 44" fill="none"/><path d="M47 51 Q60 67 73 51 Z"/></g>
+      <g class="f-wink"><rect x="44" y="35" width="8" height="12" rx="4" stroke="none"/><path d="M66 42 Q72 46 78 41 M50 54 Q61 62 72 51" fill="none"/></g>
+      <g class="f-wow" stroke="none"><rect x="43" y="32" width="10" height="15" rx="5"/><rect x="67" y="32" width="10" height="15" rx="5"/><ellipse cx="60" cy="58" rx="5" ry="6"/></g>
+    </g>
+    <circle cx="28" cy="91" r="3.5" fill="#3fe08f" stroke="#14213d" stroke-width="1.5"/>
+    <path d="M24 99H50M24 104H50M24 109H50" stroke="#c2b694" stroke-width="3" stroke-linecap="round"/>
+    <rect x="62" y="87" width="36" height="7" rx="3" fill="#2b2f3a" stroke="#14213d" stroke-width="2"/><rect x="86" y="88.5" width="8" height="3" rx="1" fill="#9aa3b5"/>
+    <rect x="62" y="100" width="36" height="12" rx="3" fill="#d8cdb0" stroke="#14213d" stroke-width="2"/>
+    <text x="80" y="109.5" text-anchor="middle" font-family="Bangers, Impact, sans-serif" font-size="10" letter-spacing="1.5" fill="#14213d">MAC</text>
+  </svg>`;
+  const body = () => `<svg class="mp-body-svg" viewBox="-20 0 180 64" aria-hidden="true">
+    <path class="mp-arm-l" d="M16 22 Q2 30 -6 18" fill="none" stroke="#14213d" stroke-width="5" stroke-linecap="round"/>
+    <path class="mp-arm-r" d="M124 22 Q138 30 146 18" fill="none" stroke="#14213d" stroke-width="5" stroke-linecap="round"/>
+    <circle class="mp-hand-l" cx="-8" cy="16" r="6" fill="#fff" stroke="#14213d" stroke-width="3"/>
+    <g class="mp-arm-r"><circle cx="148" cy="16" r="6" fill="#fff" stroke="#14213d" stroke-width="3"/></g>
+    <path d="M50 38 L46 54 M90 38 L94 54" stroke="#14213d" stroke-width="5" stroke-linecap="round"/>
+    <ellipse cx="42" cy="56" rx="11" ry="5.5" fill="#e63a2e" stroke="#14213d" stroke-width="3"/><ellipse cx="98" cy="56" rx="11" ry="5.5" fill="#e63a2e" stroke="#14213d" stroke-width="3"/>
+    <rect x="58" y="0" width="24" height="12" fill="#d8cdb0" stroke="#14213d" stroke-width="3"/>
+    <path d="M14 12 H126 L133 38 H7 Z" fill="#efe6cc" stroke="#14213d" stroke-width="3.5" stroke-linejoin="round"/>
+    <g fill="#d8cdb0" stroke="#14213d" stroke-width="1.2">${[0,1,2].map(r => Array.from({length: 10 - r}, (_, k) => `<rect x="${20 + r * 4 + k * 10}" y="${16 + r * 7}" width="8" height="5" rx="1"/>`).join("")).join("")}</g>
+  </svg>`;
+
+  const CSS = `
+.macpet{position:fixed;bottom:0;left:0;z-index:9000;width:180px;height:172px;transform:translateY(115%);transition:transform .6s cubic-bezier(.3,1.4,.5,1);pointer-events:none}
+.macpet.in{transform:translateY(0)}
+.macpet.peek{transform:translateY(calc(100% - 44px))}
+.macpet.peek:hover{transform:translateY(calc(100% - 64px))}
+.macpet .mp-btn{position:absolute;inset:0;background:none;border:0;padding:0;cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent}
+.macpet .mp-btn:focus-visible{outline:3px solid #1f6fd1;outline-offset:2px;border-radius:12px}
+.macpet .mp-head{position:absolute;left:30px;top:0;width:120px;height:124px;transform-origin:60px 62px;z-index:2}
+.macpet .mp-body{position:absolute;left:0;top:112px;width:180px;height:64px}
+.macpet svg{display:block;width:100%;height:100%;overflow:visible}
+.macpet .mp-face>g{display:none}
+.macpet[data-mood=idle] .f-idle,.macpet[data-mood=happy] .f-happy,.macpet[data-mood=wink] .f-wink,.macpet[data-mood=wow] .f-wow{display:inline}
+.macpet .mp-eyes{animation:mpBlink 5s infinite;transform-origin:60px 41px}
+@keyframes mpBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.macpet.wave .mp-arm-r{animation:mpWave .5s ease-in-out 4;transform-origin:124px 22px}
+@keyframes mpWave{0%,100%{transform:rotate(0)}50%{transform:rotate(-38deg)}}
+.macpet.spin .mp-head{animation:mpSpin .95s cubic-bezier(.5,0,.3,1) 2}
+@keyframes mpSpin{0%{transform:translateY(0) rotate(0)}30%{transform:translateY(-22px) rotate(130deg)}70%{transform:translateY(-12px) rotate(300deg)}100%{transform:translateY(0) rotate(360deg)}}
+.macpet.wiggle .mp-head{animation:mpWiggle .5s ease-in-out}
+@keyframes mpWiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+.macpet.hop{animation:mpHop .5s ease-out 3}
+@keyframes mpHop{0%,100%{margin-bottom:0}50%{margin-bottom:18px}}
+.mp-bub{position:absolute;bottom:128px;width:250px;background:#fff;color:#14213d;border:3px solid #14213d;border-radius:18px;box-shadow:4px 4px 0 #14213d;padding:12px 14px 12px;pointer-events:auto;opacity:0;transform:scale(.8);transition:opacity .2s,transform .25s cubic-bezier(.3,1.5,.5,1);transform-origin:bottom center}
+.mp-bub.on{opacity:1;transform:scale(1)}
+.macpet.right .mp-bub{right:120px}
+.macpet.left .mp-bub{left:120px}
+.mp-bub::after{content:"";position:absolute;bottom:-14px;width:0;height:0;border-style:solid;border-width:14px 9px 0 9px;border-color:#14213d transparent transparent transparent}
+.macpet.right .mp-bub::after{right:26px;transform:skewX(-25deg)}
+.macpet.left .mp-bub::after{left:26px;transform:skewX(25deg)}
+.mp-bub .mp-who{font:700 .68rem "Atkinson Hyperlegible",system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#5a5342;margin:0 0 3px}
+.mp-bub .mp-big{font:400 1.5rem/1 Bangers,Impact,sans-serif;letter-spacing:.04em;color:#e63a2e;margin:0 0 4px}
+.mp-bub p{margin:0;font:700 .95rem/1.35 "Comic Neue","Comic Sans MS",system-ui,sans-serif}
+.mp-bub .mp-x{position:absolute;top:4px;right:6px;width:26px;height:26px;border:0;background:none;font:700 1.15rem/1 system-ui,sans-serif;color:#5a5342;cursor:pointer;border-radius:50%}
+.mp-bub .mp-x:hover{background:#f0e6c8}
+.mp-bub .mp-acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.mp-bub .mp-acts button{font:700 .78rem "Comic Neue",system-ui,sans-serif;text-transform:uppercase;letter-spacing:.04em;border:2.5px solid #14213d;background:#ffd23f;color:#14213d;padding:5px 10px;box-shadow:2px 2px 0 #14213d;cursor:pointer}
+.mp-bub .mp-acts button.alt{background:#fff}
+.mp-bub button:focus-visible{outline:3px solid #1f6fd1;outline-offset:2px}
+.mp-confetti{position:fixed;inset:0;pointer-events:none;z-index:8999;overflow:hidden}
+.mp-confetti i{position:absolute;width:10px;height:14px;border:1.5px solid #14213d;border-radius:2px}
+@media (max-width:600px){
+  .macpet{transform-origin:bottom center;width:140px;height:134px}
+  .macpet .mp-head{transform:scale(.78);transform-origin:center top;left:10px}
+  .macpet.spin .mp-head{animation-name:mpSpinS}
+  @keyframes mpSpinS{0%{transform:scale(.78) rotate(0)}50%{transform:scale(.78) translateY(-18px) rotate(180deg)}100%{transform:scale(.78) rotate(360deg)}}
+  .macpet.wiggle .mp-head{animation-name:mpWiggleS}
+  @keyframes mpWiggleS{0%,100%{transform:scale(.78) rotate(0)}25%{transform:scale(.78) rotate(-8deg)}75%{transform:scale(.78) rotate(8deg)}}
+  .macpet .mp-body{transform:scale(.78);transform-origin:left top;top:88px}
+  .mp-bub{bottom:120px;right:auto!important}
+  .mp-bub::after{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .macpet{transition:opacity .3s;transform:none;opacity:0}
+  .macpet.in{opacity:1}.macpet.peek{opacity:.6;transform:translateY(calc(100% - 44px))}
+  .macpet.spin .mp-head,.macpet.wiggle .mp-head,.macpet.wave .mp-arm-r,.macpet.hop{animation:none}
+}`;
+
+  let el = null, bub = null, state = "out", tJoke = null, tHide = null, tAnim = null, bag = [], cfg = {first: [40, 90], every: [70, 180], showFor: 9000};
+
+  function build(){
+    if(el) return;
+    const st = document.createElement("style"); st.textContent = CSS; document.head.appendChild(st);
+    el = document.createElement("div");
+    el.className = "macpet right"; el.dataset.mood = "idle";
+    el.innerHTML = `<div class="mp-head">${head()}</div><div class="mp-body">${body()}</div>
+      <button class="mp-btn" type="button" aria-label="Mac, your NetFixLab buddy. Click for a joke."></button>
+      <div class="mp-bub" role="status" aria-live="polite" hidden></div>`;
+    document.body.appendChild(el);
+    bub = el.querySelector(".mp-bub");
+    el.querySelector(".mp-btn").addEventListener("click", () => { if(state === "talk" && bub.dataset.kind === "joke") joke(); else if(state !== "talk") joke(true); else anim("wiggle", 500); });
+    bub.addEventListener("click", e => {
+      const b = e.target.closest("button"); if(!b) return;
+      const a = b.dataset.a;
+      if(a === "close") leave();
+      else if(a === "more") joke();
+      else if(a === "mute"){ set("nfl_mac_jokes", "off"); say({who: true, text: "Got it! No more jokes. I'll still cheer when you finish a chapter. Click me any time if you miss me.", mood: "wink", acts: [["OK", "close"]]}); }
+      else if(a === "unmute"){ set("nfl_mac_jokes", "on"); say({who: true, text: "Yay! Jokes are back on.", mood: "happy", acts: [["OK", "close"]]}); anim("wiggle", 500); }
+    });
+    setInterval(sync, 1200);
+  }
+  function placeAt(side){
+    const w = window.innerWidth, pw = w <= 600 ? 140 : 180;
+    const x = side === "left" ? rnd(8, Math.max(8, w * .3 - pw / 2)) : side === "right" ? rnd(Math.min(w - pw - 8, w * .7 - pw / 2), w - pw - 8) : rnd(8, w - pw - 8);
+    el.style.left = Math.round(Math.max(8, Math.min(w - pw - 8, x))) + "px";
+    const mid = x + pw / 2 < w / 2;
+    el.classList.toggle("left", mid); el.classList.toggle("right", !mid);
+  }
+  function anim(cls, ms){ if(still()) return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); clearTimeout(tAnim); tAnim = setTimeout(() => el.classList.remove(cls), ms); }
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  function say(o){
+    el.dataset.mood = o.mood || "idle";
+    bub.dataset.kind = o.kind || "";
+    bub.innerHTML = `<button class="mp-x" type="button" data-a="close" aria-label="Close">×</button>`
+      + (o.who ? `<p class="mp-who">Mac</p>` : "") + (o.big ? `<p class="mp-big">${esc(o.big)}</p>` : "") + `<p>${esc(o.text)}</p>`
+      + (o.acts && o.acts.length ? `<div class="mp-acts">${o.acts.map(([t, a], i) => `<button type="button" data-a="${a}" class="${i ? "alt" : ""}">${esc(t)}</button>`).join("")}</div>` : "");
+    if(window.innerWidth <= 600){   // phones: a full-width bubble above Mac (the pet's transform makes fixed positioning relative to it)
+      const pl = parseFloat(el.style.left) || 0, vw = document.documentElement.clientWidth;
+      bub.style.left = (12 - pl) + "px"; bub.style.width = (vw - 24) + "px";
+    } else { bub.style.left = bub.style.width = ""; }
+    bub.hidden = false; requestAnimationFrame(() => bub.classList.add("on"));
+    clearTimeout(tHide); if(o.ms !== 0) tHide = setTimeout(leave, o.ms || cfg.showFor);
+  }
+  function arrive(side, o){
+    build();
+    if(state === "out" || state === "peek"){ placeAt(side); }
+    el.classList.remove("peek"); el.classList.add("in"); state = "talk";
+    setTimeout(() => say(o), state === "talk" && el.classList.contains("in") ? 380 : 0);
+  }
+  function leave(){
+    if(!el) return;
+    clearTimeout(tHide); bub.classList.remove("on"); bub.dataset.kind = "";
+    setTimeout(() => { bub.hidden = true; }, 220);
+    el.dataset.mood = "idle";
+    el.classList.remove("in"); el.classList.add("peek"); state = "peek";
+  }
+  /* stay out of the way while a comic is being read, or a dialog is open */
+  function busy(){
+    const pages = document.getElementById("pages"), desk = pages && !pages.hidden && pages.querySelector(".desk");
+    const dlg = [...document.querySelectorAll('.overlay,[role="dialog"]')].some(d => !d.hidden && d.offsetParent !== null);
+    return !!(desk && desk.offsetParent !== null) || dlg || document.hidden || !!document.fullscreenElement;
+  }
+  function sync(){
+    if(!el) return;
+    const b = busy();
+    if(b && state !== "hidden" && bub.dataset.kind !== "cheer"){ clearTimeout(tHide); bub.classList.remove("on"); bub.hidden = true; el.classList.remove("in", "peek"); state = "hidden"; }
+    else if(!b && state === "hidden"){ el.classList.add("peek"); state = "peek"; }
+  }
+  function nextJoke(){ if(!bag.length) bag = JOKES.map((_, i) => i).sort(() => Math.random() - .5); return JOKES[bag.pop()]; }
+  function joke(asked){
+    if(!asked && busy()) return;
+    const muted = get("nfl_mac_jokes") === "off";
+    arrive(asked ? null : ["left", "right", null][Math.floor(Math.random() * 3)], {who: true, kind: "joke", text: nextJoke(), mood: Math.random() < .5 ? "wink" : "happy",
+      acts: muted ? [["Another one", "more"], ["Turn jokes back on", "unmute"]] : [["Another one", "more"], ["Mute jokes", "mute"]]});
+    setTimeout(() => anim("wiggle", 500), 450);
+  }
+  function intro(){
+    if(busy()){ setTimeout(intro, 2500); return; }
+    const back = get("nfl_mac_met") === "1";
+    set("nfl_mac_met", "1");
+    if(back) arrive("right", {who: true, text: "Welcome back! Ready for the next issue? Click me if you want a joke.", mood: "happy", ms: 6500});
+    else arrive("right", {who: true, big: "HI! I'M MAC!", text: "I'm a retro computer, so I've seen a LOT of networks. I'll pop by with jokes now and then, and cheer when you finish a chapter!", mood: "happy", ms: 0, acts: [["Nice to meet you!", "close"]]});
+    setTimeout(() => anim("wave", 2000), 500);
+  }
+  function confetti(){
+    if(still()) return;
+    const box = document.createElement("div"); box.className = "mp-confetti"; document.body.appendChild(box);
+    const r = el.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + 40, cols = ["#ffd23f", "#e63a2e", "#1f6fd1", "#2bb673", "#9a7bff", "#ff7a2f"];
+    for(let i = 0; i < 46; i++){
+      const p = document.createElement("i"); p.style.background = cols[i % cols.length]; p.style.left = cx + "px"; p.style.top = cy + "px"; box.appendChild(p);
+      const a = rnd(-Math.PI * .95, -Math.PI * .05), v = rnd(180, 420), dx = Math.cos(a) * v, dy = Math.sin(a) * v;
+      p.animate([{transform: "translate(0,0) rotate(0)", opacity: 1}, {transform: `translate(${dx}px,${dy}px) rotate(${rnd(180, 540)}deg)`, opacity: 1, offset: .45}, {transform: `translate(${dx * 1.3}px,${dy + 520}px) rotate(${rnd(540, 900)}deg)`, opacity: 0}], {duration: rnd(1600, 2400), easing: "cubic-bezier(.2,.6,.4,1)", fill: "forwards"});
+    }
+    setTimeout(() => box.remove(), 2600);
+  }
+  function celebrate(n){
+    build();
+    const L = (typeof LESSONS !== "undefined" && LESSONS[n - 1]) || {t: "this chapter"};
+    const big = CHEERS[Math.floor(Math.random() * CHEERS.length)];
+    arrive("right", {who: true, kind: "cheer", big, text: `You finished Issue ${n}: ${L.t} Your network brain just levelled up!`, mood: "happy", ms: 7500, acts: [["Yay!", "close"]]});
+    setTimeout(() => { el.dataset.mood = "happy"; anim("spin", 1950); confetti(); }, 450);
+    setTimeout(() => anim("hop", 1600), 2000);
+  }
+  function schedule(range){ clearTimeout(tJoke); tJoke = setTimeout(tick, rnd(range[0], range[1]) * 1000); }
+  function tick(){ if(get("nfl_mac_jokes") !== "off" && state !== "talk" && !busy()) joke(); schedule(cfg.every); }
+  function start(opts){
+    Object.assign(cfg, opts || {});
+    build();
+    setTimeout(intro, cfg.introDelay || 1500);
+    schedule(cfg.first);
+  }
+  return {start, intro, joke: () => joke(true), celebrate, hide: leave, reset(){ set("nfl_mac_met", "0"); set("nfl_mac_jokes", "on"); }};
+})();
+
 /* ---------- Part 1 comic issues ---------- */
 /* ---------- Issue #0: Why do devices talk? (original NetFixLab chapter) ----------
    panel: {w, bg, ch:[[char,mood,x,scale,look,y]], props, over, fx:[[text,x,y,size,rot,color,burst]], b:[bubbles]}
@@ -3007,6 +3247,7 @@ function finishLesson(n){
   Auth.record(idOf(n), "completed");
   if(!S.done.includes(idOf(n))){ S.done.push(idOf(n)); save(); }
   if(n < LESSONS.length) openLesson(n+1); else go("lessons");
+  MacPet.celebrate(n);
 }
 
 /* ---------- sign up / log in ---------- */
@@ -3354,6 +3595,7 @@ function startPage(){
   $("#aboutPanel").innerHTML = panel(P("router","laptop","proud","happy","check",["l:Welcome to NetFixLab! Every lesson is a comic, and you are in it.","r:And every comic ends with something you can really fix at home."],"About NetFixLab"));
   if(CONFIG.authorName){ $("#authorName").textContent = CONFIG.authorName; $("#aboutHi").textContent = "Hi, I'm " + CONFIG.authorName + "."; }
   if(CONFIG.contactEmail) $("#contactMail").textContent = "Prefer email? Write to " + CONFIG.contactEmail + ".";
+  MacPet.start();
 }
 (async function start(){
   loadGuest(); startPage(); renderHome(); updateHeader();
