@@ -97,6 +97,17 @@ posthog.init("phc_tWqPXf25ZxQ6AZUg6jqioyaoaBLoUAgkcunPsRkFpM45", {
 .desk.side .rhead .btn{order:2}
 .desk.side .bk-bar{position:absolute;bottom:18px;margin:0;height:auto;flex-wrap:wrap;justify-content:flex-end;gap:8px 10px;z-index:6}
 .desk.side .bk-bar .bk-count{flex-basis:100%;text-align:right}
+/* closed book: just the front cover, centred on the desk */
+.bk-spread.two{transition:transform .95s cubic-bezier(.45,.05,.3,1)}
+.bk-spread.two.shift{transform:translateX(-25%)}
+.bk-spread.two.closed{background:transparent;box-shadow:none}
+.bk-spread.two.closed::after{display:none}
+.bk-spread.two.closed .bk-slot:first-child{background:transparent;visibility:hidden}
+.bk-spread.two.closed .bk-slot:last-child{box-shadow:3px 0 0 #f1e8cf,6px 0 0 #e2d6b6,9px 0 0 #cbbd98,12px 0 0 #3b220f,0 3px 0 #e2d6b6,6px 6px 0 #3b220f,0 30px 46px rgba(0,0,0,.6),0 8px 16px rgba(0,0,0,.35);overflow:visible}
+.bk-cvslot .bk-pg{overflow:hidden}
+.bk-cover{width:600px}
+.bk-cover svg{display:block}
+.bk-spread:not(.two) .bk-cover{width:100%;height:auto!important;aspect-ratio:1/var(--r);box-shadow:0 3px 0 #e2d6b6,0 6px 0 #3b220f,0 16px 28px rgba(0,0,0,.55)}
 
 /* ---------- book-style comic pages ---------- */
 /* ---------- book-style comic pages ---------- */
@@ -1293,6 +1304,34 @@ const BookSound = {
     }catch(e){}
   }
 };
+/* the book's front cover, drawn in the page's proportions */
+function coverTall(n, R){
+  const C = COVERS[n-1], sc = SCHEMES[C.s], id = "t" + (++UID), Wd = 360, Hd = Math.round(360 * R);
+  const k = C.l.length, m = Math.max(...C.l.map(x => x.length));
+  const fs = k >= 3 ? (m > 9 ? 46 : 52) : (m <= 8 ? 66 : m <= 10 ? 58 : 52), lh = fs * 1.02;
+  const tt = (x, y, extra) => `<text x="${x}" y="${y}" text-anchor="middle" font-family="${BANG}" font-size="${fs}" letter-spacing="1.5" ${extra}>`;
+  const ty = 140;
+  const title = C.l.map((t, i) => { const y = ty + i * lh;
+    return tt(184, y + 5, `fill="#14213d" stroke="#14213d" stroke-width="8" stroke-linejoin="round"`) + t + "</text>"
+         + tt(180, y, `fill="${sc.title}" stroke="#14213d" stroke-width="8" paint-order="stroke" stroke-linejoin="round"`) + t + "</text>"; }).join("");
+  const by = Hd - 56;
+  return `<svg viewBox="0 0 ${Wd} ${Hd}" width="100%" height="100%" preserveAspectRatio="none" role="img" aria-label="Front cover">` + halftone(id, Wd, Hd)
+    + `<defs><radialGradient id="${id}v" cx=".55" cy=".5" r=".8"><stop offset=".6" stop-color="#6b4a12" stop-opacity="0"/><stop offset="1" stop-color="#6b4a12" stop-opacity=".45"/></radialGradient>`
+    + `<linearGradient id="${id}s" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".45"/><stop offset=".6" stop-color="#000" stop-opacity=".12"/><stop offset="1" stop-color="#fff" stop-opacity=".18"/></linearGradient></defs>`
+    + `<rect width="${Wd}" height="${Hd}" fill="${sc.bg}"/>` + rays(180, Hd * .62, 30, sc.ray, 1, Hd + 300) + dots(id, Wd, Hd, .4)
+    + `<g transform="translate(110 ${by}) scale(1.32)">${drawChar(C.a, C.ma, 1)}</g>`
+    + `<g transform="translate(258 ${by}) scale(1.32)">${drawChar(C.b, C.mb, -1)}</g>`
+    + burst(C.sfx, 290, Hd * .5, 1.25) + title
+    + `<rect width="${Wd}" height="74" fill="#fff3c4"/><path d="M0 74H${Wd}" stroke="#14213d" stroke-width="5"/>`
+    + `<text x="212" y="56" text-anchor="middle" font-family="${BANG}" font-size="52" letter-spacing="2" fill="#e63a2e" stroke="#14213d" stroke-width="5" paint-order="stroke" stroke-linejoin="round">NETFIXLAB</text>`
+    + `<circle cx="44" cy="38" r="28" fill="#ffd23f" stroke="#14213d" stroke-width="4"/>`
+    + `<text x="44" y="29" text-anchor="middle" font-family="Comic Neue, sans-serif" font-weight="700" font-size="10" fill="#14213d">NO.</text>`
+    + `<text x="44" y="55" text-anchor="middle" font-family="${BANG}" font-size="${String(n).length > 1 ? 22 : 30}" fill="#14213d">${n}</text>`
+    + `<rect y="${Hd - 50}" width="${Wd}" height="50" fill="#fff3c4"/><path d="M0 ${Hd - 50}H${Wd}" stroke="#14213d" stroke-width="4"/>`
+    + `<text x="180" y="${Hd - 30}" text-anchor="middle" font-family="Comic Neue, sans-serif" font-weight="700" font-size="13" letter-spacing="1" fill="#14213d">${C.t[0]}</text>`
+    + `<text x="180" y="${Hd - 12}" text-anchor="middle" font-family="Comic Neue, sans-serif" font-weight="700" font-size="13" letter-spacing="1" fill="#14213d">${C.t[1]}</text>`
+    + `<rect width="${Wd}" height="${Hd}" fill="url(#${id}v)"/><rect width="16" height="${Hd}" fill="url(#${id}s)"/></svg>`;
+}
 const BK_ARROW = d => `<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="${d < 0 ? "M15 4 L7 12 L15 20" : "M9 4 L17 12 L9 20"}" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const BookFS = {
   el(){ return document.fullscreenElement || document.webkitFullscreenElement || null; },
@@ -1302,8 +1341,9 @@ const BookFS = {
 const Book = {
   el: null, desk: null, pages: [], idx: 0, per: 2, done: null, busy: false, W: 0, H: 0,
   wide(){ return window.innerWidth >= 880; },
-  mount(el, pages, onEnd){
-    Book.el = el; Book.desk = el.closest(".desk") || el; Book.pages = pages; Book.idx = 0; Book.done = onEnd; Book.busy = false;
+  /* the book starts closed, showing its front cover. idx -2/-1 = the closed book (nothing, cover) */
+  mount(el, pages, onEnd, issueNo){
+    Book.el = el; Book.desk = el.closest(".desk") || el; Book.pages = pages; Book.idx = -2; Book.done = onEnd; Book.busy = false; Book.no = issueNo || 1;
     el.innerHTML = `<div class="bk">
         <button class="bk-arrow bk-prev" type="button" data-bk="-1" aria-label="Previous page">${BK_ARROW(-1)}</button>
         <div class="bk-stage" aria-live="polite"></div>
@@ -1319,21 +1359,27 @@ const Book = {
     Book.render();
   },
   active(){ return Book.el && document.body.contains(Book.el) && Book.el.offsetParent !== null; },
-  pg(i){ return i >= 0 && i < Book.pages.length ? renderPage(Book.pages[i], i + 1) : ""; },
-  slot(i){ return `<div class="bk-slot${i >= 0 && i < Book.pages.length ? "" : " bk-blank"}"><div class="bk-pg">${Book.pg(i)}</div></div>`; },
+  min(){ return Book.per === 2 ? -2 : -1; },
+  pg(i){
+    if(i === -1) return `<div class="bk-cover" style="height:${(600 * Book.ratio()).toFixed(0)}px;--r:${Book.ratio().toFixed(3)}">${coverTall(Book.no, Book.ratio())}</div>`;
+    return i >= 0 && i < Book.pages.length ? renderPage(Book.pages[i], i + 1) : "";
+  },
+  slot(i){ const real = i === -1 || (i >= 0 && i < Book.pages.length); return `<div class="bk-slot${real ? "" : " bk-blank"}${i === -1 ? " bk-cvslot" : ""}"><div class="bk-pg">${Book.pg(i)}</div></div>`; },
   render(){
     if(!Book.el || !document.body.contains(Book.el)) return;
     Book.per = Book.wide() ? 2 : 1;
-    Book.idx = Math.floor(Book.idx / Book.per) * Book.per;
+    Book.idx = Math.max(Book.min(), Math.floor(Book.idx / Book.per) * Book.per);
+    if(Book.per === 1 && Book.idx === -2) Book.idx = -1;
     const st = Book.el.querySelector(".bk-stage"), n = Book.pages.length;
-    st.innerHTML = `<div class="bk-spread${Book.per === 2 ? " two" : ""}">${Book.slot(Book.idx)}${Book.per === 2 ? Book.slot(Book.idx + 1) : ""}</div>`;
+    const shut = Book.per === 2 && Book.idx === -2;
+    st.innerHTML = `<div class="bk-spread${Book.per === 2 ? " two" : ""}${shut ? " closed shift" : ""}">${Book.slot(Book.idx)}${Book.per === 2 ? Book.slot(Book.idx + 1) : ""}</div>`;
     Book.fit();
     const last = Book.idx + Book.per >= n;
-    Book.el.querySelectorAll('[data-bk="-1"]').forEach(b => b.disabled = Book.idx === 0);
+    Book.el.querySelectorAll('[data-bk="-1"]').forEach(b => b.disabled = Book.idx <= Book.min());
     Book.el.querySelectorAll('[data-bk="1"]').forEach(b => { b.classList.toggle("bk-end", last); b.setAttribute("aria-label", last ? "Finish: takeaway and quiz" : "Next page"); });
     Book.el.querySelector(".bk-fwd").textContent = last ? "Quiz ›" : "Next ›";
     const a = Book.idx + 1, b = Math.min(Book.idx + Book.per, n);
-    Book.el.querySelector(".bk-count").textContent = (a === b ? `Page ${a}` : `Pages ${a}–${b}`) + ` of ${n}` + (last ? " · next: quiz" : "");
+    Book.el.querySelector(".bk-count").textContent = Book.idx < 0 ? `Cover · ${n} pages` : (a === b ? `Page ${a}` : `Pages ${a}–${b}`) + ` of ${n}` + (last ? " · next: quiz" : "");
   },
   /* size the open book so the heading and both pages fit in one screen */
   fit(){
@@ -1389,7 +1435,7 @@ const Book = {
     const n = Book.pages.length;
     if(d > 0 && Book.idx + Book.per >= n){ if(Book.done){ const was = !!BookFS.el(); BookFS.exit(); setTimeout(Book.done, was ? 350 : 0); } return; }
     const ni = Book.idx + d * Book.per;
-    if(ni < 0 || ni >= n) return;
+    if(ni < Book.min() || ni >= n) return;
     BookSound.play();
     const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
     if(Book.per === 2 && !reduce) return Book.flip(d, ni);
@@ -1406,6 +1452,9 @@ const Book = {
     const slots = sp.querySelectorAll(".bk-slot");
     const swap = (k, idx) => { const t = document.createElement("div"); t.innerHTML = Book.slot(idx); slots[k].replaceWith(t.firstChild); Book.size(sp.querySelectorAll(".bk-slot")[k]); };
     if(d > 0) swap(1, ni + 1); else swap(0, ni);
+    const opening = i === -2, closing = ni === -2;
+    if(closing) sp.classList.add("closed");
+    if(opening || closing){ void sp.offsetWidth; sp.classList.toggle("shift", closing); }
     const face = idx => { const f = document.createElement("div"); f.className = "bk-fl"; f.innerHTML = `<div class="bk-pg">${Book.pg(idx)}</div>`; sp.appendChild(f); Book.size(f); return f; };
     const NS = "http://www.w3.org/2000/svg";
     const layer = (defs) => { const g = document.createElementNS(NS, "svg"); g.setAttribute("class", "bk-fx"); g.setAttribute("width", 2 * W); g.setAttribute("height", H); g.innerHTML = defs; sp.appendChild(g); return g; };
@@ -2676,7 +2725,7 @@ function openLesson(n){
       </div>
     </div>`;
   $("#reader").dataset.n = n;
-  if(L.pages) Book.mount($("#bookv"), L.pages, () => { $("#afterBook").hidden = false; $(".box.take").scrollIntoView({block:"start", behavior:"smooth"}); });
+  if(L.pages) Book.mount($("#bookv"), L.pages, () => { $("#afterBook").hidden = false; $(".box.take").scrollIntoView({block:"start", behavior:"smooth"}); }, n);
   show("reader");
   Track.event("cover_viewed", n);
   Auth.record(L.id, "opened");
