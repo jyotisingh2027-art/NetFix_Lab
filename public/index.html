@@ -16,12 +16,16 @@ posthog.init("phc_tWqPXf25ZxQ6AZUg6jqioyaoaBLoUAgkcunPsRkFpM45", {
 </script>
 <style>
 /* ---------- two-page book viewer on a wooden desk ---------- */
-.desk{position:relative;display:flex;flex-direction:column;gap:14px;padding:18px 0 22px;min-height:100vh;box-sizing:border-box;
+.desk{position:relative;display:flex;flex-direction:column;gap:10px;padding:10px 0 8px;min-height:100vh;box-sizing:border-box;
   border-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0018 0.045' numOctaves='4' seed='11'/%3E%3CfeColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.1 0 0 0 0 0.03 0 0 1.7 0 -0.62'/%3E%3C/filter%3E%3CradialGradient id='v' cx='50%25' cy='45%25' r='75%25'%3E%3Cstop offset='.55' stop-color='%23000' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23000' stop-opacity='.45'/%3E%3C/radialGradient%3E%3ClinearGradient id='b' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23a8703f'/%3E%3Cstop offset='1' stop-color='%23855225'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1400' height='900' fill='url(%23b)'/%3E%3Crect width='1400' height='900' filter='url(%23g)'/%3E%3Cg stroke='%233b220f' stroke-opacity='.55' stroke-width='3'%3E%3Cpath d='M0 225H1400M0 450H1400M0 675H1400'/%3E%3C/g%3E%3Cg stroke='%23f2c58f' stroke-opacity='.18' stroke-width='2'%3E%3Cpath d='M0 228H1400M0 453H1400M0 678H1400'/%3E%3C/g%3E%3Crect width='1400' height='900' fill='url(%23v)'/%3E%3C/svg%3E") 0 fill / 0 / 0 100vw stretch}
-.desk .rhead{flex-direction:row;flex-wrap:wrap;align-items:center;gap:8px 18px}
-.desk .rhead h1{flex-basis:100%;font-size:clamp(1.7rem,3.4vw,2.6rem);color:#fff3c4;-webkit-text-stroke:1px #2a1608;text-shadow:3px 3px 0 #2a1608;line-height:1.05}
-.desk .rhead .kicker{color:#f6dfb4;text-shadow:1px 1px 0 #2a1608}
+.desk .rhead{flex-direction:row;flex-wrap:wrap;align-items:center;gap:6px 16px}
+.desk .rhead .btn{padding:6px 12px;font-size:.8rem}
+.desk .rhead h1{order:2;font-size:clamp(1.4rem,2.4vw,2rem);color:#fff3c4;-webkit-text-stroke:1px #2a1608;text-shadow:3px 3px 0 #2a1608;line-height:1.05}
+.desk .rhead .kicker{order:3;margin-left:auto;color:#f6dfb4;text-shadow:1px 1px 0 #2a1608;font-size:.72rem}
+.desk:fullscreen{padding:10px 16px 8px;overflow:auto;background:#7a4a22}
+.desk:-webkit-full-screen{padding:10px 16px 8px;background:#7a4a22}
 .bookv{width:100%}
+@media (min-width:880px){.desk .bk{width:calc(100vw - 24px);margin-left:calc(50% - 50vw + 12px)}}
 .bk{position:relative;display:flex;align-items:center;justify-content:center;gap:16px;width:100%}
 .bk-stage{display:flex;justify-content:center;min-width:0;flex:0 1 auto}
 .bk-spread{display:flex;position:relative;background:#fffdf3}
@@ -58,13 +62,13 @@ posthog.init("phc_tWqPXf25ZxQ6AZUg6jqioyaoaBLoUAgkcunPsRkFpM45", {
 .bk-arrow:disabled{opacity:.35;cursor:default}
 .bk-arrow.bk-end{background:#e63a2e;color:#fff3c4}
 .bk-arrow:focus-visible,.bk-btn:focus-visible,.bk-snd:focus-visible{outline:3px solid #ffd23f;outline-offset:3px}
-.bk-bar{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:8px}
+.bk-bar{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:4px}
 .bk-count{font:700 .85rem var(--comic);letter-spacing:.08em;text-transform:uppercase;color:#fff3c4;text-shadow:1px 1px 0 #2a1608;min-width:9em;text-align:center}
 .bk-btn{display:none;font:700 .95rem var(--comic);text-transform:uppercase;letter-spacing:.05em;padding:10px 16px;border:3px solid #14213d;background:#ffd23f;color:#14213d;box-shadow:0 3px 0 #14213d;cursor:pointer}
 .bk-btn:disabled{opacity:.4;cursor:default}
 .bk-btn.bk-end{background:#e63a2e;color:#fff3c4}
-.bk-snd{background:rgba(255,243,196,.15);border:2px solid rgba(255,243,196,.5);border-radius:999px;color:#fff3c4;font-size:1rem;line-height:1;padding:6px 10px;cursor:pointer}
-.bk-snd .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.bk-fs,.bk-snd{background:rgba(255,243,196,.15);border:2px solid rgba(255,243,196,.5);border-radius:999px;color:#fff3c4;font-size:1rem;line-height:1;padding:6px 10px;cursor:pointer}
+.bk-fs .sr,.bk-snd .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .bk-stage.turn-next{animation:bkNext .34s ease-out}
 .bk-stage.turn-prev{animation:bkPrev .34s ease-out}
 @keyframes bkNext{from{opacity:.2;transform:perspective(1400px) rotateY(-14deg) translateX(30px)}to{opacity:1;transform:none}}
@@ -76,6 +80,10 @@ posthog.init("phc_tWqPXf25ZxQ6AZUg6jqioyaoaBLoUAgkcunPsRkFpM45", {
   .bk-bar{position:sticky;bottom:0;z-index:5;background:#4a2c15;padding:10px 0 calc(10px + env(safe-area-inset-bottom,0px));margin-top:12px;border-top:3px solid #2a1608}
   .bk-btn{display:inline-block}
 }
+.bk-fl{position:absolute;left:0;top:0;overflow:hidden;background:#fffdf3;transform-origin:0 0;z-index:3;will-change:transform,clip-path}
+.bk-fl .bk-pg{position:absolute;top:0;left:0;width:600px;transform-origin:0 0;container-type:inline-size}
+.bk-fx{position:absolute;left:0;top:0;overflow:visible;pointer-events:none;z-index:3}
+@media (max-width:879px){.bk-fs{display:none}.desk .rhead .kicker{margin-left:0;flex-basis:100%}}
 
 /* ---------- book-style comic pages ---------- */
 /* ---------- book-style comic pages ---------- */
@@ -1287,6 +1295,7 @@ const Book = {
         <button class="bk-btn" type="button" data-bk="-1" aria-label="Previous page">‹ Back</button>
         <span class="bk-count"></span>
         <button class="bk-btn bk-fwd" type="button" data-bk="1" aria-label="Next page">Next ›</button>
+        <button class="bk-fs" type="button" title="Full screen">⛶<span class="sr">Full screen</span></button>
         <button class="bk-snd" type="button" aria-pressed="${BookSound.on}" title="Page-turn sound">${BookSound.on ? "🔊" : "🔈"}<span class="sr">Page-turn sound</span></button>
       </div>`;
     Book.render();
@@ -1313,12 +1322,24 @@ const Book = {
     if(!Book.active()) return;
     const st = Book.el.querySelector(".bk-stage"), sp = st.firstChild;
     if(Book.per === 1){ sp.querySelectorAll(".bk-pg").forEach(p => { p.style.transform = p.style.left = ""; }); return; }
-    const DW = 600, R = 1.8;
+    const DW = 600, R = Book.ratio();
     const above = st.getBoundingClientRect().top - Book.desk.getBoundingClientRect().top;
-    const availH = Math.max(380, window.innerHeight - above - 64);
-    const availW = Book.el.querySelector(".bk").clientWidth - 2 * 76;
+    const availH = Math.max(380, window.innerHeight - above - 46);
+    const availW = Book.el.querySelector(".bk").clientWidth - 2 * 72;
     Book.W = Math.min(availW / 2, availH / R, DW * 1.15); Book.H = Book.W * R;
     sp.querySelectorAll(".bk-slot, .bk-face").forEach(el => Book.size(el));
+  },
+  /* the tallest page decides the book's shape, so no page is shrunk more than it needs */
+  ratio(){
+    if(Book.R && Book.Rfor === Book.pages) return Book.R;
+    const m = document.createElement("div");
+    m.style.cssText = "position:absolute;left:-10000px;top:0;visibility:hidden";
+    m.innerHTML = Book.pages.map((pg, i) => `<div class="bk-pg" style="width:600px;container-type:inline-size">${renderPage(pg, i + 1)}</div>`).join("");
+    document.body.appendChild(m);
+    const hs = [...m.children].map(c => c.offsetHeight).sort((a, b) => a - b);
+    m.remove();
+    const h = hs[Math.floor(hs.length * .9)] || 1080;   // a few very tall pages shrink a little instead of every page
+    Book.Rfor = Book.pages; return (Book.R = Math.min(2.1, Math.max(1.45, h / 600)));
   },
   size(el){
     const DW = 600, W = Book.W, H = Book.H, p = el.querySelector(".bk-pg");
@@ -1347,32 +1368,84 @@ const Book = {
     if(!reduce){ const st = Book.el.querySelector(".bk-stage"); st.classList.remove("turn-next", "turn-prev"); void st.offsetWidth; st.classList.add(d > 0 ? "turn-next" : "turn-prev"); }
     Book.align(true);
   },
-  /* a real page turn: the leaf rotates around the spine and shows the next page on its back */
+  /* natural page turn: the corner lifts, the page folds along a moving diagonal and shows its back,
+     with shading on the fold and a shadow on the page underneath */
   flip(d, ni){
     Book.busy = true; Book.align(true);
-    const i = Book.idx, sp = Book.el.querySelector(".bk-spread");
-    // pages underneath once the leaf lifts
-    const under = d > 0 ? [i, ni + 1] : [ni, i + 1];
-    const front = d > 0 ? i + 1 : i, back = d > 0 ? ni : ni + 1;
+    const W = Book.W, H = Book.H, i = Book.idx, sp = Book.el.querySelector(".bk-spread"), sgn = d > 0 ? 1 : -1;
+    const frontIdx = d > 0 ? i + 1 : i, backIdx = d > 0 ? ni : ni + 1;
     const slots = sp.querySelectorAll(".bk-slot");
-    const swap = (k, idx) => { const tmp = document.createElement("div"); tmp.innerHTML = Book.slot(idx); slots[k].replaceWith(tmp.firstChild); };
-    if(d > 0) swap(1, under[1]); else swap(0, under[0]);
-    const leaf = document.createElement("div");
-    leaf.className = "bk-leaf " + (d > 0 ? "from-right" : "from-left");
-    leaf.innerHTML = `<div class="bk-face bk-front"><div class="bk-pg">${Book.pg(front)}</div><i class="bk-shade"></i></div>`
-                   + `<div class="bk-face bk-back"><div class="bk-pg">${Book.pg(back)}</div><i class="bk-shade"></i></div>`;
-    leaf.style.width = Book.W + "px"; leaf.style.height = Book.H + "px"; leaf.style.left = (d > 0 ? Book.W : 0) + "px";
-    sp.appendChild(leaf);
-    sp.querySelectorAll(".bk-slot, .bk-face").forEach(el => Book.size(el));
-    const end = d > 0 ? -180 : 180, dur = 780, ease = "cubic-bezier(.45,.05,.3,1)";
-    const a = leaf.animate([{transform: "rotateY(0deg)"}, {transform: `rotateY(${end * .5}deg) translateZ(30px)`, offset: .5}, {transform: `rotateY(${end}deg)`}], {duration: dur, easing: ease, fill: "forwards"});
-    leaf.querySelectorAll(".bk-shade").forEach((s, k) => s.animate(k === 0 ? [{opacity: 0}, {opacity: .45}] : [{opacity: .45}, {opacity: 0}], {duration: dur, easing: ease, fill: "forwards"}));
-    let fin = false;
-    const finish = () => { if(fin) return; fin = true; Book.idx = ni; Book.busy = false; Book.render(); };
-    a.onfinish = finish; setTimeout(finish, dur + 400);
+    const swap = (k, idx) => { const t = document.createElement("div"); t.innerHTML = Book.slot(idx); slots[k].replaceWith(t.firstChild); Book.size(sp.querySelectorAll(".bk-slot")[k]); };
+    if(d > 0) swap(1, ni + 1); else swap(0, ni);
+    const face = idx => { const f = document.createElement("div"); f.className = "bk-fl"; f.innerHTML = `<div class="bk-pg">${Book.pg(idx)}</div>`; sp.appendChild(f); Book.size(f); return f; };
+    const NS = "http://www.w3.org/2000/svg";
+    const layer = (defs) => { const g = document.createElementNS(NS, "svg"); g.setAttribute("class", "bk-fx"); g.setAttribute("width", 2 * W); g.setAttribute("height", H); g.innerHTML = defs; sp.appendChild(g); return g; };
+    const front = face(frontIdx);
+    const L1 = layer(`<defs><linearGradient id="bkC" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#000" stop-opacity=".5"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>
+      <linearGradient id="bkF" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#000" stop-opacity=".28"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient></defs>
+      <polygon class="cast" fill="url(#bkC)"/><polygon class="curl" fill="url(#bkF)"/>`);
+    const back = face(backIdx);
+    const L2 = layer(`<defs><linearGradient id="bkB" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#000" stop-opacity=".32"/><stop offset=".18" stop-color="#fff" stop-opacity=".28"/><stop offset=".5" stop-color="#fff" stop-opacity=".06"/><stop offset="1" stop-color="#000" stop-opacity=".08"/></linearGradient></defs>
+      <polygon class="flap" fill="url(#bkB)"/>`);
+    // frame coords: fx = distance from the spine, y = down the page
+    const disp = (fx, y) => [W + sgn * fx, y];
+    const fU = fx => sgn > 0 ? fx : W - fx, bFX = u => sgn > 0 ? W - u : u;   // content u <-> frame fx
+    const clipHalf = (poly, M, n, keepPos) => {
+      const out = [], side = q => ((q[0] - M[0]) * n[0] + (q[1] - M[1]) * n[1]) * (keepPos ? 1 : -1);
+      for(let k = 0; k < poly.length; k++){
+        const A = poly[k], B = poly[(k + 1) % poly.length], sa = side(A), sb = side(B);
+        if(sa >= 0) out.push(A);
+        if((sa >= 0) !== (sb >= 0)){ const t = sa / (sa - sb); out.push([A[0] + (B[0] - A[0]) * t, A[1] + (B[1] - A[1]) * t]); }
+      }
+      return out;
+    };
+    const pts = a => a.map(q => q[0].toFixed(1) + "," + q[1].toFixed(1)).join(" ");
+    const cssPoly = a => a.length < 3 ? "polygon(0 0,0 0,0 0)" : "polygon(" + a.map(q => q[0].toFixed(1) + "px " + q[1].toFixed(1) + "px").join(",") + ")";
+    const grad = (id, P, Q) => { const g = sp.querySelector("#" + id); g.setAttribute("x1", P[0]); g.setAttribute("y1", P[1]); g.setAttribute("x2", Q[0]); g.setAttribute("y2", Q[1]); };
+    front.style.transform = `translate(${sgn > 0 ? W : 0}px,0)`;
+    const rect = [[0,0],[W,0],[W,H],[0,H]], lift = H * .13, dur = 1000;
+    const ease = e => e < .5 ? 4 * e * e * e : 1 - Math.pow(-2 * e + 2, 3) / 2;
+    const t0 = performance.now();
+    const frame = now => {
+      let e = Math.min(1, (now - t0) / dur), E = Math.max(.004, ease(e));
+      const C = [W - 2 * W * E, H - lift * Math.sin(Math.PI * E)];
+      const P0 = [W, H], M = [(P0[0] + C[0]) / 2, (P0[1] + C[1]) / 2];
+      let nx = P0[0] - C[0], ny = P0[1] - C[1]; const ln = Math.hypot(nx, ny) || 1; nx /= ln; ny /= ln; const n = [nx, ny];
+      const refl = q => { const k = 2 * ((q[0] - M[0]) * nx + (q[1] - M[1]) * ny); return [q[0] - k * nx, q[1] - k * ny]; };
+      const F = clipHalf(rect, M, n, true), G = clipHalf(rect, M, n, false);
+      // front page: what is still lying flat
+      front.style.clipPath = cssPoly(G.map(q => [fU(q[0]), q[1]]));
+      // back of the page: content (u,v) -> frame (bFX(u), v) -> reflected -> display; an affine map
+      const map = (u, v) => { const r = refl([bFX(u), v]); return disp(r[0], r[1]); };
+      const o = map(0, 0), ax = map(1, 0), ay = map(0, 1);
+      back.style.transform = `matrix(${ax[0]-o[0]},${ax[1]-o[1]},${ay[0]-o[0]},${ay[1]-o[1]},${o[0]},${o[1]})`;
+      back.style.clipPath = cssPoly(F.map(q => [bFXinv(q[0]), q[1]]));
+      // shading
+      const k = Math.min(1, Math.sin(Math.PI * E) * 1.6), Md = disp(M[0], M[1]), nd = [sgn * nx, ny];
+      const along = (dist) => [Md[0] + nd[0] * dist, Md[1] + nd[1] * dist];
+      L1.querySelector(".cast").setAttribute("points", pts(F.map(q => disp(q[0], q[1]))));
+      L1.querySelector(".cast").setAttribute("opacity", k);
+      grad("bkC", Md, along(Math.max(20, 70 * k)));
+      L1.querySelector(".curl").setAttribute("points", pts(G.map(q => disp(q[0], q[1]))));
+      L1.querySelector(".curl").setAttribute("opacity", k);
+      grad("bkF", Md, along(-55));
+      L2.querySelector(".flap").setAttribute("points", pts(F.map(q => { const r = refl(q); return disp(r[0], r[1]); })));
+      L2.querySelector(".flap").setAttribute("opacity", Math.min(1, k * 1.2));
+      grad("bkB", Md, along(-Math.max(80, 0.9 * W * Math.min(1, E * 1.4))));
+      if(e < 1) requestAnimationFrame(frame);
+      else { Book.idx = ni; Book.busy = false; Book.render(); }
+    };
+    const bFXinv = fx => sgn > 0 ? W - fx : fx;   // frame fx -> back content u
+    requestAnimationFrame(frame);
   }
 };
 document.addEventListener("click", e => {
+  const f = e.target.closest(".bk-fs");
+  if(f && Book.el && Book.el.contains(f)){
+    const dk = Book.desk;
+    try{ if(document.fullscreenElement) document.exitFullscreen(); else if(dk.requestFullscreen) dk.requestFullscreen(); else if(dk.webkitRequestFullscreen) dk.webkitRequestFullscreen(); }catch(err){}
+    return;
+  }
   const s = e.target.closest(".bk-snd");
   if(s && Book.el && Book.el.contains(s)){ BookSound.set(!BookSound.on); s.setAttribute("aria-pressed", BookSound.on); s.firstChild.textContent = BookSound.on ? "🔊" : "🔈"; if(BookSound.on) BookSound.play(); return; }
   const b = e.target.closest("[data-bk]"); if(b && Book.el && Book.el.contains(b)) Book.go(+b.dataset.bk);
@@ -1392,6 +1465,8 @@ document.addEventListener("touchend", e => {
 let BK_T = null, BK_W = window.innerWidth >= 880;
 window.addEventListener("resize", () => { clearTimeout(BK_T); BK_T = setTimeout(() => { if(Book.busy) return; const w = window.innerWidth >= 880; if(w !== BK_W){ BK_W = w; Book.render(); } else Book.fit(); }, 120); });
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if(!Book.busy) Book.fit(); });
+document.addEventListener("fullscreenchange", () => setTimeout(() => { if(!Book.busy) Book.fit(); }, 80));
+document.addEventListener("webkitfullscreenchange", () => setTimeout(() => { if(!Book.busy) Book.fit(); }, 80));
 
 /* ---------- Part 1 comic issues ---------- */
 /* ---------- Issue #0: Why do devices talk? (original NetFixLab chapter) ----------
