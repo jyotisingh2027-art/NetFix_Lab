@@ -20,7 +20,7 @@
 create table if not exists public.profiles (
   id          uuid primary key references auth.users (id) on delete cascade,
   full_name   text,
-  unlocked    boolean not null default false,   -- paid for lessons 4-12
+  unlocked    boolean not null default false,   -- paid for every non-free lesson
   unlocked_at timestamptz,
   created_at  timestamptz not null default now(),
   updated_at  timestamptz not null default now()
@@ -29,7 +29,7 @@ create table if not exists public.profiles (
 -- One row per learner per lesson they have opened.
 create table if not exists public.lesson_progress (
   user_id         uuid not null references auth.users (id) on delete cascade,
-  lesson          smallint not null check (lesson between 1 and 12),
+  lesson          smallint not null check (lesson between 1 and 200),
   first_opened_at timestamptz not null default now(),
   completed_at    timestamptz,
   quiz_attempts   integer not null default 0,
@@ -74,7 +74,7 @@ create table if not exists public.lesson_events (
   id         bigint generated always as identity primary key,
   visitor_id text not null,
   user_id    uuid references auth.users (id) on delete set null,
-  lesson     smallint check (lesson between 1 and 12),
+  lesson     smallint check (lesson between 1 and 200),
   event      text not null check (event in (
                'cover_viewed', 'comic_opened', 'quiz_wrong', 'quiz_passed',
                'lesson_completed', 'paywall_viewed', 'signed_up', 'checkout_started')),
@@ -147,9 +147,17 @@ create trigger on_auth_user_created
 -- 4. Functions the website calls (each checks the caller)
 -------------------------------------------------------------------------------
 
+-- Which lessons are free (permanent lesson ids; see the LESSONS list in public/index.html).
+create or replace function public.is_free_lesson(p_lesson int)
+returns boolean
+language sql
+immutable
+set search_path = ''
+as $$ select p_lesson in (13, 14, 15) $$;
+
 -- Record lesson progress for the signed-in learner.
 -- p_action: 'opened' | 'quiz_wrong' | 'quiz_passed' | 'completed'
--- Lessons 4-12 are only recorded for learners who have paid.
+-- Paid lessons are only recorded for learners who have paid (see is_free_lesson).
 create or replace function public.record_progress(p_lesson int, p_action text)
 returns void
 language plpgsql
@@ -162,13 +170,13 @@ begin
   if uid is null then
     raise exception 'Not signed in';
   end if;
-  if p_lesson is null or p_lesson < 1 or p_lesson > 12 then
+  if p_lesson is null or p_lesson < 1 or p_lesson > 200 then
     raise exception 'Invalid lesson';
   end if;
   if p_action not in ('opened', 'quiz_wrong', 'quiz_passed', 'completed') then
     raise exception 'Invalid action';
   end if;
-  if p_lesson > 3 and not exists (
+  if not public.is_free_lesson(p_lesson) and not exists (
        select 1 from public.profiles where id = uid and unlocked) then
     raise exception 'Lesson locked';
   end if;
@@ -241,7 +249,7 @@ begin
   if p_visitor is null or p_visitor !~ '^v_[a-z0-9]{12,40}$' then
     return;
   end if;
-  if p_lesson is not null and (p_lesson < 1 or p_lesson > 12) then
+  if p_lesson is not null and (p_lesson < 1 or p_lesson > 200) then
     return;
   end if;
   insert into public.lesson_events (visitor_id, user_id, lesson, event)

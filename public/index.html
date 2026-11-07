@@ -14,6 +14,71 @@ posthog.init("phc_tWqPXf25ZxQ6AZUg6jqioyaoaBLoUAgkcunPsRkFpM45", {
   disable_session_recording: true
 });
 </script>
+<style>
+/* ---------- book-style comic pages ---------- */
+/* ---------- book-style comic pages ---------- */
+.book{width:100%;container-type:inline-size;display:flex;flex-direction:column;gap:34px;align-items:center}
+.cpage{width:min(100%,760px);background:#fffdf3;color:#14213d;border:2px solid #14213d;box-shadow:10px 10px 0 var(--shadow);padding:2.6% 2.6% 1.2%;display:flex;flex-direction:column;gap:1.4cqw;position:relative;font-size:min(2.05cqw,15.5px)}
+.ptitle{font-family:var(--disp);font-size:2.2em;letter-spacing:.04em;line-height:1;color:#e63a2e;-webkit-text-stroke:.07em #14213d;paint-order:stroke fill;text-shadow:.08em .08em 0 #14213d;margin:.1em 0 .1em}
+.crow{display:flex;gap:1.4cqw;width:100%}
+.cpan{position:relative;height:100%;min-width:0;border:3.5px solid #14213d;overflow:hidden;background:#fff}
+.cartw{position:absolute;inset:0}
+.cart{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cpan .who{display:none}
+.pnum{font:700 .8em var(--comic);text-align:center;margin:.2em 0 0;letter-spacing:.1em}
+
+/* speech, thought, yell, whisper */
+.bb{position:absolute;z-index:2;background:#fff;color:#14213d;border:.17em solid #14213d;border-radius:1.6em;padding:.5em .85em .6em;text-align:center;box-shadow:.12em .12em 0 rgba(20,33,61,.25)}
+.bb p,.cbox p{margin:0;font:700 1em/1.22 var(--comic);text-transform:uppercase;letter-spacing:.01em}
+.bb b{color:#e63a2e}
+.term{background:#ffd23f;border:.1em solid #14213d;padding:0 .25em;border-radius:.2em;white-space:nowrap}
+.bb::before,.bb::after{content:"";position:absolute;width:0;height:0;border-style:solid;left:var(--tx,28%)}
+/* tail pointing down (speaker below) */
+.bb.t-b::before{bottom:-1.25em;border-width:1.25em .55em 0 .55em;border-color:#14213d transparent transparent transparent;transform:translateX(-50%) skewX(var(--sk,-18deg))}
+.bb.t-b::after{bottom:-.9em;border-width:.95em .38em 0 .38em;border-color:#fff transparent transparent transparent;transform:translateX(-50%) skewX(var(--sk,-18deg))}
+.bb.t-bl{--sk:22deg}.bb.t-bl::before,.bb.t-bl::after{}
+.bb.t-bl::before{bottom:-1.25em;border-width:1.25em .55em 0 .55em;border-color:#14213d transparent transparent transparent;transform:translateX(-50%) skewX(22deg)}
+.bb.t-bl::after{bottom:-.9em;border-width:.95em .38em 0 .38em;border-color:#fff transparent transparent transparent;transform:translateX(-50%) skewX(22deg)}
+/* tail pointing up (speaker above) */
+.bb.t-t::before{top:-1.25em;border-width:0 .55em 1.25em .55em;border-color:transparent transparent #14213d transparent;transform:translateX(-50%) skewX(18deg)}
+.bb.t-t::after{top:-.9em;border-width:0 .38em .95em .38em;border-color:transparent transparent #fff transparent;transform:translateX(-50%) skewX(18deg)}
+/* thought cloud */
+.bb.th{border-radius:50%/42%;padding:.8em 1.1em .9em;background:#fff}
+.bb.th::before,.bb.th::after{border:.15em solid #14213d;background:#fff;border-radius:50%}
+.bb.th::before{width:.9em;height:.7em;bottom:-1.05em;left:var(--tx,30%)}
+.bb.th::after{width:.5em;height:.4em;bottom:-1.75em;left:calc(var(--tx,30%) - .7em)}
+.bb.th.t-r::after{left:calc(var(--tx,30%) + 1.1em)}
+/* yell: jagged */
+.bb.yell{background:#fff;border:none;padding:1.5em 2.1em;width:max-content;filter:drop-shadow(.14em 0 0 #14213d) drop-shadow(-.14em 0 0 #14213d) drop-shadow(0 .14em 0 #14213d) drop-shadow(0 -.14em 0 #14213d);clip-path:polygon(0% 18%,9% 14%,6% 0%,20% 10%,30% 2%,38% 12%,50% 0%,58% 12%,70% 3%,76% 14%,92% 4%,90% 20%,100% 26%,92% 38%,100% 50%,92% 60%,100% 76%,88% 78%,92% 96%,76% 86%,66% 100%,56% 88%,44% 100%,36% 88%,22% 98%,20% 84%,4% 92%,8% 76%,0% 64%,7% 52%,0% 38%,8% 30%);box-shadow:none}
+.bb.yell p{font-family:var(--disp);font-size:1.45em;letter-spacing:.04em;line-height:1.05}
+.bb.yell::before,.bb.yell::after{display:none}
+.bb.wh{border-style:dashed}
+.bb.nt::before,.bb.nt::after{display:none}
+/* caption boxes */
+.cbox{position:absolute;z-index:2;background:#ffd23f;color:#14213d;border:.15em solid #14213d;box-shadow:.18em .18em 0 #14213d;padding:.35em .6em .4em}
+.cbox p{font:700 .86em/1.25 var(--body);text-transform:uppercase;letter-spacing:.04em}
+.cbox.t-dark{}
+
+@container (max-width:560px){
+  .cpage{font-size:13px;padding:10px;gap:10px;box-shadow:6px 6px 0 var(--shadow)}
+  .crow{flex-direction:column;aspect-ratio:auto!important;gap:10px}
+  .cpan{flex:none!important;width:100%;height:auto;display:flex;flex-direction:column;gap:12px;padding-bottom:12px;background:#fbf4dd}
+  .cartw{position:relative;aspect-ratio:var(--ar);border-bottom:3.5px solid #14213d}
+  .cpan .bb,.cpan .cbox{position:relative;left:auto!important;top:auto!important;width:auto!important;max-width:88%;margin:0 12px;align-self:flex-start}
+  .cpan .bb.rt{align-self:flex-end}
+  .cpan .cbox{order:-1;margin:0;max-width:none;box-shadow:none;border-width:0 0 2px 0;position:relative}
+  .cpan .cbox + .cartw{}
+  .bb.t-b::before,.bb.t-b::after,.bb.t-bl::before,.bb.t-bl::after{display:none}
+  .bb:not(.th):not(.yell)::before{display:block;top:-1.25em;bottom:auto;border-width:0 .55em 1.25em .55em;border-color:transparent transparent #14213d transparent;transform:translateX(-50%);left:2em}
+  .bb:not(.th):not(.yell)::after{display:block;top:-.9em;bottom:auto;border-width:0 .38em .95em .38em;border-color:transparent transparent #fff transparent;transform:translateX(-50%);left:2em}
+  .bb.rt:not(.th):not(.yell)::before,.bb.rt:not(.th):not(.yell)::after{left:auto;right:1.4em}
+  .bb.th::before,.bb.th::after{display:none}
+  .bb.yell{padding:1.2em 1.4em}
+  .cpan .who{display:block;font:700 .72em var(--comic);letter-spacing:.08em;color:#5a5342;margin-bottom:.15em;text-align:left}
+  .cpan .cbox{margin-top:0}
+}
+
+</style>
 </head><body>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bangers&family=Comic+Neue:wght@400;700&family=JetBrains+Mono:wght@500&display=swap">
 <style>
@@ -359,10 +424,10 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
       <h1>Your home runs on a network. <mark>Learn it from a comic.</mark></h1>
       <p class="lead">NetFixLab teaches you how the internet reaches your devices and how to fix common problems yourself. One short comic lesson at a time, no jargon, no tech background needed.</p>
       <div class="cta">
-        <button class="btn" data-open="1">Read lesson 1, free</button>
-        <a class="btn alt" href="#lessons" data-go="lessons">See all 12 lessons</a>
+        <button class="btn" data-open="1">Read issue 1, free</button>
+        <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts">12 comic lessons · first 3 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 3 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -384,7 +449,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
 
   <section id="lessons">
     <p class="kicker">The course</p>
-    <h2>Twelve lessons, two parts</h2>
+    <h2><span data-count></span> lessons, two parts</h2>
     <p class="prog" id="prog"></p>
     <div class="parthead"><h3 id="ph1"></h3><p id="pd1"></p></div>
     <div class="grid" id="grid1"></div>
@@ -425,13 +490,13 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
       <article class="plan">
         <h3>Free preview</h3>
         <p class="price">Free</p>
-        <ul><li>Lessons 1 to 3: networks, network engineers and IP addresses</li><li>Comics, takeaways and quizzes included</li><li>No sign-up needed to read</li></ul>
-        <button class="btn alt" data-open="1">Start lesson 1</button>
+        <ul><li>Issues 1 to 3: why networks exist, the TCP/IP model, IP addresses and subnetting</li><li>Comics, takeaways and quizzes included</li><li>No sign-up needed to read</li></ul>
+        <button class="btn alt" data-open="1">Start issue 1</button>
       </article>
       <article class="plan featured">
         <h3>Full course</h3>
         <p class="price"><span data-price></span> <small>one-time</small></p>
-        <ul><li>All 12 lessons, including the whole troubleshooting part</li><li>A comic, a quiz and a try-it task in every lesson</li><li>Saved to your account, so you can read on any device</li><li>Pay once. No subscription.</li></ul>
+        <ul><li>Every lesson, including the whole troubleshooting part</li><li>A comic, a quiz and a try-it task in every lesson</li><li>Saved to your account, so you can read on any device</li><li>Pay once. No subscription.</li></ul>
         <button class="btn ink" data-buy>Unlock all lessons</button>
       </article>
     </div>
@@ -487,10 +552,10 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
 <div class="overlay" id="pay" hidden data-clarity-mask="true" role="dialog" aria-modal="true" aria-labelledby="payT">
   <div class="sheet">
     <button class="x" id="payX" aria-label="Close">&times;</button>
-    <p class="kicker">Lessons 4 to 12</p>
+    <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
     <p>The first three lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
-    <ul><li>Modems, Wi-Fi, DNS and DHCP explained</li><li>The whole troubleshooting part, including ping</li><li>No subscription, ever</li></ul>
+    <ul><li>The whole troubleshooting part, including ping</li><li>Fix slow Wi-Fi and “connected, but no internet”</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
   </div>
@@ -511,7 +576,6 @@ const CONFIG = {
   authorName: "Jyoti Kumari Singh",
   contactEmail: "support@netfixlab.tech"   // shown in the Contact section
 };
-const FREE_COUNT = 3;
 
 /* ---------- devices: realistic hardware with expressive faces ---------- */
 const FACE = "#14213d", INK = "#14213d";
@@ -787,77 +851,7 @@ const PARTS = [null,
   {n:"Part 1 · Networking from zero", d:"No jargon assumed. Start here."},
   {n:"Part 2 · Fix your own network", d:"A calm routine for the problems everyone hits."}];
 const LESSONS = [
-{t:"What is a network, really?", b:"Meet the devices in your home and the box that connects them.", m:4, star:"router", part:1,
- pan:[
-  P("laptop","phone","happy","happy","wifi",["l:Fonz, I just loaded a video from the other side of the world. How did it get here?","r:Same way my messages arrive, Lappy. We are not alone. We are on a network."],"Saturday morning, a living room."),
-  P("laptop","router","confused","happy","packet",["l:Okay, but what is a network, exactly?","r:Two or more devices that can send data to each other. Phones, laptops, TVs, printers, even the smart bulb."]),
-  P("laptop","router","happy","proud","packet",["l:So you are like a post office?","r:Exactly. Data travels in small packages. I read each address and send it the right way."]),
-  P("router","server","proud","happy","cable",["l:Past the front door, one cable leads to your internet provider, and from there to millions of other networks. That network of networks is the internet.","r:I live out there. I am a computer that stores a website and answers when someone asks."],"And beyond the router...")],
- take:"A network is devices that can talk to each other. Your router is the post office in the middle, and the internet is many networks joined together.",
- tip:"Count the devices in your home that connect to the internet. Phones, TVs, speakers, bulbs, a watch. Most people guess too low.",
- q:{q:"Which device passes data between your devices and the internet?",o:["Router","Monitor","Speaker"],why:"The router connects every device at home to the internet and sends each message to the right place."}},
-
-{t:"What does a network engineer do?", b:"The job behind every video call that just works.", m:4, star:"wall", part:1,
- pan:[
-  P("laptop","router","shock","confused","broken",["l:Nothing loads! Is it me, or is it the network?","r:Time to call the network engineer."],"Monday, 9:02 AM, a busy office.","NO WI-FI"),
-  P("router","server","happy","proud","none",["l:A network engineer designs, builds and looks after networks like mine. They decide where I sit, how I am set up, and who can talk to whom.","r:And they keep us running so well that nobody notices. That is the job."]),
-  P("wall","laptop","proud","happy","check",["l:I am the firewall. The engineer writes my rules, so the right traffic gets in and the bad traffic stays out.","r:So they protect us too?","l:Security is a big part of the job."]),
-  P("laptop","server","confused","happy","question",["l:Everyone knows what software is. Why does nobody know about this job?","r:Because when a network works, nobody thinks about it. Like plumbing, until the tap stops."])],
- take:"Network engineers plan, build, secure and fix networks. It is a real career with many paths, including cloud, security and automation.",
- tip:"Ask three friends what a network engineer does. Notice how few can answer.",
- q:{q:"What is a network engineer's main job?",o:["Design, secure and fix networks","Write mobile apps","Repair phone screens"],why:"Network engineers design, secure and fix networks so everyone else can just use them."}},
-
-{t:"IP addresses: a house number for every device", b:"How your router knows which device a message is for.", m:5, star:"phone", part:1,
- pan:[
-  P("laptop","router","confused","happy","question",["l:How does the router know a message is for me and not for Fonz?","r:Every device on my network gets an IP address. Think of it as a house number on our street."],"Every device needs an address."),
-  P("router","phone","happy","happy","packet",["l:Most home networks use addresses like {{192.168.1.24}}. The first three numbers are the street. The last one is the house.","r:So {{192.168.1.25}} is my neighbour."]),
-  P("phone","laptop","shock","shock","broken",["l:What if we both claim {{192.168.1.30}}?","r:Then messages get mixed up. Two devices on one network cannot share an address."],"","CLASH!"),
-  P("router","server","proud","happy","cable",["l:The internet has addresses too. The one the whole world sees for your home is the public IP, and your internet provider assigns it.","r:Inside your home the addresses are private. Outside, everything looks like it comes from one address."],"What about outside the house?")],
- take:"Every device has an IP address, like a house number. Home addresses are private, often starting {{192.168}}. Your router shows one public address to the internet.",
- tip:"Find your phone's IP: open Wi-Fi settings and tap the info icon next to your network. On Windows, open Command Prompt and type {{ipconfig}}.",
- q:{q:"Can two devices on the same home network share one IP address?",o:["No, it causes a conflict","Yes, always","Only phones can"],why:"Each device needs its own address, or the router cannot tell where a message should go."}},
-
-{t:"Modem vs router: two boxes, two jobs", b:"Which box does what, and what its lights are telling you.", m:5, star:"modem", part:1,
- pan:[
-  P("modem","router","proud","happy","cable",["l:I am the modem. I speak the language of your provider's line, fibre or cable. I am the translator at the front door.","r:And I share that connection with every device in your home, by Wi-Fi and by cable."],"Two boxes, one confusion."),
-  P("modem","router","happy","happy","none",["l:Plenty of homes have just one box that does both jobs.","r:Same two jobs, one shell. Providers often call it a combo box or a gateway."]),
-  P("laptop","router","worried","confused","broken",["l:The internet is down on my laptop. Should I blame you?","r:First ask: is it only you, or everyone? One device points to that device. Everything down points to me, the modem, or the provider."],"Who is to blame?"),
-  P("router","laptop","happy","happy","check",["l:Check my lights. Steady green usually means healthy. Red or blinking on the internet light often means a problem on the provider's side.","r:Colours differ between brands, so keep the manual or a photo of the label handy."])],
- take:"The modem connects your home to the provider. The router shares that connection with your devices. Many homes have both in one box.",
- tip:"Find your box. Take a photo of the label and the lights while everything works, so you can compare when something breaks.",
- q:{q:"Which device shares your internet with all your devices?",o:["Router","Modem","Printer"],why:"The router shares the connection. The modem only connects your home to the provider."}},
-
-{t:"Wi-Fi or cable? Pick the right road", b:"Why a wire is steadier and why walls hurt Wi-Fi.", m:5, star:"laptop", part:1,
- pan:[
-  P("laptop","router","happy","happy","wifi",["l:Wi-Fi sends data through the air as radio waves. No wires, so I can walk around.","r:Convenient, but the signal gets weaker as it travels."],"Road one: Wi-Fi."),
-  P("laptop","router","proud","happy","cable",["l:A cable, called Ethernet, sends data along a wire.","r:It is usually steadier and quicker to respond. Walls and neighbours cannot disturb it."],"Road two: cable."),
-  P("phone","router","worried","confused","wifi",["l:Why is my Wi-Fi weak in the bedroom?","r:Thick walls, mirrors, microwaves and other people's Wi-Fi all weaken the signal. Distance does too."]),
-  P("router","phone","happy","happy","wifi",["l:I broadcast on two lanes. The {{2.4 GHz}} lane reaches farther but is slower. The {{5 GHz}} lane is faster but reaches less far.","r:Newer routers may add a {{6 GHz}} lane too. Faster again, shorter reach."])],
- take:"Use a cable for things that stay put, such as a TV or a desktop. Use Wi-Fi for things that move. 2.4 GHz travels farther, 5 GHz is faster up close.",
- tip:"Run a speed test next to the router, then in your farthest room. The difference shows what distance costs you.",
- q:{q:"Which Wi-Fi band usually reaches farther but is slower?",o:["2.4 GHz","5 GHz","Bluetooth"],why:"Lower frequencies travel farther through walls, but carry data more slowly."}},
-
-{t:"DNS: the internet's phonebook", b:"Why you can type a name and still reach a number.", m:5, star:"dns", part:1,
- pan:[
-  P("laptop","dns","confused","happy","question",["l:I want to visit netfixlab.tech, but I only understand numbers!","r:Computers find each other by IP address. Names are easier for people, so I translate."],"You type a name..."),
-  P("laptop","dns","happy","proud","packet",["l:What is the address for netfixlab.tech?","r:One moment, checking my records. Here is the number."]),
-  P("laptop","server","proud","happy","check",["l:Got it. Now I can go straight to the server.","r:Hello! Here is the page you asked for."],"...and the page appears.","HELLO!"),
-  P("laptop","dns","sad","worried","broken",["l:Dee is not answering. Websites will not open by name!","r:If the internet works by number but fails by name, DNS is the usual suspect. Switching to another DNS service, such as {{1.1.1.1}} or {{8.8.8.8}}, often fixes it."],"When the phonebook goes missing...")],
- take:"DNS turns names into IP addresses. If sites fail by name but work by number, suspect DNS.",
- tip:"In Command Prompt or Terminal type {{nslookup google.com}} and look at the address that comes back.",
- q:{q:"What does DNS do?",o:["Turns website names into IP addresses","Makes Wi-Fi faster","Blocks viruses"],why:"DNS translates the names people type into the numbers computers use."}},
-/* ---------- lessons 7-12 ---------- */
-{t:"DHCP: who hands out the addresses?", b:"How a new device gets online without you typing anything.", m:4, star:"router", part:1,
- pan:[
-  P("phone","router","happy","proud","wifi",["l:I just joined the Wi-Fi. Who gave me my address?","r:I did. I run a service called DHCP. It lends each new device an unused address for a while."],"A new phone walks in."),
-  P("phone","router","happy","happy","packet",["l:Can I have an address, the way out, and a DNS server please?","r:Here is your address. I am the gateway, your door to the internet. And here is a DNS server."],"","HI!"),
-  P("laptop","router","shock","sad","broken",["l:My address starts with {{169.254}}. What does that mean?","r:You asked for an address and nobody answered, so you made one up. That address will not reach the internet."],"Sometimes it goes wrong."),
-  P("laptop","router","confused","happy","check",["l:How do I fix it?","r:Turn Wi-Fi off and on again on your device. If that fails, restart me, then ask again."])],
- take:"DHCP gives devices their address, gateway and DNS automatically. An address starting {{169.254}} means the device could not get one.",
- tip:"Turn your phone's Wi-Fi off and on. For a moment, it asks the router for an address all over again.",
- q:{q:"A device shows an address starting 169.254. What most likely happened?",o:["It could not get an address from DHCP","It has the fastest connection","It is using a public IP"],why:"A 169.254 address is self-assigned. It appears when the device asked for an address and got no answer."}},
-
-{t:"The five-step fix routine", b:"A calm routine that solves most home problems.", m:5, star:"laptop", part:2,
+{id:8, t:"The five-step fix routine", b:"A calm routine that solves most home problems.", m:5, star:"laptop", part:2,
  pan:[
   P("laptop","router","sad","confused","broken",["l:Step one. Is it only me? Try another device on the same Wi-Fi.","r:One device failing points to that device. Everything failing points to me, the modem, or the provider."],"Something is wrong. Do not panic."),
   P("laptop","phone","confused","happy","wifi",["l:Step two. Restart the device, or switch Wi-Fi or airplane mode off and on.","r:That alone clears a surprising number of problems."]),
@@ -868,7 +862,7 @@ const LESSONS = [
  tip:"Practice step one now, while nothing is broken. See which devices are on your Wi-Fi at the moment.",
  q:{q:"In which order do you power the equipment back on?",o:["Modem first, then router","Router first, then modem","Any order"],why:"The modem needs to be online before the router asks it for a connection."}},
 
-{t:"Connected to Wi-Fi, but no internet", b:"Full bars, nothing loads. Where to look.", m:6, star:"phone", part:2,
+{id:9, t:"Connected to Wi-Fi, but no internet", b:"Full bars, nothing loads. Where to look.", m:6, star:"phone", part:2,
  pan:[
   P("phone","router","shock","confused","broken",["l:Full Wi-Fi bars, but nothing loads!","r:That means you and I can talk. The road out to the internet is the part that is blocked."],"","NO NET"),
   P("laptop","router","confused","happy","question",["l:Where do I start?","r:Same as always. Is it every device or just one? If it is one device, forget the network on that device and join again."]),
@@ -878,7 +872,7 @@ const LESSONS = [
  tip:"Find your provider's outage page now, using mobile data, before you need it.",
  q:{q:"Wi-Fi shows connected, but nothing loads on any device. Where do you look first?",o:["Router, modem and provider","Laptop screen brightness","Buy a new laptop"],why:"When every device fails, the shared parts are the suspects: router, modem and provider."}},
 
-{t:"Why is my internet slow?", b:"Five suspects, and how to question each one.", m:6, star:"router", part:2,
+{id:10, t:"Why is my internet slow?", b:"Five suspects, and how to question each one.", m:6, star:"router", part:2,
  pan:[
   P("laptop","router","sad","happy","packet",["l:Everything crawls!","r:Start with a speed test. Use a cable if you can, so Wi-Fi is not the suspect."],"Everything crawls.","SLOW"),
   P("router","phone","happy","confused","packet",["l:Many devices sharing one line each get a slice. Streaming, downloads and updates all take a slice.","r:Pause the big ones and test again."]),
@@ -889,7 +883,7 @@ const LESSONS = [
  tip:"Run a speed test now and write the numbers down. You will want a baseline when it feels slow.",
  q:{q:"Where is the best place for a Wi-Fi router?",o:["Central, raised and in the open","Inside a cupboard","Behind the TV in a corner"],why:"Signal is strongest in the open and closer to the middle of the home."}},
 
-{t:"Ping: ask the network a question", b:"A two-minute test that tells you where the break is.", m:7, star:"server", part:2,
+{id:11, t:"Ping: ask the network a question", b:"A two-minute test that tells you where the break is.", m:7, star:"server", part:2,
  pan:[
   P("laptop","server","happy","happy","packet",["l:Ping sends a tiny message and waits for the reply. Like shouting Marco and waiting for Polo.","r:Polo!"],"","PING!"),
   P("laptop","server","proud","happy","packet",["l:The reply time shows in {{ms}}, milliseconds. Lower is better.","r:As a rough guide, under 50 ms feels great at home. Past 150 ms you notice lag in calls and games."]),
@@ -901,7 +895,7 @@ const LESSONS = [
  tip:"Open Command Prompt or Terminal and type {{ping 8.8.8.8}}. Windows stops after 4 replies. On a Mac, press Control and C to stop.",
  q:{q:"{{ping 8.8.8.8}} works but {{ping google.com}} fails. What is likely?",o:["DNS","A broken router","An unplugged cable"],why:"The internet link works, because the number replied. Names fail, so the translation step, DNS, is the suspect."}},
 
-{t:"Keep your network safe", b:"Five small habits that lock the front door.", m:5, star:"wall", part:2,
+{id:12, t:"Keep your network safe", b:"Five small habits that lock the front door.", m:5, star:"wall", part:2,
  pan:[
   P("wall","router","proud","happy","check",["l:Your router is the front door. Change the default admin password on day one.","r:Default passwords are often printed on the label or easy to find online."]),
   P("router","phone","happy","happy","wifi",["l:Use WPA3 for Wi-Fi, or WPA2 if that is all I support, with a long passphrase.","r:Never choose open Wi-Fi or the old WEP setting."]),
@@ -919,13 +913,6 @@ const SCHEMES = {
   yellow: {bg:"#ffd23f", ray:"#ffb400", title:"#e63a2e"}
 };
 const COVERS = [
- {l:["WHAT IS A","NETWORK?"], t:["MEET THE DEVICES","BEHIND YOUR WI-FI!"], s:"red", a:"laptop", b:"router", ma:"confused", mb:"proud", sfx:"HELLO!"},
- {l:["THE JOB","NOBODY","KNOWS"], t:["THE PEOPLE KEEPING","YOU ONLINE"], s:"blue", a:"wall", b:"laptop", ma:"proud", mb:"worried", sfx:"WHO?!"},
- {l:["HOUSE","NUMBERS","FOR DEVICES"], t:["IP ADDRESSES","EXPLAINED"], s:"yellow", a:"phone", b:"laptop", ma:"shock", mb:"worried", sfx:"CLASH!"},
- {l:["TWO BOXES,","TWO JOBS"], t:["MODEM VS ROUTER","AND THEIR LIGHTS"], s:"red", a:"modem", b:"router", ma:"proud", mb:"happy", sfx:"ZAP!"},
- {l:["WI-FI","VS CABLE"], t:["PICK THE RIGHT","ROAD FOR YOUR DATA"], s:"blue", a:"laptop", b:"router", ma:"happy", mb:"proud", sfx:"ZOOM!"},
- {l:["THE","PHONEBOOK","OF THE WEB"], t:["HOW DNS TURNS NAMES","INTO NUMBERS"], s:"yellow", a:"laptop", b:"dns", ma:"confused", mb:"proud", sfx:"LOOKUP!"},
- {l:["WHO GIVES","OUT THE","ADDRESSES?"], t:["DHCP, THE FRIENDLY","ADDRESS HANDER"], s:"red", a:"phone", b:"router", ma:"happy", mb:"proud", sfx:"HI!"},
  {l:["THE 5-STEP","FIX-IT","ROUTINE"], t:["STAY CALM AND","FIX YOUR NETWORK"], s:"blue", a:"laptop", b:"router", ma:"proud", mb:"happy", sfx:"FIX!"},
  {l:["WI-FI ON,","NET OFF!"], t:["CONNECTED, BUT","NOTHING LOADS?"], s:"yellow", a:"phone", b:"router", ma:"shock", mb:"confused", sfx:"NO NET"},
  {l:["WHY IS IT","SO SLOW?!"], t:["FIVE SUSPECTS","AND HOW TO QUESTION THEM"], s:"red", a:"laptop", b:"router", ma:"sad", mb:"confused", sfx:"SLOW"},
@@ -959,6 +946,1151 @@ function cover(n, mini){
     + `<text x="180" y="472" text-anchor="middle" font-family="Comic Neue, sans-serif" font-weight="700" font-size="12.5" letter-spacing="1" fill="#14213d">${C.t[1]}</text>`
     + `<rect width="360" height="480" fill="url(#${id}v)"/></svg>`;
 }
+/* ---------- book-style comic engine ---------- */
+/* ---------- book-style comic pages for NetFixLab ----------
+   Relies on the site's drawing helpers: drawChar, face, sk, halftone, dots, rays, jag, INK, BANG, UID */
+const PW = 600; // design width of a page in art units
+
+/* ---------- extra cast for this issue ---------- */
+function van(mood, look){
+  const g = "v" + (++UID);
+  return `<defs>${lin(g+"a","#ffb04d","#e0832a")}</defs>`
+    + `<path d="M-96 -24 V-116 Q-96 -124 -88 -124 H40 Q48 -124 50 -116 L56 -84 H82 Q92 -84 96 -74 L104 -46 V-24 Z" fill="url(#${g}a)" ${sk(3.5)}/>`
+    + `<path d="M58 -80 H80 Q86 -80 88 -74 L96 -52 H58 Z" fill="#bfe6ff" ${sk(2.5)}/>`
+    + `<rect x="-88" y="-116" width="128" height="20" rx="3" fill="#14213d"/>`
+    + `<text x="-24" y="-101" text-anchor="middle" font-family="${BANG}" font-size="15" letter-spacing="1" fill="#ffd23f">DASH DELIVERY</text>`
+    + face(-24, -70, 17, -44, mood, look, 1)
+    + `<circle cx="-56" cy="-22" r="17" fill="#2b3350" ${sk(3)}/><circle cx="-56" cy="-22" r="7" fill="#c9d3e6"/>`
+    + `<circle cx="66" cy="-22" r="17" fill="#2b3350" ${sk(3)}/><circle cx="66" cy="-22" r="7" fill="#c9d3e6"/>`
+    + `<rect x="98" y="-46" width="8" height="10" rx="2" fill="#fff3a0" ${sk(2)}/>`;
+}
+function snoop(mood, look){
+  return `<rect x="-6" y="-152" width="4" height="22" fill="#14213d"/><circle cx="-4" cy="-156" r="6" fill="#e63a2e" ${sk(2)}/>`
+    + `<rect x="-46" y="-132" width="92" height="66" rx="12" fill="#9fb3c8" ${sk(3.5)}/>`
+    + `<rect x="-38" y="-124" width="76" height="50" rx="8" fill="#e8f1fb" ${sk(2)}/>`
+    + face(0, -104, 15, -84, mood, look, .9)
+    + `<rect x="-34" y="-66" width="68" height="40" rx="6" fill="#7f95ad" ${sk(3)}/>`
+    + `<path d="M-46 -60 L-74 -40 M46 -60 L74 -40" stroke="#14213d" stroke-width="7" stroke-linecap="round"/>`
+    + `<rect x="-44" y="-26" width="88" height="22" rx="11" fill="#2b3350" ${sk(3)}/>`
+    + `<circle cx="-28" cy="-15" r="5" fill="#8b95ad"/><circle cx="0" cy="-15" r="5" fill="#8b95ad"/><circle cx="28" cy="-15" r="5" fill="#8b95ad"/>`;
+}
+function person(c){ // flat silhouette, for history scenes
+  c = c || "#4a3b28";
+  return `<circle cx="0" cy="-112" r="18" fill="${c}"/><path d="M-30 0 V-60 Q-30 -88 0 -88 Q30 -88 30 -60 V0 Z" fill="${c}"/>`;
+}
+function nimbus(mood, look){
+  return `<path d="M-96 -6 Q-120 -10 -112 -40 Q-118 -76 -78 -78 Q-70 -118 -24 -112 Q4 -142 44 -116 Q92 -124 96 -82 Q128 -72 116 -40 Q124 -6 96 -6 Z" fill="#f4f8ff" ${sk(4)}/>`
+    + `<path d="M-80 -20 Q-40 -10 0 -20 Q40 -10 80 -20" fill="none" stroke="#c9d3e6" stroke-width="4" stroke-linecap="round"/>`
+    + face(0, -66, 22, -36, mood, look, 1.25);
+}
+const CHAR2 = {nimbus:{name:"Nimbus",what:"network cloud"}, van:{name:"Dash",what:"delivery van"}, snoop:{name:"Snoop",what:"sorting robot"}};
+function anyChar(k, mood, look){
+  if(k === "van") return van(mood, look);
+  if(k === "snoop") return snoop(mood, look);
+  if(k === "person") return person(mood);
+  if(k === "nimbus") return nimbus(mood, look);
+  return drawChar(k, mood, look);
+}
+
+/* ---------- backgrounds ---------- */
+const BGC = {sky:"#7fc1f0", sun:"#ffe27a", rose:"#f5958a", red:"#e8453c", blue:"#2f8fdd", mint:"#8fdcc0", lilac:"#c9b6f2", tan:"#e3c79a", yellow:"#ffd23f"};
+function stars(ox,oy,W,H,n){ let s=""; for(let i=0;i<n;i++){ const x=ox+8+(i*97.3)%(W-16), y=oy+8+(i*53.7)%(H-16); s+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${i%3?1.4:2.2}" fill="#fff3c4"/>`; } return s; }
+function scene(sc, W, H, id){
+  const t = sc.split(":"), k = t[0], c = t[1];
+  const floor = (y, col) => `<rect y="${y}" width="${W}" height="${H-y}" fill="${col || "rgba(20,33,61,.22)"}"/><path d="M0 ${y}H${W}" stroke="${INK}" stroke-width="3"/>`;
+  switch(k){
+    case "rays": {
+      const col = BGC[c] || c || BGC.sky;
+      return `<rect width="${W}" height="${H}" fill="${col}"/>` + rays(W/2, H*.55, 20, "#fff", .28, W+H) + dots(id,W,H,.4) + floor(H-24);
+    }
+    case "burst": {
+      const col = BGC[c] || c || BGC.red;
+      return `<rect width="${W}" height="${H}" fill="${col}"/>` + rays(W/2, H/2, 30, "#fff", .45, W+H) + dots(id,W,H,.35);
+    }
+    case "night": return `<rect width="${W}" height="${H}" fill="#24305a"/>` + dots(id,W,H,.25)
+      + `<rect x="${W*.08}" y="${H*.1}" width="${W*.3}" height="${H*.45}" fill="#101a3a" stroke="#c9b98a" stroke-width="6"/>` + stars(W*.08,H*.1,W*.3,H*.45,14)
+      + `<circle cx="${W*.32}" cy="${H*.2}" r="${H*.06}" fill="#fff3c4"/><path d="M${W*.23} ${H*.1}V${H*.55}M${W*.08} ${H*.32}H${W*.38}" stroke="#c9b98a" stroke-width="4"/>`
+      + floor(H-24, "#7a4e2d");
+    case "room": return `<rect width="${W}" height="${H}" fill="#f6e2b3"/>` + `<g opacity=".35">${Array.from({length:Math.ceil(W/28)},(_,i)=>`<path d="M${i*28} 0V${H}" stroke="#e0b96a" stroke-width="10"/>`).join("")}</g>` + dots(id,W,H,.2) + floor(H-24, "#a8703f");
+    case "sepia": return `<rect width="${W}" height="${H}" fill="#e3c79a"/>` + rays(W/2, H*.5, 18, "#f4e2bd", .7, W+H) + dots(id,W,H,.45) + floor(H-24, "rgba(90,60,20,.25)");
+    case "hub": return `<rect width="${W}" height="${H}" fill="#c8ccd6"/>` + dots(id,W,H,.3)
+      + Array.from({length:Math.ceil(W/120)},(_,i)=>`<rect x="${i*120+10}" y="${H*.12}" width="100" height="${H*.42}" fill="#9aa3b5" stroke="${INK}" stroke-width="3"/><path d="M${i*120+10} ${H*.26}H${i*120+110}M${i*120+10} ${H*.4}H${i*120+110}" stroke="${INK}" stroke-width="3"/>`
+        + `<rect x="${i*120+20}" y="${H*.26-18}" width="24" height="18" fill="#c99a5b" stroke="${INK}" stroke-width="2"/><rect x="${i*120+60}" y="${H*.4-14}" width="30" height="14" fill="#c99a5b" stroke="${INK}" stroke-width="2"/>`).join("")
+      + floor(H-24, "#59627a");
+    case "street": return `<rect width="${W}" height="${H}" fill="#9fd3f5"/>` + dots(id,W,H,.25)
+      + `<rect x="${W*.06}" y="${H*.05}" width="${W*.88}" height="${H}" fill="#c9634a" stroke="${INK}" stroke-width="3"/>`
+      + Array.from({length:Math.ceil(W*.88/70)},(_,i)=>`<rect x="${W*.06+14+i*70}" y="${H*.12}" width="40" height="${H*.18}" fill="#ffe9a8" stroke="${INK}" stroke-width="3"/>`).join("")
+      + `<rect x="${W*.5-38}" y="${H*.42}" width="76" height="${H*.58-24}" fill="#5a3a2a" stroke="${INK}" stroke-width="3"/><rect x="${W*.5-22}" y="${H*.48}" width="44" height="22" fill="#fff3c4" stroke="${INK}" stroke-width="2.5"/><text x="${W*.5}" y="${H*.48+17}" text-anchor="middle" font-family="${BANG}" font-size="17" fill="${INK}">4B</text>`
+      + floor(H-24, "#8a8f9c");
+    case "cafe": return `<rect width="${W}" height="${H}" fill="#f0c98f"/>` + dots(id,W,H,.25)
+      + `<rect x="${W*.62}" y="${H*.08}" width="${W*.3}" height="${H*.28}" fill="#2f3a35" stroke="#7a4e2d" stroke-width="6"/><text x="${W*.77}" y="${H*.18}" text-anchor="middle" font-family="${BANG}" font-size="16" fill="#fff3c4">MENU</text><path d="M${W*.66} ${H*.24}H${W*.88}M${W*.66} ${H*.3}H${W*.84}" stroke="#fff3c4" stroke-width="2"/>`
+      + `<path d="M${W*.2} 0V${H*.12}" stroke="${INK}" stroke-width="2"/><path d="M${W*.2-22} ${H*.18} Q${W*.2} ${H*.08} ${W*.2+22} ${H*.18}Z" fill="#ffd23f" stroke="${INK}" stroke-width="3"/>`
+      + floor(H-24, "#7a4e2d");
+    case "sky": return `<rect width="${W}" height="${H}" fill="#8fd0f7"/>` + dots(id,W,H,.2) + cloud(W*.18,H*.3,1) + cloud(W*.72,H*.62,1.3) + cloud(W*.5,H*.15,.8);
+    case "blueprint": return `<rect width="${W}" height="${H}" fill="#1f4f8f"/>` + `<g stroke="#5f8fd0" stroke-width="1" opacity=".6">${Array.from({length:Math.ceil(W/20)},(_,i)=>`<path d="M${i*20} 0V${H}"/>`).join("")}${Array.from({length:Math.ceil(H/20)},(_,i)=>`<path d="M0 ${i*20}H${W}"/>`).join("")}</g>`;
+    case "chalk": return `<rect width="${W}" height="${H}" fill="#7a4e2d"/><rect x="10" y="10" width="${W-20}" height="${H-20}" fill="#2f5d4a" stroke="${INK}" stroke-width="3"/>` + dots(id,W,H,.15);
+    case "screen": return `<rect width="${W}" height="${H}" fill="#0e1530"/>` + bitrain(W,H);
+    case "map": return `<rect width="${W}" height="${H}" fill="#7fc1f0"/>` + dots(id,W,H,.25)
+      + `<path d="M${W*.06} ${H*.2} L${W*.3} ${H*.12} L${W*.62} ${H*.14} L${W*.86} ${H*.1} L${W*.95} ${H*.3} L${W*.86} ${H*.55} L${W*.72} ${H*.62} L${W*.66} ${H*.9} L${W*.5} ${H*.72} L${W*.3} ${H*.78} L${W*.12} ${H*.6} Z" fill="#f3e3b3" stroke="${INK}" stroke-width="3.5" stroke-linejoin="round"/>`;
+    case "ocean": return `<rect width="${W}" height="${H}" fill="#1b6cc0"/>` + `<rect width="${W}" height="${H*.18}" fill="#7fc1f0"/><path d="M0 ${H*.18} Q${W*.1} ${H*.14} ${W*.2} ${H*.18} T${W*.4} ${H*.18} T${W*.6} ${H*.18} T${W*.8} ${H*.18} T${W} ${H*.18}" fill="none" stroke="#fff" stroke-width="4"/>` + dots(id,W,H,.3)
+      + `<rect y="${H-30}" width="${W}" height="30" fill="#d9c08a" stroke="${INK}" stroke-width="3"/>`;
+    case "office": {
+      const n = +c || 5, col = ["#d7dbe4","#f3d1a2","#cfe6c4","#c9b6f2","#b9dcf5","#ffd9a0"][n];
+      const nm = ["","PHYSICAL","DATA LINK","NETWORK","TRANSPORT","APPLICATION"][n];
+      return `<rect width="${W}" height="${H}" fill="${col}"/>` + dots(id,W,H,.22)
+        + `<text x="${W-14}" y="${H*.62}" text-anchor="end" font-family="${BANG}" font-size="${H*.55}" fill="#14213d" opacity=".12">${n}</text>`
+        + `<rect x="${W-92}" y="${H-58}" width="84" height="24" fill="#14213d"/><text x="${W-50}" y="${H-40}" text-anchor="middle" font-family="${BANG}" font-size="16" letter-spacing="1" fill="#ffd23f">FLOOR ${n}</text>`
+        + floor(H-24, "#7a8296");
+    }
+    case "plain": return `<rect width="${W}" height="${H}" fill="${BGC[c] || c || "#fff3c4"}"/>` + dots(id,W,H,.3);
+  }
+  return `<rect width="${W}" height="${H}" fill="#fff"/>`;
+}
+function bitrain(W,H){
+  let s = `<g font-family="JetBrains Mono, monospace" font-size="16" fill="#3fe08f" opacity=".85">`;
+  for(let x=10;x<W;x+=26){ let col=""; for(let y=20;y<H;y+=22){ col += `<tspan x="${x}" y="${y}">${(x*7+y*3)%5<2?1:0}</tspan>`; } s += `<text>${col}</text>`; }
+  return s + `</g>`;
+}
+
+/* ---------- props ---------- */
+function cloud(x,y,s){ return `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-40 10 Q-44 -12 -20 -12 Q-14 -30 6 -24 Q22 -34 34 -16 Q52 -14 46 10 Z" fill="#fff" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/></g>`; }
+const PROPS = {
+  parcel:(x,y,s,lbl)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><path d="M-40 0 V-56 L-24 -70 H44 V-14 L40 0 Z" fill="#b97a3e" ${sk(3)}/><rect x="-40" y="-56" width="70" height="56" fill="#d39554" ${sk(3)}/><path d="M30 -56 L44 -70 V-14 L30 0" fill="#a06630" ${sk(3)}/><path d="M-5 -56 V0 M-40 -56 L-24 -70 H44" fill="none" stroke="#e8c98f" stroke-width="5"/>${lbl?`<rect x="-34" y="-36" width="26" height="18" fill="#fff" ${sk(2)}/><path d="M-30 -30H-12M-30 -24H-16" stroke="${INK}" stroke-width="1.6"/>`:""}</g>`,
+  dropbox:(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><rect x="-30" y="-20" width="8" height="20" fill="${INK}"/><rect x="22" y="-20" width="8" height="20" fill="${INK}"/><path d="M-36 -20 V-90 Q-36 -118 0 -118 Q36 -118 36 -90 V-20 Z" fill="#2f6fd1" ${sk(3.5)}/><rect x="-24" y="-96" width="48" height="8" rx="3" fill="#14213d"/><text x="0" y="-52" text-anchor="middle" font-family="${BANG}" font-size="13" fill="#fff3c4">DROP BOX</text></g>`,
+  plane:(x,y,s,r)=>`<g transform="translate(${x} ${y}) rotate(${r||0}) scale(${s||1})"><path d="M-70 0 Q-70 -14 -50 -14 H50 Q74 -12 80 0 Q74 12 50 12 H-50 Q-70 12 -70 0Z" fill="#f4f6fb" ${sk(3)}/><path d="M-10 -8 L-34 -50 H-18 L22 -8Z M-10 8 L-34 50 H-18 L22 8Z" fill="#c9d3e6" ${sk(3)}/><path d="M-62 -10 L-74 -34 H-64 L-48 -12Z" fill="#e63a2e" ${sk(2.5)}/><circle cx="56" cy="-3" r="4" fill="#1f6fd1"/><circle cx="40" cy="-3" r="4" fill="#1f6fd1"/><circle cx="24" cy="-3" r="4" fill="#1f6fd1"/></g>`,
+  cloud:(x,y,s)=>cloud(x,y,s||1),
+  clock:(x,y,s,t,col)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><path d="M-46 0 L-40 -10 H40 L46 0Z" fill="#2b3350" ${sk(2.5)}/><rect x="-50" y="-52" width="100" height="44" rx="8" fill="#2b3350" ${sk(3)}/><rect x="-42" y="-45" width="84" height="30" rx="4" fill="#0b0f1c"/><text x="0" y="-21" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="22" fill="${col||"#ff4b3e"}">${t}</text></g>`,
+  bits:(x,y,t,size,col,r)=>`<text x="${x}" y="${y}" transform="rotate(${r||0} ${x} ${y})" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="${size||20}" fill="${col||"#14213d"}" stroke="#fff" stroke-width="3" paint-order="stroke">${t}</text>`,
+  wave:(x,y,w,h,col)=>{ const pat=[1,0,1,1,0,1,0,0]; const step=w/pat.length; let d=`M${x} ${y+(pat[0]?-h:0)}`; pat.forEach((b,i)=>{ const yy=y+(b?-h:0); d+=` V${yy} H${x+(i+1)*step}`; });
+    return `<path d="${d}" fill="none" stroke="${INK}" stroke-width="8" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${col||"#ffd23f"}" stroke-width="4" stroke-linejoin="round"/>` + pat.map((b,i)=>`<text x="${x+(i+.5)*step}" y="${y+22}" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="16" fill="${INK}">${b}</text>`).join(""); },
+  fiber:(x,y,w)=>{ let z=`M${x+6} ${y}`; for(let i=0;i<=10;i++){ z+=` L${x+6+i*(w-12)/10} ${y+(i%2?-9:9)}`; }
+    return `<rect x="${x}" y="${y-18}" width="${w}" height="36" rx="18" fill="#e6f6ff" ${sk(3.5)}/><rect x="${x+6}" y="${y-12}" width="${w-12}" height="24" rx="12" fill="#bfe6ff" opacity=".7"/><path d="${z}" fill="none" stroke="#ffd23f" stroke-width="5" stroke-linejoin="round"/>`; },
+  radio:(x,y,s,col)=>`<g transform="translate(${x} ${y}) scale(${s||1})" fill="none" stroke="${col||"#1f6fd1"}" stroke-width="7" stroke-linecap="round"><path d="M-12 -12 A17 17 0 0 1 12 -12"/><path d="M-24 -24 A34 34 0 0 1 24 -24"/><path d="M-36 -36 A51 51 0 0 1 36 -36"/></g>`,
+  cable:(x1,y1,x2,y2,col)=>{ const mx=(x1+x2)/2; const d=`M${x1} ${y1} C${mx} ${y1-40} ${mx} ${y2+40} ${x2} ${y2}`; return `<path d="${d}" fill="none" stroke="${INK}" stroke-width="11" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${col||"#1f6fd1"}" stroke-width="5" stroke-linecap="round"/>`; },
+  dash:(x1,y1,x2,y2,col)=>`<path d="M${x1} ${y1} Q${(x1+x2)/2} ${Math.min(y1,y2)-60} ${x2} ${y2}" fill="none" stroke="${col||INK}" stroke-width="5" stroke-dasharray="4 12" stroke-linecap="round"/>`,
+  dot:(x,y,t,col)=>`<circle cx="${x}" cy="${y}" r="9" fill="${col||"#e63a2e"}" ${sk(3)}/><text x="${x}" y="${y-16}" text-anchor="middle" font-family="${BANG}" font-size="18" letter-spacing="1" fill="${INK}" stroke="#fff" stroke-width="4" paint-order="stroke">${t}</text>`,
+  puzzle:(x,y,s,col,r)=>`<g transform="translate(${x} ${y}) rotate(${r||0}) scale(${s||1})"><path d="M-30 -30 H-8 Q-10 -44 0 -44 Q10 -44 8 -30 H30 V-8 Q44 -10 44 0 Q44 10 30 8 V30 H-30 Z" fill="${col||"#ffd23f"}" ${sk(3.5)}/></g>`,
+  lock:(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><path d="M-18 -30 V-44 Q-18 -64 0 -64 Q18 -64 18 -44 V-30" fill="none" stroke="${INK}" stroke-width="9"/><path d="M-18 -30 V-44 Q-18 -64 0 -64 Q18 -64 18 -44 V-30" fill="none" stroke="#c9d3e6" stroke-width="4"/><rect x="-28" y="-32" width="56" height="44" rx="6" fill="#ffd23f" ${sk(3.5)}/><circle cx="0" cy="-14" r="6" fill="${INK}"/><rect x="-2.5" y="-12" width="5" height="12" fill="${INK}"/></g>`,
+  usb:(x,y,s,r)=>`<g transform="translate(${x} ${y}) rotate(${r||0}) scale(${s||1})"><rect x="-14" y="-60" width="28" height="18" fill="#c9d3e6" ${sk(3)}/><rect x="-8" y="-55" width="5" height="5" fill="${INK}"/><rect x="3" y="-55" width="5" height="5" fill="${INK}"/><rect x="-20" y="-44" width="40" height="64" rx="8" fill="#e63a2e" ${sk(3.5)}/></g>`,
+  label:(x,y,w,lines,hl)=>{ const h=32+lines.length*20;
+    return `<g transform="translate(${x} ${y})"><rect x="4" y="4" width="${w}" height="${h}" fill="${INK}"/><rect width="${w}" height="${h}" fill="#fff" ${sk(3)}/><rect width="${w}" height="20" fill="#ffd23f" ${sk(3)}/><text x="10" y="15" font-family="${BANG}" font-size="15" letter-spacing="1.5" fill="${INK}">SHIPPING LABEL</text>`
+      + lines.map((l,i)=>`<text x="12" y="${42+i*20}" font-family="JetBrains Mono, monospace" font-weight="700" font-size="14" fill="${i===hl?"#e63a2e":INK}">${l}</text>`).join("") + `</g>`; },
+  sign:(x,y,w,h,lines,fs,col,bg)=>{ fs=fs||18; const sz=lines.map((l,i)=>i?fs*.72:fs), tot=sz.reduce((a,b)=>a+b*1.2,0); let yy=(h-tot)/2;
+    return `<g transform="translate(${x} ${y})"><rect width="${w}" height="${h}" fill="${bg||"#fff3c4"}" ${sk(3)}/>` + lines.map((l,i)=>{ yy+=sz[i]*1.2; return `<text x="${w/2}" y="${(yy-sz[i]*.28).toFixed(1)}" text-anchor="middle" font-family="${i?"Comic Neue, sans-serif":BANG}" font-weight="700" font-size="${sz[i]}" letter-spacing="${i?0:1}" fill="${col||INK}">${l}</text>`; }).join("") + `</g>`; },
+  chalktext:(x,y,lines,fs)=>lines.map((l,i)=>`<text xml:space="preserve" x="${x}" y="${y+i*(fs||20)*1.45}" font-family="Comic Neue, sans-serif" font-weight="700" font-size="${fs||20}" fill="#f3f7ee">${l}</text>`).join(""),
+  word:(x,y,t,size,r,col)=>`<text x="${x}" y="${y}" transform="rotate(${r||0} ${x} ${y})" text-anchor="middle" font-family="${BANG}" font-size="${size||24}" letter-spacing="1" fill="${col||"#fff3c4"}" stroke="${INK}" stroke-width="5" paint-order="stroke" stroke-linejoin="round">${t}</text>`,
+  conveyor:(x,y,w)=>`<rect x="${x}" y="${y}" width="${w}" height="16" rx="8" fill="#2b3350" ${sk(3)}/>` + Array.from({length:Math.floor(w/26)},(_,i)=>`<circle cx="${x+13+i*26}" cy="${y+8}" r="5" fill="#8b95ad"/>`).join(""),
+  desk:(x,y,w)=>`<rect x="${x}" y="${y}" width="${w}" height="14" fill="#8a5a33" ${sk(3)}/>`,
+  table:(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><rect x="-50" y="-60" width="100" height="10" fill="#8a5a33" ${sk(3)}/><rect x="-6" y="-50" width="12" height="50" fill="#5a3a2a" ${sk(2)}/></g>`,
+  cup:(x,y,s,r)=>`<g transform="translate(${x} ${y}) rotate(${r||0}) scale(${s||1})"><path d="M-12 -30 H12 L9 0 H-9 Z" fill="#fff" ${sk(3)}/><path d="M12 -24 Q22 -22 18 -12 Q16 -8 11 -8" fill="none" stroke="${INK}" stroke-width="3"/></g>`,
+  splash:(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><path d="M-30 0 Q-34 -14 -18 -10 Q-16 -28 0 -16 Q14 -30 18 -10 Q36 -14 30 0 Z" fill="#7a4e2d" ${sk(2.5)}/></g>`,
+  stamp:(x,y,t,r,col)=>`<g transform="rotate(${r||-12} ${x} ${y})"><rect x="${x-90}" y="${y-22}" width="180" height="40" fill="none" stroke="${col||"#e63a2e"}" stroke-width="5"/><text x="${x}" y="${y+8}" text-anchor="middle" font-family="${BANG}" font-size="24" letter-spacing="2" fill="${col||"#e63a2e"}">${t}</text></g>`,
+  pile:(x,y)=>[[-50,0],[0,0],[50,0],[-25,-46],[25,-46],[0,-92]].map(([a,b])=>PROPS.parcel(x+a,y+b,.62)).join(""),
+  card:(x,y,s,t,r)=>`<g transform="translate(${x} ${y}) rotate(${r||0}) scale(${s||1})"><rect x="-44" y="-30" width="88" height="60" fill="#fff" ${sk(3)}/><text x="0" y="6" text-anchor="middle" font-family="Comic Neue, sans-serif" font-weight="700" font-size="16" fill="#e63a2e">${t||"HAPPY B-DAY!"}</text></g>`,
+  head:(x,y,s,tattoo)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><path d="M-40 0 Q-46 -50 -30 -80 Q0 -110 30 -80 Q48 -50 40 0 Z" fill="#d79c6b" ${sk(3.5)}/>${tattoo?`<text x="0" y="-62" text-anchor="middle" font-family="serif" font-weight="700" font-size="15" fill="#2b3350" transform="rotate(-6 0 -62)">ΑΘΗΝΑ…</text><path d="M-22 -48 H22 M-18 -40 H18" stroke="#2b3350" stroke-width="2"/>`:""}<circle cx="-14" cy="-28" r="4" fill="${INK}"/><circle cx="14" cy="-28" r="4" fill="${INK}"/><path d="M-10 -10 Q0 -4 10 -10" fill="none" stroke="${INK}" stroke-width="3"/></g>`,
+  candle:(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><rect x="-10" y="-50" width="20" height="50" fill="#fff3c4" ${sk(3)}/><path d="M0 -52 Q-12 -70 0 -88 Q12 -70 0 -52Z" fill="#ffb52e" ${sk(2.5)}/></g>`,
+  paper:(x,y,s,lines,r,col)=>`<g transform="translate(${x} ${y}) rotate(${r||0}) scale(${s||1})"><rect x="-55" y="-70" width="110" height="140" fill="#fbf4dd" ${sk(3)}/>${(lines||[]).map((l,i)=>`<text x="0" y="${-38+i*24}" text-anchor="middle" font-family="Comic Neue, sans-serif" font-weight="700" font-size="17" fill="${col||"#8a5a33"}">${l}</text>`).join("")}</g>`,
+  apps:(x,y,s)=>{ const ic=[["#2bb673","CHAT"],["#e63a2e","MUSIC"],["#1f6fd1","WEB"],["#9a7bff","GAME"],["#ffb52e","MAPS"],["#26c2b0","MAIL"]];
+    return `<g transform="translate(${x} ${y}) scale(${s||1})">` + ic.map((c,i)=>{ const cx=(i%3)*78, cy=Math.floor(i/3)*78; return `<rect x="${cx}" y="${cy}" width="60" height="60" rx="14" fill="${c[0]}" ${sk(3)}/><text x="${cx+30}" y="${cy+76}" text-anchor="middle" font-family="${BANG}" font-size="14" fill="#fff3c4" stroke="${INK}" stroke-width="3" paint-order="stroke">${c[1]}</text>`; }).join("") + `</g>`; },
+  appicon:(x,y,s,col,t)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><rect x="-30" y="-30" width="60" height="60" rx="14" fill="${col}" ${sk(3)}/><text x="0" y="8" text-anchor="middle" font-family="${BANG}" font-size="18" fill="#fff3c4" stroke="${INK}" stroke-width="3" paint-order="stroke">${t}</text></g>`,
+  envelope:(x,y,s,t)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><rect x="-50" y="-34" width="100" height="68" fill="#fff7dd" ${sk(3.5)}/><path d="M-50 -32 L0 6 L50 -32" fill="none" stroke="${INK}" stroke-width="3.5" stroke-linejoin="round"/>${t?`<text x="0" y="26" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="11" fill="#e63a2e">${t}</text>`:""}</g>`,
+  arrow:(x1,y1,x2,y2,col)=>{ const a=Math.atan2(y2-y1,x2-x1), h=16; const p1=`${x2-h*Math.cos(a-.5)},${y2-h*Math.sin(a-.5)}`, p2=`${x2-h*Math.cos(a+.5)},${y2-h*Math.sin(a+.5)}`;
+    return `<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${INK}" stroke-width="10" stroke-linecap="round"/><path d="M${x1} ${y1}L${x2} ${y2}" stroke="${col||"#ffd23f"}" stroke-width="5" stroke-linecap="round"/><polygon points="${x2},${y2} ${p1} ${p2}" fill="${col||"#ffd23f"}" ${sk(3)}/>`; },
+  sweat:(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><path d="M0 -14 Q9 0 0 8 Q-9 0 0 -14Z" fill="#8fd3ff" ${sk(2)}/></g>`,
+  hearts:(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><path d="M0 8 C-20 -6 -12 -22 0 -12 C12 -22 20 -6 0 8Z" fill="#e63a2e" ${sk(2.5)}/></g>`,
+  speedlines:(W,H,cx,cy)=>{ let d=""; for(let i=0;i<36;i++){ const a=i*Math.PI/18, r1=Math.min(W,H)*.42, r2=W+H; d+=`M${cx+r1*Math.cos(a)} ${cy+r1*Math.sin(a)}L${cx+r2*Math.cos(a)} ${cy+r2*Math.sin(a)}`; } return `<path d="${d}" stroke="${INK}" stroke-width="2" opacity=".35"/>`; },
+  hlines:(x,y,w,n)=>Array.from({length:n||5},(_,i)=>`<path d="M${x} ${y+i*12}h${w*(0.5+((i*7)%5)/10)}" stroke="${INK}" stroke-width="3" stroke-linecap="round" opacity=".6"/>`).join(""),
+  routers:(x,y,n,gap,s)=>Array.from({length:n},(_,i)=>`<g transform="translate(${x+i*gap} ${y}) scale(${s||.45})">${drawChar("router","happy",1)}</g>`).join("") + Array.from({length:n-1},(_,i)=>`<path d="M${x+i*gap+30} ${y-12}H${x+(i+1)*gap-30}" stroke="${INK}" stroke-width="4" stroke-dasharray="2 8" stroke-linecap="round"/>`).join(""),
+  globe:(x,y,r)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#2f8fdd" ${sk(3.5)}/><path d="M${x-r*.6} ${y-r*.5} q${r*.3} ${-r*.2} ${r*.5} ${r*.1} q${r*.1} ${r*.4} ${-r*.3} ${r*.5} z M${x+r*.1} ${y+r*.1} q${r*.4} ${-r*.2} ${r*.6} ${r*.1} q${-r*.1} ${r*.5} ${-r*.5} ${r*.4} z" fill="#7fdc8f" ${sk(2.5)}/>`,
+  undersea:(x1,x2,y)=>`<path d="M${x1} ${y} Q${(x1+x2)/2} ${y+24} ${x2} ${y}" fill="none" stroke="${INK}" stroke-width="12"/><path d="M${x1} ${y} Q${(x1+x2)/2} ${y+24} ${x2} ${y}" fill="none" stroke="#ffd23f" stroke-width="5" stroke-dasharray="14 8"/>`,
+  fish:(x,y,s,flip)=>`<g transform="translate(${x} ${y}) scale(${(flip?-1:1)*(s||1)} ${s||1})"><path d="M-20 0 Q0 -16 20 0 Q0 16 -20 0Z M20 0 L32 -10 V10Z" fill="#ffb52e" ${sk(2.5)}/><circle cx="-10" cy="-3" r="2.5" fill="${INK}"/></g>`,
+  tower:(x,y,s,hi,lock)=>{ const N=["APPLICATION","TRANSPORT","NETWORK","DATA LINK","PHYSICAL"];
+    let g=`<g transform="translate(${x} ${y}) scale(${s||1})"><rect x="-6" y="-246" width="12" height="26" fill="${INK}"/><circle cx="0" cy="-250" r="7" fill="#e63a2e" ${sk(2)}/><path d="M-84 -220 L0 -238 L84 -220 Z" fill="#2b3350" ${sk(3)}/>`;
+    N.forEach((n,i)=>{ const f=5-i, yy=-220+i*44, on=hi===f||(Array.isArray(hi)&&hi.includes(f));
+      g+=`<rect x="-80" y="${yy}" width="160" height="44" fill="${on?"#ffd23f":"#fff3c4"}" ${sk(3)}/><text x="-66" y="${yy+29}" font-family="${BANG}" font-size="22" fill="#e63a2e">${f}</text><text x="-46" y="${yy+28}" font-family="${BANG}" font-size="17" letter-spacing="1" fill="${INK}">${n}</text>`;
+      if(f===2&&lock) g+=`<g transform="translate(64 ${yy+36}) scale(.45)">${PROPS.lock(0,0,1)}</g>`; });
+    return g+`</g>`; },
+  stack:(x,y,s,parts)=>{ let cx=0, g=`<g transform="translate(${x} ${y}) scale(${s||1})">`;
+    parts.forEach(([t,col,w])=>{ g+=`<rect x="${cx}" y="-40" width="${w}" height="40" fill="${col}" ${sk(3)}/><text x="${cx+w/2}" y="-13" text-anchor="middle" font-family="${BANG}" font-size="18" letter-spacing="1" fill="${col==="#ffd23f"||col==="#fff3c4"?INK:"#fff"}">${t}</text>`; cx+=w; });
+    return g+`</g>`; },
+  segbox:(x,y,s,t,col)=>`<g transform="translate(${x} ${y}) scale(${s||1})">${PROPS.parcel(0,0,1)}<rect x="-46" y="-92" width="78" height="26" rx="3" fill="${col||"#1f6fd1"}" ${sk(2.5)}/><text x="-7" y="-74" text-anchor="middle" font-family="${BANG}" font-size="15" letter-spacing="1" fill="#fff">${t}</text></g>`,
+  door:(x,y,s,locked)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><rect x="-44" y="-150" width="88" height="150" fill="#7a4e2d" ${sk(3.5)}/><rect x="-34" y="-140" width="68" height="60" fill="#8a5a33" ${sk(2)}/><circle cx="30" cy="-74" r="5" fill="#ffd23f" ${sk(2)}/>${locked?`<path d="M-44 -100 L44 -60 M-44 -60 L44 -100" stroke="#ffd23f" stroke-width="10"/><path d="M-44 -100 L44 -60 M-44 -60 L44 -100" stroke="${INK}" stroke-width="3" stroke-dasharray="10 10"/>`+PROPS.lock(0,-30,.8):""}</g>`,
+  balloon:(x,y,s,col)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><path d="M0 0 Q-8 30 4 60" fill="none" stroke="${INK}" stroke-width="2"/><ellipse cx="0" cy="-26" rx="22" ry="27" fill="${col||"#e63a2e"}" ${sk(3)}/><path d="M-4 0 L4 0 L0 -4Z" fill="${col||"#e63a2e"}" ${sk(2)}/><ellipse cx="-8" cy="-36" rx="5" ry="8" fill="#fff" opacity=".5"/></g>`,
+  frame:(x,y,w,h,col)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${col||"#0e1530"}" ${sk(3.5)}/>`,
+  bulb:(x,y,s,on)=>`<g transform="translate(${x} ${y}) scale(${s||1})">${on?`<circle cx="0" cy="-60" r="44" fill="#ffe27a" opacity=".55"/>`:""}<path d="M-26 -56 Q-30 -96 0 -98 Q30 -96 26 -56 Q20 -44 16 -30 H-16 Q-20 -44 -26 -56Z" fill="${on?"#ffd23f":"#c9d3e6"}" ${sk(3.5)}/><rect x="-16" y="-30" width="32" height="22" rx="3" fill="#8b95ad" ${sk(3)}/><path d="M-16 -22 H16 M-16 -15 H16" stroke="${INK}" stroke-width="2"/><text x="0" y="22" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="30" fill="${INK}">${on?1:0}</text></g>`,
+  bitrow:(x,y,bits,split,cw)=>{ cw=cw||16; let g=`<g transform="translate(${x} ${y})">`; let i=0, gap=0;
+    for(const ch of bits){ if(ch===" "||ch==="."){ gap+=cw*.5; continue; } const net=split!=null&&i<split;
+      g+=`<rect x="${i*cw+gap}" y="-${cw*1.3}" width="${cw}" height="${cw*1.3}" fill="${split==null?"#fff3c4":net?"#ffd23f":"#8fdcc0"}" stroke="${INK}" stroke-width="1.5"/><text x="${i*cw+gap+cw/2}" y="-${cw*.33}" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="${cw*.8}" fill="${INK}">${ch}</text>`; i++; }
+    return g+`</g>`; },
+  houses:(x,y,n,start,col,gap,s)=>{ gap=gap||52; let g=""; for(let i=0;i<n;i++){ const hx=x+i*gap;
+    g+=`<g transform="translate(${hx} ${y}) scale(${s||1})"><path d="M-20 0 V-30 L0 -48 L20 -30 V0Z" fill="${col||"#f3d1a2"}" ${sk(2.5)}/><path d="M-24 -28 L0 -50 L24 -28" fill="none" stroke="#c42d27" stroke-width="5" stroke-linejoin="round"/><rect x="-6" y="-16" width="12" height="16" fill="#7a4e2d" ${sk(1.5)}/><text x="0" y="-22" text-anchor="middle" font-family="${BANG}" font-size="13" fill="${INK}">${start+i}</text></g>`; } return g; },
+  rangebar:(x,y,w,parts,h)=>{ h=h||46; const tot=parts.reduce((a,p)=>a+(p[2]||1),0); let cx=x, g="";
+    parts.forEach(([t,col,k])=>{ const pw=w*(k||1)/tot; g+=`<rect x="${cx}" y="${y}" width="${pw}" height="${h}" fill="${col}" ${sk(3)}/>` + t.split("|").map((l,i,a)=>`<text x="${cx+pw/2}" y="${y+h/2+6+(i-(a.length-1)/2)*17}" text-anchor="middle" font-family="${i?"JetBrains Mono, monospace":BANG}" font-weight="700" font-size="${i?13:17}" letter-spacing="${i?0:1}" fill="${INK}">${l}</text>`).join(""); cx+=pw; });
+    return g; },
+  road:(x1,y1,x2,y2,closed)=>`<path d="M${x1} ${y1} L${x2} ${y2}" stroke="${INK}" stroke-width="16" stroke-linecap="round"/><path d="M${x1} ${y1} L${x2} ${y2}" stroke="#8a8f9c" stroke-width="11" stroke-linecap="round"/><path d="M${x1} ${y1} L${x2} ${y2}" stroke="#fff3c4" stroke-width="2" stroke-dasharray="8 8"/>${closed?`<g transform="translate(${(x1+x2)/2} ${(y1+y2)/2})"><rect x="-22" y="-10" width="44" height="20" fill="#ffd23f" ${sk(2.5)}/><path d="M-18 -10 L-8 10 M-2 -10 L8 10 M14 -10 L22 6" stroke="#e63a2e" stroke-width="5"/></g>`:""}`,
+  hood:(x,y,w,h,name,n,col)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="18" fill="${col||"#cfe6c4"}" ${sk(3)}/><text x="${x+w/2}" y="${y+22}" text-anchor="middle" font-family="${BANG}" font-size="17" letter-spacing="1" fill="${INK}">${name}</text>` + PROPS.houses(x+w/2-((n||3)-1)*24,y+h-12,n||3,1,"#f3d1a2",48,.85),
+  net:(x,y,w,h,name,n,col)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="24" fill="${col||"#dff4ff"}" stroke="${INK}" stroke-width="3" stroke-dasharray="10 6"/><text x="${x+w/2}" y="${y+22}" text-anchor="middle" font-family="${BANG}" font-size="17" letter-spacing="1" fill="${INK}">${name}</text>` + Array.from({length:n||2},(_,i)=>`<g transform="translate(${x+w/2+(i-((n||2)-1)/2)*44} ${y+h-10}) scale(.3)">${drawChar(i%2?"phone":"laptop","happy",1)}</g>`).join(""),
+  bucket:(x,y,s,col,t)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><path d="M-40 -70 L-32 0 H32 L40 -70Z" fill="${col}" ${sk(3.5)}/><ellipse cx="0" cy="-70" rx="40" ry="9" fill="#14213d" opacity=".25" ${sk(3)}/><text x="0" y="-30" text-anchor="middle" font-family="${BANG}" font-size="18" letter-spacing="1" fill="${INK}">${t}</text></g>`,
+  tap:(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><rect x="-40" y="-14" width="56" height="20" rx="4" fill="#c9d3e6" ${sk(3)}/><rect x="8" y="-6" width="18" height="26" fill="#c9d3e6" ${sk(3)}/><path d="M17 22 V80" stroke="#7fc1f0" stroke-width="10"/><text x="30" y="60" font-family="JetBrains Mono, monospace" font-weight="700" font-size="14" fill="${INK}">10110…</text></g>`,
+  rtable:(x,y,w,rows)=>`<g transform="translate(${x} ${y})"><rect x="4" y="4" width="${w}" height="${30+rows.length*26}" fill="${INK}"/><rect width="${w}" height="${30+rows.length*26}" fill="#fff" ${sk(3)}/><rect width="${w}" height="26" fill="#ffd23f" ${sk(3)}/><text x="10" y="19" font-family="${BANG}" font-size="16" letter-spacing="1" fill="${INK}">ROUTING TABLE</text>`+rows.map((r,i)=>`<text x="10" y="${48+i*26}" font-family="JetBrains Mono, monospace" font-weight="700" font-size="14" fill="${r[2]?"#e63a2e":INK}">${r[0]} → ${r[1]}</text>`).join("")+`</g>`,
+  fmtower:(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><path d="M-30 0 L0 -150 L30 0 M-20 -50 H20 M-12 -100 H12 M-25 -25 L12 -100 M25 -25 L-12 -100" fill="none" stroke="${INK}" stroke-width="5"/><circle cx="0" cy="-156" r="9" fill="#e63a2e" ${sk(2.5)}/></g>`,
+  rope:(x,y,w)=>`<rect x="${x}" y="${y}" width="${w}" height="10" fill="#ffd23f" ${sk(2.5)}/>`
+};
+
+/* ---------- sound effects ---------- */
+function sfx(t, x, y, size, rot, col, burstIt){
+  size = size || 40; col = col || "#ffd23f";
+  const b = burstIt ? `<polygon points="${jag(x+4,y-size*.32+4,16,size*1.3,size*.9)}" fill="${INK}"/><polygon points="${jag(x,y-size*.32,16,size*1.3,size*.9)}" fill="${burstIt===true?"#e63a2e":burstIt}" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/>` : "";
+  return `<g transform="rotate(${rot||-8} ${x} ${y})">${b}<text x="${x+3}" y="${y+3}" text-anchor="middle" font-family="${BANG}" font-size="${size}" letter-spacing="1.5" fill="${INK}" stroke="${INK}" stroke-width="${size*.18}" stroke-linejoin="round">${t}</text><text x="${x}" y="${y}" text-anchor="middle" font-family="${BANG}" font-size="${size}" letter-spacing="1.5" fill="${col}" stroke="${INK}" stroke-width="${size*.16}" paint-order="stroke" stroke-linejoin="round">${t}</text></g>`;
+}
+
+/* ---------- panel + page rendering ---------- */
+function ctext(s){
+  return esc(s).replace(/\{\{(.+?)\}\}/g,`<span class="term">$1</span>`).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/\n/g,"<br>");
+}
+function panelArt(p, W, H){
+  const id = "q" + (++UID);
+  let s = `<svg class="cart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">` + halftone(id,W,H) + scene(p.bg || "rays:sky", W, H, id);
+  (p.props || []).forEach(pr => { s += PROPS[pr[0]](...pr.slice(1)); });
+  (p.ch || []).forEach(c => { // [key, mood, x, scale, look, y]
+    const [k, mood, x, sc, look, y] = c;
+    s += `<g transform="translate(${x} ${y == null ? H-24 : y}) scale(${sc || 1})">${anyChar(k, mood, look == null ? 1 : look)}</g>`;
+  });
+  (p.over || []).forEach(pr => { s += PROPS[pr[0]](...pr.slice(1)); });
+  (p.fx || []).forEach(f => { s += sfx(...f); });
+  return s + `</svg>`;
+}
+/* bubble: [type, text, x%, y%, widthEm, tail, tailX%]
+   type: s speech, t thought, y yell, w whisper, c caption, n narration box at bottom */
+function bubble(b){
+  const [ty, txt, x, y, wm, tail, tx, who] = b;
+  const cls = {s:"bb", t:"bb th", y:"bb yell", w:"bb wh", c:"cbox", n:"cbox"}[ty];
+  const st = `left:${x}%;top:${y}%;${wm ? (ty === "y" ? `max-width:${wm + 4}em;` : `width:${wm}em;`) : ""}${tx != null ? `--tx:${tx}%;` : ""}`;
+  const nm = who ? (CH[who] || CHAR2[who] || {name:who}).name : "";
+  return `<div class="${cls}${tail ? " t-" + tail : (ty === "s" || ty === "w" ? " nt" : "")}${x >= 45 ? " rt" : ""}" style="${st}">${nm ? `<span class="who">${esc(nm)}</span>` : ""}<p>${ctext(txt)}</p></div>`;
+}
+function renderPage(pg, num){
+  const rows = pg.rows.map(r => {
+    const tot = r.p.reduce((a,p) => a + (p.w || 1), 0);
+    const cells = r.p.map(p => {
+      const W = Math.round(PW * (p.w || 1) / tot), H = r.h;
+      return `<div class="cpan" style="flex:${p.w || 1};--ar:${W}/${H}"><div class="cartw">${panelArt(p, W, H)}</div>${(p.b || []).map(bubble).join("")}</div>`;
+    }).join("");
+    return `<div class="crow" style="aspect-ratio:${PW}/${r.h}">${cells}</div>`;
+  }).join("");
+  return `<section class="cpage" aria-label="Page ${num}">${pg.title ? `<h2 class="ptitle">${esc(pg.title)}</h2>` : ""}${rows}<p class="pnum">${num}</p></section>`;
+}
+
+/* ---------- Part 1 comic issues ---------- */
+/* ---------- Issue #0: Why do devices talk? (original NetFixLab chapter) ----------
+   panel: {w, bg, ch:[[char,mood,x,scale,look,y]], props, over, fx:[[text,x,y,size,rot,color,burst]], b:[bubbles]}
+   bubble: [type s|t|y|w|c, text, left%, top%, widthEm, tail b|bl|t, tailX%, speaker] */
+const COVER0 = {l:["WHY DO","DEVICES","TALK?"], t:["8 MINUTES TO MIDNIGHT.","ONE BIRTHDAY VIDEO."], s:"blue", a:"laptop", b:"phone", ma:"shock", mb:"happy", sfx:"HURRY!"};
+const MANY = [[60,60],[130,120],[220,70],[300,150],[380,90],[450,160],[520,80],[160,200],[250,230],[400,220],[90,170],[480,120]].map(([x,y])=>["dot",x,y,"","#2f6fd1"]);
+const PAGES0 = [
+/* ===== 1 ===== */
+{title:"Eight minutes to midnight", rows:[
+ {h:250, p:[{bg:"night", ch:[["laptop","shock",290,1.15]], props:[["desk",0,212,600]], over:[["clock",505,226,1.05,"11:52"]], fx:[["GASP!",110,120,44,-10,"#ffd23f",true]],
+   b:[["c","Austin, Texas. 11:52 PM.",2,3,15],["y","Rooty! ROOTY! Fonz's birthday is in EIGHT minutes!!",58,3,12,null,null,"laptop"]]}]},
+ {h:230, p:[
+   {bg:"room", ch:[["laptop","worried",150,.78]], over:[["sweat",215,120,1.2]],
+     b:[["s","I made Fonz a video, Rooty... but he's in SEATTLE!",8,4,17,"b",45,"laptop"]]},
+   {bg:"map", props:[["dash",70,95,240,170,"#e63a2e"],["dot",70,95,"SEATTLE"],["dot",240,170,"AUSTIN"]], fx:[["2,000+ MILES!",160,222,30,-4,"#fff3c4"]],
+     b:[["c","The problem: distance.",54,3,9]]}]},
+ {h:260, p:[
+   {w:1.25, bg:"burst:red", ch:[["laptop","proud",115,.8]], over:[["radio",200,150,1.2,"#fff3c4"]],
+     b:[["y","HAPPY BIRTHDAAAY, FONZ!!!",16,3,8,null,null,"laptop"]]},
+   {bg:"night", ch:[["router","confused",92,.72]],
+     b:[["s","Lappy, buddy. Sound fades after a few blocks. Seattle hears nothing.",6,4,11,"b",55,"router"]]},
+   {bg:"room", ch:[["laptop","happy",88,.72]], over:[["usb",160,180,.75,20]], fx:[["!",165,95,50,8,"#ffd23f"]],
+     b:[["s","Okay, Rooty, new plan! USB stick. I'll MAIL it!",6,4,11,"b",40,"laptop"]]}]},
+ {h:230, p:[
+   {w:1.3, bg:"sky", over:[["plane",200,160,1,-8],["usb",300,175,.45,30]],
+     b:[["s","Mail? Lappy, it'd reach him THURSDAY. Or will you fly there... for ONE video?",4,5,17,null,null,"router"]]},
+   {bg:"rays:rose", ch:[["laptop","sad",130,.78]],
+     b:[["t","Come on, Lappy, think... there HAS to be a faster way...",10,5,11,null,55,"laptop"]]}]}
+]},
+/* ===== 2 ===== */
+{title:"Curious is enough", rows:[
+ {h:270, p:[
+   {w:1.3, bg:"burst:lilac", ch:[["laptop","shock",170,.72]], over:[["word",62,150,"LAYERS!",26,-12],["word",280,150,"PROTOCOLS!",22,10],["word",58,215,"SWITCHES!",22,8],["word",290,220,"ROUTING!",22,-8]],
+     b:[["s","Rooty, networking is IMPOSSIBLE! I read one book and it was ALL jargon!",18,3,16,"b",50,"laptop"]]},
+   {bg:"night", ch:[["router","happy",130,.75]],
+     b:[["s","Lappy, relax. You don't need to know ANYTHING yet. Just one thing...",5,4,16,"b",62,"router"]]}]},
+ {h:190, p:[{bg:"burst:yellow", ch:[["laptop","confused",90,.6],["router","proud",320,.68]], fx:[["!",520,120,70,10,"#e63a2e"]],
+   b:[["c","The only requirement for this whole course:",2,4,14],["y","BE CURIOUS, LAPPY!",44,8,8,null,null,"router"]]}]},
+ {h:250, p:[
+   {bg:"room", ch:[["laptop","proud",95,.66]], over:[["paper",165,175,.5,["PACKET =","A UNIT","OF DATA"],8]],
+     b:[["s","Look, Rooty! I memorized 'a packet is a unit of data'. I KNOW stuff!",5,4,12,"b",35,"laptop"]]},
+   {bg:"night", ch:[["router","confused",95,.66]],
+     b:[["s","Nice, Lappy. But that's KNOWING. Anyone can repeat a definition.",7,6,11,"b",50,"router"]]},
+   {bg:"rays:sun", ch:[["router","proud",95,.66]],
+     b:[["s","UNDERSTANDING is knowing WHY it exists, Lappy. Learn the why and you'll never forget it.",5,3,12,"b",50,"router"]]}]},
+ {h:260, p:[
+   {w:1.2, bg:"night", ch:[["laptop","worried",80,.62],["router","happy",245,.62]], over:[["clock",165,236,.6,"11:53"]],
+     b:[["s","Rooty, we have SEVEN minutes!",3,3,7,"b",30,"laptop"],["s","Plenty, Lappy. Before I send your video, let me show you how it REALLY travels.",38,22,12,"b",75,"router"]]},
+   {bg:"chalk", over:[["chalktext",26,90,["1. WHAT do we send?","2. HOW does it travel?","3. WHERE does it go?","4. WHO makes it?"],19]],
+     b:[["c","Rooty's four big questions",5,5,12]]}]}
+]},
+/* ===== 3 ===== */
+{title:"What do we actually send?", rows:[
+ {h:240, p:[
+   {bg:"room", ch:[["laptop","proud",95,.74]], over:[["envelope",225,165,.75]],
+     b:[["s","Easy, Rooty! I send the VIDEO FILE. Like handing over a folder.",5,4,15,"b",30,"laptop"]]},
+   {bg:"night", ch:[["router","confused",150,.74]],
+     b:[["s","Really, Lappy? Can you hold a file? Pick it up? Fold it in half?",8,4,15,"b",60,"router"]]}]},
+ {h:300, p:[{bg:"screen", ch:[["laptop","shock",470,1.05]], over:[["bits",200,170,"01101000 01101001",34,"#3fe08f"]], fx:[["WHOA!",110,280,46,-8,"#ffd23f",true]],
+   b:[["c","Inside every computer, there are no files you can touch. Only bits: ones and zeros.",2,3,18],["y","ROOTY! MY VIDEO IS JUST... NUMBERS?!",48,4,12,null,null,"laptop"]]}]},
+ {h:240, p:[
+   {bg:"plain:sun", over:[["card",55,150,.75,"HI!"],["arrow",105,150,140,150],["bits",160,195,"0110",18],["bits",160,215,"1001",18]],
+     b:[["s","Yep, Lappy. Photos, songs, the word HI... ALL of it becomes ones and zeros.",4,4,12,null,null,"router"]]},
+   {bg:"rays:mint", ch:[["router","proud",95,.66]],
+     b:[["s","Turning things into bits is {{encoding}}. Turning bits back is {{decoding}}. Got it, Lappy?",5,4,12,"b",55,"router"]]},
+   {bg:"rays:lilac", ch:[["laptop","confused",95,.66]],
+     b:[["t","Hmm... but a 1 isn't a THING either. How does a 1 TRAVEL, Rooty?",6,4,11,null,55,"laptop"]]}]},
+ {h:200, p:[{bg:"rays:sky", ch:[["router","proud",470,.7],["laptop","happy",110,.6]],
+   b:[["s","Brilliant question, Lappy! Everything that travels needs a ROAD.",44,8,15,"b",75,"router"],["c","Question 2: HOW does it travel?",2,5,12]]}]}
+]},
+/* ===== 4 ===== */
+{title:"Every message needs a road", rows:[
+ {h:250, p:[
+   {bg:"cafe", ch:[["laptop","happy",70,.6],["phone","happy",235,.6]], over:[["radio",150,120,.9,"#e63a2e"]],
+     b:[["c","Last summer, Fonz visited.",2,3,10],["s","HEY, FONZ!",4,22,6,"b",40,"laptop"],["s","Hey, Lappy! I hear you!",60,20,6,"b",60,"phone"]]},
+   {bg:"night", ch:[["router","proud",150,.72]],
+     b:[["s","Remember that, Lappy? Your voice made sound waves. The AIR carried them to Fonz. Air was the road.",6,4,16,"b",60,"router"]]}]},
+ {h:260, p:[{bg:"plain:#e6f6ff", props:[["cable",20,232,580,232,"#c96b2c"]], over:[["wave",60,170,480,70,"#ffd23f"]], fx:[["ZAP!",535,110,36,10,"#ffd23f",true]],
+   b:[["c","Copper cable",2,4,7],["s","Bits need a road too, Lappy. We call it the {{medium}}. In copper, HIGH voltage means 1 and NO voltage means 0.",22,4,26,null,null,"router"]]}]},
+ {h:240, p:[
+   {bg:"plain:#dff4ff", over:[["fiber",15,175,270]], fx:[["FLASH!",235,215,24,-8,"#fff3c4"]],
+     b:[["c","Fiber optic cable",2,4,9],["s","In glass fiber, Lappy, we send flashes of LIGHT. They bounce along inside the glass for miles.",4,24,13,null,null,"router"]]},
+   {bg:"rays:sky", ch:[["router","happy",150,.66]], over:[["radio",150,90,1.1]],
+     b:[["c","Wi-Fi",2,4,4],["s","Or no wire at all, Lappy: RADIO WAVES. That's Wi-Fi!",30,3,12,null,null,"router"]]}]},
+ {h:240, p:[
+   {w:1.2, bg:"room", ch:[["laptop","confused",100,.72]],
+     b:[["s","So, Rooty, who turns my bits into electricity, light or radio?",30,5,12,"bl",15,"laptop"]]},
+   {bg:"burst:sun", ch:[["router","proud",140,.68]],
+     b:[["s","You do, Lappy! A part inside you, your {{network card}}. Bits go out as signals, signals come in as bits.",5,3,15,"b",60,"router"]]}]}
+]},
+/* ===== 5 ===== */
+{title:"A needle in a billion haystacks", rows:[
+ {h:270, p:[{bg:"map", props:MANY.concat([["dash",70,95,330,190,"#e63a2e"],["dot",70,95,"FONZ?","#e63a2e"],["dot",330,190,"LAPPY","#e63a2e"]]), ch:[["laptop","worried",530,.66]],
+   b:[["c","Right now, billions of devices are online.",2,85,16],["t","Rooty, there are billions of devices... how does my video find FONZ?",62,4,13,null,70,"laptop"]]}]},
+ {h:240, p:[
+   {bg:"room", ch:[["laptop","confused",70,.58],["router","happy",230,.58]],
+     b:[["s","Lappy, if I said 'go meet my friend', what's your first question?",36,3,12,"b",75,"router"],["s","WHERE, Rooty?!",3,34,4,"b",40,"laptop"]]},
+   {bg:"rays:sun", over:[["sign",60,150,180,58,["BLDG 7 · FLOOR 3","DESK 12"],18]],
+     b:[["s","Exactly, Lappy! Fonz needs an {{address}} so the network can pick him out of billions.",5,4,16,null,null,"router"]]}]},
+ {h:240, p:[
+   {bg:"rays:sky", ch:[["laptop","proud",100,.64]], over:[["cable",0,200,200,150,"#1f6fd1"]],
+     b:[["s","Got it, Rooty! I'll run ONE cable from Austin to Seattle!",6,4,12,"b",40,"laptop"]]},
+   {bg:"burst:yellow", ch:[["router","proud",100,.64]], fx:[["HA HA!",100,60,34,-8,"#e63a2e"]],
+     b:[["s","Lappy! One cable per friend? You'd need BILLIONS of cables!",6,34,12,"b",50,"router"]]},
+   {bg:"rays:rose", ch:[["laptop","sad",100,.64]],
+     b:[["s","...okay, Rooty. Bad plan.",20,10,8,"b",35,"laptop"]]}]},
+ {h:260, p:[{bg:"rays:mint", ch:[["laptop","happy",55,.5],["phone","happy",555,.5]], over:[["routers",150,236,4,100,.42]],
+   b:[["s","Instead, Lappy, you connect to a device NEAR you. It connects to another, and another. They pass your bits along like a relay team.",18,3,22,"b",20,"router"],["s","But Rooty, how does each one know where to send my bits?",2,38,11,"b",20,"laptop"],["s","Now THAT is the right question, Lappy.",62,40,11,"b",75,"router"]]}]}
+]},
+/* ===== 6 ===== */
+{title:"Too big for one brain", rows:[
+ {h:220, p:[{bg:"night", ch:[["laptop","worried",120,.8]], over:[["clock",520,196,.85,"11:55"]],
+   b:[["t","Bits. Roads. Addresses. Relays. Signal converters. Rooty, this is HUGE.",36,6,18,null,10,"laptop"]]}]},
+ {h:270, p:[
+   {w:1.1, bg:"sepia", ch:[["person","#5a4630",60,.8],["person","#4a3b28",140,.85],["person","#6b5236",220,.8]], over:[["table",140,246,1.6]],
+     b:[["c","Flashback: the early 1970s.",2,3,11],["s","How do we make computers talk across a whole COUNTRY?",22,20,14,"b",40]]},
+   {bg:"sepia", ch:[["server","proud",150,.72]],
+     b:[["s","Hi, Lappy, I'm Servo. Engineers faced YOUR exact problem. No single genius could solve it alone.",6,4,15,"b",55,"server"]]}]},
+ {h:250, p:[
+   {bg:"sepia", over:[["puzzle",100,140,1.6,"#ffd23f",-6]],
+     b:[["c","So they cut the problem into pieces...",4,4,11]]},
+   {bg:"sepia", ch:[["person","#5a4630",50,.55],["person","#4a3b28",150,.55]], over:[["puzzle",50,120,.6,"#e63a2e",10],["puzzle",150,120,.6,"#1f6fd1",-10]],
+     b:[["c","...gave each team ONE piece...",4,4,11]]},
+   {bg:"burst:sun", over:[["puzzle",70,150,.9,"#e63a2e"],["puzzle",126,150,.9,"#1f6fd1",90]], fx:[["CLICK!",100,70,40,-6,"#fff3c4",true]],
+     b:[["c","...then snapped them together.",4,80,11]]}]},
+ {h:240, p:[
+   {bg:"rays:sky", ch:[["server","happy",90,.62]],
+     b:[["s","In 1974, Lappy, Vint Cerf and Bob Kahn published a design that grew into {{TCP/IP}}. Your video rides on it tonight.",34,3,14,"bl",10,"server"]]},
+   {bg:"room", ch:[["laptop","happy",70,.56],["router","proud",215,.56]],
+     b:[["s","Rooty, so it's a GROUP PROJECT!",3,3,8,"b",25,"laptop"],["s","Yes, Lappy! Now let's borrow a system you ALREADY know.",40,26,10,"b",75,"router"]]}]}
+]},
+/* ===== 7 ===== */
+{title:"Ship it the old-fashioned way", rows:[
+ {h:240, p:[
+   {bg:"room", ch:[["laptop","proud",90,.7]], over:[["parcel",225,214,1]],
+     b:[["s","Rooty, pretend it's 1999. I'd mail Fonz a birthday card in a box!",5,4,15,"b",30,"laptop"]]},
+   {bg:"rays:sun", over:[["parcel",150,222,1.5],["card",150,105,.85,"HAPPY B-DAY!",-6]], fx:[["SNUG!",240,60,30,8,"#fff3c4"]],
+     b:[["c","Step 1: the card goes INSIDE the box.",3,4,11]]}]},
+ {h:260, p:[{bg:"burst:lilac", ch:[["router","proud",110,.7],["laptop","shock",490,.7]], over:[["sweat",560,140,1.3]],
+   b:[["s","Lappy, putting something inside a wrapper has a name: {{encapsulation}}.",3,3,16,"b",30,"router"],["y","ENCAP-WHAT, ROOTY?!",64,3,7,null,null,"laptop"],["s","Fancy word, simple idea, Lappy. Everyone sees the BOX. Only Fonz sees what's inside.",30,42,16,"bl",8,"router"]]}]},
+ {h:260, p:[
+   {w:1.3, bg:"plain:sun", over:[["label",18,20,250,["TO: FONZ","APT 4B","221 MAPLE STREET","SEATTLE, WA 98101","USA"],0]],
+     b:[["s","Five devices live in 4B, Lappy. Writing Fonz's NAME means it reaches HIM, not his roommates.",22,60,16,null,null,"router"]]},
+   {bg:"rays:mint", over:[["sign",20,24,220,30,["USA"],20],["sign",36,62,188,30,["WASHINGTON"],20],["sign",52,100,156,30,["SEATTLE"],20],["sign",68,138,124,30,["MAPLE ST · 4B"],16],["sign",84,176,92,30,["FONZ"],20,"#e63a2e"]],
+     b:[["c","Each line narrows it down.",4,79,10]]}]},
+ {h:240, p:[
+   {bg:"room", ch:[["laptop","happy",80,.66]], over:[["label",160,110,130,["FROM: LAPPY","AUSTIN, TX"]]],
+     b:[["s","And a RETURN address, Rooty, just in case!",4,4,11,"b",25,"laptop"]]},
+   {bg:"rays:sun", over:[["dot",50,170,"LAPPY"],["arrow",70,170,220,170,"#ffd23f"],["dot",245,170,"FONZ"]],
+     b:[["s","Then you're the {{source}}, Lappy, and Fonz is the {{destination}}.",5,5,16,null,null,"router"]]}]}
+]},
+/* ===== 8 ===== */
+{title:"The long ride", rows:[
+ {h:260, p:[
+   {bg:"rays:sky", ch:[["laptop","happy",215,.62]], props:[["dropbox",90,236,1.1]], over:[["parcel",120,95,.55]], fx:[["THUNK!",80,60,34,-10,"#ffd23f",true]],
+     b:[["c","Austin, 8:00 AM.",56,4,7]]},
+   {bg:"rays:sun", ch:[["van","happy",150,.9]],
+     b:[["c","Meet Dash, the pickup van.",3,3,11],["s","Morning, Lappy! My checklist: unlock the box, grab every parcel, lock it, drive to the hub!",8,23,16,"b",45,"van"]]}]},
+ {h:270, p:[{bg:"hub", ch:[["snoop","happy",470,.95]], props:[["conveyor",20,200,360]], over:[["parcel",80,200,.6,1],["parcel",180,200,.6,1],["parcel",280,200,.6,1]], fx:[["WHIRRR",200,140,34,-4,"#ffd23f"]],
+   b:[["c","The sorting hub. Meet Snoop.",2,4,12],["s","Hey, Dash! Different job, DIFFERENT checklist. I read each label's state and pick the right truck.",50,4,17,"b",60,"snoop"]]}]},
+ {h:230, p:[
+   {w:1.2, bg:"sky", over:[["plane",170,140,.9,-10],["parcel",255,150,.35]], fx:[["WHOOSH!",80,200,32,-6,"#fff3c4"]],
+     b:[["c","Far away? It flies.",4,5,8]]},
+   {bg:"rays:mint", ch:[["van","happy",140,.72]], fx:[["VROOM!",200,60,28,8,"#ffd23f"]],
+     b:[["c","Close by? It rides a truck.",4,5,10]]}]},
+ {h:240, p:[
+   {bg:"street", ch:[["van","happy",70,.5],["modem","shock",215,.6]], fx:[["KNOCK KNOCK!",150,40,26,-6,"#ffd23f"]],
+     b:[["s","Hey, Modo! Parcel for... FONZ!",2,30,7,"b",30,"van"],["s","Thanks, Dash! FONZ! It's for YOU!",58,22,7,"b",55,"modem"]]},
+   {bg:"rays:rose", ch:[["phone","proud",150,.8]], over:[["hearts",230,70,1.3],["hearts",70,90,1]],
+     b:[["y","FOR ME, MODO?!",8,6,6,null,null,"phone"]]}]}
+]},
+/* ===== 9 ===== */
+{title:"Rulebooks and pieces", rows:[
+ {h:270, p:[{bg:"chalk", ch:[["router","happy",530,.58]], over:[["chalktext",30,72,["1. The address on the label","2. The sender who packs it","3. The pickup van","4. The written checklists","5. The sorting hub","6. The local driver + the name"],19]],
+   b:[["c","Six pieces made that delivery work",3,4,14]]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.66]],
+     b:[["s","See, Lappy? The checklists matter most. Anyone new can do the job just by following them. They're called {{standards}}.",4,3,17,"b",60,"router"]]},
+   {bg:"rays:sky", ch:[["laptop","confused",70,.56],["router","happy",230,.56]],
+     b:[["s","And for computers, Rooty?",3,4,7,"b",35,"laptop"],["s","Two computers using the same standard to talk, Lappy? A {{protocol}}.",34,24,11,"b",80,"router"]]}]},
+ {h:250, p:[{bg:"burst:red", over:[["puzzle",190,150,2.2,"#ffd23f",-8],["puzzle",410,150,2.2,"#8fdcc0",8],["sign",30,170,260,62,["MODULE 2","pack · label · drop off"],20],["sign",310,170,260,62,["MODULE 1","pick up · sort · deliver"],20]], fx:[["CRACK!",300,70,42,-6,"#fff3c4",true]],
+   b:[["c","Now split the whole system into two modules:",2,3,17]]}]},
+ {h:240, p:[
+   {w:1.2, bg:"room", ch:[["laptop","confused",70,.56],["router","proud",255,.56]],
+     b:[["s","Rooty, why number them 2 and 1, backwards?",2,3,10,"b",30,"laptop"],["s","Just a choice, Lappy! Real models stack them bottom-up. Each one is a {{layer}}.",36,42,12,"b",80,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","proud",140,.66]], fx:[["AHA!",230,70,34,8,"#ffd23f",true]],
+     b:[["t","Layers aren't scary... they're just TEAM ASSIGNMENTS!",4,5,12,null,50,"laptop"]]}]}
+]},
+/* ===== 10 ===== */
+{title:"Is it efficient?", rows:[
+ {h:270, p:[{bg:"cafe", ch:[["laptop","proud",80,.62],["dns","shock",240,.55],["wall","shock",360,.5],["phone","shock",530,.6]], props:[["table",300,246,1.1]], over:[["cup",290,186,.8,30],["splash",330,192,.9]], fx:[["CRASH!",310,95,40,-6,"#ffd23f",true]],
+   b:[["c","Flashback: a crowded cafe.",2,4,11],["y","HEY, FONZ!!",3,24,6,null,null,"laptop"]]}]},
+ {h:240, p:[
+   {bg:"cafe", ch:[["laptop","happy",95,.6],["phone","happy",215,.6]],
+     b:[["c","Same message. Way less fuss.",3,4,11],["w","(psst) Hey, Fonz!",8,25,7,"b",50,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.66]],
+     b:[["s","See, Lappy? Yelling works, but it bugs everyone. {{Efficient}} means on time, little waste, no extra trouble.",4,3,17,"b",60,"router"]]}]},
+ {h:260, p:[
+   {bg:"sky", over:[["plane",100,130,.6,-10],["parcel",150,140,.3]],
+     b:[["c","Now imagine the box flies 2,000 miles...",4,4,11]]},
+   {bg:"street", ch:[["van","shock",100,.55]], over:[["sign",115,100,90,44,["MOVED","OUT!"],15,"#e63a2e"]], fx:[["HUH?!",50,90,30,-8,"#ffd23f",true]],
+     b:[["s","Uh, Snoop? Nobody lives here ANYMORE?!",4,35,8,"b",40,"van"]]},
+   {bg:"hub", over:[["pile",100,236],["stamp",100,175,"RETURN TO SENDER",-10]],
+     b:[["c","With a return address, it rides ALL the way back. Without one? It sits in a pile.",4,4,12]]}]},
+ {h:240, p:[
+   {w:1.2, bg:"night", ch:[["router","worried",100,.62]],
+     b:[["s","Lappy, the whole trip was WASTED. Wouldn't it be smarter to check Fonz is home BEFORE shipping?",38,4,14,"bl",10,"router"]]},
+   {bg:"room", ch:[["laptop","confused",70,.56],["router","proud",215,.56]], fx:[["!",270,60,44,10,"#e63a2e"]],
+     b:[["s","Rooty, if I could check, I'd just CALL him!",3,3,9,"b",30,"laptop"],["s","Computers CAN check first, Lappy. Remember that!",40,46,9,"b",80,"router"]]}]}
+]},
+/* ===== 11 ===== */
+{title:"Somebody's peeking", rows:[
+ {h:260, p:[
+   {w:1.2, bg:"hub", ch:[["snoop","happy",230,.85,-1]], over:[["parcel",80,236,.9],["card",100,140,.7,"HAPPY B-DAY!",-12]], fx:[["PEEK!",60,80,32,-10,"#ffd23f",true]],
+     b:[["t","Ooh, a birthday card... who's it from?",42,4,12,null,70,"snoop"]]},
+   {bg:"burst:red", ch:[["laptop","shock",140,.72]],
+     b:[["y","HEY, SNOOP!! That's PRIVATE!",14,4,10,null,null,"laptop"]]}]},
+ {h:230, p:[{bg:"rays:lilac", ch:[["laptop","worried",100,.62],["wall","proud",480,.7]],
+   b:[["c","Enter Wally, the firewall.",2,4,11],["s","Easy, Lappy, I'm Wally. Anyone who handles the box CAN open it. Good networks build security in from DAY ONE.",44,6,18,"b",65,"wall"]]}]},
+ {h:270, p:[
+   {bg:"sepia", over:[["head",100,236,1.1,true]], fx:[["EWW!",160,160,26,8,"#ffd23f"]],
+     b:[["c","Ancient Greece: a message was tattooed on a messenger's shaved head. Then they waited for the hair to grow back!",3,3,13]]},
+   {bg:"sepia", over:[["paper",80,170,.75,["MEET AT","DAWN"],-6,"#c9b080"],["candle",165,236,.9]], fx:[["SIZZLE",150,135,20,-6,"#ffd23f"]],
+     b:[["c","Later: invisible ink, revealed only by heat.",3,3,12]]},
+   {bg:"rays:sky", ch:[["wall","happy",100,.62]],
+     b:[["s","Clever, right, Lappy? But both only HIDE the message. Find it, and you can read it.",6,4,12,"b",50,"wall"]]}]},
+ {h:240, p:[{bg:"chalk", ch:[["wall","proud",530,.58]], over:[["chalktext",34,70,["A B C D E F G H I J K L ...","      shift every letter 3 places","D E F G H I J K L M N O ..."],20],["word",200,212,"H I  →  K L",40,0,"#ffd23f"]],
+   b:[["s","Better idea, Lappy: SCRAMBLE it!",60,4,10,"b",70,"wall"]]}]}
+]},
+/* ===== 12 ===== */
+{title:"KL?!", rows:[
+ {h:250, p:[
+   {bg:"hub", ch:[["snoop","confused",200,.78,-1]], over:[["card",80,150,.85,"KL FONZ!",-8]], fx:[["??",70,70,44,-8,"#ffd23f"]],
+     b:[["t","KL...? What does THAT mean?",44,4,10,null,60,"snoop"]]},
+   {bg:"rays:rose", ch:[["phone","proud",80,.66]],
+     b:[["s","Ha! Sorry, Snoop. I know the secret number: 3. Shift back... K is H, L is I. HI!",34,4,12,"bl",10,"phone"]]}]},
+ {h:260, p:[{bg:"blueprint", ch:[["wall","proud",545,.55]], over:[["sign",20,110,140,64,["PLAINTEXT","H I"],22],["arrow",168,142,200,142],["lock",240,165,.8],["arrow",278,142,310,142],["sign",318,110,150,64,["ENCRYPTED","K L"],22],["sign",185,190,110,50,["KEY","3"],20,"#e63a2e"]],
+   b:[["s","Readable message, Lappy: {{plaintext}}. Scrambled message: {{encrypted}}. The secret number: the {{key}}.",3,4,30,"b",92,"wall"]]}]},
+ {h:240, p:[
+   {bg:"rays:sky", ch:[["laptop","confused",150,.66]],
+     b:[["s","Wally, can't Snoop just try all 26 shifts until it makes sense?",6,4,15,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["wall","proud",150,.62]],
+     b:[["s","With THIS toy cipher, Lappy, yes! Real encryption uses keys so huge that guessing would take billions of years.",4,3,16,"b",55,"wall"]]}]},
+ {h:240, p:[
+   {bg:"night", ch:[["laptop","shock",95,.64]], over:[["clock",235,216,.75,"11:57"]], fx:[["11:57?!",90,60,34,-8,"#ffd23f",true]],
+     b:[["s","Rooty! Are computers just doing SHIPPING?",48,28,9,"bl",10,"laptop"]]},
+   {bg:"burst:yellow", ch:[["router","proud",150,.66]],
+     b:[["s","They borrowed the IDEAS, Lappy. But four big things change. LOOK!",5,4,15,"b",60,"router"]]}]}
+]},
+/* ===== 13 ===== */
+{title:"Four big differences", rows:[
+ {h:230, p:[
+   {bg:"rays:sky", over:[["parcel",70,190,.8],["arrow",120,150,170,150],["bits",230,140,"0110",26],["bits",230,170,"1001",26]],
+     b:[["c","1. We ship BITS, not boxes.",3,4,12]]},
+   {bg:"rays:sun", props:[["cable",10,205,140,205,"#c96b2c"]], over:[["fiber",150,190,130],["radio",210,110,.9]],
+     b:[["c","2. Roads become cables, light and radio.",3,4,14]]}]},
+ {h:250, p:[
+   {bg:"room", ch:[["laptop","confused",70,.58],["router","proud",225,.58]], over:[["appicon",160,70,.75,"#2bb673","CHAT"]],
+     b:[["c","3. The writer is an APP.",3,4,9],["s","Wait, Rooty, I TYPED it!",3,22,6,"b",40,"laptop"],["s","You typed, Lappy. The {{app}} built the message.",46,22,10,"b",75,"router"]]},
+   {bg:"blueprint", over:[["label",40,92,220,["TO: 203.0.113.7"]]],
+     b:[["c","4. Street addresses become {{IP addresses}}.",3,4,13],["s","They have a logical structure too, Lappy, like street addresses. That gets its own issue.",8,56,15,null,null,"router"]]}]},
+ {h:250, p:[{bg:"burst:lilac", ch:[["laptop","confused",100,.62],["router","worried",490,.62]], over:[["sweat",555,120,1.3]], fx:[["UH-OH",300,200,34,-6,"#ffd23f"]],
+   b:[["s","Hold on, Rooty. What's a MAC address? I've seen THAT too!",2,4,11,"b",40,"laptop"],["s","Ooh, Lappy. Devices have BOTH an IP and a MAC address. WHY they need two deserves its own issue. Hold that thought!",42,4,19,"b",80,"router"]]}]},
+ {h:240, p:[
+   {bg:"rays:mint", ch:[["server","happy",70,.56],["laptop","shock",235,.48]],
+     b:[["s","Lappy, two famous layer models: {{OSI}} has 7 layers. {{TCP/IP}} has 4 or 5, depending who's counting.",3,3,14,"b",25,"server"],["s","4 OR 5, SERVO?!",56,58,5,"b",60,"laptop"]]},
+   {bg:"rays:sky", ch:[["router","happy",150,.62]],
+     b:[["s","Five is easier to explain, Lappy. OSI is great for LEARNING. TCP/IP is what the internet actually RUNS on.",4,3,16,"b",60,"router"]]}]}
+]},
+/* ===== 14 ===== */
+{title:"The three-job plan", rows:[
+ {h:300, p:[{bg:"blueprint", ch:[["router","proud",530,.62]], over:[["sign",20,40,440,66,["JOB 3 · WRITE","the app makes it, labels the app, adds the address"],22],["sign",20,118,440,66,["JOB 2 · CHECK","is the other side there and ready?"],22],["sign",20,196,440,66,["JOB 1 · DELIVER","carry it across the network"],22]],
+   b:[["c","Rooty's plan for computers",76,4,9]]}]},
+ {h:240, p:[
+   {bg:"rays:sky", ch:[["phone","happy",250,.55]], over:[["apps",20,22,.6]],
+     b:[["s","Why label the app, Lappy? Fonz runs dozens. The label says CHAT, not MUSIC, not GAMES.",3,58,15,null,null,"router"]]},
+   {bg:"rays:rose", ch:[["laptop","happy",70,.56],["phone","happy",230,.56]], fx:[["KNOCK!",150,140,30,-6,"#ffd23f"]],
+     b:[["s","Job 2 knocks FIRST, Lappy. Real networks do this with {{TCP}} and its three-way handshake.",4,3,16,null,null,"router"]]}]},
+ {h:230, p:[
+   {w:1.2, bg:"rays:mint", over:[["routers",50,206,3,110,.5]],
+     b:[["s","Job 1 is {{routing}} and {{switching}}, Lappy: devices like me reading addresses and passing bits along.",4,4,17,null,null,"router"]]},
+   {bg:"room", ch:[["laptop","proud",80,.6],["router","happy",220,.56]],
+     b:[["s","And every job gets its OWN rulebook, Rooty!",3,3,9,"b",30,"laptop"],["s","You're getting it, Lappy.",52,40,7,"b",65,"router"]]}]},
+ {h:200, p:[{bg:"burst:red", ch:[["laptop","proud",110,.62]], over:[["clock",500,176,.8,"11:59"]], fx:[["GO!",380,120,52,-8,"#ffd23f",true]],
+   b:[["y","11:59! ROOTY, LET'S SEND IT!",24,8,10,null,null,"laptop"]]}]}
+]},
+/* ===== 15 ===== */
+{title:"Midnight", rows:[
+ {h:240, p:[
+   {bg:"room", ch:[["laptop","proud",100,.62]], over:[["appicon",160,70,.6,"#2bb673","CHAT"]],
+     b:[["c","Job 3: the chat app builds it.",3,4,11],["s","HAPPY BIRTHDAY, FONZ!",6,24,7,"b",35,"laptop"]]},
+   {bg:"screen", over:[["bits",100,140,"01001000",24,"#3fe08f"]], fx:[["ZZZT!",100,70,32,-6,"#ffd23f"]],
+     b:[["c","Encoded into bits.",3,82,9]]},
+   {bg:"blueprint", over:[["envelope",100,140,1.2,"CHAT"],["bits",100,215,"→ 203.0.113.7",16,"#14213d"]],
+     b:[["c","Labeled: which app, which address.",3,4,11]]}]},
+ {h:230, p:[
+   {bg:"rays:sky", ch:[["laptop","worried",100,.6]],
+     b:[["c","Job 2: knock first.",3,4,8],["s","Fonz, you there? READY?",14,22,9,"b",40,"laptop"]]},
+   {bg:"rays:rose", ch:[["phone","happy",100,.62]],
+     b:[["s","Here and READY, Lappy!",18,12,7,"b",45,"phone"]]},
+   {bg:"burst:sun", ch:[["laptop","proud",100,.6]],
+     b:[["y","SENDING, ROOTY!",14,6,6,null,null,"laptop"]]}]},
+ {h:270, p:[{bg:"ocean", ch:[["laptop","happy",50,.42,1,96],["modem","proud",300,.5,1,246],["phone","happy",555,.42,1,96]], props:[["rope",0,86,600],["undersea",120,480,250]], over:[["fish",150,200,1],["fish",440,160,.8,true]], fx:[["WHOOSH!",380,150,32,-4,"#fff3c4"]],
+   b:[["c","Job 1: hop by hop, across 2,000 miles of fiber.",24,3,16],["s","Hey, Lappy, Modo here! Providers bury fiber across the country, and lay cables UNDER THE OCEAN to reach other continents!",3,46,17,"b",80,"modem"]]}]},
+ {h:240, p:[
+   {bg:"rays:mint", ch:[["phone","confused",70,.6]], over:[["envelope",210,150,.8,"CHAT"]],
+     b:[["s","Address: MINE. App label: CHAT. Here you go, Chat!",34,4,11,"bl",10,"phone"]]},
+   {w:1.2, bg:"burst:sun", ch:[["phone","proud",120,.72]], over:[["hearts",200,70,1.5],["hearts",50,110,1.1],["clock",260,216,.7,"12:00","#3fe08f"]], fx:[["DING!",255,160,30,8,"#fff3c4",true]],
+     b:[["y","LAPPY... IT'S BEAUTIFUL!",40,4,8,null,null,"phone"]]}]}
+]},
+/* ===== 16 ===== */
+{title:"The first ten miles", rows:[
+ {h:240, p:[
+   {bg:"room", ch:[["laptop","confused",90,.62]],
+     b:[["s","Rooty, could a message meant for CHAT ever end up in MUSIC?",30,4,13,"bl",15,"laptop"]]},
+   {bg:"night", ch:[["router","happy",150,.62]],
+     b:[["s","Devices follow the label strictly, Lappy. And it's YOUR device: a free tool called {{Wireshark}} lets you watch your own traffic.",4,3,16,"b",60,"router"]]}]},
+ {h:260, p:[{bg:"rays:sky", ch:[["laptop","happy",70,.5]], props:[["rope",0,214,600]], over:[["sign",120,150,90,40,["MILE 0"],18],["sign",300,150,100,40,["MILE 10"],18,"#e63a2e"],["sign",480,150,110,40,["MILE 100"],18]],
+   b:[["s","Lappy, networking is a 100-mile road. Tonight you walked the first TEN miles, the ones everything else stands on.",18,4,24,null,null,"router"]]}]},
+ {h:230, p:[
+   {bg:"rays:mint", ch:[["laptop","confused",150,.62]],
+     b:[["s","And if those first miles are SOLID, Rooty?",14,5,12,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.62]],
+     b:[["s","Then fixing your Wi-Fi and making sense of new tech get WAY easier, Lappy. Shaky basics make every problem harder.",4,3,16,"b",60,"router"]]}]},
+ {h:250, p:[{bg:"burst:blue", ch:[["laptop","proud",170,.72],["phone","proud",430,.72]], over:[["hearts",300,120,1.5]],
+   b:[["c","To be continued: the real model behind it all, TCP/IP!",20,3,24],["s","Happy birthday, Fonz.",6,24,8,"b",60,"laptop"],["s","Best. Gift. EVER, Lappy.",72,24,7,"b",40,"phone"]]}]}
+]}
+];
+const ISSUE_A = {no:"0", cover:COVER0, t:"Why do devices talk?", b:"Eight minutes to midnight, one birthday video, and the big idea behind every network.", m:20, star:"laptop", part:1, pages:PAGES0,
+ take:"Devices need a network because they are far apart and only speak in bits. Every message needs bits to send, a medium to carry them (copper, light or radio), an address to find the right device, and an app to create it. Engineers split the problem into layers, each with its own standards: an app writes and labels the message, a check makes sure the other side is ready (TCP's handshake), and routing and switching carry it across. Encryption keeps it private on the way.",
+ tip:"Pick one thing you did online today, like sending a photo. Name its parts: the bits (what was sent), the medium (Wi-Fi, cable or mobile data), the address (who it was for) and the app that created it.",
+ q:{q:"Why does a computer check that the other device is ready before sending?",o:["So it doesn't send data to a device that isn't there","To make the file smaller","To choose the Wi-Fi password"],why:"A parcel can travel all the way to an empty apartment. A computer can knock first, and only send once the other side answers."}};
+
+/* ---------- Issue: Why the TCP/IP model? (original NetFixLab chapter) ---------- */
+const COVER1 = {l:["THE TOWER","INSIDE","EVERY DEVICE"], t:["WHY THE TCP/IP MODEL","HAS FIVE FLOORS"], s:"red", a:"laptop", b:"router", ma:"shock", mb:"proud", sfx:"5 FLOORS!"};
+const ST = {d:["DATA","#ffd23f",220], t:["TCP","#1f6fd1",70], i:["IP","#e63a2e",70]};
+const PAGES1 = [
+/* ===== 1 ===== */
+{title:"The morning after", rows:[
+ {h:250, p:[{bg:"rays:sky", ch:[["laptop","happy",120,.85]], over:[["sign",250,40,330,110,["NEW MESSAGE FROM FONZ","Party at NOON! Join on video call?","Then send me ALL the photos!"],20]], fx:[["BZZT!",215,90,32,-10,"#ffd23f",true]],
+   b:[["c","Austin. The next morning.",2,3,11],["s","A video call AND 300 photos? You got it, Fonz!",50,66,14,"bl",8,"laptop"]]}]},
+ {h:240, p:[
+   {bg:"room", ch:[["laptop","confused",80,.62]],
+     b:[["s","Hey Rooty, last night we invented a three-job plan. Did REAL engineers do anything like that?",28,3,14,"bl",10,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.64]],
+     b:[["s","They did, Lappy! It's called {{TCP/IP}}, and it runs every device online. Today you meet it for real.",4,3,16,"b",60,"router"]]}]},
+ {h:260, p:[{bg:"chalk", ch:[["router","happy",530,.56]], over:[["chalktext",30,82,["Last time we learned a message needs:","1. someone to WRITE it","2. an ADDRESS on it","3. a CHECK that the receiver is there","4. a SYSTEM to deliver it"],19]],
+   b:[["c","Quick recap",3,4,6]]}]},
+ {h:230, p:[
+   {bg:"rays:mint", ch:[["laptop","proud",150,.64]],
+     b:[["s","Easy, Rooty. Write, label, check, deliver!",12,5,12,"b",55,"laptop"]]},
+   {bg:"rays:lilac", ch:[["router","happy",70,.56],["server","proud",225,.56]],
+     b:[["s","Now let's see how the real thing was built. Servo, take it away!",3,3,11,"b",25,"router"],["s","Gather round, Lappy!",54,40,6,"b",60,"server"]]}]}
+]},
+/* ===== 2 ===== */
+{title:"Lonely giants", rows:[
+ {h:260, p:[{bg:"sepia", ch:[["server","sad",90,1.1],["server","sad",230,1.1],["server","proud",500,.72]],
+   b:[["c","The 1940s and '50s.",2,3,9],["s","Lappy, the first computers filled whole rooms. Brilliant calculators... and completely ALONE.",52,4,17,"b",75,"server"]]}]},
+ {h:240, p:[
+   {bg:"sepia", ch:[["server","sad",150,.9]],
+     b:[["t","Is anyone else... out there?",14,5,11,null,50,"server"]]},
+   {bg:"burst:red", ch:[["laptop","shock",150,.7]],
+     b:[["y","Servo, they couldn't even TALK to each other?!",10,4,11,null,null,"laptop"]]}]},
+ {h:270, p:[{bg:"map", props:[["dash",120,190,420,120,"#e63a2e"],["dot",120,190,"UCLA"],["dot",420,120,"SRI"]], over:[["word",250,140,"L... O...",54,-6,"#fff3c4"]], fx:[["CRASH!",470,230,38,-6,"#ffd23f",true]],
+   b:[["c","October 29, 1969. ARPANET, the internet's great-grandparent, sends its first message: the word LOGIN.",2,3,22],["c","The system crashed after two letters. The first message ever sent was... LO.",2,80,22]]}]},
+ {h:230, p:[
+   {bg:"sepia", ch:[["server","proud",80,.6]],
+     b:[["s","Through the 1970s, Lappy, engineers took on the big question: how can ANY computers talk, anywhere?",34,4,13,"bl",10,"server"]]},
+   {bg:"rays:lilac", ch:[["laptop","proud",70,.56],["server","happy",225,.56]], fx:[["!",150,70,44,10,"#e63a2e"]],
+     b:[["s","Let me guess, Servo. They split it into PIECES?",3,3,9,"b",25,"laptop"],["s","You're learning, Lappy!",58,42,6,"b",60,"server"]]}]}
+]},
+/* ===== 3 ===== */
+{title:"The tower inside", rows:[
+ {h:330, p:[{bg:"blueprint", ch:[["laptop","shock",80,.6],["router","proud",520,.6]], over:[["tower",300,316,1.2]], fx:[["WHOA!",95,120,40,-10,"#ffd23f",true]],
+   b:[["c","TCP/IP split the problem into FIVE pieces, stacked like floors.",2,3,13],["s","Lappy, welcome to the TCP/IP tower.",72,26,9,"b",70,"router"]]}]},
+ {h:230, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.64]],
+     b:[["s","Each floor is a {{layer}}, Lappy. Layer, module, piece: same idea, different words.",5,4,15,"b",60,"router"]]},
+   {bg:"rays:sky", ch:[["laptop","confused",70,.56],["router","happy",225,.56]],
+     b:[["s","Rooty, last night we had 3 jobs. Now there are FIVE?",3,3,9,"b",25,"laptop"],["s","They split our jobs even finer, Lappy. To the elevator!",42,52,10,"b",75,"router"]]}]},
+ {h:240, p:[{bg:"sepia", ch:[["person","#5a4630",40,.5],["person","#4a3b28",80,.5],["person","#5a4630",160,.5],["person","#6b5236",200,.5],["person","#4a3b28",280,.5],["person","#5a4630",320,.5],["person","#6b5236",400,.5],["person","#4a3b28",440,.5],["person","#5a4630",520,.5],["person","#6b5236",560,.5]], over:[["sign",22,96,86,30,["FLOOR 5"],16],["sign",137,96,86,30,["FLOOR 4"],16],["sign",257,96,86,30,["FLOOR 3"],16],["sign",377,96,86,30,["FLOOR 2"],16],["sign",497,96,86,30,["FLOOR 1"],16]],
+   b:[["c","Each floor got its own team of engineers, and its own rulebooks. Then they joined the floors together.",2,3,26]]}]},
+ {h:200, p:[{bg:"rays:mint", ch:[["laptop","proud",110,.6]], over:[["tower",470,184,.62,[1,2,3,4,5]]],
+   b:[["t","Five teams, ONE message. Rooty, it's a relay race!",30,8,13,null,10,"laptop"]]}]}
+]},
+/* ===== 4 ===== */
+{title:"Floors 5 and 4", rows:[
+ {h:260, p:[{bg:"office:5", ch:[["laptop","happy",110,.72]], over:[["apps",330,50,.62]],
+   b:[["s","So, Rooty, when I type HI in Chat...",3,4,9,"b",30,"laptop"],["s","...the chat app on floor 5 creates it, Lappy. Floor 5 is {{application}}: where messages are BORN.",28,48,15,null,null,"router"]]}]},
+ {h:240, p:[
+   {bg:"office:4", ch:[["router","proud",90,.62]], fx:[["KNOCK?",230,170,26,-8,"#ffd23f"]],
+     b:[["s","Lappy, floor 4 is {{transport}}. Before anything leaves, it checks the receiver is really there.",30,4,13,"bl",12,"router"]]},
+   {bg:"office:4", ch:[["laptop","proud",70,.56],["router","happy",225,.56]],
+     b:[["s","Rooty, that's our job 2!",3,4,7,"b",30,"laptop"],["s","And just ONE of its jobs, Lappy. Floor 4 is a busy place.",40,36,11,"b",75,"router"]]}]},
+ {h:250, p:[{bg:"rays:mint", ch:[["router","proud",545,.55]], over:[["paper",330,170,.7,["TCP","rulebook"],-4,"#14213d"],["paper",450,170,.7,["UDP","rulebook"],5,"#14213d"]],
+   b:[["s","See these, Lappy? Each floor follows rulebooks called {{protocols}}. Floor 4's knock-first one is {{TCP}}: Transmission Control Protocol.",2,6,17,null,null,"router"]]}]},
+ {h:230, p:[
+   {bg:"office:4", ch:[["laptop","confused",150,.64]],
+     b:[["s","And the other book, Rooty? UDP?",14,6,10,"b",55,"laptop"]]},
+   {bg:"burst:yellow", ch:[["router","worried",80,.56],["laptop","shock",225,.56]], over:[["sweat",130,110,1.2]], fx:[["WHAT?!",230,70,30,8,"#e63a2e"]],
+     b:[["s","User Datagram Protocol, Lappy. It doesn't knock at ALL.",3,3,11,"b",20,"router"]]}]}
+]},
+/* ===== 5 ===== */
+{title:"Floors 3, 2 and 1", rows:[
+ {h:260, p:[{bg:"office:3", ch:[["router","proud",470,.8]], over:[["envelope",90,180,.8],["envelope",190,200,.8],["envelope",290,170,.8]],
+   b:[["c","Floor 3. Rooty's home floor.",2,3,11],["s","Lappy, floor 3 is {{network}}, the heavy lifter. It puts the ADDRESS on and moves messages across the world. Its rulebook: {{IP}}, the Internet Protocol.",2,26,20,null,null,"router"]]}]},
+ {h:250, p:[
+   {bg:"office:2", ch:[["laptop","confused",230,.6]], over:[["door",90,226,1]],
+     b:[["c","Floor 2: Data link.",3,4,8],["s","Rooty, why is THIS door locked?",40,22,8,"b",65,"laptop"]]},
+   {bg:"rays:lilac", ch:[["router","happy",150,.62]], fx:[["LATER!",230,190,26,-8,"#ffd23f"]],
+     b:[["s","Floor 2 is where MAC addresses live, Lappy. Why we need them AND IP addresses, and if they change on the way, gets its own issue.",3,3,17,"b",60,"router"]]}]},
+ {h:240, p:[
+   {bg:"office:1", props:[["cable",10,206,290,206,"#c96b2c"]], over:[["wave",30,150,240,50,"#ffd23f"]],
+     b:[["s","Lappy, floor 1 is {{physical}}: bits become electricity, light or radio, and go out onto the medium.",3,3,16,null,null,"router"]]},
+   {bg:"rays:sun", ch:[["laptop","proud",80,.6]],
+     b:[["s","Rooty, that's the network card stuff from last night!",36,4,11,"bl",10,"laptop"],["s","Exactly, Lappy. Nothing new, just organized.",30,58,11,null,null,"router"]]}]},
+ {h:240, p:[{bg:"burst:yellow", ch:[["laptop","proud",330,.55],["router","happy",510,.55]], over:[["tower",110,226,.82,[1,2,3,4,5],true]],
+   b:[["c","The whole TCP/IP model",30,80,9],["y","FIVE FLOORS, ONE MESSAGE, ROOTY!",44,4,10,null,null,"laptop"]]}]}
+]},
+/* ===== 6 ===== */
+{title:"Why skip the knock?", rows:[
+ {h:240, p:[
+   {bg:"office:4", ch:[["laptop","confused",150,.64]],
+     b:[["s","Rooty, why would ANYONE pick a rulebook that doesn't check first?",8,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sky", ch:[["router","proud",150,.64]],
+     b:[["s","Picture a live video call, Lappy. If one frame shows up late, it's useless. Better to skip it and keep going.",3,3,16,"b",60,"router"]]}]},
+ {h:250, p:[{bg:"screen", over:[["frame",40,80,90,70,"#2f8fdd"],["frame",150,80,90,70,"#2f8fdd"],["frame",260,80,90,70,"#3a4466"],["frame",370,80,90,70,"#2f8fdd"],["frame",480,80,90,70,"#2f8fdd"],["word",305,125,"X",50,0,"#e63a2e"],["bits",300,190,"frame 1 · frame 2 · (late!) · frame 4 · frame 5",15,"#3fe08f"]], fx:[["SKIP!",300,60,30,-6,"#ffd23f"]],
+   b:[["c","Live means no time to wait.",2,4,10],["s","That's why, Lappy, live calls, games and streams often use {{UDP}}: fast, no knocking, no waiting.",30,62,20,null,null,"router"]]}]},
+ {h:240, p:[
+   {bg:"rays:mint", ch:[["laptop","confused",70,.56],["router","proud",225,.56]],
+     b:[["s","And my party PHOTOS, Rooty?",3,3,8,"b",30,"laptop"],["s","Every photo must arrive complete, Lappy. That's a job for {{TCP}}.",36,44,11,"b",75,"router"]]},
+   {bg:"burst:sun", ch:[["laptop","proud",150,.64]], fx:[["AHA!",240,150,30,8,"#ffd23f",true]],
+     b:[["t","UDP for the call. TCP for the photos. GOT IT!",8,5,13,null,50,"laptop"]]}]},
+ {h:230, p:[{bg:"blueprint", over:[["sign",30,40,260,150,["TCP","knocks first","numbers every piece","resends what's lost"],30],["sign",310,40,260,150,["UDP","just sends","fast, no waiting","late or lost? keep going"],30,"#e63a2e"]],
+   b:[]}]}
+]},
+/* ===== 7 ===== */
+{title:"Where IS TCP/IP?", rows:[
+ {h:250, p:[
+   {bg:"room", ch:[["laptop","confused",90,.62]], over:[["word",230,190,"?",50,10,"#ffd23f"]],
+     b:[["s","Rooty, so where IS TCP/IP? A website? A cable? A giant building in California?",28,4,14,"bl",15,"laptop"]]},
+   {bg:"burst:lilac", ch:[["router","proud",150,.66]], fx:[["HA!",230,90,34,8,"#ffd23f"]],
+     b:[["s","Look inside YOURSELF, Lappy.",8,8,10,"b",55,"router"]]}]},
+ {h:290, p:[{bg:"blueprint", ch:[["laptop","shock",160,1.4],["phone","happy",450,1.3]], over:[["tower",160,192,.3,[1,2,3,4,5]],["tower",450,192,.3,[1,2,3,4,5]]],
+   b:[["c","X-ray view",2,3,5],["s","See, Lappy? All five floors are built into every device that reaches the internet: laptops, phones like Fonz, tablets, smart TVs.",58,4,19,null,null,"router"]]}]},
+ {h:220, p:[
+   {bg:"rays:sun", ch:[["laptop","shock",150,.64]],
+     b:[["y","ROOTY! I've been a TOWER this whole time?!",10,4,11,null,null,"laptop"]]},
+   {bg:"rays:sky", ch:[["router","happy",150,.64]],
+     b:[["s","Yep, Lappy. If a device can reach the internet, TCP/IP is running on it.",6,4,15,"b",60,"router"]]}]},
+ {h:240, p:[{bg:"chalk", ch:[["router","proud",530,.56]], over:[["chalktext",34,72,["L5 = Application","L4 = Transport","L3 = Network","L2 = Data link","L1 = Physical"],20]],
+   b:[["s","Heads up, Lappy: engineers talk in floor numbers. 'An L3 problem' means the network floor. I'm an 'L3 device'. In the 7-floor OSI model apps sit on floor 7, so you'll hear 'L7' too.",36,4,22,"b",88,"router"]]}]}
+]},
+/* ===== 8 ===== */
+{title:"Do I need every floor?", rows:[
+ {h:250, p:[{bg:"cafe", ch:[["dns","proud",80,.6],["wall","proud",220,.55],["router","worried",500,.62]],
+   b:[["s","Wally, network people only need floors 1 to 3!",2,4,9,"b",30,"dns"],["s","Right, Dee! Floors 4 and 5 are for APP developers!",28,30,9,"b",30,"wall"],["s","Hmm. Dee, Wally... I disagree.",72,8,7,"b",50,"router"]]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.64]],
+     b:[["s","Know a little about EVERY floor, Lappy, and you see the whole picture. That's how real problems get solved.",3,3,16,"b",60,"router"]]},
+   {bg:"rays:rose", ch:[["phone","sad",150,.66]], over:[["radio",230,80,.7,"#2bb673"]],
+     b:[["s","Rooty, HELP! Full Wi-Fi bars, but Chat won't LOAD!",4,5,10,"b",45,"phone"],["c","Floor 1 looks fine. The problem is higher up.",4,82,14]]}]},
+ {h:260, p:[{bg:"blueprint", ch:[["server","happy",290,.5],["laptop","confused",420,.42]], over:[["tower",100,246,.82],["sign",488,20,104,32,["7 APP"],14],["sign",488,52,104,32,["6 PRES."],14],["sign",488,84,104,32,["5 SESSION"],14],["sign",488,116,104,32,["4 TRANS."],14],["sign",488,148,104,32,["3 NETWORK"],14],["sign",488,180,104,32,["2 LINK"],14],["sign",488,212,104,32,["1 PHYS."],14]],
+   b:[["s","Lappy, there's also {{OSI}}: 7 floors, beautifully designed. Many say it's the better plan on paper.",27,3,13,"b",40,"server"],["s","Then why isn't the internet built on it, Servo?",25,58,11,"b",85,"laptop"]]}]},
+ {h:220, p:[
+   {bg:"sepia", ch:[["server","proud",80,.6]],
+     b:[["s","Great story for another day, Lappy. Short version: TCP/IP was already running everywhere, and it won.",34,4,13,"bl",10,"server"]]},
+   {bg:"rays:mint", ch:[["laptop","confused",150,.62]],
+     b:[["t","The better plan doesn't always win...",10,6,12,null,55,"laptop"]]}]}
+]},
+/* ===== 9 ===== */
+{title:"Meet the cloud", rows:[
+ {h:280, p:[{bg:"sky", ch:[["laptop","shock",60,.5],["phone","happy",545,.5],["nimbus","happy",300,1.15,1,190]], fx:[["POOF!",300,250,30,-6,"#ffd23f"]],
+   b:[["c","Between Austin and Seattle lives... the network.",2,3,16],["s","Hi, Lappy! Hi, Fonz! I'm Nimbus, the network. Write an address I understand, and I'll deliver it.",56,3,16,"b",15,"nimbus"]]}]},
+ {h:230, p:[
+   {bg:"rays:sky", ch:[["laptop","confused",150,.62]],
+     b:[["s","Nimbus, HOW exactly do you deliver it?",10,6,12,"b",55,"laptop"]]},
+   {bg:"rays:lilac", ch:[["nimbus","proud",150,.85,1,200]],
+     b:[["s","My little secret, Lappy... for now. By the end of this course, you'll see inside me.",4,3,16,"b",55,"nimbus"]]}]},
+ {h:250, p:[{bg:"map", ch:[["modem","proud",530,.6]], over:[["routers",90,150,4,90,.38],["cable",60,200,420,200,"#ffd23f"]],
+   b:[["s","Modo here, Lappy! Internet providers build Nimbus: fiber, cables and buildings full of routers. You don't get your OWN cable to Seattle...",2,3,22,"b",92,"modem"],["s","...but it FEELS like you do.",62,48,8,"b",60,"modem"]]}]},
+ {h:220, p:[
+   {bg:"rays:mint", ch:[["laptop","happy",150,.62]],
+     b:[["s","Rooty, so Nimbus is like the delivery company from last issue!",8,4,13,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["nimbus","happy",150,.8,1,196]],
+     b:[["s","Exactly, Lappy! And I only care about the OUTSIDE label.",8,4,12,"b",55,"nimbus"]]}]}
+]},
+/* ===== 10 ===== */
+{title:"Going down the tower", rows:[
+ {h:250, p:[{bg:"office:5", ch:[["laptop","proud",100,.7]], over:[["stack",230,190,1,[["300 PARTY PHOTOS","#ffd23f",300]]]], fx:[["SEND!",400,100,34,-8,"#ffd23f",true]],
+   b:[["c","The sender: down the tower.",2,3,11],["s","Floor 5, send ALL the party photos to Fonz!",34,24,10,"bl",5,"laptop"]]}]},
+ {h:250, p:[
+   {bg:"office:4", ch:[["laptop","shock",70,.5]], over:[["stack",110,140,.55,[["HUGE PILE OF DATA","#ffd23f",320]]],["sign",120,170,150,40,["MAX 1,500 BYTES","per trip"],16,"#e63a2e"]],
+     b:[["y","Rooty, it won't FIT!",48,2,6,null,null,"laptop"]]},
+   {bg:"office:4", over:[["segbox",70,226,.8,"1 OF 3"],["segbox",160,226,.8,"2 OF 3"],["segbox",250,226,.8,"3 OF 3"]], fx:[["SNIP! SNIP!",150,90,28,-6,"#ffd23f"]],
+     b:[["c","Floor 4 cuts the data into numbered {{segments}}.",3,3,14]]}]},
+ {h:250, p:[{bg:"office:4", ch:[["laptop","happy",520,.56]], over:[["segbox",120,226,1.3,"2 OF 3"],["sign",200,50,280,74,["TCP HEADER","segment 2 of 3 · for: CHAT app"],22]],
+   b:[["s","Each segment gets a small label called a {{header}}, Lappy: its number, and which app it's for.",34,62,16,null,null,"router"],["s","Rooty, like 'box 2 of 3' on flat-pack furniture!",4,4,9,null,null,"laptop"]]}]},
+ {h:240, p:[{bg:"office:3", ch:[["router","proud",520,.6]], over:[["stack",60,150,1,[ST.i,ST.t,ST.d]],["word",95,180,"to Fonz's address",16,0,"#fff3c4"]],
+   b:[["s","Then I add MY header, Lappy, with an address Nimbus understands. Now it's called a {{packet}}.",3,3,20,"b",88,"router"]]}]}
+]},
+/* ===== 11 ===== */
+{title:"Boxes inside boxes", rows:[
+ {h:240, p:[
+   {bg:"office:2", over:[["door",150,226,1,true]],
+     b:[["c","Floor 2 adds its own label too... but that door stays locked for now.",3,3,15]]},
+   {bg:"office:1", over:[["bits",150,140,"10100111 01001...",20,"#14213d"],["wave",20,200,260,40,"#ffd23f"]], fx:[["ZZZT!",230,80,30,-6,"#ffd23f",true]],
+     b:[["c","Floor 1 turns it all into signals.",3,3,11]]}]},
+ {h:270, p:[{bg:"sky", ch:[["laptop","happy",60,.48],["phone","happy",545,.48],["nimbus","proud",300,1.05,1,186]], over:[["stack",230,250,.5,[ST.i,ST.t,ST.d]]], fx:[["WHOOSH!",440,120,30,-4,"#fff3c4"]],
+   b:[["s","Don't worry, Lappy, I only read the OUTER label. What's inside isn't my business.",24,3,16,"b",60,"nimbus"]]}]},
+ {h:270, p:[{bg:"blueprint", ch:[["router","happy",560,.4]], over:[["sign",10,52,86,40,["FLOOR 5"],16],["stack",230,90,.85,[ST.d]],["sign",10,122,86,40,["FLOOR 4"],16],["stack",170,160,.85,[ST.t,ST.d]],["sign",10,192,86,40,["FLOOR 3"],16],["stack",110,230,.85,[ST.i,ST.t,ST.d]]],
+   b:[["s","Look, Lappy: each floor wraps what it got from above. Boxes inside boxes: {{encapsulation}} again!",71,4,9.5,"b",70,"router"]]}]},
+ {h:200, p:[
+   {bg:"rays:mint", ch:[["laptop","proud",150,.6]],
+     b:[["s","Rooty, every floor adds its OWN label!",14,8,11,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.6]],
+     b:[["s","And at the other end, Lappy, every floor REMOVES its own label. To Seattle!",4,4,15,"b",60,"router"]]}]}
+]},
+/* ===== 12 ===== */
+{title:"Going up the tower", rows:[
+ {h:250, p:[
+   {bg:"office:3", ch:[["phone","proud",60,.56]], over:[["stack",110,226,.5,[ST.i,ST.t,ST.d]],["word",190,180,"✓ MINE",26,-8,"#2bb673"]],
+     b:[["c","The receiver: up the tower.",3,3,10],["s","Address: MINE! Peel my label, pass it up!",40,24,8,"bl",8,"phone"]]},
+   {bg:"office:4", ch:[["phone","shock",70,.56]], over:[["segbox",160,226,.6,"1 OF 3"],["segbox",250,226,.6,"3 OF 3"]], fx:[["HUH?!",200,100,30,8,"#ffd23f",true]],
+     b:[["s","Floor 4: for CHAT. Segments 1 and 3... WAIT. Nimbus, where's 2?!",3,3,14,"b",15,"phone"]]}]},
+ {h:250, p:[{bg:"sky", ch:[["nimbus","worried",150,1,1,190],["router","proud",500,.6]], over:[["sweat",250,70,1.5]], fx:[["OOPS!",270,180,30,-6,"#ffd23f"]],
+   b:[["s","Ehh... sorry, Fonz. Sometimes I DROP things. Traffic jams happen!",2,3,12,"b",30,"nimbus"],["s","No panic, Fonz! Floor 4 numbers every segment. It spots the gap and asks for number 2 again.",54,8,17,"b",85,"router"]]}]},
+ {h:240, p:[
+   {bg:"office:4", ch:[["phone","happy",70,.56]], over:[["segbox",200,226,.9,"2 OF 3"]], fx:[["THERE IT IS!",170,80,24,-6,"#ffd23f",true]],
+     b:[]},
+   {bg:"office:5", ch:[["phone","proud",150,.7]], over:[["hearts",230,80,1.3],["hearts",70,100,1]],
+     b:[["y","Lappy, I got ALL the photos! PERFECT!",8,4,9,null,null,"phone"]]}]},
+ {h:230, p:[{bg:"rays:mint", ch:[["router","proud",90,.6],["laptop","happy",510,.6]],
+   b:[["s","Notice, Lappy: each floor reads ONLY its own label. Floor 3 never peeks at floor 4's. One job each, and they trust each other.",20,3,22,"bl",5,"router"],["s","Like a really good team, Rooty.",66,56,7,"b",60,"laptop"]]}]}
+]},
+/* ===== 13 ===== */
+{title:"How does floor 4 knock?", rows:[
+ {h:240, p:[
+   {bg:"room", ch:[["laptop","confused",80,.6]],
+     b:[["s","But Rooty, HOW does floor 4 know Fonz is there before sending?",30,4,13,"bl",10,"laptop"]]},
+   {bg:"office:4", ch:[["router","proud",150,.62]],
+     b:[["s","Your message WAITS on floor 4, Lappy. First, floor 4 sends a tiny hello to Fonz's floor 4.",3,3,16,"b",60,"router"]]}]},
+ {h:290, p:[{bg:"blueprint", ch:[["laptop","happy",70,.55],["phone","happy",540,.55]], over:[["arrow",140,90,460,90,"#ffd23f"],["sign",170,50,260,34,["1. HELLO! CAN WE TALK?"],16],["arrow",460,160,140,160,"#8fdcc0"],["sign",170,120,260,34,["2. YES! CAN YOU HEAR ME?"],16],["arrow",140,230,460,230,"#ffd23f"],["sign",170,190,260,34,["3. YES! HERE COMES DATA"],16]],
+   b:[["c","The TCP three-way handshake",2,3,11]]}]},
+ {h:240, p:[
+   {bg:"burst:red", ch:[["laptop","shock",150,.66]],
+     b:[["y","Rooty, the two floor 4s talk to EACH OTHER?!",8,3,11,null,null,"laptop"]]},
+   {bg:"rays:sky", ch:[["router","happy",150,.62]],
+     b:[["s","Through the same network, Lappy, yes. Only after the handshake does your message leave.",4,3,16,"b",60,"router"]]}]},
+ {h:200, p:[{bg:"rays:lilac", ch:[["router","proud",100,.56],["laptop","worried",500,.56]], over:[["sweat",565,90,1.2]],
+   b:[["s","That's the simple version, Lappy. TCP has enough tricks to fill a whole course.",24,4,16,"bl",5,"router"],["t","A whole course... on ONE floor?!",62,48,10,null,50,"laptop"]]}]}
+]},
+/* ===== 14 ===== */
+{title:"Why so many floors?", rows:[
+ {h:250, p:[
+   {bg:"room", ch:[["laptop","confused",80,.6]],
+     b:[["s","Wait, Rooty. The chat app already KNOWS I'm talking to Fonz. Why do floors 3 and 4 add labels?",30,3,13,"bl",10,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.62]],
+     b:[["s","Great question, Lappy! The app TELLS the floors below who it wants. But only floor 3 knows how to write the address so the network understands it.",3,3,17,"b",60,"router"]]}]},
+ {h:250, p:[{bg:"plain:sun", over:[["sign",14,70,186,150,["WRITE + NAME","the app","(floor 5)"],24],["sign",207,70,186,150,["CHECK FIRST","transport","(parcels lacked this)"],24,"#e63a2e"],["sign",400,70,186,150,["DELIVERY","network","(floor 3)"],24]],
+   b:[["c","Remember the parcel from last issue?",2,3,13]]}]},
+ {h:240, p:[
+   {bg:"rays:mint", ch:[["laptop","confused",150,.62]],
+     b:[["s","Rooty, couldn't one GIANT floor do everything?",12,5,12,"b",55,"laptop"]]},
+   {bg:"rays:sky", ch:[["router","proud",150,.62]],
+     b:[["s","It could, Lappy. But one giant team doing every job is a mess. Small teams with clear jobs are easier to build, fix and improve.",3,3,17,"b",60,"router"]]}]},
+ {h:230, p:[
+   {bg:"room", ch:[["laptop","confused",150,.62]],
+     b:[["s","And Fonz needs all five floors too, Rooty?",12,5,12,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","happy",150,.62]],
+     b:[["s","Of course, Lappy! Without floor 3, who reads the address? Without floor 4, who finds the right app? Both ends need the whole tower.",3,3,17,"b",60,"router"]]}]}
+]},
+/* ===== 15 ===== */
+{title:"Noon", rows:[
+ {h:260, p:[{bg:"burst:sun", ch:[["phone","proud",420,.75],["laptop","happy",150,.55,1,182]], props:[["frame",60,60,180,130,"#2f8fdd"]], over:[["balloon",300,110,1,"#e63a2e"],["balloon",560,90,.9,"#1f6fd1"],["balloon",520,150,.8,"#2bb673"]], fx:[["PARTY!",150,240,34,-6,"#fff3c4",true]],
+   b:[["c","Seattle. 12:00 noon.",2,3,8],["y","EVERYONE, LAPPY'S ON THE CALL!",48,6,9,null,null,"phone"]]}]},
+ {h:240, p:[
+   {bg:"screen", ch:[["laptop","proud",150,.66]], fx:[["BLIP!",240,80,30,8,"#ffd23f",true]],
+     b:[["c","A frame drops. UDP shrugs and keeps going.",3,3,14]]},
+   {bg:"rays:rose", ch:[["phone","happy",150,.66]], over:[["hearts",240,80,1.1]],
+     b:[["s","Lappy, did the picture freeze? Who CARES! Keep dancing!",4,4,14,"b",55,"phone"]]}]},
+ {h:240, p:[
+   {bg:"office:4", ch:[["laptop","proud",80,.6]],
+     b:[["c","After the party.",3,3,7],["s","Okay, floor 4, switch to TCP. Send Fonz every photo!",34,24,11,"bl",8,"laptop"]]},
+   {bg:"office:4", ch:[["phone","happy",70,.56]], over:[["segbox",170,226,.6,"147/400"],["segbox",250,226,.6,"148/400"]],
+     b:[["s","Arrived... arrived... ARRIVED! Thanks, Lappy!",30,8,10,"bl",8,"phone"]]}]},
+ {h:220, p:[{bg:"rays:blue", ch:[["laptop","happy",110,.6],["router","proud",300,.6],["phone","happy",490,.6]],
+   b:[["s","Two rulebooks, one party, zero problems. Nice work, you two!",30,6,13,"b",50,"router"]]}]}
+]},
+/* ===== 16 ===== */
+{title:"Where do we start?", rows:[
+ {h:240, p:[
+   {bg:"room", ch:[["laptop","confused",150,.62]],
+     b:[["s","So, Rooty, which floor do we explore FIRST?",12,6,12,"b",55,"laptop"]]},
+   {bg:"office:3", ch:[["router","proud",150,.62]],
+     b:[["s","Floor 3, Lappy, the network floor. It touches floor 4 above and floor 2 below, so it's the best place to start.",3,3,17,"b",60,"router"]]}]},
+ {h:260, p:[{bg:"blueprint", ch:[["router","proud",470,.66]], over:[["tower",150,250,.88,3]],
+   b:[["s","And the most important thing on floor 3, Lappy, is the ADDRESS. Without it, nothing goes anywhere.",44,4,16,"b",70,"router"]]}]},
+ {h:240, p:[
+   {bg:"rays:rose", ch:[["laptop","worried",150,.62]], over:[["sweat",215,110,1.2]],
+     b:[["s","Honestly, Rooty? This is a LOT. I got maybe 10% of it.",10,5,12,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","happy",150,.62]],
+     b:[["s","10% after one day is AMAZING, Lappy. It'll click, floor by floor.",8,4,14,"b",60,"router"]]}]},
+ {h:240, p:[{bg:"burst:blue", ch:[["laptop","proud",120,.62],["nimbus","happy",300,.85,1,210],["phone","proud",490,.62]],
+   b:[["c","To be continued: Floor 3 and the secret of IP addresses!",22,3,24]]}]}
+]}
+];
+const ISSUE_B = {no:"0.5", cover:COVER1, t:"Why the TCP/IP model?", b:"Inside every device stands a five-floor tower. Here's who works on each floor, and why.", m:20, star:"router", part:1, pages:PAGES1,
+ take:"Engineers split the job of sending messages into five layers, stacked like floors: application (creates the message), transport (checks the receiver and numbers the pieces: TCP knocks first, UDP doesn't), network (adds the IP address and moves packets across the world), data link and physical (turns bits into signals). Every internet-connected device runs all five. Going down, each layer adds its own header (encapsulation). Going up, each layer reads and removes only its own.",
+ tip:"Think of one live thing you do online (a video call, a game) and one thing that must arrive complete (a photo, an email). Which one would you send with UDP, and which with TCP?",
+ q:{q:"Which layer cuts data into numbered segments and checks the receiver is ready?",o:["Transport (floor 4)","Physical (floor 1)","Application (floor 5)"],why:"The transport layer splits data into numbered segments, labels which app each is for, and with TCP does a handshake before sending."}};
+
+/* ---------- Issue: Why IP addressing and subnetting? (original NetFixLab chapter) ---------- */
+const COVER2 = {l:["THE SECRET","OF THE","NUMBERS"], t:["IP ADDRESSES","AND SUBNETTING"], s:"yellow", a:"phone", b:"router", ma:"confused", mb:"proud", sfx:"/24?!"};
+const B32 = "11000000.10101000.00110010.00101010";
+const PAGES2 = [
+/* ===== 1 ===== */
+{title:"Only five percent?", rows:[
+ {h:250, p:[{bg:"room", ch:[["laptop","sad",110,.82],["router","worried",470,.74]],
+   b:[["c","Austin. The next day.",2,3,9],["s","Rooty, yesterday you said 5% was fine. I don't WANT 5%! Some answers didn't click.",26,6,16,"bl",8,"laptop"],["s","...Fair, Lappy. Let's fill those gaps first.",64,46,9,"b",60,"router"]]}]},
+ {h:240, p:[
+   {bg:"chalk", over:[["chalktext",26,70,["TODAY:","1. Recap, the better way","2. The network floor","3. IP addresses","4. Subnetting","5. A peek at routers"],18]],
+     b:[]},
+   {bg:"rays:sun", ch:[["router","proud",150,.64]],
+     b:[["s","And Lappy, stay curious. If something doesn't make sense, ASK. Every question makes this better.",4,4,16,"b",60,"router"]]}]},
+ {h:260, p:[{bg:"rays:rose", ch:[["phone","proud",100,.74],["laptop","shock",500,.7]], over:[["sign",170,80,280,74,["NEW DORM!","my address: 192.168.50.42/24"],22]], fx:[["BZZT!",150,190,28,-8,"#ffd23f",true]],
+   b:[["c","Meanwhile, a text from Seattle.",2,3,12],["y","ROOTY! THAT'S an address?!",66,3,7,null,null,"laptop"]]}]}
+]},
+/* ===== 2 ===== */
+{title:"Who tells floor 4?", rows:[
+ {h:250, p:[
+   {bg:"room", ch:[["laptop","confused",80,.62]],
+     b:[["s","Hey Rooty, one question bugged me: floor 3 writes the address. So how does floor 4 know WHERE to knock?",30,3,14,"bl",10,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.62]], fx:[["GREAT Q!",230,190,24,-8,"#ffd23f"]],
+     b:[["s","Because the APP tells it, Lappy! When you hit send, Chat hands down the data AND a note.",4,4,16,"b",60,"router"]]}]},
+ {h:270, p:[{bg:"office:5", ch:[["laptop","happy",80,.6]], over:[["sign",200,40,300,96,["THE NOTE FROM CHAT","this data is for: CHAT","send it to: Fonz's address"],22]],
+   b:[["s","In real networks, Lappy, the app label is a {{port}}, and the address is the {{IP address}}.",36,62,20,null,null,"router"]]}]},
+ {h:260, p:[
+   {bg:"office:4", over:[["tap",70,90,1],["bucket",180,226,1,"#ffd23f","CHAT"],["bucket",270,226,.8,"#c9d3e6","WEB"]],
+     b:[["s","Watch, Lappy. Data pours down like water from a tap...",3,3,13,null,null,"router"]]},
+   {bg:"office:4", ch:[["router","proud",150,.6]],
+     b:[["s","...and floor 4 collects it in a bucket per app. It knows where each bucket is headed, Lappy. It just doesn't WRITE the address.",3,3,17,"b",60,"router"]]}]}
+]},
+/* ===== 3 ===== */
+{title:"Segments become packets", rows:[
+ {h:250, p:[{bg:"office:4", ch:[["laptop","happy",530,.5]], over:[["bucket",70,206,.8,"#ffd23f","CHAT"],["segbox",170,226,.6,"CHAT"],["segbox",240,226,.6,"CHAT"],["bucket",330,206,.7,"#c9d3e6","WEB"],["segbox",420,226,.6,"WEB","#5a6378"]], fx:[["CHOP!",470,110,30,-6,"#ffd23f",true]],
+   b:[["s","See, Lappy? Floor 4 chops each bucket into {{segments}} and marks which app each one belongs to.",2,3,18,null,null,"router"]]}]},
+ {h:260, p:[
+   {bg:"office:3", ch:[["router","proud",230,.66]], over:[["segbox",80,226,.7,"CHAT"]],
+     b:[["s","Hey floor 3! CHAT stuff goes to Fonz. WEB stuff goes to the website!",3,3,15,null,null,null]]},
+   {bg:"office:3", over:[["stack",30,170,.75,[["IP: FONZ","#e63a2e",120],["CHAT SEGMENT","#ffd23f",200]]]],
+     b:[["s","Got it, floor 4! I don't care WHICH app. I just write the address on top. Now it's a {{packet}}!",4,4,15,null,null,"router"]]}]},
+ {h:240, p:[
+   {bg:"chalk", over:[["chalktext",30,90,["Floor 4 unit = SEGMENT","Floor 3 unit = PACKET"],22]],
+     b:[["c","Two names to remember",3,4,8]]},
+   {bg:"rays:mint", ch:[["laptop","confused",70,.5],["router","happy",235,.5]],
+     b:[["s","But Rooty, everyone just says 'packets'...",3,3,9,"b",30,"laptop"],["s","True, Lappy! Now you know the precise words.",46,30,8,"b",75,"router"]]}]}
+]},
+/* ===== 4 ===== */
+{title:"Out the door", rows:[
+ {h:260, p:[{bg:"street", ch:[["laptop","happy",80,.55],["router","proud",420,.7]], over:[["envelope",250,170,.8,"192.168.50.42"]], fx:[["ZIP!",160,210,28,-8,"#ffd23f"]],
+   b:[["s","Out come packets, Lappy. Who reads the envelope? A device that works like a mail carrier: a {{router}}. Like me!",36,3,18,"b",80,"router"]]}]},
+ {h:250, p:[
+   {bg:"map", over:[["routers",50,240,4,70,.3],["dash",70,190,240,140,"#e63a2e"],["dot",70,190,"AUSTIN"],["dot",240,140,"SEATTLE"]],
+     b:[["c","One mail carrier can't cover the whole country. Routers hand packets along, network to network, hop by hop.",2,3,11]]},
+   {bg:"office:3", ch:[["phone","proud",70,.6]], over:[["envelope",200,180,.7,"192.168.50.42"]], fx:[["MINE!",80,60,26,-8,"#ffd23f",true]],
+     b:[["s","Floor 3: that's MY address! Floor 4: it's for Chat! Hi, Lappy!",40,4,10,"bl",8,"phone"]]}]},
+ {h:240, p:[
+   {bg:"rays:sky", ch:[["router","proud",150,.62]],
+     b:[["s","Moving packets between networks by address is {{routing}}, Lappy: floor 3. Floor 2's job is {{switching}}. Those two are what this course is really about.",3,3,17,"b",60,"router"]]},
+   {bg:"rays:lilac", ch:[["laptop","happy",150,.62]], over:[["door",250,226,.5,true]],
+     b:[["s","Rooty, floor 2's door is STILL locked...",10,5,11,"b",50,"laptop"],["c","Soon. Very soon.",4,80,8]]}]}
+]},
+/* ===== 5 ===== */
+{title:"Start on floor 3", rows:[
+ {h:240, p:[
+   {bg:"rays:sky", ch:[["router","proud",90,.6]], over:[["tower",230,226,.6,3]],
+     b:[["s","Lappy, we start on floor 3. It talks to floor 4 above and floor 2 below, so learning it teaches you the neighbors too.",28,3,15,"bl",10,"router"]]},
+   {bg:"office:1", props:[["cable",20,200,280,160,"#c96b2c"]], ch:[["router","happy",150,.5,1,150]],
+     b:[["s","Quick tip, Lappy: when an engineer says 'that's a physical-layer problem', check the CABLE.",4,4,16,null,null,"router"]]}]},
+ {h:280, p:[{bg:"sky", props:[["road",170,140,300,90],["road",300,90,440,170],["road",170,160,440,180]], over:[["hood",30,90,180,120,"OAK HILLS",3,"#cfe6c4"],["hood",230,24,170,110,"PINE GROVE",3,"#ffe9a8"],["hood",400,130,180,120,"CEDAR PARK",3,"#f5d0c5"]],
+   b:[["s","Lappy, let's start somewhere familiar: neighborhoods.",2,3,14,null,null,"router"]]}]},
+ {h:240, p:[
+   {bg:"street", ch:[["router","happy",70,.5],["laptop","confused",230,.5]],
+     b:[["s","Lappy, meet me at house 2!",3,4,7,"b",30,"router"],["s","Which house 2, Rooty?! There's one in EVERY neighborhood!",36,24,10,"b",75,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.62]],
+     b:[["s","Right, Lappy! So: 'house 2 in Cedar Park'. Neighborhood first, then house. Towns, states and countries follow the same idea.",4,3,17,"b",60,"router"]]}]}
+]},
+/* ===== 6 ===== */
+{title:"Networks and hosts", rows:[
+ {h:300, p:[{bg:"plain:#eaf6ff", props:[["road",150,110,300,80],["road",300,80,450,120],["road",150,200,450,210]], over:[["net",20,40,190,120,"NETWORK 1",2],["net",230,20,160,100,"NETWORK 2",1],["net",410,60,170,120,"NETWORK 3",3],["net",180,160,220,120,"NETWORK 4",2]],
+   b:[["s","Same picture, Lappy, in networking words.",2,79,17,null,null,"router"]]}]},
+ {h:250, p:[
+   {bg:"rays:mint", ch:[["laptop","happy",50,.4],["phone","happy",120,.4],["server","happy",200,.42]],
+     b:[["s","Lappy, Fonz, Servo, smart TVs... we call any of them a {{host}}. Some say 'end device'.",3,3,17,null,null,"router"]]},
+   {bg:"rays:sky", ch:[["router","proud",150,.62]],
+     b:[["s","So, Lappy: neighborhood = {{network}}. House = {{host}}. Roads = {{links}}, the cables between networks.",4,4,16,"b",60,"router"]]}]},
+ {h:250, p:[
+   {bg:"map", props:[["road",40,190,280,190,true],["road",40,190,160,90],["road",160,90,280,190]], over:[["dot",40,190,"A"],["dot",280,190,"B"]], fx:[["DETOUR!",160,230,24,-4,"#ffd23f"]],
+     b:[["s","A road closes, Lappy? Take the long way!",3,3,11,null,null,"router"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.62]],
+     b:[["s","Designers plan these paths, Lappy, called {{traffic flows}}, and explain to customers why one route is faster or cheaper.",3,3,17,"b",60,"router"]]}]}
+]},
+/* ===== 7 ===== */
+{title:"Just ones and zeros", rows:[
+ {h:240, p:[
+   {bg:"room", ch:[["laptop","confused",80,.6]],
+     b:[["s","But Rooty, I don't understand 'Network 4, host 2'!",34,4,11,"bl",10,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.62]],
+     b:[["s","Nope, Lappy. You only know 1 and 0. So let's write the whole idea in just those two.",4,4,16,"b",60,"router"]]}]},
+ {h:260, p:[
+   {bg:"night", over:[["bulb",90,190,1.1,false]],
+     b:[["c","Off = 0",4,4,4]]},
+   {bg:"rays:sun", over:[["bulb",90,190,1.1,true]], fx:[["CLICK!",140,80,22,8,"#e63a2e"]],
+     b:[["c","On = 1",4,4,4]]},
+   {w:1.2, bg:"rays:mint", ch:[["router","happy",160,.55]],
+     b:[["s","Lappy, one on/off switch is a {{bit}}. One bit = 2 possible states.",4,4,12,"b",60,"router"]]}]},
+ {h:250, p:[{bg:"blueprint", ch:[["laptop","shock",540,.55]], over:[["bulb",50,200,.5,false],["bulb",90,200,.5,false],["bulb",160,200,.5,false],["bulb",200,200,.5,true],["bulb",270,200,.5,true],["bulb",310,200,.5,false],["bulb",380,200,.5,true],["bulb",420,200,.5,true]],
+   b:[["s","Watch, Lappy: two bulbs give FOUR combos: 00, 01, 10, 11. Three give 8. Every bit you add DOUBLES it: {{2 to the power of bits}}.",2,3,25,null,null,"router"],["y","DOUBLES, ROOTY!",76,34,6,null,null,"laptop"]]}]}
+]},
+/* ===== 8 ===== */
+{title:"The only table you need", rows:[
+ {h:280, p:[{bg:"chalk", ch:[["router","proud",530,.58]], over:[["chalktext",40,70,["2⁰ = 1","2¹ = 2","2² = 4","2³ = 8"],26],["chalktext",220,70,["2⁴ = 16","2⁵ = 32","2⁶ = 64","2⁷ = 128"],26]],
+   b:[["s","Lappy, learn just these eight numbers and IP addresses will make sense.",56,62,12,"b",80,"router"]]}]},
+ {h:250, p:[
+   {bg:"blueprint", over:[["bitrow",80,160,"111",null,40],["sign",40,180,220,56,["4 + 2 + 1 = 7"],26],["word",100,110,"4   2   1",18,0,"#ffd23f"]],
+     b:[["c","Each position has a value. Add the ones that are ON.",3,3,15]]},
+   {bg:"rays:sky", ch:[["laptop","shock",150,.62]],
+     b:[["y","Rooty, so binary 111 is just 7?!",8,4,10,null,null,"laptop"]]}]},
+ {h:250, p:[
+   {bg:"rays:mint", ch:[["router","proud",90,.6]],
+     b:[["s","Lappy, people think in decimal: digits 0 to 9, since childhood. So we'll do our address math in DECIMAL, not binary.",30,3,15,"bl",10,"router"]]},
+   {bg:"rays:sun", ch:[["laptop","proud",150,.62]], fx:[["PHEW!",230,90,32,8,"#ffd23f",true]],
+     b:[["t","Thinking in binary is MY chip's job, not my brain's!",6,5,12,null,50,"laptop"]]}]}
+]},
+/* ===== 9 ===== */
+{title:"Decoding Fonz's address", rows:[
+ {h:240, p:[{bg:"plain:#0e1530", over:[["bitrow",22,140,B32,null,16.2]], fx:[["32 BITS!",300,210,32,-4,"#ffd23f"]],
+   b:[["c","Fonz's address, the way computers see it.",2,3,14]]}]},
+ {h:260, p:[
+   {bg:"blueprint", over:[["bitrow",30,110,"11000000",null,30],["sign",30,140,240,60,["128 + 64 = 192"],26]],
+     b:[["c","Only the 128 and 64 spots are ON.",3,3,12]]},
+   {bg:"rays:sky", ch:[["laptop","shock",80,.6]],
+     b:[["s","Rooty, so the first 8 bits are 192! Then 168, then 50, then 42!",36,4,11,"bl",8,"laptop"]]}]},
+ {h:240, p:[{bg:"burst:yellow", over:[["sign",70,40,460,96,["192 . 168 . 50 . 42","four numbers, split by dots"],40]],
+   b:[["s","Yes, Lappy! Each group of 8 bits is an {{octet}} (8 bits is also a byte). Write each in decimal, put dots between: that's an IPv4 address.",3,64,28,null,null,"router"]]}]},
+ {h:200, p:[
+   {bg:"room", ch:[["laptop","confused",150,.62]],
+     b:[["s","But Rooty, where's the LOGIC? Which part says 'neighborhood'?",8,5,13,"b",55,"laptop"]]},
+   {bg:"burst:red", ch:[["router","proud",150,.62]],
+     b:[["y","THERE ISN'T ANY, LAPPY... YET!",10,4,9,null,null,"router"]]}]}
+]},
+/* ===== 10 ===== */
+{title:"The slash", rows:[
+ {h:250, p:[{bg:"rays:lilac", ch:[["router","proud",520,.6]], over:[["sign",30,120,320,64,["192.168.50.42"],36],["word",190,236,"???",40,-6,"#ffd23f"]],
+   b:[["s","Lappy, an IP address alone has no meaning. It needs a partner: the {{subnet mask}}, written after a slash.",50,4,17,"b",85,"router"]]}]},
+ {h:280, p:[{bg:"blueprint", over:[["bitrow",22,120,B32,24,16.2],["sign",60,150,300,40,["24 BITS = NETWORK"],20,null,"#ffd23f"],["sign",410,150,170,40,["8 BITS = HOST"],20,null,"#8fdcc0"]],
+   b:[["c","/24 means: the FIRST 24 bits name the network. The last 8 number the host.",2,3,24],["s","Rooty, neighborhood, then house!",4,72,10,null,null,"laptop"]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", over:[["sign",15,80,270,90,["192.168.50 . 42","network · host"],30]],
+     b:[["c","Read it like an address.",3,3,9]]},
+   {bg:"rays:mint", ch:[["router","proud",150,.62]],
+     b:[["s","8 host bits = 2⁸ = {{256}} possible addresses, Lappy. 0 to 255.",4,4,15,"b",60,"router"]]}]}
+]},
+/* ===== 11 ===== */
+{title:"Finding Fonz", rows:[
+ {h:250, p:[
+   {bg:"rays:sky", over:[["houses",40,200,5,0,"#f3d1a2",56],["sign",30,60,250,60,["192.168.50.0","the network's name"],26]],
+     b:[["c","By convention, the FIRST address names the whole network.",3,3,14]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.62]],
+     b:[["s","So hosts start at .1, Lappy. And 0 to 255 is 256 numbers, because we count from ZERO.",4,4,15,"b",60,"router"]]}]},
+ {h:300, p:[{bg:"plain:#eaf6ff", ch:[["laptop","proud",530,.5]], over:[["net",15,30,190,110,"192.168.10.0/24",2],["net",215,30,190,110,"192.168.20.0/24",1],["net",15,160,190,120,"192.168.30.0/24",2],["net",215,160,190,120,"192.168.50.0/24",3,"#ffe9a8"]],
+   b:[["s","Lappy, find Fonz: 192.168.50.42 /24!",71,3,8.5,"b",70,"router"],["s","Rooty, 192.168.50 is this network! Fonz is host 42 in there!",71,30,8.5,"b",60,"laptop"]]}]},
+ {h:230, p:[
+   {bg:"rays:rose", ch:[["laptop","worried",150,.6]],
+     b:[["s","Rooty, numbers are SO hard to remember, though.",8,5,12,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["dns","proud",150,.66]],
+     b:[["s","Hi, Lappy, Dee here! That's why people type NAMES. I turn names into numbers. My own issue, coming up!",3,3,16,"b",60,"dns"]]}]}
+]},
+/* ===== 12 ===== */
+{title:"Too many addresses", rows:[
+ {h:260, p:[{bg:"hub", ch:[["server","worried",120,.75],["laptop","confused",480,.6]], over:[["sign",200,36,270,74,["MAPLE HALL DORM","192.168.50.0/24"],20]],
+   b:[["c","Fonz's campus. Servo runs IT.",2,3,10],["s","Lappy, Maple Hall got 256 addresses... but only 120 students live there.",40,52,12,"b",10,"server"]]}]},
+ {h:250, p:[
+   {bg:"rays:rose", over:[["houses",40,200,5,121,"#c9d3e6",56],["word",150,110,"EMPTY!",38,-6,"#fff3c4"]],
+     b:[["c","136 addresses sitting unused.",3,3,10]]},
+   {bg:"burst:yellow", ch:[["router","proud",130,.6]], fx:[["SPLIT!",240,190,26,8,"#e63a2e",true]],
+     b:[["s","Easy fix, Servo! We divide the network into smaller ones. That's {{subnetting}}: sub-dividing a network.",3,4,16,"b",40,"router"]]}]},
+ {h:250, p:[
+   {bg:"rays:mint", ch:[["laptop","confused",150,.62]],
+     b:[["s","Rooty, can I split it into any size? Like 200 and 56?",8,5,13,"b",55,"laptop"]]},
+   {bg:"blueprint", over:[["sign",15,40,270,120,["ONLY POWERS OF 2","2, 4, 8, 16, 32, 64, 128...","need 30? you get 32"],24]],
+     b:[["c","Binary rules: blocks come in powers of 2.",3,82,13]]}]}
+]},
+/* ===== 13 ===== */
+{title:"Cut it in half: /25", rows:[
+ {h:240, p:[{bg:"blueprint", over:[["rangebar",30,60,540,[["192.168.50.0 /24|.0 → .255","#ffd23f"]],64],["arrow",300,140,300,180],["rangebar",30,180,540,[["FIRST HALF|.0 → .127","#8fdcc0"],["SECOND HALF|.128 → .255","#c9b6f2"]],50]], fx:[["SNIP!",450,160,24,-6,"#ffd23f"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.62]],
+     b:[["s","Rooty, two networks, 128 addresses each. Both still /24?",8,5,13,"b",55,"laptop"]]},
+   {bg:"burst:red", ch:[["router","shock",150,.62]],
+     b:[["y","NOPE, LAPPY! /24 MEANS 256!",8,4,9,null,null,"router"]]}]},
+ {h:280, p:[{bg:"blueprint", ch:[["router","proud",545,.5]], over:[["bitrow",22,90,B32.replace(/\./g,""),25,15.5],["sign",22,110,385,36,["25 BITS = NETWORK"],18,null,"#ffd23f"],["sign",410,110,108,36,["7 = HOST"],18,null,"#8fdcc0"]],
+   b:[["c","Watch the line move one bit to the right.",2,3,14],["s","Lappy, lend ONE host bit to the network. 7 host bits = 2⁷ = 128. So write {{/25}}: 192.168.50.0/25 and 192.168.50.128/25.",2,62,24,null,null,"router"]]}]}
+]},
+/* ===== 14 ===== */
+{title:"Same network or not?", rows:[
+ {h:260, p:[{bg:"rays:sky", ch:[["laptop","happy",80,.6],["phone","happy",520,.6]], over:[["sign",160,110,130,50,[".100/25"],26],["sign",320,110,130,50,[".200/25"],26]],
+   b:[["c","Rooty's quiz! Host A is 192.168.50.100/25. Host B is 192.168.50.200/25. Same network?",2,3,22]]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.62]],
+     b:[["y","EASY, ROOTY! SAME MASK, SO SAME NETWORK!",8,4,10,null,null,"laptop"]]},
+   {bg:"burst:red", ch:[["router","shock",150,.62]], fx:[["BZZZT!",230,80,30,8,"#ffd23f",true]],
+     b:[["s","Lappy, that's the #1 mistake! The mask tells you the SIZE. Check the RANGE.",4,4,14,"b",60,"router"]]}]},
+ {h:240, p:[{bg:"blueprint", over:[["rangebar",30,80,540,[["NETWORK 1|.0 → .127","#8fdcc0"],["NETWORK 2|.128 → .255","#c9b6f2"]],60],["word",165,190,"A = .100",30,0,"#fff3c4"],["word",435,190,".200 = B",30,0,"#fff3c4"]],
+   b:[["c","Different ranges, so DIFFERENT networks.",2,3,13]]}]},
+ {h:240, p:[
+   {bg:"room", ch:[["laptop","confused",150,.62]],
+     b:[["s","Rooty, can't I just use a subnet calculator?",8,5,12,"b",55,"laptop"]]},
+   {bg:"rays:mint", ch:[["router","proud",150,.62]],
+     b:[["s","Sure, Lappy, but do you use one to add 20 and 30? Switching and routing both build on this. Know it by heart.",3,3,17,"b",60,"router"]]}]}
+]},
+/* ===== 15 ===== */
+{title:"Two special addresses", rows:[
+ {h:240, p:[{bg:"blueprint", over:[["rangebar",30,90,540,[["NETWORK|.0","#ffd23f",1.5],["HOSTS|.1 → .254","#8fdcc0",3.6],["BROADCAST|.255","#e8453c",1.9]],70]],
+   b:[["c","In every network, two addresses are reserved.",2,3,14],["s","Lappy, first = the network number. Last = the {{broadcast}} address.",30,72,18,null,null,"router"]]}]},
+ {h:280, p:[
+   {w:1.2, bg:"night", props:[["fmtower",90,256,1]], over:[["radio",90,90,1.3,"#ffd23f"],["sign",160,196,150,36,["KNET 93.5 FM"],20]],
+     b:[["s","Hey, Austin! You're tuned to KNET 93.5! Everyone listening hears this song!",48,8,10,null,null]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.62]],
+     b:[["s","A broadcast is the same idea, Lappy: one message to EVERY host. Send to 192.168.50.255 and everyone in .50.0/24 hears it.",3,3,17,"b",60,"router"]]}]},
+ {h:240, p:[
+   {bg:"rays:mint", ch:[["laptop","confused",150,.62]],
+     b:[["s","Rooty, how many addresses can hosts actually USE?",8,5,13,"b",55,"laptop"]]},
+   {bg:"chalk", over:[["chalktext",26,90,["/24: 256 − 2 = 254 usable","/25: 128 − 2 = 126 usable"],20]],
+     b:[["c","Total minus the 2 reserved",3,4,10]]}]}
+]},
+/* ===== 16 ===== */
+{title:"Four floors: /26", rows:[
+ {h:260, p:[{bg:"hub", ch:[["server","proud",110,.7],["laptop","shock",500,.55]], over:[["sign",200,40,200,90,["NEW REQUEST","4 dorm floors","about 50 students each"],22]],
+   b:[["s","Rooty, Lappy: four networks, please!",2,4,8,"b",40,"server"],["y","FOUR, SERVO?!",70,6,4,null,null,"laptop"]]}]},
+ {h:270, p:[{bg:"blueprint", over:[["rangebar",20,60,560,[["NET 1|.0–.63","#8fdcc0"],["NET 2|.64–.127","#ffd23f"],["NET 3|.128–.191","#c9b6f2"],["NET 4|.192–.255","#f5958a"]],64],["sign",20,145,560,110,["64 addresses each · 6 host bits · /26","network numbers: .0   .64   .128   .192","broadcasts: .63   .127   .191   .255"],24]],
+   b:[["c","256 ÷ 4 = 64. And 64 = 2⁶.",2,3,10]]}]},
+ {h:240, p:[
+   {bg:"rays:sky", ch:[["laptop","proud",150,.62]],
+     b:[["s","Rooty! So .100/26 and .200/26 are network 2 and network 4!",8,4,13,"b",55,"laptop"]]},
+   {bg:"burst:yellow", ch:[["router","proud",130,.6]], fx:[["YES!",245,190,28,8,"#e63a2e",true]],
+     b:[["s","Different networks, Lappy. You're doing it in your HEAD now!",4,4,13,"b",40,"router"]]}]}
+]},
+/* ===== 17 ===== */
+{title:"See the pattern?", rows:[
+ {h:300, p:[{bg:"chalk", ch:[["router","proud",540,.55]], over:[["chalktext",40,96,["MASK","/24","/25","/26","/27"],22],["chalktext",150,96,["NETWORKS","1","2","4","8"],22],["chalktext",320,96,["HOSTS EACH","256","128","64","32"],22]],
+   b:[["c","The pattern",3,4,5]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.62]],
+     b:[["s","Lappy, each bit you move from host to network DOUBLES the networks and HALVES the hosts.",4,4,16,"b",60,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","confused",70,.56]],
+     b:[["s","But Rooty, how do I know how many pieces to cut?",4,5,12,"b",25,"laptop"],["c","The requirements decide, Lappy. '4 networks of 50' means /26.",48,52,8.5]]}]},
+ {h:230, p:[{bg:"burst:blue", ch:[["laptop","proud",120,.62],["router","happy",470,.62]], fx:[["CLICK!",300,180,34,-6,"#ffd23f",true]],
+   b:[["y","ROOTY, IT ACTUALLY MAKES SENSE!",22,4,10,null,null,"laptop"]]}]}
+]},
+/* ===== 18 ===== */
+{title:"The giant /16", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["laptop","shock",80,.6]], over:[["sign",200,50,370,80,["192.168.0.0/16","16 network bits · 16 host bits"],30],["word",390,200,"65,536 HOSTS!",40,-4,"#ffd23f"]],
+   b:[]}]},
+ {h:270, p:[
+   {bg:"chalk", over:[["chalktext",24,92,["192.168.0.1 ... 192.168.0.255","192.168.1.0 ... 192.168.1.255","192.168.2.0 ... 192.168.2.255","...","192.168.255.255"],16]],
+     b:[["c","Count the last two octets",3,4,10]]},
+   {bg:"rays:sky", ch:[["router","proud",150,.62]],
+     b:[["s","256 × 256 = 65,536, Lappy. Same logic as /24, just two host octets instead of one. Not scary at all.",3,3,17,"b",60,"router"]]}]},
+ {h:250, p:[
+   {bg:"hub", ch:[["server","worried",70,.62]], over:[["sign",30,30,240,64,["MEGA CORP","55,000 employees"],22]],
+     b:[["s","Rooty, one giant network for everyone? Big networks have big problems. More next issue.",36,33,11,"bl",8,"server"]]},
+   {bg:"rays:mint", over:[["net",15,62,130,96,"HR",2],["net",160,62,130,96,"SALES",2],["net",70,164,170,90,"ENGINEERING",2,"#ffe9a8"]],
+     b:[["s","Split by department instead, Servo!",4,3,14,null,null,"router"]]}]}
+]},
+/* ===== 19 ===== */
+{title:"Enter the routers", rows:[
+ {h:270, p:[{bg:"rays:sky", ch:[["laptop","happy",60,.5],["router","proud",300,.62],["router","happy",520,.5]], over:[["envelope",170,200,.6],["bits",170,150,"to 192.168.70.9",15],["rtable",350,20,230,[["192.168.70.0","R2",1],["192.168.80.0","R3"]]],["word",300,260,"R1",20,0],["word",520,260,"R2",20,0]],
+   b:[["c","Sneak peek: R1 reads the destination and checks its table.",2,3,13],["s","Hi, Lappy! The 70 network? Off to R2!",44,40,7,"b",30,"router"]]}]},
+ {h:240, p:[
+   {bg:"rays:mint", over:[["routers",50,200,4,70,.34]], fx:[["HOP! HOP!",160,90,28,-6,"#ffd23f"]],
+     b:[["s","R2, R3, R4... hop by hop, Lappy! How tables get built: next issue.",3,3,14,null,null,"router"]]},
+   {bg:"rays:sun", ch:[["laptop","confused",150,.62]],
+     b:[["s","Servo, who hands out IP addresses anyway?",8,5,12,"b",55,"laptop"]]}]},
+ {h:250, p:[{bg:"sepia", ch:[["server","proud",520,.6]], over:[["globe",130,130,70],["word",300,120,"2³² ≈ 4.3 BILLION",34,-4,"#fff3c4"]],
+   b:[["s","A global body called {{IANA}} manages them, Lappy. 4.3 billion seemed endless... until the internet exploded. Its free pool ran out in 2011!",34,58,22,null,null,"server"]]}]},
+ {h:230, p:[
+   {bg:"burst:red", ch:[["laptop","shock",150,.62]],
+     b:[["y","RAN OUT?! Servo, then how do new devices get online?!",8,4,11,null,null,"laptop"]]},
+   {bg:"burst:blue", ch:[["router","proud",110,.55],["phone","happy",240,.55]],
+     b:[["c","To be continued: private addresses, and the routers that make it all work!",3,3,15]]}]}
+]}
+];
+const ISSUE_C = {no:"1.5", cover:COVER2, t:"Why IP addresses and subnetting?", b:"What 192.168.50.42/24 really means, and how to cut a network into pieces in your head.", m:25, star:"router", part:1, pages:PAGES2,
+ take:"An IP address is 32 bits, written as four decimal octets. On its own it means nothing: the mask (/24, /25...) says how many bits name the network and how many number the host, like neighborhood and house. Host bits decide the size: 2 to the power of host bits. The first address is the network number, the last is the broadcast, so usable hosts = total − 2. Subnetting moves host bits to the network: each bit doubles the networks and halves the hosts. To check if two hosts share a network, compare their ranges, not just their masks.",
+ tip:"Split 192.168.0.0/16 into 2 networks, then 4. For each one, write the network number, the broadcast address and the mask. (Hint: halving /16 gives /17.)",
+ q:{q:"Are 192.168.50.100/26 and 192.168.50.120/26 on the same network?",o:["Yes, both are in .64 to .127","No, the masks are different","No, every host is its own network"],why:"A /26 makes blocks of 64: .0–.63, .64–.127, .128–.191, .192–.255. Both .100 and .120 fall in .64–.127, so they share a network."}};
+
+ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15;
+[ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
+LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C);
+COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover);
+/* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
+   Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
+   Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
+const idOf = n => LESSONS[n-1] ? LESSONS[n-1].id : null;
+const posOf = id => LESSONS.findIndex(L => L.id === id) + 1;
+const FIRST_PAID = Math.max(1, LESSONS.findIndex(L => !L.free) + 1);
 /* ---------- accounts: Supabase when configured, otherwise a demo store in this browser ---------- */
 let USE_SB = false, sb = null, USER = null;
 let RECOVERY = /[?&]reset=1\b/.test(location.search) || /type=recovery/.test(location.hash);
@@ -981,7 +2113,7 @@ function loadSB(){
     document.head.appendChild(s);
   });
 }
-const validDone = a => [...new Set(a)].filter(n => Number.isInteger(n) && n >= 1 && n <= LESSONS.length);
+const validDone = a => [...new Set(a)].filter(id => Number.isInteger(id) && posOf(id) > 0);   // lesson ids
 
 /* ---------- anonymous course analytics: a random browser ID, no personal data ---------- */
 const Track = {
@@ -1014,6 +2146,7 @@ const Track = {
     sb.rpc("track_visit", {p_visitor:Track.id(), p_source:Track.source(), p_device:Track.device()}).then(() => {}, () => {});
   },
   event(ev, lesson){
+    lesson = lesson ? idOf(lesson) : null;   // callers pass the issue position; record the permanent id
     try{ if(window.posthog && posthog.capture) posthog.capture(ev, lesson ? {lesson: lesson} : {}); }catch(e){}
     if(!USE_SB) return;
     sb.rpc("track_event", {p_visitor:Track.id(), p_lesson:lesson || null, p_event:ev}).then(() => {}, () => {});
@@ -1053,7 +2186,7 @@ const Auth = {
     if(data && data.full_name) USER.name = data.full_name;
     if(data && data.created_at) USER.joined = data.created_at;
     const srv = validDone(((lp && lp.data) || []).filter(x => x.completed_at).map(x => x.lesson));
-    const guest = validDone(lsGet("nfl", {}).done || []).filter(n => !srv.includes(n) && !isLocked(n));
+    const guest = validDone(lsGet("nfl", {}).done || []).filter(id => !srv.includes(id) && !isLocked(posOf(id)));
     S.done = validDone([...srv, ...guest]);
     // copy lessons read as a guest into the account, then clear the guest copy
     for(const n of guest){ await Auth.record(n, "opened"); await Auth.record(n, "completed"); }
@@ -1150,7 +2283,7 @@ const S = { done: [], unlocked: false, purchases: [] };
 let pending = null, lastFocus = null, AFTER = null;
 function loadGuest(){ const d = lsGet("nfl", {}); S.done = validDone(Array.isArray(d.done) ? d.done : []); S.unlocked = false; S.purchases = []; }
 function save(){ if(USER) Auth.persist(); else lsSet("nfl", {done:S.done}); }
-const isLocked = n => n > FREE_COUNT && !S.unlocked;
+const isLocked = n => !!LESSONS[n-1] && !LESSONS[n-1].free && !S.unlocked;
 const VIEWS = ["home","reader","auth","profile"];
 function show(v){ VIEWS.forEach(x => { $("#" + x).hidden = x !== v; }); window.scrollTo(0,0); }
 
@@ -1165,8 +2298,8 @@ function updateHeader(){
 /* ---------- home ---------- */
 const LOCK = '<svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" fill="currentColor"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="3"/></svg>';
 function card(n){
-  const L = LESSONS[n-1], done = S.done.includes(n), locked = isLocked(n);
-  const tag = done ? ["read","Read"] : n <= FREE_COUNT ? ["free","Free"] : locked ? ["lock", LOCK+" Locked"] : ["open","Open"];
+  const L = LESSONS[n-1], done = S.done.includes(L.id), locked = isLocked(n);
+  const tag = done ? ["read","Read"] : L.free ? ["free","Free"] : locked ? ["lock", LOCK+" Locked"] : ["open","Open"];
   return `<button class="card" data-open="${n}" aria-label="Lesson ${n}: ${L.t}${locked ? ", locked" : ""}">
     <span class="cv">${cover(n,true)}</span>
     <span class="ctext"><span class="tag ${tag[0]} tagpos">${tag[1]}</span><span class="meta">Issue ${n} · ${L.m} min read</span><span class="cb">${L.b}</span></span></button>`;
@@ -1179,6 +2312,7 @@ function renderHome(){
   $("#grid1").innerHTML = g1; $("#grid2").innerHTML = g2;
   $("#prog").textContent = `${S.done.length} of ${LESSONS.length} lessons read` + (S.unlocked ? " · full course unlocked" : "");
   document.querySelectorAll("[data-price]").forEach(e => e.textContent = CONFIG.price);
+  document.querySelectorAll("[data-count]").forEach(e => e.textContent = LESSONS.length);
   $("#topBuy").hidden = S.unlocked;
 }
 function showHome(){ show("home"); renderHome(); updateHeader(); }
@@ -1210,7 +2344,7 @@ function openLesson(n){
         <p class="kicker">${kick}</p>
         <h1>${L.t}</h1>
       </div>
-      <div class="strip">${L.pan.map(panel).join("")}</div>
+      ${L.pages ? `<div class="book">${L.pages.map((pg,i) => renderPage(pg,i+1)).join("")}</div>` : `<div class="strip">${L.pan.map(panel).join("")}</div>`}
       <div class="box take"><h3>Takeaway</h3><p>${fmt(L.take)}</p></div>
       <div class="box tip"><h3>Try it yourself</h3><p>${fmt(L.tip)}</p></div>
       <div class="box" id="quiz"><h3>Quick check</h3><p>${fmt(L.q.q)}</p>
@@ -1224,12 +2358,12 @@ function openLesson(n){
   $("#reader").dataset.n = n;
   show("reader");
   Track.event("cover_viewed", n);
-  Auth.record(n, "opened");
+  Auth.record(L.id, "opened");
 }
 function finishLesson(n){
   Track.event("lesson_completed", n);
-  Auth.record(n, "completed");
-  if(!S.done.includes(n)){ S.done.push(n); save(); }
+  Auth.record(idOf(n), "completed");
+  if(!S.done.includes(idOf(n))){ S.done.push(idOf(n)); save(); }
   if(n < LESSONS.length) openLesson(n+1); else go("lessons");
 }
 
@@ -1378,10 +2512,10 @@ async function submitNewPassword(){
 function openProfile(note, bad){
   if(!USER){ openAuth("login"); return; }
   const total = LESSONS.length, done = S.done.length, pct = Math.round(done/total*100);
-  const nxt = LESSONS.findIndex((L,i) => !S.done.includes(i+1) && !isLocked(i+1)) + 1;
+  const nxt = LESSONS.findIndex((L,i) => !S.done.includes(L.id) && !isLocked(i+1)) + 1;
   const joined = USER.joined ? new Date(USER.joined).toLocaleDateString("en", {month:"long", year:"numeric"}) : "";
   const minis = LESSONS.map((L,i) => {
-    const n = i+1, d = S.done.includes(n), lk = isLocked(n);
+    const n = i+1, d = S.done.includes(L.id), lk = isLocked(n);
     return `<button class="mini ${d ? "is-done" : ""}" data-open="${n}" aria-label="Issue ${n}: ${L.t}${d ? ", read" : lk ? ", locked" : ""}"><span class="cv">${cover(n,true)}</span><span class="mk">${d ? "✓ Read" : lk ? LOCK + " Locked" : "Unread"}</span></button>`;
   }).join("");
   const cont = nxt ? `<button class="btn" data-open="${nxt}">${done ? "Continue reading" : "Start reading"}</button>` : `<span class="tag read">You finished every issue</span>`;
@@ -1447,13 +2581,13 @@ function renderReceipt(r){
   const ok = r.state === "success", bad = r.state === "failed", wait = r.state === "confirming" || r.state === "pending";
   const badge = ok ? `<span class="badge ok">✓ Payment successful</span>` : bad ? `<span class="badge bad">✕ Payment not completed</span>` : `<span class="badge wait">⏳ Confirming payment</span>`;
   const title = ok ? "Thank you! You’re all set." : bad ? "Your payment did not go through" : "Almost there...";
-  const lead = ok ? "All 12 lessons are now unlocked on your account, on every device."
+  const lead = ok ? "Every lesson is now unlocked on your account, on every device."
     : bad ? "Nothing was charged. You can try again with another card, or contact us if this keeps happening."
     : r.state === "pending" ? "Your payment was received, but unlocking is taking longer than usual. It usually finishes within a minute. Tap “Check again” shortly."
     : "Your payment was received. We are unlocking your lessons now. This page updates by itself.";
   const p = r.purchase;
   const lines = [
-    ["Item", "NetFixLab full course (lessons 4 to 12)"],
+    ["Item", "NetFixLab full course"],
     ["Amount", p ? money(p.amount_cents, p.currency) : CONFIG.price + " USD"],
     ["Status", ok ? "Paid" : bad ? "Not completed" + (r.status ? " (" + r.status + ")" : "") : "Processing"],
     ["Date", when(p ? p.created_at : r.at)],
@@ -1469,7 +2603,7 @@ function renderReceipt(r){
       ${ok ? `<p class="fine">Dodo Payments has also emailed a receipt to ${esc(r.email || USER.email)}. Keep this page or that email as your proof of purchase.</p>` : ""}
       ${bad ? `<p class="fine">If money left your account, it is released automatically by your bank. Questions? Use the Contact form and quote the payment ID.</p>` : ""}
       <div class="prow">
-        ${ok ? `<button class="btn" data-open="4">Start lesson 4 ▸</button>` : ""}
+        ${ok ? `<button class="btn" data-open="${FIRST_PAID}">Start issue ${FIRST_PAID} ▸</button>` : ""}
         ${bad ? `<button class="btn" data-buy>Try again</button>` : ""}
         ${r.state === "pending" ? `<button class="btn" id="recheck">Check again</button>` : ""}
         ${ok ? `<button class="btn alt" type="button" onclick="window.print()">Print or save as PDF</button>` : ""}
@@ -1512,7 +2646,7 @@ function openPay(n){
       quantity:"1", email:USER.email, disableEmail:"true", metadata_user_id:USER.id, redirect_url:back
     }).toString();
     $("#payAct").innerHTML = `<a class="btn" id="payGo" href="${esc(CONFIG.paymentLink + q)}">Pay ${esc(CONFIG.price)} once</a>`;
-    $("#payNote").innerHTML = `Secure checkout by Dodo Payments. You come straight back here afterwards, and lessons 4 to 12 unlock as soon as the payment is confirmed. By paying you agree to the <a href="/terms" target="_blank">terms</a> and the <a href="/refunds" target="_blank">refund policy</a>: all sales are final, so please try the free lessons first.`;
+    $("#payNote").innerHTML = `Secure checkout by Dodo Payments. You come straight back here afterwards, and the paid lessons unlock as soon as the payment is confirmed. By paying you agree to the <a href="/terms" target="_blank">terms</a> and the <a href="/refunds" target="_blank">refund policy</a>: all sales are final, so please try the free lessons first.`;
   } else {
     $("#payAct").innerHTML = USE_SB ? "" : `<button class="btn" id="demoUnlock">Unlock all lessons (demo)</button>`;
     $("#payNote").textContent = USE_SB ? "Online payments open very soon. Your free account keeps your progress until then." : "Demo mode: no money is taken.";
@@ -1553,8 +2687,8 @@ document.addEventListener("click", async e => {
   else if(t.classList.contains("opt")){
     const fb = $("#fb"), all = document.querySelectorAll("#quiz .opt");
     const ln = +$("#reader").dataset.n;
-    if(t.dataset.ok === "1"){ t.classList.add("ok"); all.forEach(b => b.disabled = true); fb.textContent = "Correct. " + LESSONS[ln - 1].q.why; Track.event("quiz_passed", ln); Auth.record(ln, "quiz_passed"); }
-    else { t.classList.add("bad"); t.disabled = true; fb.textContent = "Not quite. Have another go."; Track.event("quiz_wrong", ln); Auth.record(ln, "quiz_wrong"); }
+    if(t.dataset.ok === "1"){ t.classList.add("ok"); all.forEach(b => b.disabled = true); fb.textContent = "Correct. " + LESSONS[ln - 1].q.why; Track.event("quiz_passed", ln); Auth.record(idOf(ln), "quiz_passed"); }
+    else { t.classList.add("bad"); t.disabled = true; fb.textContent = "Not quite. Have another go."; Track.event("quiz_wrong", ln); Auth.record(idOf(ln), "quiz_wrong"); }
   }
 });
 document.addEventListener("submit", async e => {
@@ -1574,7 +2708,7 @@ document.addEventListener("keydown", e => { if(e.key === "Escape" && !$("#pay").
 
 /* ---------- start ---------- */
 function startPage(){
-  $("#fan").innerHTML = [1,11,6].map((n,i) => `<div class="c c${i+1}">${cover(n,true)}</div>`).join("");
+  $("#fan").innerHTML = [1,3,2].map((n,i) => `<div class="c c${i+1}">${cover(n,true)}</div>`).join("");
   $("#aboutPanel").innerHTML = panel(P("router","laptop","proud","happy","check",["l:Welcome to NetFixLab! Every lesson is a comic, and you are in it.","r:And every comic ends with something you can really fix at home."],"About NetFixLab"));
   if(CONFIG.authorName){ $("#authorName").textContent = CONFIG.authorName; $("#aboutHi").textContent = "Hi, I'm " + CONFIG.authorName + "."; }
   if(CONFIG.contactEmail) $("#contactMail").textContent = "Prefer email? Write to " + CONFIG.contactEmail + ".";
