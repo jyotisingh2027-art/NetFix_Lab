@@ -95,7 +95,8 @@ posthog.init("phc_tWqPXf25ZxQ6AZUg6jqioyaoaBLoUAgkcunPsRkFpM45", {
 .desk.side .rhead h1{order:0;font-size:clamp(1.25rem,2.1vw,2.4rem);line-height:1.05}
 .desk.side .rhead .kicker{order:1;margin-left:0;font-size:.74rem;line-height:1.5}
 .desk.side .rhead .btn{order:2}
-.desk.side .bk-bar{position:absolute;bottom:18px;margin:0;height:auto;flex-wrap:wrap;justify-content:flex-end;z-index:6}
+.desk.side .bk-bar{position:absolute;bottom:18px;margin:0;height:auto;flex-wrap:wrap;justify-content:flex-end;gap:8px 10px;z-index:6}
+.desk.side .bk-bar .bk-count{flex-basis:100%;text-align:right}
 
 /* ---------- book-style comic pages ---------- */
 /* ---------- book-style comic pages ---------- */
@@ -1293,6 +1294,11 @@ const BookSound = {
   }
 };
 const BK_ARROW = d => `<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="${d < 0 ? "M15 4 L7 12 L15 20" : "M9 4 L17 12 L9 20"}" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const BookFS = {
+  el(){ return document.fullscreenElement || document.webkitFullscreenElement || null; },
+  enter(dk){ try{ const r = dk.requestFullscreen ? dk.requestFullscreen() : dk.webkitRequestFullscreen && dk.webkitRequestFullscreen(); if(r && r.catch) r.catch(() => {}); }catch(e){} },
+  exit(){ try{ if(!BookFS.el()) return; const r = document.exitFullscreen ? document.exitFullscreen() : document.webkitExitFullscreen && document.webkitExitFullscreen(); if(r && r.catch) r.catch(() => {}); }catch(e){} }
+};
 const Book = {
   el: null, desk: null, pages: [], idx: 0, per: 2, done: null, busy: false, W: 0, H: 0,
   wide(){ return window.innerWidth >= 880; },
@@ -1361,7 +1367,7 @@ const Book = {
     document.body.appendChild(m);
     const hs = [...m.children].map(c => c.offsetHeight).sort((a, b) => a - b);
     m.remove();
-    const h = hs[Math.floor(hs.length * .9)] || 1080;   // a few very tall pages shrink a little instead of every page
+    const h = hs[Math.floor(hs.length * .75)] || 1080;   // a few very tall pages shrink a little instead of every page
     Book.Rfor = Book.pages; return (Book.R = Math.min(2.1, Math.max(1.45, h / 600)));
   },
   size(el){
@@ -1381,7 +1387,7 @@ const Book = {
   go(d){
     if(!Book.active() || Book.busy) return;
     const n = Book.pages.length;
-    if(d > 0 && Book.idx + Book.per >= n){ if(Book.done) Book.done(); return; }
+    if(d > 0 && Book.idx + Book.per >= n){ if(Book.done){ const was = !!BookFS.el(); BookFS.exit(); setTimeout(Book.done, was ? 350 : 0); } return; }
     const ni = Book.idx + d * Book.per;
     if(ni < 0 || ni >= n) return;
     BookSound.play();
@@ -1465,8 +1471,7 @@ const Book = {
 document.addEventListener("click", e => {
   const f = e.target.closest(".bk-fs");
   if(f && Book.el && Book.el.contains(f)){
-    const dk = Book.desk;
-    try{ if(document.fullscreenElement) document.exitFullscreen(); else if(dk.requestFullscreen) dk.requestFullscreen(); else if(dk.webkitRequestFullscreen) dk.webkitRequestFullscreen(); }catch(err){}
+    if(BookFS.el()) BookFS.exit(); else BookFS.enter(Book.desk);
     return;
   }
   const s = e.target.closest(".bk-snd");
@@ -1488,8 +1493,9 @@ document.addEventListener("touchend", e => {
 let BK_T = null, BK_W = window.innerWidth >= 880;
 window.addEventListener("resize", () => { clearTimeout(BK_T); BK_T = setTimeout(() => { if(Book.busy) return; const w = window.innerWidth >= 880; if(w !== BK_W){ BK_W = w; Book.render(); } else Book.fit(); }, 120); });
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if(!Book.busy) Book.fit(); });
-document.addEventListener("fullscreenchange", () => setTimeout(() => { if(!Book.busy) Book.fit(); }, 80));
-document.addEventListener("webkitfullscreenchange", () => setTimeout(() => { if(!Book.busy) Book.fit(); }, 80));
+const bkFsSync = () => { const b = Book.el && Book.el.querySelector(".bk-fs"); if(b) b.title = BookFS.el() ? "Exit full screen (Esc)" : "Full screen"; setTimeout(() => { if(!Book.busy) Book.fit(); }, 80); };
+document.addEventListener("fullscreenchange", bkFsSync);
+document.addEventListener("webkitfullscreenchange", bkFsSync);
 
 /* ---------- Part 1 comic issues ---------- */
 /* ---------- Issue #0: Why do devices talk? (original NetFixLab chapter) ----------
@@ -2595,7 +2601,7 @@ function loadGuest(){ const d = lsGet("nfl", {}); S.done = validDone(Array.isArr
 function save(){ if(USER) Auth.persist(); else lsSet("nfl", {done:S.done}); }
 const isLocked = n => !!LESSONS[n-1] && !LESSONS[n-1].free && !S.unlocked;
 const VIEWS = ["home","reader","auth","profile"];
-function show(v){ VIEWS.forEach(x => { $("#" + x).hidden = x !== v; }); window.scrollTo(0,0); }
+function show(v){ BookFS.exit(); VIEWS.forEach(x => { $("#" + x).hidden = x !== v; }); window.scrollTo(0,0); }
 
 /* ---------- header ---------- */
 function updateHeader(){
@@ -2989,10 +2995,10 @@ document.addEventListener("click", async e => {
   }
   else if(t.matches("[data-open]")) openLesson(+t.dataset.open);
   else if(t.matches("[data-buy]")) openPay(null);
-  else if(t.matches("[data-read]")){ $("#cv").hidden = true; $("#pages").hidden = false; window.scrollTo(0,0); if(Book.el && $("#bookv")){ Book.render(); Book.align(false); } Track.event("comic_opened", +$("#reader").dataset.n); }
+  else if(t.matches("[data-read]")){ $("#cv").hidden = true; $("#pages").hidden = false; window.scrollTo(0,0); if(Book.el && $("#bookv")){ if(window.innerWidth >= 880) BookFS.enter($("#pages .desk")); Book.render(); Book.align(false); } Track.event("comic_opened", +$("#reader").dataset.n); }
   else if(t.id === "payGo") Track.event("checkout_started", pending);
   else if(t.id === "recheck"){ RECEIPT.state = "confirming"; renderReceipt(RECEIPT); await confirmUnlock(); }
-  else if(t.matches("[data-cover]")){ $("#pages").hidden = true; $("#cv").hidden = false; window.scrollTo(0,0); }
+  else if(t.matches("[data-cover]")){ BookFS.exit(); $("#pages").hidden = true; $("#cv").hidden = false; window.scrollTo(0,0); }
   else if(t.matches("[data-next]")) finishLesson(+t.dataset.next);
   else if(t.id === "demoUnlock") unlock();
   else if(t.id === "payX") closePay();
