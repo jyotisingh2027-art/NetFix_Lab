@@ -15,6 +15,46 @@ posthog.init("phc_tWqPXf25ZxQ6AZUg6jqioyaoaBLoUAgkcunPsRkFpM45", {
 });
 </script>
 <style>
+/* ---------- two-page book viewer ---------- */
+.bookv{width:100%}
+.bk{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;width:100%}
+.bk-stage{display:flex;justify-content:center;min-width:0;flex:0 1 auto}
+.bk-spread{display:flex;position:relative;background:#fffdf3;border:3px solid #14213d;box-shadow:10px 10px 0 var(--shadow)}
+.bk-spread.two::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:54px;transform:translateX(-50%);pointer-events:none;
+  background:linear-gradient(90deg,rgba(20,33,61,0) 0%,rgba(20,33,61,.10) 35%,rgba(20,33,61,.32) 49%,rgba(20,33,61,.32) 51%,rgba(20,33,61,.10) 65%,rgba(20,33,61,0) 100%)}
+.bk-spread.two .bk-slot + .bk-slot{border-left:1px solid rgba(20,33,61,.35)}
+.bk-slot{position:relative;overflow:hidden;background:#fffdf3}
+.bk-spread.two .bk-pg{position:absolute;top:0;left:0;width:600px;transform-origin:0 0;container-type:inline-size}
+.bk-pg .cpage{width:100%;border:none;box-shadow:none;margin:0}
+.bk:has(.bk-spread:not(.two)) .bk-stage{width:100%}
+.bk-spread:not(.two){width:100%;border:none;box-shadow:none;background:none}
+.bk-spread:not(.two) .bk-slot{width:100%;overflow:visible;background:none}
+.bk-spread:not(.two) .bk-pg{container-type:inline-size;display:flex;justify-content:center}
+.bk-spread:not(.two) .cpage{border:2px solid #14213d;box-shadow:6px 6px 0 var(--shadow)}
+.bk-arrow{flex:none;width:52px;height:52px;border-radius:50%;border:3px solid #14213d;background:#ffd23f;color:#14213d;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;box-shadow:3px 3px 0 #14213d;transition:transform .12s}
+.bk-arrow span{font:400 40px/1 var(--disp);margin-top:-4px}
+.bk-arrow:hover:not(:disabled){transform:scale(1.08)}
+.bk-arrow:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 #14213d}
+.bk-arrow:disabled{opacity:.3;cursor:default}
+.bk-arrow.bk-end{background:#e63a2e;color:#fff3c4}
+.bk-arrow:focus-visible,.bk-btn:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.bk-bar{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:16px}
+.bk-count{font:700 .85rem var(--comic);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);min-width:9em;text-align:center}
+.bk-btn{display:none;font:700 .95rem var(--comic);text-transform:uppercase;letter-spacing:.05em;padding:10px 16px;border:3px solid #14213d;background:#ffd23f;color:#14213d;box-shadow:3px 3px 0 #14213d;cursor:pointer}
+.bk-btn:disabled{opacity:.35;cursor:default}
+.bk-btn.bk-end{background:#e63a2e;color:#fff3c4}
+.bk-stage.turn-next{animation:bkNext .32s ease-out}
+.bk-stage.turn-prev{animation:bkPrev .32s ease-out}
+@keyframes bkNext{from{opacity:.25;transform:perspective(1400px) rotateY(-9deg) translateX(26px)}to{opacity:1;transform:none}}
+@keyframes bkPrev{from{opacity:.25;transform:perspective(1400px) rotateY(9deg) translateX(-26px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.bk-stage.turn-next,.bk-stage.turn-prev{animation:none}}
+@media (max-width:879px){
+  .bk-arrow{display:none}
+  .bk-bar{position:sticky;bottom:0;z-index:5;background:var(--bg);padding:10px 0 calc(10px + env(safe-area-inset-bottom,0px));margin-top:12px;border-top:3px solid #14213d}
+  .bk-btn{display:inline-block}
+}
+
 /* ---------- book-style comic pages ---------- */
 /* ---------- book-style comic pages ---------- */
 .book{width:100%;container-type:inline-size;display:flex;flex-direction:column;gap:34px;align-items:center}
@@ -1181,6 +1221,95 @@ function renderPage(pg, num){
   return `<section class="cpage" aria-label="Page ${num}">${pg.title ? `<h2 class="ptitle">${esc(pg.title)}</h2>` : ""}${rows}<p class="pnum">${num}</p></section>`;
 }
 
+/* ---------- two-page book viewer ----------
+   Wide screens: a two-page spread with a spine, scaled to fit the window.
+   Narrow screens: one page at a time. Arrows on both sides, keyboard arrows and swipe. */
+const Book = {
+  el: null, pages: [], idx: 0, per: 2, done: null, seen: false,
+  wide(){ return window.innerWidth >= 880; },
+  mount(el, pages, onEnd){
+    Book.el = el; Book.pages = pages; Book.idx = 0; Book.done = onEnd; Book.seen = false;
+    el.innerHTML = `<div class="bk">
+        <button class="bk-arrow bk-prev" type="button" data-bk="-1" aria-label="Previous page"><span>‹</span></button>
+        <div class="bk-stage" aria-live="polite"></div>
+        <button class="bk-arrow bk-next" type="button" data-bk="1" aria-label="Next page"><span>›</span></button>
+      </div>
+      <div class="bk-bar">
+        <button class="bk-btn" type="button" data-bk="-1" aria-label="Previous page">‹ Back</button>
+        <span class="bk-count"></span>
+        <button class="bk-btn bk-fwd" type="button" data-bk="1" aria-label="Next page">Next ›</button>
+      </div>`;
+    Book.render(0);
+  },
+  active(){ return Book.el && document.body.contains(Book.el) && Book.el.offsetParent !== null; },
+  render(dir){
+    if(!Book.el || !document.body.contains(Book.el)) return;
+    Book.per = Book.wide() ? 2 : 1;
+    Book.idx = Math.floor(Book.idx / Book.per) * Book.per;
+    const st = Book.el.querySelector(".bk-stage"), n = Book.pages.length;
+    const show = Book.pages.slice(Book.idx, Book.idx + Book.per).map((pg, i) => ({pg, num: Book.idx + i + 1}));
+    const slot = s => `<div class="bk-slot${s ? "" : " bk-blank"}"><div class="bk-pg">${s ? renderPage(s.pg, s.num) : ""}</div></div>`;
+    st.innerHTML = `<div class="bk-spread${Book.per === 2 ? " two" : ""}">${slot(show[0])}${Book.per === 2 ? slot(show[1]) : ""}</div>`;
+    Book.fit();
+    if(dir){ st.classList.remove("turn-next","turn-prev"); void st.offsetWidth; st.classList.add(dir > 0 ? "turn-next" : "turn-prev"); }
+    const last = Book.idx + Book.per >= n;
+    Book.el.querySelectorAll('[data-bk="-1"]').forEach(b => b.disabled = Book.idx === 0);
+    Book.el.querySelectorAll('[data-bk="1"]').forEach(b => {
+      b.classList.toggle("bk-end", last);
+      b.setAttribute("aria-label", last ? "Finish: takeaway and quiz" : "Next page");
+    });
+    Book.el.querySelector(".bk-fwd").textContent = last ? "Quiz ›" : "Next ›";
+    const a = Book.idx + 1, b = Math.min(Book.idx + Book.per, n);
+    Book.el.querySelector(".bk-count").textContent = (a === b ? `Page ${a}` : `Pages ${a}–${b}`) + ` of ${n}`;
+  },
+  fit(){
+    if(!Book.active()) return;
+    const st = Book.el.querySelector(".bk-stage"), slots = [...st.querySelectorAll(".bk-slot")];
+    if(Book.per === 1){ slots.forEach(s => { s.style.width = s.style.height = ""; const p = s.firstChild; p.style.transform = ""; }); return; }
+    const DW = 600, R = 1.8, pgs = slots.map(s => s.firstChild);
+    const availW = Book.el.querySelector(".bk").clientWidth - 2 * 64;
+    const availH = Math.max(420, window.innerHeight - 40);   // the book is scrolled to the top of the window
+    const W = Math.min(availW / 2, availH / R, DW * 1.15), H = W * R;   // same book size on every spread
+    slots.forEach((sl, i) => {
+      const h = pgs[i].offsetHeight || DW * R, s = Math.min(W / DW, H / h);
+      sl.style.width = W + "px"; sl.style.height = H + "px";
+      pgs[i].style.left = (W - DW * s) / 2 + "px";
+      pgs[i].style.transform = `scale(${s})`;
+    });
+  },
+  align(smooth){
+    if(!Book.active()) return;
+    const top = Book.el.getBoundingClientRect().top;
+    if(Book.per === 2 ? Math.abs(top - 16) > 4 : (top < 0 || top > window.innerHeight * .5))
+      window.scrollTo({top: window.scrollY + top - 16, behavior: smooth ? "smooth" : "auto"});
+  },
+  go(d){
+    if(!Book.active()) return;
+    const n = Book.pages.length;
+    if(d > 0 && Book.idx + Book.per >= n){ if(Book.done) Book.done(); return; }
+    const ni = Book.idx + d * Book.per;
+    if(ni < 0 || ni >= n) return;
+    Book.idx = ni; Book.render(d);
+    Book.align(true);
+  }
+};
+document.addEventListener("click", e => { const b = e.target.closest("[data-bk]"); if(b && Book.el && Book.el.contains(b)) Book.go(+b.dataset.bk); });
+document.addEventListener("keydown", e => {
+  if(!Book.active() || e.altKey || e.ctrlKey || e.metaKey || /INPUT|TEXTAREA|SELECT/.test((e.target.tagName || ""))) return;
+  if(e.key === "ArrowRight"){ e.preventDefault(); Book.go(1); }
+  else if(e.key === "ArrowLeft"){ e.preventDefault(); Book.go(-1); }
+});
+let BK_X = null, BK_Y = null;
+document.addEventListener("touchstart", e => { if(Book.active() && Book.el.contains(e.target)){ BK_X = e.touches[0].clientX; BK_Y = e.touches[0].clientY; } else BK_X = null; }, {passive: true});
+document.addEventListener("touchend", e => {
+  if(BK_X === null) return;
+  const dx = e.changedTouches[0].clientX - BK_X, dy = e.changedTouches[0].clientY - BK_Y; BK_X = null;
+  if(Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) Book.go(dx < 0 ? 1 : -1);
+}, {passive: true});
+let BK_T = null, BK_W = window.innerWidth >= 880;
+window.addEventListener("resize", () => { clearTimeout(BK_T); BK_T = setTimeout(() => { const w = window.innerWidth >= 880; if(w !== BK_W){ BK_W = w; Book.render(); } else Book.fit(); }, 120); });
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(() => Book.fit());
+
 /* ---------- Part 1 comic issues ---------- */
 /* ---------- Issue #0: Why do devices talk? (original NetFixLab chapter) ----------
    panel: {w, bg, ch:[[char,mood,x,scale,look,y]], props, over, fx:[[text,x,y,size,rot,color,burst]], b:[bubbles]}
@@ -2344,7 +2473,8 @@ function openLesson(n){
         <p class="kicker">${kick}</p>
         <h1>${L.t}</h1>
       </div>
-      ${L.pages ? `<div class="book">${L.pages.map((pg,i) => renderPage(pg,i+1)).join("")}</div>` : `<div class="strip">${L.pan.map(panel).join("")}</div>`}
+      ${L.pages ? `<div class="bookv" id="bookv"></div>` : `<div class="strip">${L.pan.map(panel).join("")}</div>`}
+      <div id="afterBook" style="display:contents"${L.pages ? " hidden" : ""}>
       <div class="box take"><h3>Takeaway</h3><p>${fmt(L.take)}</p></div>
       <div class="box tip"><h3>Try it yourself</h3><p>${fmt(L.tip)}</p></div>
       <div class="box" id="quiz"><h3>Quick check</h3><p>${fmt(L.q.q)}</p>
@@ -2354,8 +2484,10 @@ function openLesson(n){
         ${n > 1 ? `<button class="btn alt" data-open="${n-1}">← Previous issue</button>` : "<span></span>"}
         <button class="btn" data-next="${n}">${last ? "Finish the course" : "Next issue →"}</button>
       </div>
+      </div>
     </div>`;
   $("#reader").dataset.n = n;
+  if(L.pages) Book.mount($("#bookv"), L.pages, () => { $("#afterBook").hidden = false; $(".box.take").scrollIntoView({block:"start", behavior:"smooth"}); });
   show("reader");
   Track.event("cover_viewed", n);
   Auth.record(L.id, "opened");
@@ -2674,7 +2806,7 @@ document.addEventListener("click", async e => {
   }
   else if(t.matches("[data-open]")) openLesson(+t.dataset.open);
   else if(t.matches("[data-buy]")) openPay(null);
-  else if(t.matches("[data-read]")){ $("#cv").hidden = true; $("#pages").hidden = false; window.scrollTo(0,0); Track.event("comic_opened", +$("#reader").dataset.n); }
+  else if(t.matches("[data-read]")){ $("#cv").hidden = true; $("#pages").hidden = false; window.scrollTo(0,0); if(Book.el && $("#bookv")){ Book.render(); Book.align(false); } Track.event("comic_opened", +$("#reader").dataset.n); }
   else if(t.id === "payGo") Track.event("checkout_started", pending);
   else if(t.id === "recheck"){ RECEIPT.state = "confirming"; renderReceipt(RECEIPT); await confirmUnlock(); }
   else if(t.matches("[data-cover]")){ $("#pages").hidden = true; $("#cv").hidden = false; window.scrollTo(0,0); }
