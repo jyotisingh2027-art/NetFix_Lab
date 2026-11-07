@@ -1599,6 +1599,8 @@ const MacPet = (() => {
       <g class="f-idle"><g class="mp-eyes" stroke="none"><rect x="44" y="35" width="8" height="12" rx="4"/><rect x="68" y="35" width="8" height="12" rx="4"/></g><path d="M50 55 Q60 62 70 55" fill="none"/></g>
       <g class="f-happy"><path d="M41 44 Q48 34 55 44 M65 44 Q72 34 79 44" fill="none"/><path d="M47 51 Q60 67 73 51 Z"/></g>
       <g class="f-wink"><rect x="44" y="35" width="8" height="12" rx="4" stroke="none"/><path d="M66 42 Q72 46 78 41 M50 54 Q61 62 72 51" fill="none"/></g>
+      <g class="f-grin"><g class="mp-eyes" stroke="none"><rect x="44" y="34" width="8" height="12" rx="4"/><rect x="68" y="34" width="8" height="12" rx="4"/></g><path d="M45 52 Q60 66 75 52 Z"/></g>
+      <g class="f-star" stroke-width="3"><path d="M48 33 L50 39 L56 39 L51 43 L53 49 L48 45 L43 49 L45 43 L40 39 L46 39 Z M72 33 L74 39 L80 39 L75 43 L77 49 L72 45 L67 49 L69 43 L64 39 L70 39 Z"/><path d="M48 54 Q60 64 72 54" fill="none" stroke-width="4"/></g>
       <g class="f-wow" stroke="none"><rect x="43" y="32" width="10" height="15" rx="5"/><rect x="67" y="32" width="10" height="15" rx="5"/><ellipse cx="60" cy="58" rx="5" ry="6"/></g>
     </g>
     <circle cx="28" cy="91" r="3.5" fill="#3fe08f" stroke="#14213d" stroke-width="1.5"/>
@@ -1630,7 +1632,7 @@ const MacPet = (() => {
 .macpet .mp-body{position:absolute;left:0;top:112px;width:180px;height:64px}
 .macpet svg{display:block;width:100%;height:100%;overflow:visible}
 .macpet .mp-face>g{display:none}
-.macpet[data-mood=idle] .f-idle,.macpet[data-mood=happy] .f-happy,.macpet[data-mood=wink] .f-wink,.macpet[data-mood=wow] .f-wow{display:inline}
+.macpet[data-mood=grin] .f-grin,.macpet[data-mood=star] .f-star,.macpet[data-mood=idle] .f-idle,.macpet[data-mood=happy] .f-happy,.macpet[data-mood=wink] .f-wink,.macpet[data-mood=wow] .f-wow{display:inline}
 .macpet .mp-eyes{animation:mpBlink 5s infinite;transform-origin:60px 41px}
 @keyframes mpBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
 .macpet.wave .mp-arm-r{animation:mpWave .5s ease-in-out 4;transform-origin:124px 22px}
@@ -1676,6 +1678,9 @@ const MacPet = (() => {
   .macpet.spin .mp-head,.macpet.wiggle .mp-head,.macpet.wave .mp-arm-r,.macpet.hop{animation:none}
 }`;
 
+  const HAPPY = ["idle", "happy", "grin", "wink", "star", "happy", "grin"];
+  let tMood = null, moodI = 0;
+  function cycle(){ clearTimeout(tMood); tMood = setTimeout(() => { if(el && !el.classList.contains("spin")){ moodI = (moodI + 1 + Math.floor(Math.random() * 2)) % HAPPY.length; el.dataset.mood = HAPPY[moodI]; } cycle(); }, rnd(1800, 3400)); }
   let el = null, bub = null, state = "out", tJoke = null, tHide = null, tAnim = null, bag = [], cfg = {first: [40, 90], every: [70, 180], showFor: 9000};
 
   function build(){
@@ -1688,7 +1693,10 @@ const MacPet = (() => {
       <div class="mp-bub" role="status" aria-live="polite" hidden></div>`;
     document.body.appendChild(el);
     bub = el.querySelector(".mp-bub");
-    el.querySelector(".mp-btn").addEventListener("click", () => { if(state === "talk" && bub.dataset.kind === "joke") joke(); else if(state !== "talk") joke(true); else anim("wiggle", 500); });
+    el.querySelector(".mp-btn").addEventListener("click", () => {
+      el.dataset.mood = "happy"; anim("spin", 1950);
+      if(state === "talk" && bub.dataset.kind === "joke") joke(true, true); else if(state !== "talk") joke(true, true);
+    });
     bub.addEventListener("click", e => {
       const b = e.target.closest("button"); if(!b) return;
       const a = b.dataset.a;
@@ -1698,6 +1706,7 @@ const MacPet = (() => {
       else if(a === "unmute"){ set("nfl_mac_jokes", "on"); say({who: true, text: "Yay! Jokes are back on.", mood: "happy", acts: [["OK", "close"]]}); anim("wiggle", 500); }
     });
     setInterval(sync, 1200);
+    cycle();
   }
   function placeAt(side){
     const w = window.innerWidth, pw = w <= 600 ? 140 : 180;
@@ -1706,10 +1715,10 @@ const MacPet = (() => {
     const mid = x + pw / 2 < w / 2;
     el.classList.toggle("left", mid); el.classList.toggle("right", !mid);
   }
-  function anim(cls, ms){ if(still()) return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); clearTimeout(tAnim); tAnim = setTimeout(() => el.classList.remove(cls), ms); }
+  function anim(cls, ms){ if(still()) return; if(el.classList.contains("spin") && cls !== "spin") return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); clearTimeout(tAnim); tAnim = setTimeout(() => el.classList.remove(cls), ms); }
   const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
   function say(o){
-    el.dataset.mood = o.mood || "idle";
+    el.dataset.mood = o.mood || "happy";
     bub.dataset.kind = o.kind || "";
     bub.innerHTML = `<button class="mp-x" type="button" data-a="close" aria-label="Close">×</button>`
       + (o.who ? `<p class="mp-who">Mac</p>` : "") + (o.big ? `<p class="mp-big">${esc(o.big)}</p>` : "") + `<p>${esc(o.text)}</p>`
@@ -1731,7 +1740,6 @@ const MacPet = (() => {
     if(!el) return;
     clearTimeout(tHide); bub.classList.remove("on"); bub.dataset.kind = "";
     setTimeout(() => { bub.hidden = true; }, 220);
-    el.dataset.mood = "idle";
     el.classList.remove("in"); el.classList.add("peek"); state = "peek";
   }
   /* stay out of the way while a comic is being read, or a dialog is open */
@@ -1747,12 +1755,12 @@ const MacPet = (() => {
     else if(!b && state === "hidden"){ el.classList.add("peek"); state = "peek"; }
   }
   function nextJoke(){ if(!bag.length) bag = JOKES.map((_, i) => i).sort(() => Math.random() - .5); return JOKES[bag.pop()]; }
-  function joke(asked){
+  function joke(asked, spun){
     if(!asked && busy()) return;
     const muted = get("nfl_mac_jokes") === "off";
-    arrive(asked ? null : ["left", "right", null][Math.floor(Math.random() * 3)], {who: true, kind: "joke", text: nextJoke(), mood: Math.random() < .5 ? "wink" : "happy",
+    arrive(asked ? null : ["left", "right", null][Math.floor(Math.random() * 3)], {who: true, kind: "joke", text: nextJoke(), mood: ["wink", "happy", "grin", "star"][Math.floor(Math.random() * 4)],
       acts: muted ? [["Another one", "more"], ["Turn jokes back on", "unmute"]] : [["Another one", "more"], ["Mute jokes", "mute"]]});
-    setTimeout(() => anim("wiggle", 500), 450);
+    if(!spun) setTimeout(() => anim("wiggle", 500), 450);
   }
   function intro(){
     if(busy()){ setTimeout(intro, 2500); return; }
