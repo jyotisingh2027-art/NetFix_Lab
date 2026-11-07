@@ -1614,8 +1614,8 @@ const MacPet = (() => {
     <path class="mp-arm-r" d="M124 22 Q138 30 146 18" fill="none" stroke="#14213d" stroke-width="5" stroke-linecap="round"/>
     <circle class="mp-hand-l" cx="-8" cy="16" r="6" fill="#fff" stroke="#14213d" stroke-width="3"/>
     <g class="mp-arm-r"><circle cx="148" cy="16" r="6" fill="#fff" stroke="#14213d" stroke-width="3"/></g>
-    <path d="M50 38 L46 54 M90 38 L94 54" stroke="#14213d" stroke-width="5" stroke-linecap="round"/>
-    <ellipse cx="42" cy="56" rx="11" ry="5.5" fill="#e63a2e" stroke="#14213d" stroke-width="3"/><ellipse cx="98" cy="56" rx="11" ry="5.5" fill="#e63a2e" stroke="#14213d" stroke-width="3"/>
+    <g class="mp-leg-l"><path d="M50 38 L46 54" stroke="#14213d" stroke-width="5" stroke-linecap="round"/><ellipse cx="42" cy="56" rx="11" ry="5.5" fill="#e63a2e" stroke="#14213d" stroke-width="3"/></g>
+    <g class="mp-leg-r"><path d="M90 38 L94 54" stroke="#14213d" stroke-width="5" stroke-linecap="round"/><ellipse cx="98" cy="56" rx="11" ry="5.5" fill="#e63a2e" stroke="#14213d" stroke-width="3"/></g>
     <rect x="58" y="0" width="24" height="12" fill="#d8cdb0" stroke="#14213d" stroke-width="3"/>
     <path d="M14 12 H126 L133 38 H7 Z" fill="#efe6cc" stroke="#14213d" stroke-width="3.5" stroke-linejoin="round"/>
     <g fill="#d8cdb0" stroke="#14213d" stroke-width="1.2">${[0,1,2].map(r => Array.from({length: 10 - r}, (_, k) => `<rect x="${20 + r * 4 + k * 10}" y="${16 + r * 7}" width="8" height="5" rx="1"/>`).join("")).join("")}</g>
@@ -1624,6 +1624,18 @@ const MacPet = (() => {
   const CSS = `
 .macpet{position:fixed;bottom:0;left:0;z-index:9000;width:180px;height:172px;transform:translateY(115%);transition:transform .6s cubic-bezier(.3,1.4,.5,1);pointer-events:none}
 .macpet.in{transform:translateY(0)}
+.macpet .mp-btn{cursor:grab;touch-action:pan-y}
+.macpet.drag .mp-btn{cursor:grabbing}
+.macpet.drag{transition:transform .6s cubic-bezier(.3,1.4,.5,1)!important}
+.macpet.walk .mp-leg-l{animation:mpStep .42s ease-in-out infinite;transform-origin:50px 38px}
+.macpet.walk .mp-leg-r{animation:mpStep .42s ease-in-out infinite reverse;transform-origin:90px 38px}
+@keyframes mpStep{0%,100%{transform:rotate(-16deg)}50%{transform:rotate(16deg)}}
+.macpet.walk .mp-body{animation:mpBob .21s ease-in-out infinite alternate}
+.macpet.walk:not(.spin) .mp-head{animation:mpBob .21s ease-in-out infinite alternate}
+@keyframes mpBob{from{translate:0 0}to{translate:0 -3px}}
+.macpet .mp-face{transition:transform .25s}
+.macpet.look-l .mp-face{transform:translateX(-4px)}
+.macpet.look-r .mp-face{transform:translateX(4px)}
 .macpet.peek{transform:translateY(calc(100% - 44px))}
 .macpet.peek:hover{transform:translateY(calc(100% - 64px))}
 .macpet .mp-btn{position:absolute;inset:0;background:none;border:0;padding:0;cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent}
@@ -1689,13 +1701,32 @@ const MacPet = (() => {
     el = document.createElement("div");
     el.className = "macpet right"; el.dataset.mood = "idle";
     el.innerHTML = `<div class="mp-head">${head()}</div><div class="mp-body">${body()}</div>
-      <button class="mp-btn" type="button" aria-label="Mac, your NetFixLab buddy. Click for a joke."></button>
+      <button class="mp-btn" type="button" aria-label="Mac, your NetFixLab buddy. Click for a joke, drag or use arrow keys to move him."></button>
       <div class="mp-bub" role="status" aria-live="polite" hidden></div>`;
     document.body.appendChild(el);
     bub = el.querySelector(".mp-bub");
-    el.querySelector(".mp-btn").addEventListener("click", () => {
+    const btn = el.querySelector(".mp-btn");
+    let down = null, moved = false;
+    btn.addEventListener("pointerdown", e => { down = {x: e.clientX, left: parseFloat(el.style.left) || 0, id: e.pointerId}; moved = false; });
+    btn.addEventListener("pointermove", e => {
+      if(!down || e.pointerId !== down.id) return;
+      const dx = e.clientX - down.x;
+      if(!moved && Math.abs(dx) > 6){ moved = true; try{ btn.setPointerCapture(e.pointerId); }catch(err){} clearTimeout(tWalk); el.classList.remove("walk"); el.style.transition = ""; el.classList.add("drag"); }
+      if(moved){ const x = clampX(down.left + dx); el.classList.toggle("look-l", dx < 0); el.classList.toggle("look-r", dx > 0); el.style.left = x + "px"; sideBy(x); if(bub && !bub.hidden && window.innerWidth <= 600) bub.style.left = (12 - x) + "px"; }
+    });
+    const up = () => { if(moved){ el.classList.remove("drag", "look-l", "look-r"); } down = null; };
+    btn.addEventListener("pointerup", up); btn.addEventListener("pointercancel", up);
+    btn.addEventListener("click", e => {
+      if(moved){ moved = false; e.preventDefault(); return; }   // that was a drag, not a click
       el.dataset.mood = "happy"; anim("spin", 1950);
+      if(state === "stroll"){ clearTimeout(tWalk); el.classList.remove("walk", "look-l", "look-r"); el.style.transition = ""; }
       if(state === "talk" && bub.dataset.kind === "joke") joke(true, true); else if(state !== "talk") joke(true, true);
+    });
+    btn.addEventListener("keydown", e => {
+      if(e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      e.preventDefault(); e.stopPropagation();
+      if(state === "peek" || state === "stroll"){ el.classList.remove("peek"); el.classList.add("in"); }
+      walkTo((parseFloat(el.style.left) || 0) + (e.key === "ArrowLeft" ? -120 : 120));
     });
     bub.addEventListener("click", e => {
       const b = e.target.closest("button"); if(!b) return;
@@ -1706,14 +1737,45 @@ const MacPet = (() => {
       else if(a === "unmute"){ set("nfl_mac_jokes", "on"); say({who: true, text: "Yay! Jokes are back on.", mood: "happy", acts: [["OK", "close"]]}); anim("wiggle", 500); }
     });
     setInterval(sync, 1200);
-    cycle();
+    cycle(); stroll();
   }
+  const PW = () => window.innerWidth <= 600 ? 140 : 180;
+  const clampX = x => Math.round(Math.max(8, Math.min(window.innerWidth - PW() - 8, x)));
+  function sideBy(x){ const mid = x + PW() / 2 < window.innerWidth / 2; el.classList.toggle("left", mid); el.classList.toggle("right", !mid); }
   function placeAt(side){
-    const w = window.innerWidth, pw = w <= 600 ? 140 : 180;
+    if(side === "keep"){ sideBy(parseFloat(el.style.left) || 0); return; }
+    const w = window.innerWidth, pw = PW();
     const x = side === "left" ? rnd(8, Math.max(8, w * .3 - pw / 2)) : side === "right" ? rnd(Math.min(w - pw - 8, w * .7 - pw / 2), w - pw - 8) : rnd(8, w - pw - 8);
     el.style.left = Math.round(Math.max(8, Math.min(w - pw - 8, x))) + "px";
     const mid = x + pw / 2 < w / 2;
     el.classList.toggle("left", mid); el.classList.toggle("right", !mid);
+  }
+  /* walk along the bottom of the screen to x */
+  let tWalk = null;
+  function walkTo(x, done){
+    x = clampX(x);
+    const from = parseFloat(el.style.left) || 0, dist = Math.abs(x - from);
+    clearTimeout(tWalk);
+    if(dist < 4 || still()){ el.style.left = x + "px"; sideBy(x); if(done) done(); return; }
+    const dur = Math.max(500, dist / 110 * 1000);   // about 110 px a second
+    el.classList.add("walk"); el.classList.toggle("look-l", x < from); el.classList.toggle("look-r", x > from);
+    el.style.transition = `transform .6s cubic-bezier(.3,1.4,.5,1), left ${dur}ms linear`;
+    el.style.left = x + "px";
+    tWalk = setTimeout(() => { el.classList.remove("walk", "look-l", "look-r"); el.style.transition = ""; sideBy(x); if(done) done(); }, dur);
+  }
+  /* now and then, stand up and stroll somewhere else, then sink back down */
+  let tStroll = null;
+  function stroll(){
+    clearTimeout(tStroll);
+    tStroll = setTimeout(() => {
+      if(el && state === "peek" && !busy() && !still()){
+        el.classList.remove("peek"); el.classList.add("in"); state = "stroll";
+        const cur = parseFloat(el.style.left) || 0, far = window.innerWidth * rnd(.25, .5) * (Math.random() < .5 ? -1 : 1);
+        let target = clampX(cur + far); if(Math.abs(target - cur) < 120) target = clampX(cur - far);
+        setTimeout(() => walkTo(target, () => setTimeout(() => { if(state === "stroll"){ el.classList.remove("in"); el.classList.add("peek"); state = "peek"; } }, 1400)), 650);
+      }
+      stroll();
+    }, rnd(18000, 40000));
   }
   function anim(cls, ms){ if(still()) return; if(el.classList.contains("spin") && cls !== "spin") return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); clearTimeout(tAnim); tAnim = setTimeout(() => el.classList.remove(cls), ms); }
   const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -1732,7 +1794,8 @@ const MacPet = (() => {
   }
   function arrive(side, o){
     build();
-    if(state === "out" || state === "peek"){ placeAt(side); }
+    if(state === "stroll"){ clearTimeout(tWalk); el.classList.remove("walk", "look-l", "look-r"); el.style.transition = ""; placeAt("keep"); }
+    else if(state === "out" || state === "peek" || state === "hidden"){ placeAt(side === undefined ? "keep" : side); }
     el.classList.remove("peek"); el.classList.add("in"); state = "talk";
     setTimeout(() => say(o), state === "talk" && el.classList.contains("in") ? 380 : 0);
   }
@@ -1751,14 +1814,14 @@ const MacPet = (() => {
   function sync(){
     if(!el) return;
     const b = busy();
-    if(b && state !== "hidden" && bub.dataset.kind !== "cheer"){ clearTimeout(tHide); bub.classList.remove("on"); bub.hidden = true; el.classList.remove("in", "peek"); state = "hidden"; }
+    if(b && state !== "hidden" && bub.dataset.kind !== "cheer"){ clearTimeout(tWalk); el.classList.remove("walk", "look-l", "look-r"); el.style.transition = ""; clearTimeout(tHide); bub.classList.remove("on"); bub.hidden = true; el.classList.remove("in", "peek"); state = "hidden"; }
     else if(!b && state === "hidden"){ el.classList.add("peek"); state = "peek"; }
   }
   function nextJoke(){ if(!bag.length) bag = JOKES.map((_, i) => i).sort(() => Math.random() - .5); return JOKES[bag.pop()]; }
   function joke(asked, spun){
     if(!asked && busy()) return;
     const muted = get("nfl_mac_jokes") === "off";
-    arrive(asked ? null : ["left", "right", null][Math.floor(Math.random() * 3)], {who: true, kind: "joke", text: nextJoke(), mood: ["wink", "happy", "grin", "star"][Math.floor(Math.random() * 4)],
+    arrive(asked ? "keep" : ["left", "right", null][Math.floor(Math.random() * 3)], {who: true, kind: "joke", text: nextJoke(), mood: ["wink", "happy", "grin", "star"][Math.floor(Math.random() * 4)],
       acts: muted ? [["Another one", "more"], ["Turn jokes back on", "unmute"]] : [["Another one", "more"], ["Mute jokes", "mute"]]});
     if(!spun) setTimeout(() => anim("wiggle", 500), 450);
   }
@@ -1797,7 +1860,7 @@ const MacPet = (() => {
     setTimeout(intro, cfg.introDelay || 1500);
     schedule(cfg.first);
   }
-  return {start, intro, joke: () => joke(true), celebrate, hide: leave, reset(){ set("nfl_mac_met", "0"); set("nfl_mac_jokes", "on"); }};
+  return {start, intro, joke: () => joke(true), celebrate, hide: leave, walk(x){ build(); el.classList.remove("peek"); el.classList.add("in"); if(state !== "talk") state = "stroll"; walkTo(x); }, reset(){ set("nfl_mac_met", "0"); set("nfl_mac_jokes", "on"); }};
 })();
 
 /* ---------- Part 1 comic issues ---------- */
