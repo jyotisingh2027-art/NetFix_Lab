@@ -15,43 +15,65 @@ posthog.init("phc_tWqPXf25ZxQ6AZUg6jqioyaoaBLoUAgkcunPsRkFpM45", {
 });
 </script>
 <style>
-/* ---------- two-page book viewer ---------- */
+/* ---------- two-page book viewer on a wooden desk ---------- */
+.desk{position:relative;display:flex;flex-direction:column;gap:14px;padding:18px 0 22px;min-height:100vh;box-sizing:border-box;
+  border-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0018 0.045' numOctaves='4' seed='11'/%3E%3CfeColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.1 0 0 0 0 0.03 0 0 1.7 0 -0.62'/%3E%3C/filter%3E%3CradialGradient id='v' cx='50%25' cy='45%25' r='75%25'%3E%3Cstop offset='.55' stop-color='%23000' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23000' stop-opacity='.45'/%3E%3C/radialGradient%3E%3ClinearGradient id='b' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23a8703f'/%3E%3Cstop offset='1' stop-color='%23855225'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1400' height='900' fill='url(%23b)'/%3E%3Crect width='1400' height='900' filter='url(%23g)'/%3E%3Cg stroke='%233b220f' stroke-opacity='.55' stroke-width='3'%3E%3Cpath d='M0 225H1400M0 450H1400M0 675H1400'/%3E%3C/g%3E%3Cg stroke='%23f2c58f' stroke-opacity='.18' stroke-width='2'%3E%3Cpath d='M0 228H1400M0 453H1400M0 678H1400'/%3E%3C/g%3E%3Crect width='1400' height='900' fill='url(%23v)'/%3E%3C/svg%3E") 0 fill / 0 / 0 100vw stretch}
+.desk .rhead{flex-direction:row;flex-wrap:wrap;align-items:center;gap:8px 18px}
+.desk .rhead h1{flex-basis:100%;font-size:clamp(1.7rem,3.4vw,2.6rem);color:#fff3c4;-webkit-text-stroke:1px #2a1608;text-shadow:3px 3px 0 #2a1608;line-height:1.05}
+.desk .rhead .kicker{color:#f6dfb4;text-shadow:1px 1px 0 #2a1608}
 .bookv{width:100%}
-.bk{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;width:100%}
+.bk{position:relative;display:flex;align-items:center;justify-content:center;gap:16px;width:100%}
 .bk-stage{display:flex;justify-content:center;min-width:0;flex:0 1 auto}
-.bk-spread{display:flex;position:relative;background:#fffdf3;border:3px solid #14213d;box-shadow:10px 10px 0 var(--shadow)}
-.bk-spread.two::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:54px;transform:translateX(-50%);pointer-events:none;
-  background:linear-gradient(90deg,rgba(20,33,61,0) 0%,rgba(20,33,61,.10) 35%,rgba(20,33,61,.32) 49%,rgba(20,33,61,.32) 51%,rgba(20,33,61,.10) 65%,rgba(20,33,61,0) 100%)}
-.bk-spread.two .bk-slot + .bk-slot{border-left:1px solid rgba(20,33,61,.35)}
+.bk-spread{display:flex;position:relative;background:#fffdf3}
+.bk-spread.two{perspective:2600px;transform-style:preserve-3d;
+  box-shadow:0 3px 0 #f1e8cf,0 6px 0 #e2d6b6,0 9px 0 #cbbd98,0 12px 0 #3b220f,0 30px 46px rgba(0,0,0,.6),0 8px 16px rgba(0,0,0,.35)}
+.bk-spread.two::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:70px;transform:translateX(-50%);pointer-events:none;z-index:2;
+  background:linear-gradient(90deg,rgba(40,25,10,0) 0%,rgba(40,25,10,.08) 30%,rgba(40,25,10,.34) 48%,rgba(40,25,10,.4) 50%,rgba(40,25,10,.34) 52%,rgba(40,25,10,.08) 70%,rgba(40,25,10,0) 100%)}
 .bk-slot{position:relative;overflow:hidden;background:#fffdf3}
+.bk-spread.two .bk-slot:first-child{background:linear-gradient(90deg,#f6efd8,#fffdf3 8%)}
+.bk-spread.two .bk-slot:last-child{background:linear-gradient(270deg,#f6efd8,#fffdf3 8%)}
 .bk-spread.two .bk-pg{position:absolute;top:0;left:0;width:600px;transform-origin:0 0;container-type:inline-size}
-.bk-pg .cpage{width:100%;border:none;box-shadow:none;margin:0}
+.bk-pg .cpage{width:100%;border:none;box-shadow:none;margin:0;background:transparent}
+/* the turning leaf */
+.bk-leaf{position:absolute;top:0;z-index:4;transform-style:preserve-3d;will-change:transform}
+.bk-leaf.from-right{transform-origin:0 50%}
+.bk-leaf.from-left{transform-origin:100% 50%}
+.bk-face{position:absolute;inset:0;overflow:hidden;background:#fffdf3;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 0 18px rgba(0,0,0,.25)}
+.bk-face .bk-pg{position:absolute;top:0;left:0;width:600px;transform-origin:0 0;container-type:inline-size}
+.bk-back{transform:rotateY(180deg)}
+.bk-shade{position:absolute;inset:0;pointer-events:none;opacity:0}
+.from-right .bk-front .bk-shade,.from-left .bk-back .bk-shade{background:linear-gradient(90deg,rgba(0,0,0,.55),rgba(0,0,0,.08) 40%,rgba(0,0,0,0))}
+.from-right .bk-back .bk-shade,.from-left .bk-front .bk-shade{background:linear-gradient(270deg,rgba(0,0,0,.55),rgba(0,0,0,.08) 40%,rgba(0,0,0,0))}
+/* single page (phones) */
 .bk:has(.bk-spread:not(.two)) .bk-stage{width:100%}
-.bk-spread:not(.two){width:100%;border:none;box-shadow:none;background:none}
+.bk-spread:not(.two){width:100%;background:none}
 .bk-spread:not(.two) .bk-slot{width:100%;overflow:visible;background:none}
 .bk-spread:not(.two) .bk-pg{container-type:inline-size;display:flex;justify-content:center}
-.bk-spread:not(.two) .cpage{border:2px solid #14213d;box-shadow:6px 6px 0 var(--shadow)}
-.bk-arrow{flex:none;width:52px;height:52px;border-radius:50%;border:3px solid #14213d;background:#ffd23f;color:#14213d;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;box-shadow:3px 3px 0 #14213d;transition:transform .12s}
-.bk-arrow span{font:400 40px/1 var(--disp);margin-top:-4px}
+.bk-spread:not(.two) .cpage{background:#fffdf3;border:none;box-shadow:0 3px 0 #e2d6b6,0 6px 0 #3b220f,0 16px 28px rgba(0,0,0,.55)}
+/* arrows and bar */
+.bk-arrow{flex:none;width:58px;height:58px;border-radius:50%;border:3px solid #14213d;background:#ffd23f;color:#14213d;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 4px 0 #14213d,0 10px 18px rgba(0,0,0,.45);transition:transform .12s}
 .bk-arrow:hover:not(:disabled){transform:scale(1.08)}
-.bk-arrow:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 #14213d}
-.bk-arrow:disabled{opacity:.3;cursor:default}
+.bk-arrow:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 #14213d,0 6px 10px rgba(0,0,0,.4)}
+.bk-arrow:disabled{opacity:.35;cursor:default}
 .bk-arrow.bk-end{background:#e63a2e;color:#fff3c4}
-.bk-arrow:focus-visible,.bk-btn:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
-.bk-bar{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:16px}
-.bk-count{font:700 .85rem var(--comic);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);min-width:9em;text-align:center}
-.bk-btn{display:none;font:700 .95rem var(--comic);text-transform:uppercase;letter-spacing:.05em;padding:10px 16px;border:3px solid #14213d;background:#ffd23f;color:#14213d;box-shadow:3px 3px 0 #14213d;cursor:pointer}
-.bk-btn:disabled{opacity:.35;cursor:default}
+.bk-arrow:focus-visible,.bk-btn:focus-visible,.bk-snd:focus-visible{outline:3px solid #ffd23f;outline-offset:3px}
+.bk-bar{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:8px}
+.bk-count{font:700 .85rem var(--comic);letter-spacing:.08em;text-transform:uppercase;color:#fff3c4;text-shadow:1px 1px 0 #2a1608;min-width:9em;text-align:center}
+.bk-btn{display:none;font:700 .95rem var(--comic);text-transform:uppercase;letter-spacing:.05em;padding:10px 16px;border:3px solid #14213d;background:#ffd23f;color:#14213d;box-shadow:0 3px 0 #14213d;cursor:pointer}
+.bk-btn:disabled{opacity:.4;cursor:default}
 .bk-btn.bk-end{background:#e63a2e;color:#fff3c4}
-.bk-stage.turn-next{animation:bkNext .32s ease-out}
-.bk-stage.turn-prev{animation:bkPrev .32s ease-out}
-@keyframes bkNext{from{opacity:.25;transform:perspective(1400px) rotateY(-9deg) translateX(26px)}to{opacity:1;transform:none}}
-@keyframes bkPrev{from{opacity:.25;transform:perspective(1400px) rotateY(9deg) translateX(-26px)}to{opacity:1;transform:none}}
+.bk-snd{background:rgba(255,243,196,.15);border:2px solid rgba(255,243,196,.5);border-radius:999px;color:#fff3c4;font-size:1rem;line-height:1;padding:6px 10px;cursor:pointer}
+.bk-snd .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.bk-stage.turn-next{animation:bkNext .34s ease-out}
+.bk-stage.turn-prev{animation:bkPrev .34s ease-out}
+@keyframes bkNext{from{opacity:.2;transform:perspective(1400px) rotateY(-14deg) translateX(30px)}to{opacity:1;transform:none}}
+@keyframes bkPrev{from{opacity:.2;transform:perspective(1400px) rotateY(14deg) translateX(-30px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.bk-stage.turn-next,.bk-stage.turn-prev{animation:none}}
 @media (max-width:879px){
+  .desk{min-height:0}
   .bk-arrow{display:none}
-  .bk-bar{position:sticky;bottom:0;z-index:5;background:var(--bg);padding:10px 0 calc(10px + env(safe-area-inset-bottom,0px));margin-top:12px;border-top:3px solid #14213d}
+  .bk-bar{position:sticky;bottom:0;z-index:5;background:#4a2c15;padding:10px 0 calc(10px + env(safe-area-inset-bottom,0px));margin-top:12px;border-top:3px solid #2a1608}
   .bk-btn{display:inline-block}
 }
 
@@ -1222,78 +1244,139 @@ function renderPage(pg, num){
 }
 
 /* ---------- two-page book viewer ----------
-   Wide screens: a two-page spread with a spine, scaled to fit the window.
-   Narrow screens: one page at a time. Arrows on both sides, keyboard arrows and swipe. */
+   Wide screens: an open book lying on a wooden desk, heading and both pages in one screen,
+   3D page turns with a paper sound. Narrow screens: one page at a time.
+   Arrows on both sides, keyboard arrows and swipe. */
+const BookSound = {
+  ctx: null,
+  on: (() => { try{ return localStorage.getItem("nfl_sound") !== "off"; }catch(e){ return true; } })(),
+  set(v){ BookSound.on = v; try{ localStorage.setItem("nfl_sound", v ? "on" : "off"); }catch(e){} },
+  noise(c, t, dur, f0, f1, vol, type){
+    const buf = c.createBuffer(1, Math.ceil(c.sampleRate * dur), c.sampleRate), d = buf.getChannelData(0);
+    for(let i = 0; i < d.length; i++){ const x = i / d.length; d[i] = (Math.random() * 2 - 1) * (x < .12 ? x / .12 : Math.pow(1 - x, 1.6)); }
+    const src = c.createBufferSource(); src.buffer = buf;
+    const f = c.createBiquadFilter(); f.type = type || "bandpass"; f.Q.value = .7;
+    f.frequency.setValueAtTime(f0, t); f.frequency.exponentialRampToValueAtTime(f1, t + dur);
+    const g = c.createGain(); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + dur * .15); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    src.connect(f); f.connect(g); g.connect(c.destination); src.start(t); src.stop(t + dur + .02);
+  },
+  play(){
+    if(!BookSound.on) return;
+    try{
+      const c = BookSound.ctx || (BookSound.ctx = new (window.AudioContext || window.webkitAudioContext)());
+      if(c.state === "suspended") c.resume();
+      const t = c.currentTime + .01;
+      BookSound.noise(c, t, .42, 3800, 900, .55);            // the swish of the page
+      BookSound.noise(c, t + .05, .3, 6500, 2500, .12, "highpass");
+      BookSound.noise(c, t + .5, .12, 500, 180, .35, "lowpass");  // the page landing
+    }catch(e){}
+  }
+};
+const BK_ARROW = d => `<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="${d < 0 ? "M15 4 L7 12 L15 20" : "M9 4 L17 12 L9 20"}" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const Book = {
-  el: null, pages: [], idx: 0, per: 2, done: null, seen: false,
+  el: null, desk: null, pages: [], idx: 0, per: 2, done: null, busy: false, W: 0, H: 0,
   wide(){ return window.innerWidth >= 880; },
   mount(el, pages, onEnd){
-    Book.el = el; Book.pages = pages; Book.idx = 0; Book.done = onEnd; Book.seen = false;
+    Book.el = el; Book.desk = el.closest(".desk") || el; Book.pages = pages; Book.idx = 0; Book.done = onEnd; Book.busy = false;
     el.innerHTML = `<div class="bk">
-        <button class="bk-arrow bk-prev" type="button" data-bk="-1" aria-label="Previous page"><span>‹</span></button>
+        <button class="bk-arrow bk-prev" type="button" data-bk="-1" aria-label="Previous page">${BK_ARROW(-1)}</button>
         <div class="bk-stage" aria-live="polite"></div>
-        <button class="bk-arrow bk-next" type="button" data-bk="1" aria-label="Next page"><span>›</span></button>
+        <button class="bk-arrow bk-next" type="button" data-bk="1" aria-label="Next page">${BK_ARROW(1)}</button>
       </div>
       <div class="bk-bar">
         <button class="bk-btn" type="button" data-bk="-1" aria-label="Previous page">‹ Back</button>
         <span class="bk-count"></span>
         <button class="bk-btn bk-fwd" type="button" data-bk="1" aria-label="Next page">Next ›</button>
+        <button class="bk-snd" type="button" aria-pressed="${BookSound.on}" title="Page-turn sound">${BookSound.on ? "🔊" : "🔈"}<span class="sr">Page-turn sound</span></button>
       </div>`;
-    Book.render(0);
+    Book.render();
   },
   active(){ return Book.el && document.body.contains(Book.el) && Book.el.offsetParent !== null; },
-  render(dir){
+  pg(i){ return i >= 0 && i < Book.pages.length ? renderPage(Book.pages[i], i + 1) : ""; },
+  slot(i){ return `<div class="bk-slot${i >= 0 && i < Book.pages.length ? "" : " bk-blank"}"><div class="bk-pg">${Book.pg(i)}</div></div>`; },
+  render(){
     if(!Book.el || !document.body.contains(Book.el)) return;
     Book.per = Book.wide() ? 2 : 1;
     Book.idx = Math.floor(Book.idx / Book.per) * Book.per;
     const st = Book.el.querySelector(".bk-stage"), n = Book.pages.length;
-    const show = Book.pages.slice(Book.idx, Book.idx + Book.per).map((pg, i) => ({pg, num: Book.idx + i + 1}));
-    const slot = s => `<div class="bk-slot${s ? "" : " bk-blank"}"><div class="bk-pg">${s ? renderPage(s.pg, s.num) : ""}</div></div>`;
-    st.innerHTML = `<div class="bk-spread${Book.per === 2 ? " two" : ""}">${slot(show[0])}${Book.per === 2 ? slot(show[1]) : ""}</div>`;
+    st.innerHTML = `<div class="bk-spread${Book.per === 2 ? " two" : ""}">${Book.slot(Book.idx)}${Book.per === 2 ? Book.slot(Book.idx + 1) : ""}</div>`;
     Book.fit();
-    if(dir){ st.classList.remove("turn-next","turn-prev"); void st.offsetWidth; st.classList.add(dir > 0 ? "turn-next" : "turn-prev"); }
     const last = Book.idx + Book.per >= n;
     Book.el.querySelectorAll('[data-bk="-1"]').forEach(b => b.disabled = Book.idx === 0);
-    Book.el.querySelectorAll('[data-bk="1"]').forEach(b => {
-      b.classList.toggle("bk-end", last);
-      b.setAttribute("aria-label", last ? "Finish: takeaway and quiz" : "Next page");
-    });
+    Book.el.querySelectorAll('[data-bk="1"]').forEach(b => { b.classList.toggle("bk-end", last); b.setAttribute("aria-label", last ? "Finish: takeaway and quiz" : "Next page"); });
     Book.el.querySelector(".bk-fwd").textContent = last ? "Quiz ›" : "Next ›";
     const a = Book.idx + 1, b = Math.min(Book.idx + Book.per, n);
-    Book.el.querySelector(".bk-count").textContent = (a === b ? `Page ${a}` : `Pages ${a}–${b}`) + ` of ${n}`;
+    Book.el.querySelector(".bk-count").textContent = (a === b ? `Page ${a}` : `Pages ${a}–${b}`) + ` of ${n}` + (last ? " · next: quiz" : "");
   },
+  /* size the open book so the heading and both pages fit in one screen */
   fit(){
     if(!Book.active()) return;
-    const st = Book.el.querySelector(".bk-stage"), slots = [...st.querySelectorAll(".bk-slot")];
-    if(Book.per === 1){ slots.forEach(s => { s.style.width = s.style.height = ""; const p = s.firstChild; p.style.transform = ""; }); return; }
-    const DW = 600, R = 1.8, pgs = slots.map(s => s.firstChild);
-    const availW = Book.el.querySelector(".bk").clientWidth - 2 * 64;
-    const availH = Math.max(420, window.innerHeight - 40);   // the book is scrolled to the top of the window
-    const W = Math.min(availW / 2, availH / R, DW * 1.15), H = W * R;   // same book size on every spread
-    slots.forEach((sl, i) => {
-      const h = pgs[i].offsetHeight || DW * R, s = Math.min(W / DW, H / h);
-      sl.style.width = W + "px"; sl.style.height = H + "px";
-      pgs[i].style.left = (W - DW * s) / 2 + "px";
-      pgs[i].style.transform = `scale(${s})`;
-    });
+    const st = Book.el.querySelector(".bk-stage"), sp = st.firstChild;
+    if(Book.per === 1){ sp.querySelectorAll(".bk-pg").forEach(p => { p.style.transform = p.style.left = ""; }); return; }
+    const DW = 600, R = 1.8;
+    const above = st.getBoundingClientRect().top - Book.desk.getBoundingClientRect().top;
+    const availH = Math.max(380, window.innerHeight - above - 64);
+    const availW = Book.el.querySelector(".bk").clientWidth - 2 * 76;
+    Book.W = Math.min(availW / 2, availH / R, DW * 1.15); Book.H = Book.W * R;
+    sp.querySelectorAll(".bk-slot, .bk-face").forEach(el => Book.size(el));
   },
+  size(el){
+    const DW = 600, W = Book.W, H = Book.H, p = el.querySelector(".bk-pg");
+    el.style.width = W + "px"; el.style.height = H + "px";
+    if(!p) return;
+    const h = p.offsetHeight || DW * 1.8, s = Math.min(W / DW, H / h);
+    p.style.left = (W - DW * s) / 2 + "px"; p.style.transform = `scale(${s})`;
+  },
+  /* put the desk (heading + book) at the top of the window */
   align(smooth){
     if(!Book.active()) return;
-    const top = Book.el.getBoundingClientRect().top;
-    if(Book.per === 2 ? Math.abs(top - 16) > 4 : (top < 0 || top > window.innerHeight * .5))
-      window.scrollTo({top: window.scrollY + top - 16, behavior: smooth ? "smooth" : "auto"});
+    const t = Book.per === 2 ? Book.desk : Book.el, top = t.getBoundingClientRect().top;
+    if(Book.per === 2 ? Math.abs(top) > 2 : (top < 0 || top > window.innerHeight * .5))
+      window.scrollTo({top: window.scrollY + top - (Book.per === 2 ? 0 : 12), behavior: smooth ? "smooth" : "auto"});
   },
   go(d){
-    if(!Book.active()) return;
+    if(!Book.active() || Book.busy) return;
     const n = Book.pages.length;
     if(d > 0 && Book.idx + Book.per >= n){ if(Book.done) Book.done(); return; }
     const ni = Book.idx + d * Book.per;
     if(ni < 0 || ni >= n) return;
-    Book.idx = ni; Book.render(d);
+    BookSound.play();
+    const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if(Book.per === 2 && !reduce) return Book.flip(d, ni);
+    Book.idx = ni; Book.render();
+    if(!reduce){ const st = Book.el.querySelector(".bk-stage"); st.classList.remove("turn-next", "turn-prev"); void st.offsetWidth; st.classList.add(d > 0 ? "turn-next" : "turn-prev"); }
     Book.align(true);
+  },
+  /* a real page turn: the leaf rotates around the spine and shows the next page on its back */
+  flip(d, ni){
+    Book.busy = true; Book.align(true);
+    const i = Book.idx, sp = Book.el.querySelector(".bk-spread");
+    // pages underneath once the leaf lifts
+    const under = d > 0 ? [i, ni + 1] : [ni, i + 1];
+    const front = d > 0 ? i + 1 : i, back = d > 0 ? ni : ni + 1;
+    const slots = sp.querySelectorAll(".bk-slot");
+    const swap = (k, idx) => { const tmp = document.createElement("div"); tmp.innerHTML = Book.slot(idx); slots[k].replaceWith(tmp.firstChild); };
+    if(d > 0) swap(1, under[1]); else swap(0, under[0]);
+    const leaf = document.createElement("div");
+    leaf.className = "bk-leaf " + (d > 0 ? "from-right" : "from-left");
+    leaf.innerHTML = `<div class="bk-face bk-front"><div class="bk-pg">${Book.pg(front)}</div><i class="bk-shade"></i></div>`
+                   + `<div class="bk-face bk-back"><div class="bk-pg">${Book.pg(back)}</div><i class="bk-shade"></i></div>`;
+    leaf.style.width = Book.W + "px"; leaf.style.height = Book.H + "px"; leaf.style.left = (d > 0 ? Book.W : 0) + "px";
+    sp.appendChild(leaf);
+    sp.querySelectorAll(".bk-slot, .bk-face").forEach(el => Book.size(el));
+    const end = d > 0 ? -180 : 180, dur = 780, ease = "cubic-bezier(.45,.05,.3,1)";
+    const a = leaf.animate([{transform: "rotateY(0deg)"}, {transform: `rotateY(${end * .5}deg) translateZ(30px)`, offset: .5}, {transform: `rotateY(${end}deg)`}], {duration: dur, easing: ease, fill: "forwards"});
+    leaf.querySelectorAll(".bk-shade").forEach((s, k) => s.animate(k === 0 ? [{opacity: 0}, {opacity: .45}] : [{opacity: .45}, {opacity: 0}], {duration: dur, easing: ease, fill: "forwards"}));
+    let fin = false;
+    const finish = () => { if(fin) return; fin = true; Book.idx = ni; Book.busy = false; Book.render(); };
+    a.onfinish = finish; setTimeout(finish, dur + 400);
   }
 };
-document.addEventListener("click", e => { const b = e.target.closest("[data-bk]"); if(b && Book.el && Book.el.contains(b)) Book.go(+b.dataset.bk); });
+document.addEventListener("click", e => {
+  const s = e.target.closest(".bk-snd");
+  if(s && Book.el && Book.el.contains(s)){ BookSound.set(!BookSound.on); s.setAttribute("aria-pressed", BookSound.on); s.firstChild.textContent = BookSound.on ? "🔊" : "🔈"; if(BookSound.on) BookSound.play(); return; }
+  const b = e.target.closest("[data-bk]"); if(b && Book.el && Book.el.contains(b)) Book.go(+b.dataset.bk);
+});
 document.addEventListener("keydown", e => {
   if(!Book.active() || e.altKey || e.ctrlKey || e.metaKey || /INPUT|TEXTAREA|SELECT/.test((e.target.tagName || ""))) return;
   if(e.key === "ArrowRight"){ e.preventDefault(); Book.go(1); }
@@ -1307,8 +1390,8 @@ document.addEventListener("touchend", e => {
   if(Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) Book.go(dx < 0 ? 1 : -1);
 }, {passive: true});
 let BK_T = null, BK_W = window.innerWidth >= 880;
-window.addEventListener("resize", () => { clearTimeout(BK_T); BK_T = setTimeout(() => { const w = window.innerWidth >= 880; if(w !== BK_W){ BK_W = w; Book.render(); } else Book.fit(); }, 120); });
-if(document.fonts && document.fonts.ready) document.fonts.ready.then(() => Book.fit());
+window.addEventListener("resize", () => { clearTimeout(BK_T); BK_T = setTimeout(() => { if(Book.busy) return; const w = window.innerWidth >= 880; if(w !== BK_W){ BK_W = w; Book.render(); } else Book.fit(); }, 120); });
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if(!Book.busy) Book.fit(); });
 
 /* ---------- Part 1 comic issues ---------- */
 /* ---------- Issue #0: Why do devices talk? (original NetFixLab chapter) ----------
@@ -2468,12 +2551,14 @@ function openLesson(n){
       </div>
     </div>
     <div id="pages" hidden>
+      <div ${L.pages ? 'class="desk"' : 'style="display:contents"'}>
       <div class="rhead">
         <button class="btn alt sm" data-cover>← Back to cover</button>
         <p class="kicker">${kick}</p>
         <h1>${L.t}</h1>
       </div>
       ${L.pages ? `<div class="bookv" id="bookv"></div>` : `<div class="strip">${L.pan.map(panel).join("")}</div>`}
+      </div>
       <div id="afterBook" style="display:contents"${L.pages ? " hidden" : ""}>
       <div class="box take"><h3>Takeaway</h3><p>${fmt(L.take)}</p></div>
       <div class="box tip"><h3>Try it yourself</h3><p>${fmt(L.tip)}</p></div>
