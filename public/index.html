@@ -1609,12 +1609,6 @@ const MacPet = (() => {
     <rect x="62" y="100" width="36" height="12" rx="3" fill="#d8cdb0" stroke="#14213d" stroke-width="2"/>
     <text x="80" y="109.5" text-anchor="middle" font-family="Bangers, Impact, sans-serif" font-size="10" letter-spacing="1.5" fill="#14213d">MAC</text>
   </svg>`;
-  /* the back of Mac's case, seen halfway through a head spin */
-  const back = () => `<svg viewBox="0 0 120 124" aria-hidden="true">
-    <circle cx="9" cy="50" r="6.5" fill="#d8cdb0" stroke="#14213d" stroke-width="3"/><circle cx="111" cy="50" r="6.5" fill="#d8cdb0" stroke="#14213d" stroke-width="3"/>
-    <rect x="10" y="4" width="100" height="114" rx="16" fill="#e2d8bc" stroke="#14213d" stroke-width="4"/>
-    <g stroke="#b9ad8d" stroke-width="4" stroke-linecap="round">${[0,1,2,3,4,5].map(i => `<path d="M32 ${26 + i * 9}H88"/>`).join("")}</g>
-    <rect x="44" y="86" width="32" height="16" rx="3" fill="#2b2f3a" stroke="#14213d" stroke-width="2"/><circle cx="52" cy="94" r="3" fill="#9aa3b5"/><circle cx="68" cy="94" r="3" fill="#9aa3b5"/></svg>`;
   const body = () => `<svg class="mp-body-svg" viewBox="-20 0 180 64" aria-hidden="true">
     <path class="mp-arm-l" d="M16 22 Q2 30 -6 18" fill="none" stroke="#14213d" stroke-width="5" stroke-linecap="round"/>
     <path class="mp-arm-r" d="M124 22 Q138 30 146 18" fill="none" stroke="#14213d" stroke-width="5" stroke-linecap="round"/>
@@ -1634,9 +1628,7 @@ const MacPet = (() => {
 .macpet.peek:hover{transform:translateY(calc(100% - 64px))}
 .macpet .mp-btn{position:absolute;inset:0;background:none;border:0;padding:0;cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent}
 .macpet .mp-btn:focus-visible{outline:3px solid #1f6fd1;outline-offset:2px;border-radius:12px}
-.macpet .mp-head{position:absolute;left:30px;top:0;width:120px;height:124px;transform-origin:60px 62px;z-index:2;transform-style:preserve-3d}
-.macpet .mp-front,.macpet .mp-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.macpet .mp-back{transform:rotateY(180deg)}
+.macpet .mp-head{position:absolute;left:30px;top:0;width:120px;height:124px;transform-origin:60px 62px;z-index:2}
 .macpet .mp-body{position:absolute;left:0;top:112px;width:180px;height:64px}
 .macpet svg{display:block;width:100%;height:100%;overflow:visible}
 .macpet .mp-face>g{display:none}
@@ -1646,7 +1638,7 @@ const MacPet = (() => {
 .macpet.wave .mp-arm-r{animation:mpWave .5s ease-in-out 4;transform-origin:124px 22px}
 @keyframes mpWave{0%,100%{transform:rotate(0)}50%{transform:rotate(-38deg)}}
 .macpet.spin .mp-head{animation:mpSpin .95s cubic-bezier(.5,0,.3,1) 2}
-@keyframes mpSpin{0%{transform:perspective(500px) translateY(0) rotateY(0)}30%{transform:perspective(500px) translateY(-22px) rotateY(-130deg)}70%{transform:perspective(500px) translateY(-12px) rotateY(-300deg)}100%{transform:perspective(500px) translateY(0) rotateY(-360deg)}}
+@keyframes mpSpin{0%{transform:translateY(0) rotate(0)}30%{transform:translateY(-22px) rotate(130deg)}70%{transform:translateY(-12px) rotate(300deg)}100%{transform:translateY(0) rotate(360deg)}}
 .macpet.wiggle .mp-head{animation:mpWiggle .5s ease-in-out}
 @keyframes mpWiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
 .macpet.hop{animation:mpHop .5s ease-out 3}
@@ -1673,7 +1665,7 @@ const MacPet = (() => {
   .macpet{transform-origin:bottom center;width:140px;height:134px}
   .macpet .mp-head{transform:scale(.78);transform-origin:center top;left:10px}
   .macpet.spin .mp-head{animation-name:mpSpinS}
-  @keyframes mpSpinS{0%{transform:perspective(500px) scale(.78) rotateY(0)}50%{transform:perspective(500px) scale(.78) translateY(-18px) rotateY(-180deg)}100%{transform:perspective(500px) scale(.78) rotateY(-360deg)}}
+  @keyframes mpSpinS{0%{transform:scale(.78) rotate(0)}50%{transform:scale(.78) translateY(-18px) rotate(180deg)}100%{transform:scale(.78) rotate(360deg)}}
   .macpet.wiggle .mp-head{animation-name:mpWiggleS}
   @keyframes mpWiggleS{0%,100%{transform:scale(.78) rotate(0)}25%{transform:scale(.78) rotate(-8deg)}75%{transform:scale(.78) rotate(8deg)}}
   .macpet .mp-body{transform:scale(.78);transform-origin:left top;top:88px}
@@ -1696,7 +1688,7 @@ const MacPet = (() => {
     const st = document.createElement("style"); st.textContent = CSS; document.head.appendChild(st);
     el = document.createElement("div");
     el.className = "macpet right"; el.dataset.mood = "idle";
-    el.innerHTML = `<div class="mp-head"><div class="mp-front">${head()}</div><div class="mp-back">${back()}</div></div><div class="mp-body">${body()}</div>
+    el.innerHTML = `<div class="mp-head">${head()}</div><div class="mp-body">${body()}</div>
       <button class="mp-btn" type="button" aria-label="Mac, your NetFixLab buddy. Click for a joke."></button>
       <div class="mp-bub" role="status" aria-live="polite" hidden></div>`;
     document.body.appendChild(el);
