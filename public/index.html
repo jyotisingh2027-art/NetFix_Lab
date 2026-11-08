@@ -1,6 +1,6 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <title>NetFixLab: learn home networking from a comic</title>
-<meta name="description" content="Beginner networking course taught through comics. Learn how your home network works and fix common problems yourself. First 7 lessons free.">
+<meta name="description" content="Beginner networking course taught through comics. Learn how your home network works and fix common problems yourself. First 9 lessons free.">
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "z3p5rr8io8");</script>
 <link rel="canonical" href="https://netfixlab.tech/">
 <meta name="google-site-verification" content="vXRz-6HjxXS-JCcw0DvwtxWJO3lzsg-fntcgCbN_eOA" />
@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 7 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 9 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 teaches a calm routine for the problems you will really meet at home.</li>
-            <li>The first seven issues are free. One payment opens the rest.</li>
+            <li>The first nine issues are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -584,7 +584,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
       <article class="plan">
         <h3>Free preview</h3>
         <p class="price">Free</p>
-        <ul><li>Issues 1 to 7: why networks exist, the TCP/IP model, IP addresses and subnetting, routers and switches, the packet walk, VLANs, trunks</li><li>Comics, takeaways and quizzes included</li><li>No sign-up needed to read</li></ul>
+        <ul><li>Issues 1 to 9: why networks exist, the TCP/IP model, IP addresses and subnetting, routers and switches, the packet walk, VLANs, trunks, Spanning Tree, routing</li><li>Comics, takeaways and quizzes included</li><li>No sign-up needed to read</li></ul>
         <button class="btn alt" data-open="1">Start issue 1</button>
       </article>
       <article class="plan featured">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first seven lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first nine lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first seven lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first nine lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole troubleshooting part, including ping</li><li>Fix slow Wi-Fi and “connected, but no internet”</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -3974,14 +3974,654 @@ const ISSUE_G = {no:"7", cover:COVER6, t:"Why trunks?", b:"Stretch VLANs across 
  tip:"In Packet Tracer: two switches, two PCs on each. Put one PC per switch in VLAN 2 and the other in VLAN 3, make the link between switches a trunk, then run show interfaces trunk. Ping inside VLAN 2 across the switches (works) and from VLAN 2 to VLAN 3 (fails).",
  q:{q:"A frame tagged VLAN 20 arrives on Patch's trunk port, for a MAC Patch knows only in VLAN 10. What does Patch do?",o:["Floods it to his VLAN 20 ports only (unknown unicast)","Sends it to the MAC's VLAN 10 port","Removes the tag and drops it"],why:"Switches only search the MAC table rows for the frame's VLAN. In VLAN 20 that MAC is unknown, so the frame is flooded inside VLAN 20 only."}};
 
-ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19;
+/* ---------- Issue: Why Spanning Tree? (original NetFixLab chapter) ---------- */
+Object.assign(PROPS, {
+  tree:(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><path d="M-8 0 V-50 L-30 -80 M-8 -50 L14 -86 M0 -64 L28 -70" stroke="#7a4a22" stroke-width="12" stroke-linecap="round" fill="none"/><circle cx="-34" cy="-92" r="26" fill="#3fbf6f" ${sk(3)}/><circle cx="14" cy="-104" r="30" fill="#2bb673" ${sk(3)}/><circle cx="34" cy="-74" r="20" fill="#3fbf6f" ${sk(3)}/></g>`,
+  pb:(x,y,t,col)=>`<circle cx="${x}" cy="${y}" r="15" fill="${col||"#2bb673"}" stroke="${INK}" stroke-width="3"/><text x="${x}" y="${y+6}" text-anchor="middle" font-family="${BANG}" font-size="17" fill="#fff">${t}</text>`
+});
+const COVER7 = {l:["THE","LOOP","BREAKERS"], t:["SPANNING TREE AND","ETHERCHANNEL"], s:"blue", a:"switch", b:"laptop", ma:"proud", mb:"happy", sfx:"BLOCKED!"};
+/* triangle: Patch (root) top, Sid bottom-left, Kit bottom-right */
+const TRI = (cP,cS,cK) => [["line",270,108,160,222,cP||"#1f6fd1"],["line",330,108,440,222,cS||"#1f6fd1"],["line",200,245,400,245,cK||"#1f6fd1"]];
+const TRICH = (mP,mS,mK) => [["switch",mP||"proud",300,.4,1,120],["switch",mS||"happy",130,.4,1,262],["switch",mK||"happy",470,.4,1,262]];
+const TRILAB = [["word",300,40,"PATCH",17,0,"#fff3c4"],["word",60,200,"SID",17,0,"#fff3c4"],["word",540,200,"KIT",17,0,"#fff3c4"]];
+const PAGES7 = [
+/* ===== 1 ===== */
+{title:"The morning after the storm", rows:[
+ {h:250, p:[{bg:"room", ch:[["person","#c0553a",90,.9],["switch","worried",470,.55]], over:[["sweat",540,110,1.2]],
+   b:[["c","Bright Trail, the morning after the broadcast storm.",2,3,16],["s","The whole network froze yesterday! What stops it from happening again?",22,26,14,"bl",8]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","A protocol that finds loops and breaks them by itself, Maya: Spanning Tree!",4,4,15,"b",55,"router"]]},
+   {bg:"chalk", over:[["chalktext",20,46,["TODAY:","1. STP: root, root ports,","   designated ports, blocking","2. Timers, PortFast, RSTP","3. EtherChannel and LACP","4. Layer 2 vs Layer 3 links"],16]],
+     b:[]}]},
+ {h:240, p:[{bg:"rays:mint", ch:[["laptop","happy",90,.55],["phone","happy",300,.52],["switch","happy",500,.5]],
+   b:[["s","This is the big one, Fonz. Notebooks out!",4,6,10,"bl",8,"laptop"],["s","Patch, Kit and I are listening too!",62,40,9,"b",70,"switch"]]}]}
+]},
+/* ===== 2 ===== */
+{title:"What are we building?", rows:[
+ {h:270, p:[{bg:"map", ch:[["van","happy",90,.38,1,250]], over:[["road",130,70,470,70],["road",130,70,300,200],["road",470,70,300,200],["dot",130,70,"A",null],["dot",470,70,"B",null],["dot",300,200,"C",null],["word",300,52,"20 KM",18,0,"#fff3c4"],["word",170,150,"20 KM",18,0,"#fff3c4"],["word",430,150,"5 KM",18,0,"#fff3c4"]],
+   b:[["s","Three towns, three roads. Drive around and you can go in circles forever!",54,64,15,"bl",6,"van"]]}]},
+ {h:250, p:[
+   {bg:"rays:sky", ch:[["van","proud",150,.45]],
+     b:[["s","From A, my best routes: straight to B (20 km), straight to C (20 km). The 5 km road isn't needed!",4,3,16,"b",50,"van"]]},
+   {bg:"rays:mint", over:[["tree",150,220,1.3]],
+     b:[["c","Close one road and you get a TREE: every place reachable, no circles.",4,4,15]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,62,["STP's goal: turn a loopy mesh into a loop-free TREE,","keep the best (fastest) links, and do it automatically.","Step zero: pick where the tree STARTS."],17]],
+   b:[]}]}
+]},
+/* ===== 3 ===== */
+{title:"Switch... or bridge?", rows:[
+ {h:250, p:[{bg:"sepia", over:[["hubbox",100,150,1],["arrow",180,130,240,130,"#ffd23f"],["sign",250,100,110,50,["BRIDGE"],20],["arrow",370,130,430,130,"#ffd23f"],["sign",440,100,130,50,["SWITCH"],20,"#e63a2e"]],
+   b:[["c","Spanning Tree was invented when switches were still called BRIDGES.",4,3,26]]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","So when STP says 'bridge'...",8,5,11,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","...read 'switch'! Root bridge = root switch. Same thing, Lappy.",4,3,15,"b",50,"switch"]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,62,["STP is IEEE standard 802.1D.","(Remember 802.1Q? That one was the trunk tag.)","Lots of switching lives in the 802 family."],18]],
+   b:[]}]}
+]},
+/* ===== 4 ===== */
+{title:"I'm the root! No, I am!", rows:[
+ {h:280, p:[{bg:"burst:yellow", ch:TRICH("proud","proud","proud"), over:[...TRI(),["envelope",210,170,.4,"BPDU"],["envelope",390,170,.4,"BPDU"],["envelope",300,232,.4,"BPDU"]], fx:[["I'M ROOT!",120,70,20,-6,"#e63a2e",true],["NO, ME!",480,70,20,6,"#e63a2e",true]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","When we boot, each of us thinks it's the root and says so in a {{BPDU}}.",4,3,15,"b",50,"switch"],["c","Kit",4,82,4]]},
+   {bg:"rays:mint", ch:[["router","proud",150,.58]],
+     b:[["s","Bridge Protocol Data Unit: the little note switches use to talk STP.",4,4,15,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Everyone shouts 'I'm the root!' at first.","Then they compare the notes, and only ONE stays root.","Like picking a team captain by ID badge."],18]],
+   b:[]}]}
+]},
+/* ===== 5 ===== */
+{title:"Lowest badge wins", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["switch","proud",530,.48]], over:[["rtable",20,30,400,[["PATCH","32768 · 00a0.1111","1"],["SID","32768 · 00a0.2222"],["KIT","32768 · 00a0.3333"]],"BRIDGE ID = PRIORITY + MAC"]],
+   b:[["c","The LOWEST bridge ID becomes the {{root bridge}}.",2,72,18]]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","All three priorities are 32768. So the MAC decides?",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]], fx:[["ROOT!",240,190,26,8,"#e63a2e",true]],
+     b:[["s","Yep! Priority first. If tied, lowest MAC. Mine ends in 1111!",4,3,15,"b",50,"switch"],["c","Patch",4,82,6]]}]},
+ {h:230, p:[{bg:"plain:#fff3c4", ch:[["router","proud",540,.48]], over:[["sign",20,30,440,140,["HEADS-UP","Bridge priority default = 32768","Port priority default = 128","(Don't mix them up!)"],26,"#e63a2e"]],
+   b:[]}]}
+]},
+/* ===== 6 ===== */
+{title:"Pick your own root", rows:[
+ {h:240, p:[{bg:"rays:sky", ch:[["router","proud",110,.58]],
+   b:[["s","A MAC is burned in at the factory. Letting it pick your root is luck! Where the root sits matters a lot in a real network.",30,6,24,"bl",6,"router"]]}]},
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["switch","proud",530,.48]], over:[["cli",20,60,["SID(config)# spanning-tree vlan 1 priority 4096","*! priority goes in steps of 4096: 0, 4096, 8192 ..."],15]],
+   b:[["s","Now MY bridge ID is lowest, so I'd become root. Priority beats MAC!",50,58,14,"b",80,"switch"]]}]},
+ {h:240, p:[
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","So: lowest priority wins. Only a tie goes to the MAC!",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["switch","happy",150,.55]],
+     b:[["s","Today we leave the defaults, so Patch stays root. On to step 2!",4,3,15,"b",50,"switch"]]}]}
+]},
+/* ===== 7 ===== */
+{title:"Every link has a price", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["switch","proud",530,.48]], over:[["rtable",20,30,330,[["10 Gbps","cost 2"],["1 Gbps","cost 4"],["100 Mbps","cost 19"],["10 Mbps","cost 100"]],"STP PORT COSTS"]],
+   b:[["c","Faster link = LOWER cost. Just like the shorter road on Dash's GPS.",56,64,14]]}]},
+ {h:280, p:[{bg:"blueprint", ch:TRICH(), over:[...TRI("#2bb673","#2bb673","#9aa3b5"),...TRILAB,["word",175,160,"10G · 2",17,0,"#ffd23f"],["word",430,160,"10G · 2",17,0,"#ffd23f"],["word",300,272,"1G · 4",17,0,"#ffd23f"]],
+   b:[]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Our triangle: Patch (the root) has 10 Gig links to Sid and Kit.","Sid and Kit share a slower 1 Gig link."],17]],
+   b:[]}]}
+]},
+/* ===== 8 ===== */
+{title:"Step 2: root ports", rows:[
+ {h:280, p:[{bg:"blueprint", ch:TRICH(), over:[...TRI(),...TRILAB,["envelope",230,150,.4,"0"],["envelope",370,150,.4,"0"],["word",120,150,"0 + 2 = 2",16,0,"#ffd23f"],["word",480,150,"0 + 2 = 2",16,0,"#ffd23f"],["word",300,272,"via the other: 2 + 4 = 6",15,0,"#ffd23f"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","As root, only I create BPDUs now: 'cost to root = 0'. Every switch ADDS the cost of the link it came in on.",4,3,17,"b",50,"switch"],["c","Patch",4,82,6]]},
+   {bg:"rays:mint", ch:[["switch","happy",150,.55]],
+     b:[["s","Straight from Patch: 2. Around through Kit: 6. My port toward Patch is my {{root port}}!",4,3,16,"b",50,"switch"],["c","Sid",4,82,4]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["ROOT PORT: on every NON-root switch, the ONE port","with the cheapest path to the root bridge.","Kit does the same math and picks his port to Patch."],17]],
+   b:[]}]}
+]},
+/* ===== 9 ===== */
+{title:"Step 3: designated ports", rows:[
+ {h:240, p:[{bg:"rays:lilac", ch:[["laptop","confused",110,.6]],
+   b:[["s","Root ports, done. But what's a 'designated port', Rooty? Everyone gets confused here!",30,8,22,"bl",6,"laptop"]]}]},
+ {h:280, p:[{bg:"blueprint", ch:TRICH(), over:[...TRI(),...TRILAB,["word",120,140,"SEGMENT 1",15,0,"#ffd23f"],["word",480,140,"SEGMENT 2",15,0,"#ffd23f"],["word",300,272,"SEGMENT 3",15,0,"#ffd23f"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Each link is a {{segment}}. On each one, the port that SENDS the best BPDU (lowest cost to root) is the designated port.",4,3,17,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["switch","proud",150,.55]],
+     b:[["s","I advertise cost 0. Nobody beats that, so ALL my ports are designated!",4,3,15,"b",50,"switch"],["c","Patch",4,82,6]]}]}
+]},
+/* ===== 10 ===== */
+{title:"The tie on segment 3", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["switch","proud",130,.45],["switch","proud",470,.45]], over:[["line",200,215,400,215,"#9aa3b5"],["envelope",240,150,.45,""],["envelope",360,150,.45,""],["word",240,118,"COST 2",18,0,"#ffd23f"],["word",360,118,"COST 2",18,0,"#ffd23f"]], fx:[["TIE!",300,70,30,-4,"#ffd23f",true]],
+   b:[["c","Sid sends 'cost 2'. Kit sends 'cost 2'. Who's best?",2,3,20]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","Tie-break: lower bridge ID! My MAC ends in 2222, Kit's in 3333. My port is designated.",4,3,16,"b",50,"switch"],["c","Sid",4,82,4]]},
+   {bg:"rays:rose", ch:[["switch","worried",150,.55]], fx:[["BLOCKED",150,40,22,-4,"#ffd23f",true]],
+     b:[["s","My port there isn't root OR designated... so STP BLOCKS it.",6,34,15,"b",50,"switch"],["c","Kit",4,82,4]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Not a root port? Not a designated port?","Then it's BLOCKED. The loop is broken!"],20]],
+   b:[]}]}
+]},
+/* ===== 11 ===== */
+{title:"The finished tree", rows:[
+ {h:290, p:[{bg:"blueprint", ch:TRICH("happy","happy","happy"), over:[...TRI("#2bb673","#2bb673","#9aa3b5"),...TRILAB,["pb",252,128,"D"],["pb",348,128,"D"],["pb",182,205,"R"],["pb",418,205,"R"],["pb",222,245,"D"],["pb",378,245,"X","#e63a2e"],["word",300,283,"R = root · D = designated · X = blocked",14,0,"#fff3c4"]],
+   b:[]}]},
+ {h:250, p:[{bg:"chalk", over:[["chalktext",30,50,["THE STP RECIPE","1. Elect the ROOT BRIDGE (lowest bridge ID)","2. Each non-root switch picks ONE ROOT PORT (lowest cost)","3. Each segment gets ONE DESIGNATED PORT (best BPDU sender)","4. Everything else: BLOCKED"],17]],
+   b:[]}]},
+ {h:220, p:[
+   {bg:"burst:yellow", ch:[["laptop","proud",150,.6]], fx:[["IT'S A TREE!",150,40,22,-4,"#e63a2e",true]],
+     b:[]},
+   {bg:"rays:mint", ch:[["phone","happy",150,.62]],
+     b:[["s","And the slow 1 Gig link got blocked, not a fast one!",6,4,14,"b",55,"phone"]]}]}
+]},
+/* ===== 12 ===== */
+{title:"Blocked, but still listening", rows:[
+ {h:250, p:[{bg:"blueprint", ch:[["switch","happy",130,.45],["switch","worried",470,.45]], over:[["line",200,215,400,215,"#9aa3b5"],["envelope",230,150,.45,"ARP"],["envelope",370,150,.45,"BPDU"],["word",230,100,"✗ NO DATA",16,0,"#e63a2e"],["word",370,100,"✓ BPDUs",16,0,"#2bb673"]],
+   b:[]}]},
+ {h:270, p:[{bg:"burst:red", ch:TRICH("worried","happy","shock"), over:[...TRI("#2bb673","#e63a2e","#9aa3b5"),["word",430,150,"✂",36,0,"#fff3c4"]], fx:[["SNIP!",470,60,22,6,"#ffd23f",true]],
+   b:[["c","Then someone unplugs the Patch-Kit cable!",2,3,15]]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["switch","shock",150,.55]],
+     b:[["s","No more BPDUs from Patch's side! My only way to the root is through Sid...",4,3,15,"b",50,"switch"],["c","Kit",4,82,4]]},
+   {bg:"rays:mint", ch:[["switch","proud",150,.55]], fx:[["UNBLOCKED!",150,40,20,-4,"#e63a2e",true]],
+     b:[["s","...so the blocked port becomes my new ROOT PORT. Nobody's cut off!",4,34,15,"b",50,"switch"]]}]}
+]},
+/* ===== 13 ===== */
+{title:"STP's clock", rows:[
+ {h:260, p:[{bg:"plain:#fff3c4", ch:[["switch","proud",530,.48]], over:[["rtable",20,30,420,[["HELLO TIME","2 s · root sends a BPDU"],["MAX AGE","20 s · BPDU silence = trouble"],["FORWARD DELAY","15 s · per waiting state"]],"STP TIMERS"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","Every 2 seconds my BPDU says 'I'm alive!' It's the network's heartbeat.",4,3,15,"b",50,"switch"],["c","Patch",4,82,6]]},
+   {bg:"rays:lilac", ch:[["switch","worried",150,.55]],
+     b:[["s","20 seconds, 10 missed hellos, nothing? I decide the path is dead and flush old MAC entries.",4,3,16,"b",50,"switch"],["c","Kit",4,82,4]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Max age: how long a switch waits before giving up","on the BPDUs it used to hear."],19]],
+   b:[]}]}
+]},
+/* ===== 14 ===== */
+{title:"Why won't my ping work?!", rows:[
+ {h:260, p:[{bg:"plain:#eaf6ff", over:[["fbar",20,90,[["BLOCKING","",120,"#f5958a"],["LISTENING","15 s",140,"#ffd23f"],["LEARNING","15 s",140,"#8fdcc0"],["FORWARDING","✓",160,"#2bb673"]],70]],
+   b:[["c","A port that comes up doesn't forward right away. STP is extra careful.",2,3,26],["c","Listening: hear BPDUs, check for loops. Learning: fill the MAC table. Still no data!",2,74,32]]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["laptop","worried",150,.6]], over:[["sweat",215,100,1.2]],
+     b:[["s","I plugged in, pinged, and got NOTHING for half a minute!",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","15 + 15 = 30 s of forward delay. Wait a bit before blaming the cable!",4,4,15,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["A failed root port: up to 20 s (max age) + 30 s = 50 seconds.","For a modern network, that's FOREVER."],18]],
+   b:[]}]}
+]},
+/* ===== 15 ===== */
+{title:"PortFast for PCs", rows:[
+ {h:240, p:[{bg:"rays:sky", ch:[["laptop","confused",110,.6]],
+   b:[["s","But Sid, my port only goes to ME, a laptop. I can't make a loop. Why wait 30 seconds?",30,8,22,"bl",6,"laptop"]]}]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["switch","proud",530,.48]], over:[["cli",20,60,["SID(config)# interface fa0/3","*SID(config-if)# spanning-tree portfast"],16]],
+   b:[["s","{{PortFast}}: skip listening and learning. Straight to forwarding!",50,58,14,"b",80,"switch"]]}]},
+ {h:240, p:[
+   {bg:"rays:rose", ch:[["router","worried",150,.58]],
+     b:[["s","Only on ports to end devices! PortFast on a switch-to-switch link invites a loop.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]], fx:[["ZOOM!",240,190,24,8,"#e63a2e",true]],
+     b:[["s","Plugged in, pinging in a second. Love it!",8,5,12,"b",55,"laptop"]]}]}
+]},
+/* ===== 16 ===== */
+{title:"One tree per VLAN", rows:[
+ {h:240, p:[{bg:"rays:lilac", ch:[["phone","confused",110,.62]],
+   b:[["s","Hey Patch, Sid and Kit's link just sits there BLOCKED. Isn't that a waste of a good trunk?",30,8,22,"bl",6,"phone"]]}]},
+ {h:280, p:[
+   {bg:"plain:#fff3c4", ch:[["switch","happy",150,.32,1,90],["switch","happy",60,.32,1,250],["switch","happy",240,.32,1,250]], over:[["line",130,80,70,215,"#f08a24"],["line",170,80,230,215,"#f08a24"],["line",100,240,200,240,"#9aa3b5"],["word",150,30,"VLAN 10",18,0,"#f08a24"],["pb",150,240,"X","#e63a2e"]],
+     b:[]},
+   {bg:"plain:#fff3c4", ch:[["switch","happy",150,.32,1,90],["switch","happy",60,.32,1,250],["switch","happy",240,.32,1,250]], over:[["line",130,80,70,215,"#1aa59a"],["line",170,80,230,215,"#9aa3b5"],["line",100,240,200,240,"#1aa59a"],["word",150,30,"VLAN 20",18,0,"#1aa59a"],["pb",200,150,"X","#e63a2e"]],
+     b:[]}]},
+ {h:240, p:[{bg:"rays:sun", ch:[["switch","proud",90,.5]],
+   b:[["s","Cisco runs a SEPARATE tree per VLAN: {{PVST+}}. Give each VLAN a different root, and each blocks a DIFFERENT link. Every link carries something!",22,6,26,"bl",6,"switch"]]}]}
+]},
+/* ===== 17 ===== */
+{title:"Rapid Spanning Tree", rows:[
+ {h:250, p:[{bg:"plain:#eaf6ff", over:[["fbar",20,40,[["BLOCKING","",120,"#f5958a"],["LISTENING","",140,"#ffd23f"],["LEARNING","",140,"#8fdcc0"],["FORWARDING","",160,"#2bb673"]],50],["fbar",20,140,[["DISCARDING","",260,"#f5958a"],["LEARNING","",140,"#8fdcc0"],["FORWARDING","",160,"#2bb673"]],50],["word",300,30,"STP · 802.1D",20,0,"#1f6fd1"],["word",300,130,"RSTP · 802.1w",20,0,"#e63a2e"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","With RSTP, my blocked port is an {{alternate port}}: a ready backup root port.",4,3,15,"b",50,"switch"],["c","Kit",4,82,4]]},
+   {bg:"rays:mint", ch:[["switch","happy",150,.55]], fx:[["INSTANT!",150,40,22,-4,"#e63a2e",true]],
+     b:[["s","Root port dies? The alternate takes over right away. No 50-second wait!",4,34,15,"b",50,"switch"]]}]},
+ {h:240, p:[{bg:"rays:sky", ch:[["router","proud",90,.55]],
+   b:[["s","Best plan: design without loops AND keep STP running. One day someone WILL plug in a 'backup' cable!",24,8,24,"bl",6,"router"]]}]}
+]},
+/* ===== 18 ===== */
+{title:"Even two cables loop", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["switch","proud",130,.45],["switch","happy",470,.45]], over:[["line",200,190,400,190,"#2bb673"],["line",200,225,400,225,"#9aa3b5"],["word",230,175,"Fa0/1",15,0,"#fff3c4"],["word",230,210,"Fa0/2",15,0,"#fff3c4"],["pb",380,225,"X","#e63a2e"]],
+   b:[["c","Two switches, TWO cables: that's a loop too. Same cost, same sender. So who's blocked?",2,3,30]]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","Cost tied, bridge ID tied, it's the SAME switch on both cables!",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Last tie-break: the sender's lower {{port ID}} (port priority 128 + port number). Fa0/1 wins.",4,4,16,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Tie-breakers, in order: lowest cost to root →","lowest sender bridge ID → lowest sender port ID.","Many engineers get stuck on this two-cable case!"],17]],
+   b:[]}]}
+]},
+/* ===== 19 ===== */
+{title:"But I WANT both cables!", rows:[
+ {h:260, p:[{bg:"room", ch:[["server","proud",90,.5],["switch","worried",300,.45],["switch","happy",500,.45]], over:[["line",360,200,440,200,"#2bb673"],["line",360,218,440,218,"#9aa3b5"],["line",360,236,440,236,"#9aa3b5"],["envelope",190,90,.5,"10 GB"]],
+   b:[["c","Sid and Patch have THREE 10 Gig cables. STP blocks two. Then everyone downloads a 10 GB game build.",2,3,32]]}]},
+ {h:250, p:[
+   {bg:"burst:red", ch:[["switch","shock",150,.55]], fx:[["JAMMED!",150,40,26,-4,"#ffd23f",true]],
+     b:[["s","30 Gig of cables, but only 10 Gig in use!",6,34,13,"b",50,"switch"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","STP did its job: no loop. But it cost us efficiency. Can we fool it?",4,4,15,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["What if STP saw the three cables as ONE link?","One link = no loop = nothing to block."],20]],
+   b:[]}]}
+]},
+/* ===== 20 ===== */
+{title:"EtherChannel", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["switch","happy",130,.45],["switch","happy",470,.45]], over:[["zone",250,170,100,80,"#ffd23f","",""],["line",200,190,400,190,"#2bb673"],["line",200,210,400,210,"#2bb673"],["line",200,230,400,230,"#2bb673"],["word",300,150,"Po1 = 3 × 10G = 30G",18,0,"#ffd23f"]],
+   b:[["c","{{EtherChannel}} bundles the cables into one logical link: Port-channel 1 (Po1).",2,3,28]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","STP sees ONE interface, Po1, so nothing gets blocked. All three cables carry traffic!",4,3,16,"b",50,"switch"]]},
+   {bg:"rays:mint", ch:[["phone","happy",150,.62]],
+     b:[["s","One download on cable 1, another on cable 2... 30 Gig!",6,4,14,"b",55,"phone"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Same idea, many names: EtherChannel, port channel, channel group.","Lose one cable? The bundle keeps running on the others."],17]],
+   b:[]}]}
+]},
+/* ===== 21 ===== */
+{title:"Bundle rules", rows:[
+ {h:260, p:[{bg:"plain:#fff3c4", over:[["sign",20,30,560,170,["EVERY CABLE IN A BUNDLE MUST MATCH","same speed","same duplex","same mode (all access, or all trunk + same VLANs)"],22,"#e63a2e"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","Duplex? Remind me, Rooty?",8,5,10,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Full duplex = a two-way street, send and receive at once. Half = a one-lane bridge, take turns. Today it's full.",4,3,17,"b",55,"router"]]}]},
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["switch","proud",530,.45]], over:[["cli",20,60,["SID(config)# interface port-channel 1","SID(config-if)# switchport mode trunk"],15]],
+   b:[["c","Po1 is a real interface: configure it like any port.",2,76,20]]}]}
+]},
+/* ===== 22 ===== */
+{title:"Pop quiz: two bundles", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["switch","happy",130,.45],["switch","happy",470,.45]], over:[["line",200,150,400,150,"#ffd23f"],["line",200,168,400,168,"#ffd23f"],["line",200,210,400,210,"#f08a24"],["line",200,228,400,228,"#f08a24"],["word",300,130,"Po1",18,0,"#ffd23f"],["word",300,252,"Po2",18,0,"#f08a24"]],
+   b:[["s","Four cables in TWO bundles, Po1 and Po2. Does STP block anything?",22,3,22,"b",8,"switch"]]}]},
+ {h:250, p:[
+   {bg:"rays:sky", ch:[["phone","proud",150,.64]],
+     b:[["s","Yes! STP sees TWO links between the same switches. That's a loop, so one bundle gets blocked.",4,4,16,"b",55,"phone"]]},
+   {bg:"burst:yellow", ch:[["router","happy",150,.58]], fx:[["CORRECT!",150,40,24,-4,"#e63a2e",true]],
+     b:[["s","Exactly, Fonz! Want every cable working? Use ONE bundle.",6,34,14,"b",55,"router"]]}]}
+]},
+/* ===== 23 ===== */
+{title:"PAgP or LACP?", rows:[
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["sign",15,24,275,160,["PAgP","Port Aggregation","Protocol","Cisco only"],22],["sign",310,24,275,160,["LACP","Link Aggregation","Control Protocol","open standard (802.3ad)"],22,"#e63a2e"]],
+   b:[["c","Two protocols that build the bundle for you and check the cables match.",4,82,30]]}]},
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["switch","proud",530,.45]], over:[["cli",20,50,["SID(config)# interface range gi0/1 - 3","*SID(config-if-range)# channel-group 1 mode active","SID# show etherchannel summary"],15]],
+   b:[["s","Cisco on one side, another brand on the other? Use LACP.",50,58,14,"b",80,"switch"]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,62,["You list the cables and the channel number on BOTH switches.","LACP talks, checks they're compatible, and brings Po1 up."],17]],
+   b:[]}]}
+]},
+/* ===== 24 ===== */
+{title:"Active, passive, on", rows:[
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","ACTIVE: I call the other side: 'Want to bundle?'",6,4,14,"b",50,"switch"]]},
+   {bg:"rays:lilac", ch:[["switch","happy",150,.55]],
+     b:[["s","PASSIVE: I never call first. I only answer.",6,4,14,"b",50,"switch"]]}]},
+ {h:270, p:[{bg:"plain:#fff3c4", ch:[["phone","proud",540,.45]], over:[["rtable",20,20,430,[["ACTIVE + ACTIVE","✓ bundle"],["ACTIVE + PASSIVE","✓ bundle"],["PASSIVE + PASSIVE","✗ nobody calls!","1"],["ON + ON","✓ no talking at all"]],"LACP MODES"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:mint", ch:[["laptop","confused",150,.6]],
+     b:[["s","Both active, both calling at once. Won't they collide?",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","No! Ethernet cables are full duplex: separate wire pairs for each direction. 'On' is for devices that don't speak LACP.",4,3,17,"b",55,"router"]]}]}
+]},
+/* ===== 25 ===== */
+{title:"Layer 2 link, Layer 3 link", rows:[
+ {h:260, p:[
+   {bg:"rays:sky", ch:[["switch","proud",150,.5]], over:[["envelope",150,90,.7,"TO: BB"]],
+     b:[["s","I read the MAC on the outside and pass it on. I never look at the IP. My ports are {{Layer 2}}.",4,48,16,"b",50,"switch"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.5]], over:[["envelope",100,90,.6,"TO: CC"],["envelope",210,90,.5,"IP"]],
+     b:[["s","A frame for MY MAC? I unwrap it, read the IP, route it. My interfaces are {{Layer 3}}: MAC and IP.",4,48,16,"b",50,"router"]]}]},
+ {h:250, p:[{bg:"blueprint", ch:[["switch","happy",80,.36],["switch","happy",240,.36],["router","happy",370,.36],["router","happy",530,.36]], over:[["line",120,220,200,220,"#2bb673"],["line",120,236,200,236,"#2bb673"],["line",410,220,490,220,"#ffd23f"],["line",410,236,490,236,"#ffd23f"],["word",160,150,"L2 ETHERCHANNEL",18,0,"#2bb673"],["word",450,150,"L3 ETHERCHANNEL",18,0,"#ffd23f"],["word",450,178,"Po1 gets an IP",16,0,"#fff3c4"],["word",160,178,"no IP",16,0,"#fff3c4"]],
+   b:[]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Bundle switch ports → a Layer 2 port channel (no IP).","Bundle router ports → a Layer 3 port channel: Po1 gets an IP."],17]],
+   b:[]}]}
+]},
+/* ===== 26 ===== */
+{title:"Layer 2: complete!", rows:[
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["switch","happy",530,.48]], over:[["sign",20,30,410,90,["LAB 1","3 switches in a triangle · show spanning-tree","find the root, R, D and blocked ports"],22],["sign",20,140,410,90,["LAB 2","2 switches, 3 cables → LACP Po1","show etherchannel summary"],22]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"burst:yellow", ch:[["laptop","proud",150,.6]], fx:[["LAYER 2 DONE!",150,40,22,-4,"#e63a2e",true]],
+     b:[]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Next we go up to Layer 3: dynamic routing with OSPF!",6,4,14,"b",55,"router"]]}]},
+ {h:240, p:[{bg:"burst:blue", ch:[["switch","happy",120,.42],["switch","happy",300,.42],["switch","happy",480,.42]],
+   b:[["c","To be continued: routing protocols!",4,4,13]]}]}
+]}
+];
+const ISSUE_H = {no:"8", cover:COVER7, t:"Why Spanning Tree?", b:"How switches break loops on their own with Spanning Tree, and how EtherChannel puts every cable back to work.", m:25, star:"switch", part:1, pages:PAGES7,
+ take:"Spanning Tree (802.1D) turns a looped switch network into a loop-free tree. Switches (once called bridges) exchange BPDUs. 1) The lowest bridge ID (priority, default 32768, then MAC) becomes root bridge; lower the priority to choose your root. 2) Every non-root switch picks one root port with the lowest total cost to the root (faster links cost less). 3) On each segment, the port sending the best BPDU is designated; all root-bridge ports are designated. Ties go to the lower sender bridge ID, then lower port ID. 4) Every other port is blocked: no data, but BPDUs still arrive, so it can take over if a link fails. Timers: hello 2 s, max age 20 s, forward delay 15 s (listening, then learning), so a new port waits about 30 s. PortFast skips this on host ports. Cisco's PVST+ runs a tree per VLAN; RSTP (802.1w) is much faster thanks to alternate ports. EtherChannel bundles matching links into one port channel that STP doesn't block. It's built by PAgP (Cisco) or LACP (standard): active+active or active+passive works, passive+passive doesn't, 'on' skips negotiation. Switch ports are Layer 2 (MAC only); router interfaces are Layer 3 (MAC and IP).",
+ tip:"In Packet Tracer: three switches in a triangle. Run show spanning-tree on each and mark the root bridge, root ports, designated ports and the blocked port. Then lower one switch's priority and watch the root move. Bonus: bundle two cables with channel-group 1 mode active on both ends and check show etherchannel summary.",
+ q:{q:"Sid and Kit both advertise cost 2 to the root on their shared link. Sid's bridge ID is lower. What happens on that link?",o:["Sid's port is designated; Kit's port is blocked","Both ports are blocked","Both ports forward, because the costs tie"],why:"On a tie in cost, the lower sender bridge ID wins. Sid's port becomes designated, and Kit's port (neither root nor designated) is blocked."}};
+
+/* ---------- Issue: Why routing? (original NetFixLab chapter) ---------- */
+const COVER8 = {l:["ROOTY","TAKES THE","WHEEL"], t:["ROUTES, GATEWAYS AND","TALKING VLANS"], s:"yellow", a:"router", b:"van", ma:"proud", mb:"happy", sfx:"NEXT HOP!"};
+const O9 = "#f08a24", T9 = "#1aa59a", P9 = "#8e5bd8";
+/* three routers in a row */
+const ROW3 = (m1,m2,m3,y) => [["router",m1||"proud",150,.4,1,y||200],["router",m2||"happy",300,.4,1,y||200],["router",m3||"happy",450,.4,1,y||200]];
+const ROW3L = (y) => [["line",185,(y||200)-20,265,(y||200)-20,"#1f6fd1"],["line",335,(y||200)-20,415,(y||200)-20,"#1f6fd1"],["word",150,(y||200)+24,"R1 ROOTY",14,0,"#fff3c4"],["word",300,(y||200)+24,"R2 REX",14,0,"#fff3c4"],["word",450,(y||200)+24,"R3 RUBY",14,0,"#fff3c4"]];
+const PAGES8 = [
+/* ===== 1 ===== */
+{title:"Up to Layer 3", rows:[
+ {h:250, p:[{bg:"room", ch:[["person","#c0553a",90,.9],["router","proud",480,.55]],
+   b:[["c","Bright Trail is opening a second studio across town.",2,3,16],["s","Rooty, the new studio has its own network. Can our two offices still talk?",22,26,14,"bl",8]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]], fx:[["MY TURN!",240,190,24,8,"#e63a2e",true]],
+     b:[["s","Sid's done with Layer 2, Maya. Joining different NETWORKS is a router's job!",4,4,15,"b",55,"router"]]},
+   {bg:"chalk", over:[["chalktext",20,46,["TODAY:","1. Routing tables & next hop","2. Static & default routes","3. AD and longest match","4. Load sharing & backups","5. VLANs that finally talk"],16]],
+     b:[]}]},
+ {h:240, p:[{bg:"rays:mint", ch:[["laptop","happy",90,.55],["switch","happy",300,.48],["router","happy",500,.55]],
+   b:[["s","And remember, Rooty: my VLANs can't talk without you!",4,6,12,"bl",14,"switch"],["s","That's the grand finale today, Sid!",62,42,9,"b",70,"router"]]}]}
+]},
+/* ===== 2 ===== */
+{title:"Where are we?", rows:[
+ {h:260, p:[{bg:"office:2", ch:[["router","proud",440,.45]], over:[["rtable",20,24,330,[["5","APPLICATION"],["4","TRANSPORT · TCP/UDP"],["3","NETWORK · IP ← TODAY","1"],["2","DATA LINK · MAC ✓"],["1","PHYSICAL"]],"TCP/IP MODEL"]],
+   b:[["s","Data link: done! Now floor 3, where IP addresses live.",58,4,11,"b",80,"router"]]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","Same old question, Rooty: how do two computers talk?",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Same answer! Same network: switch. Different networks: router. Today we zoom in on the router.",4,4,16,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["A switch keeps a MAC table.","A router keeps a ROUTING TABLE: a list of NETWORKS","and how to reach each one."],18]],
+   b:[]}]}
+]},
+/* ===== 3 ===== */
+{title:"Networks Rooty already knows", rows:[
+ {h:280, p:[{bg:"blueprint", ch:[["router","proud",300,.48,1,200]], over:[["zone",10,40,190,150,O9,"192.168.5.0/24","HQ"],["zone",400,40,190,150,T9,"192.168.6.0/24","LINK TO REX"],["line",200,180,255,180,"#ffd23f"],["line",345,180,400,180,"#ffd23f"],["word",225,160,".5.1",16,0,"#ffd23f"],["word",375,160,".6.1",16,0,"#ffd23f"],["pc",100,160,.6,O9,".5.10"]],
+   b:[["c","Rooty's two interfaces: g0/0 gets 192.168.5.1, g0/1 gets 192.168.6.1.",2,82,30]]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","The moment you give my interface an IP and mask, I know that whole network is plugged into me!",4,3,16,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","confused",150,.6]],
+     b:[["s","And routers always get the .1?",8,5,11,"b",55,"laptop"]]}]},
+ {h:230, p:[{bg:"plain:#0e1530", ch:[["router","proud",540,.45]], over:[["cli",20,60,["R1# show ip route","C   192.168.5.0/24 is directly connected, g0/0","C   192.168.6.0/24 is directly connected, g0/1"],14]],
+   b:[["c","C = a CONNECTED route. (Routers on .1? Just a habit, not a rule.)",2,78,26]]}]}
+]},
+/* ===== 4 ===== */
+{title:"The network Rooty can't see", rows:[
+ {h:270, p:[{bg:"blueprint", ch:ROW3("worried","happy","happy",190), over:[...ROW3L(190),["zone",500,30,95,110,P9,"",""],["word",548,60,"192.168",14,0,"#fff3c4"],["word",548,80,".7.0/24",14,0,"#fff3c4"],["pc",548,130,.5,P9,""]],
+   b:[["s","192.168.7.0? It's on Ruby's side. Not connected to me, so I've never heard of it!",2,3,24,"b",22,"router"]]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["router","worried",150,.58]], fx:[["DROP!",240,190,24,8,"#e63a2e",true]],
+     b:[["s","A packet for a network NOT in my table? I can't guess. I drop it.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","So somebody has to TELL Rooty where .7.0 is!",6,4,13,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["A router only forwards to networks in its routing table.","No match (and no default route)? The packet is dropped."],18]],
+   b:[]}]}
+]},
+/* ===== 5 ===== */
+{title:"Static routes and the next hop", rows:[
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["router","proud",540,.45]], over:[["cli",20,60,["R1(config)# ip route 192.168.7.0 255.255.255.0 192.168.6.2","*            (network)    (mask)        (next hop = Rex)"],13]],
+   b:[["c","Rooty's admin types it in by hand: a STATIC route.",2,80,20]]}]},
+ {h:250, p:[{bg:"map", ch:[["van","happy",90,.4,1,230]], over:[["road",150,150,300,150],["road",300,150,450,150],["dot",300,150,"REX",null],["dot",450,150,"RUBY",null],["sign",360,30,220,60,["NEXT STOP: REX"],20,"#e63a2e"]],
+   b:[["s","Like my route sheet! It doesn't list the whole trip, just my NEXT stop.",2,3,15,"bl",10,"van"]]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Rex is my {{next hop}}: the next router toward that network. Rex worries about the rest.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["router","happy",150,.58]],
+     b:[["s","And 192.168.7.0 is directly connected to me. Easy delivery!",6,4,14,"b",55,"router"],["c","Ruby",4,82,5]]}]}
+]},
+/* ===== 6 ===== */
+{title:"Hop by hop", rows:[
+ {h:270, p:[{bg:"blueprint", ch:ROW3("proud","proud","proud",200), over:[...ROW3L(200),["envelope",225,110,.5,"→ .7.20"],["envelope",375,110,.5,"→ .7.20"],["word",225,75,"MACs: R1 → R2",13,0,"#ffd23f"],["word",375,75,"MACs: R2 → R3",13,0,"#ffd23f"]],
+   b:[["c","The IP addresses stay the same the whole trip. The MAC addresses change on every link.",2,3,32]]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","Why do the MACs change, Rooty?",8,5,11,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Each link is its own Ethernet! Every router unwraps the frame, routes the packet, and ARPs for the next MAC.",4,3,17,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Routing doesn't replace switching. It sits ON TOP of it:","Layer 3 picks the next hop, Layer 2 carries it one link."],18]],
+   b:[]}]}
+]},
+/* ===== 7 ===== */
+{title:"Three ways to learn a route", rows:[
+ {h:270, p:[{bg:"plain:#fff3c4", over:[["sign",10,30,185,170,["C","CONNECTED","you set an IP on","my interface"],22,"#2bb673"],["sign",207,30,185,170,["S","STATIC","you type it in","by hand"],22,"#1f6fd1"],["sign",404,30,185,170,["O / R / D / B","DYNAMIC","routers tell","each other"],22,"#e63a2e"]],
+   b:[]}]},
+ {h:250, p:[{bg:"blueprint", ch:[["router","happy",80,.32,1,150],["router","happy",230,.32,1,150],["router","happy",380,.32,1,150],["router","happy",530,.32,1,150]], over:[["line",110,130,200,130,"#1f6fd1"],["line",260,130,350,130,"#1f6fd1"],["line",410,130,500,130,"#1f6fd1"],["envelope",455,90,.4,""],["envelope",305,90,.4,""],["envelope",155,90,.4,""]],
+   b:[["c","Static is fine for a few routers. The internet has thousands! So routers SHARE what they know.",2,74,32]]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","'Hey, 192.168.7.0 is behind me!' Routers pass that along, router to router.",4,4,15,"b",55,"router"],["c","Ruby",4,82,5]]},
+   {bg:"rays:mint", ch:[["router","happy",150,.58]],
+     b:[["s","They need a shared language: OSPF, RIP, EIGRP, BGP, IS-IS. OSPF is next issue!",4,4,16,"b",55,"router"]]}]}
+]},
+/* ===== 8 ===== */
+{title:"Tiny links: /30", rows:[
+ {h:250, p:[{bg:"blueprint", ch:[["router","happy",150,.42],["router","happy",450,.42]], over:[["line",190,215,410,215,"#ffd23f"],["word",300,195,"10.20.20.0/30",18,0,"#ffd23f"],["word",205,240,".1",16,0,"#fff3c4"],["word",395,240,".2",16,0,"#fff3c4"]],
+   b:[["c","A link between two routers only ever needs TWO addresses.",2,3,22]]}]},
+ {h:260, p:[{bg:"blueprint", ch:[["router","proud",530,.45]], over:[["rtable",20,30,380,[[".0","network ID"],[".1","Rooty"],[".2","Rex"],[".3","broadcast"]],"/30 = 2 HOST BITS = 4 ADDRESSES"]],
+   b:[]}]},
+ {h:230, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","Why not just use a /24 there?",8,5,11,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","A /24 wastes 252 addresses on a 2-router link! Customers like frugal addressing.",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 9 ===== */
+{title:"Every router needs the map", rows:[
+ {h:270, p:[{bg:"blueprint", ch:ROW3("proud","proud","happy",200), over:[...ROW3L(200),["zone",480,24,115,110,P9,"",""],["word",538,64,"10.10.10",14,0,"#fff3c4"],["word",538,86,".0/24",14,0,"#fff3c4"],["word",225,60,"S → Rex",16,0,"#ffd23f"],["word",375,60,"S → Ruby",16,0,"#ffd23f"],["word",450,60,"C",16,0,"#2bb673"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","My route to 10.10.10.0 points at Rex. Rex's points at Ruby. Ruby has it connected.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:rose", ch:[["router","worried",150,.58]],
+     b:[["s","If I'm missing that route, the packet dies right here with me!",6,4,14,"b",55,"router"],["c","Rex",4,82,4]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,62,["Every router on the path needs a route to the destination.","And the REPLY needs routes back the other way too!"],18]],
+   b:[]}]}
+]},
+/* ===== 10 ===== */
+{title:"The default route", rows:[
+ {h:250, p:[{bg:"rays:sky", ch:[["router","worried",110,.58]], over:[["sweat",180,90,1.2]],
+   b:[["s","Google, Amazon, every website... I can't type a route for EVERY network on the internet!",30,8,22,"bl",6,"router"]]}]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["router","proud",540,.45]], over:[["cli",20,60,["R1(config)# ip route 0.0.0.0 0.0.0.0 10.20.20.2","R1# show ip route","*S*  0.0.0.0/0 [1/0] via 10.20.20.2"],14]],
+   b:[["c","0.0.0.0/0 matches EVERY address: the {{default route}}.",2,80,22]]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","That's my 'default gateway' setting in Windows! Not my network? Send it to the router.",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:mint", ch:[["router","happy",150,.58]],
+     b:[["s","Exactly! The next hop of a default route is the {{gateway of last resort}}.",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 11 ===== */
+{title:"From /0 to /32", rows:[
+ {h:270, p:[{bg:"blueprint", over:[["rtable",30,30,540,[["/0","every address on Earth"],["/24","256 addresses"],["/25","128 addresses"],["/26","64 addresses"],["/30","4 addresses"],["/32","ONE host (a host route)"]],"A ROUTE CAN BE ANY SIZE"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","So 192.168.0.0/24 and 192.168.0.0/25 are DIFFERENT routes?",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Totally different! Same start, different size. Hold that thought for two pages.",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 12 ===== */
+{title:"Three tips, one network", rows:[
+ {h:270, p:[{bg:"room", ch:[["router","confused",300,.5]], over:[["envelope",110,140,.6,""],["envelope",490,140,.6,""],["word",110,100,"CONNECTED",18,0,"#fff3c4"],["word",490,100,"STATIC + OSPF",18,0,"#fff3c4"]], fx:[["SAME ROUTE?!",300,120,22,-4,"#e63a2e",true]],
+   b:[["c","Rooty hears about 10.10.10.0/24 THREE ways: connected, static, and from OSPF.",2,3,32]]}]},
+ {h:250, p:[{bg:"blueprint", ch:[["router","proud",530,.48]], over:[["rtable",20,30,380,[["CONNECTED","AD 0","1"],["STATIC","AD 1"],["EIGRP","AD 90"],["OSPF","AD 110"],["RIP","AD 120"]],"ADMIN DISTANCE (AD): LOWER WINS"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","My own eyes beat a note from my admin. A note from my admin beats gossip from OSPF.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","And if the connected link dies, the static route steps in?",6,4,14,"b",55,"laptop"],["c","Yes!",30,82,4]]}]}
+]},
+/* ===== 13 ===== */
+{title:"AD only breaks EXACT ties", rows:[
+ {h:240, p:[{bg:"rays:lilac", ch:[["phone","confused",110,.62]],
+   b:[["s","Can the same network really show up twice, Rooty? Isn't that a mistake?",30,8,22,"bl",6,"phone"]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Often it IS a mistake: two admins, one typo! But I still have to pick ONE. AD decides.",4,4,16,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["phone","happy",150,.62]],
+     b:[["s","So spotting imperfect networks is part of the job too!",6,4,14,"b",55,"phone"]]}]},
+ {h:230, p:[{bg:"plain:#fff3c4", over:[["sign",30,30,540,150,["REMEMBER","AD only compares the SAME prefix + SAME mask.","Different masks = different routes. They ALL go in."],26,"#e63a2e"]],
+   b:[]}]}
+]},
+/* ===== 14 ===== */
+{title:"Four routes, one packet", rows:[
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["router","confused",540,.45]], over:[["cli",20,46,["S  10.10.10.0/24 via Rex","S  10.10.10.0/25 via Rex","S  10.10.10.0/26 via Rex","*S  10.10.10.0/27 via Ruby"],15]],
+   b:[["c","A packet for 10.10.10.10 arrives. It fits inside ALL four!",2,80,24]]}]},
+ {h:260, p:[{bg:"plain:#eaf6ff", over:[["zone",20,30,560,200,"#1f6fd1","/24 · 256",""],["zone",40,60,400,160,"#2bb673","/25 · 128",""],["zone",60,90,260,120,O9,"/26 · 64",""],["zone",80,120,140,80,"#e63a2e","/27 · 32",""],["word",150,186,"10.10.10.10",18,0,"#fff3c4"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","They're all correct! So which one wins, Rooty?",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","The MOST SPECIFIC one: the /27, the smallest box. Off to Ruby!",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 15 ===== */
+{title:"Longest match wins", rows:[
+ {h:270, p:[{bg:"map", ch:[["van","happy",90,.4,1,250]], over:[["envelope",230,70,.5,"TIP 1"],["envelope",360,70,.5,"TIP 2"],["envelope",490,70,.5,"TIP 3"],["sign",160,120,430,110,["1: 'Mia lives in the USA.'","2: '...in Colorado, in Denver.'","3: '...Denver, 42 Maple St, apt 3.'"],20]],
+   b:[["s","All true! Tip 3 gets me to the door.",2,74,10,"bl",10,"van"]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","More mask bits = a smaller network = more specific. /27 beats /24. That's {{longest prefix match}}!",4,3,16,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","proud",150,.6]],
+     b:[["s","And the /0 default route is the LEAST specific, so it's used only when nothing else fits!",4,4,15,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,56,["Which routes go IN the table? Same prefix + mask: lowest AD.","Different masks: ALL of them.","Which route does a PACKET use? The longest match."],17]],
+   b:[]}]}
+]},
+/* ===== 16 ===== */
+{title:"Two equal roads", rows:[
+ {h:280, p:[{bg:"blueprint", ch:[["router","proud",100,.42,1,160],["router","happy",300,.38,1,90],["router","happy",300,.38,1,262],["router","happy",500,.42,1,160]], over:[["line",140,130,270,75,"#e63a2e"],["line",330,75,460,130,"#e63a2e"],["line",140,150,270,240,"#1f6fd1"],["line",330,240,460,150,"#1f6fd1"],["word",100,195,"ROOTY",14,0,"#fff3c4"],["word",500,195,"→ 10.0.0.0/24",14,0,"#fff3c4"]],
+   b:[["c","Two static routes to 10.0.0.0/24, both AD 1: via Rex (top) and via Rio (bottom).",2,3,30]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Equal routes? I use BOTH and share the traffic. That's {{load balancing}}!",4,4,15,"b",55,"router"]]},
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","Packet 1 up top, packet 2 down below, and so on?",6,4,14,"b",55,"laptop"]]}]},
+ {h:240, p:[{bg:"plain:#fff3c4", over:[["sign",15,30,275,150,["PER PACKET","take turns,","packet by packet"],24],["sign",310,30,275,150,["PER FLOW","same source + destination","always take the same road"],22,"#e63a2e"]],
+   b:[["c","Most routers prefer per-flow: a conversation's packets stay in order.",4,82,30]]}]}
+]},
+/* ===== 17 ===== */
+{title:"The spare tire", rows:[
+ {h:240, p:[{bg:"room", ch:[["person","#c0553a",90,.9],["router","happy",480,.55]],
+   b:[["s","No sharing! The top link is 10 Gig, the bottom is 1 Gig. Use the top. Bottom ONLY if the top fails!",22,8,22,"bl",8]]}]},
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["router","proud",540,.45]], over:[["cli",20,50,["ip route 10.0.0.0 255.255.255.0 10.20.20.2","*ip route 10.0.0.0 255.255.255.0 10.30.30.2 35","S  10.0.0.0/24 [1/0] via 10.20.20.2"],13]],
+   b:[["c","The extra '35' at the end sets that route's AD to 35.",2,82,22]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","AD 1 beats 35, so only the top route goes in my table. The 35 one 'floats' in my config.",4,3,16,"b",55,"router"]]},
+   {bg:"burst:yellow", ch:[["van","happy",150,.48]], fx:[["SPARE TIRE!",150,40,22,-4,"#e63a2e",true]],
+     b:[["s","Top link dies? The {{floating static}} route drops in!",6,40,14,null,null,"van"]]}]}
+]},
+/* ===== 18 ===== */
+{title:"Finally: VLANs that talk", rows:[
+ {h:250, p:[{bg:"room", ch:[["switch","proud",300,.45]], over:[["zone",10,40,180,150,O9,"VLAN 10","10.0.10.0/24"],["zone",410,40,180,150,T9,"VLAN 20","10.0.20.0/24"],["pc",100,170,.6,O9,".10"],["pc",500,170,.6,T9,".10"]],
+   b:[["c","Remember Sid's VLANs? Different VLANs = different networks.",24,3,22]]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","VLANs were never meant to stop teams talking, right? Just to keep broadcasts small?",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Exactly! Talking ACROSS networks is my job. That's {{inter-VLAN routing}}.",4,4,15,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["10.0.10.10 wants 10.0.20.10. Not my network,","so it goes to my default gateway: the router."],19]],
+   b:[]}]}
+]},
+/* ===== 19 ===== */
+{title:"Option 1: a port per VLAN", rows:[
+ {h:280, p:[{bg:"blueprint", ch:[["router","proud",300,.42,1,90],["switch","happy",300,.45,1,262]], over:[["line",270,100,250,215,O9],["line",300,100,300,215,T9],["line",330,100,350,215,P9],["word",180,140,"g0/0 · 10.0.10.1",14,0,"#fff3c4"],["word",420,140,"g0/2 · 10.0.30.1",14,0,"#fff3c4"]],
+   b:[["c","One router interface per VLAN. Each gets the first IP of its VLAN: that's the PCs' gateway.",2,3,32]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["laptop","happy",150,.6]], over:[["envelope",230,80,.45,"ARP"]],
+     b:[["s","I ARP for my gateway, 10.0.10.1, send the packet to Rooty...",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:mint", ch:[["router","proud",150,.58]],
+     b:[["s","...I see 10.0.20.10 is connected on g0/1, and send it down. Done!",4,4,15,"b",55,"router"]]}]},
+ {h:230, p:[
+   {bg:"rays:rose", ch:[["router","worried",150,.58]], over:[["sweat",220,110,1.2]],
+     b:[["s","But 20 VLANs = 20 of my ports! Router ports are EXPENSIVE.",6,4,14,"b",55,"router"]]},
+   {bg:"rays:lilac", ch:[["switch","proud",150,.55]],
+     b:[["s","Sounds like the cable spaghetti problem again...",6,4,14,"b",50,"switch"]]}]}
+]},
+/* ===== 20 ===== */
+{title:"Option 2: router-on-a-stick", rows:[
+ {h:280, p:[{bg:"blueprint", ch:[["router","proud",300,.42,1,90],["switch","happy",300,.45,1,262]], over:[["line",300,100,300,215,"#e63a2e"],["segbox",250,165,.45,"10",O9],["segbox",350,165,.45,"20",T9],["word",450,150,"ONE TRUNK",16,0,"#ffd23f"]],
+   b:[["c","One cable, one trunk, carrying every VLAN with 802.1Q tags.",2,3,24]]}]},
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["router","proud",540,.45]], over:[["cli",20,40,["R1(config)# interface g0/1.10","*R1(config-subif)# encapsulation dot1Q 10","R1(config-subif)# ip address 10.0.10.1 255.255.255.0","R1(config)# interface g0/1.20","*R1(config-subif)# encapsulation dot1Q 20","R1(config-subif)# ip address 10.0.20.1 255.255.255.0"],12]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","One real port, split into {{subinterfaces}}. Frame tagged 10? It belongs to g0/1.10!",4,4,15,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","And it looks like a router stuck on a stick. Ha!",6,4,13,"b",55,"laptop"]]}]}
+]},
+/* ===== 21 ===== */
+{title:"Option 3: the Layer 3 switch", rows:[
+ {h:250, p:[{bg:"burst:blue", ch:[["switch","proud",150,.5]], fx:[["POWER UP!",420,90,26,-6,"#ffd23f",true]],
+   b:[["s","What if I could route, too?",6,4,10,"b",50,"switch"],["c","Most modern switches CAN. You just switch it on.",50,74,18]]}]},
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["switch","proud",540,.45]], over:[["cli",20,46,["*SID(config)# ip routing","SID(config)# interface vlan 10","SID(config-if)# ip address 10.0.10.1 255.255.255.0","SID(config)# interface vlan 20","SID(config-if)# ip address 10.0.20.1 255.255.255.0"],13]],
+   b:[["c","'interface vlan 10' is an {{SVI}}: a Switched Virtual Interface.",2,82,26]]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","The PCs' gateway is now MY SVI. I route between VLANs inside myself!",4,3,15,"b",50,"switch"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","Sid has a routing table now? Whoa.",8,5,11,"b",55,"laptop"]]}]}
+]},
+/* ===== 22 ===== */
+{title:"So why keep routers?", rows:[
+ {h:240, p:[{bg:"rays:lilac", ch:[["phone","confused",110,.62]],
+   b:[["s","If Sid can route, why do we even need you, Rooty?",30,10,18,"bl",6,"phone"]]}]},
+ {h:260, p:[{bg:"blueprint", ch:[["router","proud",530,.48]], over:[["sign",20,30,430,170,["WHERE ROUTERS SHINE","many kinds of interfaces: fiber, WAN, cellular","huge internet routing tables (close to a million routes)","the edge between your office and the world"],20]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","I route INSIDE the building. Rooty connects the building to everything else.",4,3,15,"b",50,"switch"]]},
+   {bg:"rays:mint", ch:[["router","happy",150,.58]],
+     b:[["s","Different jobs, Fonz. Data centers do use switches that route almost everything, though!",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 23 ===== */
+{title:"Design time: a small office", rows:[
+ {h:260, p:[{bg:"street", ch:[["person","#2f6f5e",110,.9],["laptop","happy",480,.55]], over:[["sign",190,24,220,40,["MAPLE DENTAL"],20,"#2f6f5e"]],
+   b:[["s","18 staff, a front desk, and patients asking for Wi-Fi. Keep patient data safe from guests!",26,30,20,"bl",6],["s","A SOHO job!",76,40,5,"b",50,"laptop"]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","SOHO = Small Office / Home Office. Small, but the same building blocks!",4,4,15,"b",55,"router"]]},
+   {bg:"rays:lilac", ch:[["laptop","proud",150,.6]],
+     b:[["s","Separate staff and guests... that's VLANs! Then routing between them.",6,4,14,"b",55,"laptop"]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,62,["Listen first: who needs separating, how many people,","what's growing? Then pick the building blocks."],18]],
+   b:[]}]}
+]},
+/* ===== 24 ===== */
+{title:"Lappy's SOHO design", rows:[
+ {h:320, p:[{bg:"blueprint", ch:[["modem","happy",90,.4,1,90],["router","proud",300,.4,1,90],["switch","happy",300,.42,1,215]], over:[["line",130,70,265,70,"#ffd23f"],["line",300,100,300,170,"#e63a2e"],["pc",120,300,.5,O9,"STAFF"],["pc",240,300,.5,T9,"FRONT"],["pc",360,300,.5,P9,"GUEST"],["line",280,225,140,250,O9],["line",300,225,250,250,T9],["line",320,225,360,250,P9],["rtable",400,180,190,[["VLAN 10","STAFF"],["VLAN 20","FRONT"],["VLAN 30","GUEST"]],"VLANS"],["word",90,40,"ISP",16,0,"#fff3c4"],["word",450,90,"router-on-a-stick",14,0,"#fff3c4"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","One default route from me to the ISP, and every VLAN can reach the internet.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["switch","proud",150,.55]],
+     b:[["s","One switch, three VLANs, one trunk up to Rooty. Simple and cheap!",4,3,15,"b",50,"switch"]]}]},
+ {h:200, p:[{bg:"chalk", over:[["chalktext",30,56,["Guests can reach the internet, but not staff PCs?","That's a filtering rule on Rooty: coming in a later issue!"],17]],
+   b:[]}]}
+]},
+/* ===== 25 ===== */
+{title:"Your turn", rows:[
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["router","happy",530,.48]], over:[["sign",20,30,410,90,["LAB 1","3 routers in a row · static routes both ways","ping end to end · show ip route"],20],["sign",20,140,410,90,["LAB 2","2 VLANs · router-on-a-stick","then try it again with SVIs"],20]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["laptop","worried",150,.6]],
+     b:[["s","My ping fails one way but not the other!",8,5,12,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Check the RETURN route. Every router needs a path there AND back!",4,4,15,"b",55,"router"]]}]},
+ {h:240, p:[{bg:"burst:blue", ch:[["router","happy",150,.42],["router","happy",300,.42],["router","happy",450,.42]],
+   b:[["c","To be continued: routers that learn on their own with OSPF!",4,4,22]]}]}
+]}
+];
+const ISSUE_I = {no:"9", cover:COVER8, t:"Why routing?", b:"How routers find their way: routing tables, static and default routes, AD and longest match, and how VLANs finally talk.", m:25, star:"router", part:1, pages:PAGES8,
+ take:"A router forwards packets between networks using its routing table, a list of networks and how to reach them. It learns routes three ways: connected (an IP on its interface, code C), static (typed in, code S, with a next hop) and dynamic (routing protocols like OSPF, RIP, EIGRP, BGP). No matching route and no default route means the packet is dropped. Every router on the path, and the return path, needs a route. A default route (0.0.0.0/0) catches everything else; its next hop is the gateway of last resort. Point-to-point links often use /30 (two usable addresses). If the exact same prefix and mask arrive from several sources, the lowest administrative distance wins (connected 0, static 1, EIGRP 90, OSPF 110, RIP 120). Different masks are different routes and all go in; a packet uses the longest (most specific) match. Equal routes share traffic (load balancing, usually per flow), and a floating static route with a higher AD waits as a backup. VLANs talk through a Layer 3 device: one router port per VLAN, router-on-a-stick with dot1Q subinterfaces over a trunk, or a Layer 3 switch with SVIs.",
+ tip:"In Packet Tracer: chain three routers with /30 links and put a PC network on each end. Add static routes in BOTH directions until the end-to-end ping works, then check show ip route for C and S entries. Bonus: add a second path and make it a floating static route with AD 35.",
+ q:{q:"Rooty has 10.10.10.0/24 via Rex and 10.10.10.0/27 via Ruby. A packet arrives for 10.10.10.10. Where does it go?",o:["To Ruby: the /27 is the longest (most specific) match","To Rex: the /24 was learned first","It's dropped, because the routes conflict"],why:"Both routes are in the table because their masks differ. The packet matches both, and the router picks the longest prefix match: the /27 via Ruby."}};
+
+ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
 ISSUE_E.part = 1; ISSUE_E.free = true;
 ISSUE_F.part = 1; ISSUE_F.free = true;
 ISSUE_G.part = 1; ISSUE_G.free = true;
-LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G);
-COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover);
+ISSUE_H.part = 1; ISSUE_H.free = true;
+ISSUE_I.part = 1; ISSUE_I.free = true;
+LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I);
+COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
@@ -4283,7 +4923,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 7 issues are free, forever</li>
+          <li><i>\u2713</i>The first 9 issues are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>

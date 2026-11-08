@@ -153,7 +153,7 @@ returns boolean
 language sql
 immutable
 set search_path = ''
-as $$ select p_lesson in (13, 14, 15, 16, 17, 18, 19) $$;
+as $$ select p_lesson in (13, 14, 15, 16, 17, 18, 19, 20, 21) $$;
 
 -- Record lesson progress for the signed-in learner.
 -- p_action: 'opened' | 'quiz_wrong' | 'quiz_passed' | 'completed'
