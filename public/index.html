@@ -1,6 +1,6 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <title>NetFixLab: learn home networking from a comic</title>
-<meta name="description" content="Beginner networking course taught through comics. Learn how your home network works and fix common problems yourself. First 6 lessons free.">
+<meta name="description" content="Beginner networking course taught through comics. Learn how your home network works and fix common problems yourself. First 7 lessons free.">
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "z3p5rr8io8");</script>
 <link rel="canonical" href="https://netfixlab.tech/">
 <meta name="google-site-verification" content="vXRz-6HjxXS-JCcw0DvwtxWJO3lzsg-fntcgCbN_eOA" />
@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 6 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 7 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 teaches a calm routine for the problems you will really meet at home.</li>
-            <li>The first six issues are free. One payment opens the rest.</li>
+            <li>The first seven issues are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -584,7 +584,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
       <article class="plan">
         <h3>Free preview</h3>
         <p class="price">Free</p>
-        <ul><li>Issues 1 to 6: why networks exist, the TCP/IP model, IP addresses and subnetting, routers and switches, the packet walk, VLANs</li><li>Comics, takeaways and quizzes included</li><li>No sign-up needed to read</li></ul>
+        <ul><li>Issues 1 to 7: why networks exist, the TCP/IP model, IP addresses and subnetting, routers and switches, the packet walk, VLANs, trunks</li><li>Comics, takeaways and quizzes included</li><li>No sign-up needed to read</li></ul>
         <button class="btn alt" data-open="1">Start issue 1</button>
       </article>
       <article class="plan featured">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first six lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first seven lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first six lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first seven lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole troubleshooting part, including ping</li><li>Fix slow Wi-Fi and “connected, but no internet”</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -3656,13 +3656,332 @@ const ISSUE_F = {no:"6", cover:COVER5, t:"Why VLANs?", b:"Inside an Ethernet fra
  tip:"In Packet Tracer, put 4 PCs on one switch. Make VLAN 10 (fa0/1-2) and VLAN 20 (fa0/3-4), run show vlan brief, then ping. Inside a VLAN: replies. Across VLANs (using a different subnet each): no replies until you add a router.",
  q:{q:"S1 is on an access port in VLAN 10. It sends an ARP request to FF:FF:FF:FF:FF:FF. Which ports does the switch send it out of?",o:["Every other port in VLAN 10","Every port on the switch","Only the router's port"],why:"A VLAN is a broadcast domain. The switch floods the broadcast, but only to the other ports in the same VLAN, never back out the port it came in on."}};
 
-ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18;
+/* ---------- Issue: Why trunks? (original NetFixLab chapter) ---------- */
+Object.assign(PROPS, {
+  deskphone:(x,y,s,col)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><path d="M-44 0 L-36 -46 H36 L44 0 Z" fill="#3c4d72" ${sk(3)}/><rect x="-28" y="-40" width="34" height="20" rx="2" fill="#bfe6ff" ${sk(2)}/>${[0,1,2].map(r=>[0,1,2].map(c=>`<rect x="${10+c*9}" y="${-40+r*9}" width="6" height="6" fill="#fff3c4"/>`).join("")).join("")}<path d="M-46 -48 Q-46 -62 -30 -62 H30 Q46 -62 46 -48 L40 -44 H24 L20 -52 H-20 L-24 -44 H-40 Z" fill="${col||"#2b3350"}" ${sk(3)}/></g>`,
+  line:(x1,y1,x2,y2,col)=>`<path d="M${x1} ${y1} L${x2} ${y2}" stroke="${INK}" stroke-width="11" stroke-linecap="round"/><path d="M${x1} ${y1} L${x2} ${y2}" stroke="${col||"#1f6fd1"}" stroke-width="6" stroke-linecap="round"/>`,
+  tri:(pts,col)=>`<path d="M${pts[0][0]} ${pts[0][1]} L${pts[1][0]} ${pts[1][1]} L${pts[2][0]} ${pts[2][1]} Z" fill="none" stroke="${INK}" stroke-width="10" stroke-linejoin="round"/><path d="M${pts[0][0]} ${pts[0][1]} L${pts[1][0]} ${pts[1][1]} L${pts[2][0]} ${pts[2][1]} Z" fill="none" stroke="${col||"#1f6fd1"}" stroke-width="6" stroke-linejoin="round"/>`
+});
+const COVER6 = {l:["ONE","CABLE,","MANY VLANS"], t:["TRUNKS, TAGS AND","SWITCHES THAT LOOP"], s:"red", a:"switch", b:"router", ma:"proud", mb:"happy", sfx:"TAG IT!"};
+const O7 = "#f08a24", T7 = "#1aa59a", P7 = "#8e5bd8";
+const QFRAME = [["DEST MAC","6 B",86,"#9a7bff"],["SRC MAC","6 B",86,"#c9b6f2"],["802.1Q TAG","4 B",110,"#e63a2e"],["TYPE","2 B",56,"#ffd23f"],["DATA","46–1500 B",150,"#8fdcc0"],["FCS","4 B",56,"#f5958a"]];
+const PAGES6 = [
+/* ===== 1 ===== */
+{title:"Bright Trail grows", rows:[
+ {h:250, p:[{bg:"room", ch:[["person","#c0553a",90,.9],["switch","shock",470,.55]], fx:[["24 PORTS?!",470,70,22,6,"#ffd23f",true]],
+   b:[["c","Two months later, Bright Trail Studio is booming.",2,3,15],["s","We're hiring 20 more in Sales and 20 more in Design. They'll sit on the new second floor!",22,26,15,"bl",8]]}]},
+ {h:250, p:[
+   {bg:"hub", ch:[["switch","worried",150,.55]], over:[["sweat",220,110,1.2]],
+     b:[["s","Maya, I only have 24 ports, and most are full!",6,4,13,"b",55,"switch"]]},
+   {bg:"chalk", over:[["chalktext",22,50,["TODAY:","1. VLANs on two switches","2. Trunks and 802.1Q tags","3. Native and voice VLANs","4. Designing for a customer","5. When switches LOOP"],16]],
+     b:[]}]},
+ {h:240, p:[{bg:"rays:mint", ch:[["router","proud",90,.58],["laptop","happy",500,.55]],
+   b:[["s","Easy fix, Sid: a second switch upstairs. The interesting part is making you two work together.",16,4,18,"bl",8,"router"],["s","A new switch? Does it have a name?",60,52,9,"b",70,"laptop"]]}]}
+]},
+/* ===== 2 ===== */
+{title:"Meet Patch", rows:[
+ {h:250, p:[{bg:"street", ch:[["switch","happy",130,.5],["switch","proud",470,.5]], over:[["word",130,40,"FLOOR 1",18,0,"#fff3c4"],["word",470,40,"FLOOR 2",18,0,"#fff3c4"]],
+   b:[["s","Hey Sid! I'm Patch, from upstairs.",56,56,9,"b",60,"switch"],["s","Welcome, Patch!",8,56,6,"b",50,"switch"]]}]},
+ {h:270, p:[{bg:"plain:#eaf6ff", over:[["zone",10,30,280,190,O7,"VLAN 10 · SALES","172.16.10.0/24"],["zone",310,30,280,190,T7,"VLAN 20 · DESIGN","172.16.20.0/24"],["pc",60,160,.6,O7,".11"],["pc",130,160,.6,O7,".12"],["pc",200,160,.6,O7,".40"],["pc",250,160,.6,O7,".41"],["pc",360,160,.6,T7,".11"],["pc",430,160,.6,T7,".12"],["pc",500,160,.6,T7,".40"],["pc",550,160,.6,T7,".41"]],
+   b:[["c","Same VLANs on BOTH switches. Same subnets too: .11 and .12 sit on floor 1, .40 and .41 on floor 2.",2,84,34]]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","Do the PCs need to know which VLAN they're in, Sid?",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","Nope! They just plug in. VLANs are the network team's job, not the user's.",4,3,15,"b",50,"switch"]]}]}
+]},
+/* ===== 3 ===== */
+{title:"One cable per VLAN", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["switch","happy",120,.48],["switch","happy",480,.48]], over:[["cable",190,150,410,150,O7],["cable",190,210,410,210,T7],["word",300,128,"Gi0/23 ↔ Gi0/23 · VLAN 10",14,0,"#fff3c4"],["word",300,190,"Gi0/24 ↔ Gi0/24 · VLAN 20",14,0,"#fff3c4"]],
+   b:[["c","First try: two cables between Sid and Patch. Each end is an access port in one VLAN.",2,3,30]]}]},
+ {h:260, p:[{bg:"hub", ch:[["laptop","happy",70,.42],["switch","proud",230,.42],["switch","proud",400,.42],["laptop","happy",550,.42]], over:[["envelope",70,70,.5,"ARP"],["cable",290,210,340,210,O7],["word",70,140,"S1 · .11",18,0,"#fff3c4"],["word",550,140,"S7 · .40",18,0,"#fff3c4"]], fx:[["WHO HAS .40?",300,60,18,-4,"#e63a2e",true]],
+   b:[["c","S1 shouts an ARP. Sid floods it to his VLAN 10 ports, and the orange cable is one of them.",14,80,28]]}]},
+ {h:230, p:[
+   {bg:"rays:sky", ch:[["switch","proud",150,.55]],
+     b:[["s","It arrives on my VLAN 10 port, so I flood it to my VLAN 10 ports only.",4,3,15,"b",50,"switch"],["c","Patch",4,82,5]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]], fx:[["ME!",240,190,26,8,"#e63a2e",true]],
+     b:[["s","S7 here: that's my IP! Replying.",6,5,13,"b",55,"laptop"]]}]}
+]},
+/* ===== 4 ===== */
+{title:"Two switches, two tables", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["switch","proud",300,.42,1,262]], over:[["rtable",15,30,270,[["AA","Fa0/1"],["BB","Gi0/23"]],"SID'S MAC TABLE"],["rtable",315,30,270,[["AA","Gi0/23"],["BB","Fa0/5"]],"PATCH'S MAC TABLE"]],
+   b:[["c","S1 is AA, S7 is BB. Each switch learns from the SOURCE MAC of every frame, just like before.",2,62,30]]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["switch","happy",150,.55]],
+     b:[["s","To me, BB lives 'out Gi0/23'. I don't care what's past it!",4,3,15,"b",50,"switch"]]},
+   {bg:"rays:mint", ch:[["router","proud",150,.58]],
+     b:[["s","Nothing new here, Lappy. Same learning, just over two switches.",4,4,15,"b",55,"router"]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,62,["VLAN 10 now stretches across two switches.","Bigger company, same broadcast domain,","same subnet, same rules."],18]],
+   b:[]}]}
+]},
+/* ===== 5 ===== */
+{title:"Cable spaghetti", rows:[
+ {h:250, p:[{bg:"room", ch:[["person","#c0553a",90,.9],["switch","shock",470,.55]],
+   b:[["s","Next year we'll have 25 teams. 25 VLANs!",22,6,12,"bl",8]]}]},
+ {h:270, p:[{bg:"burst:red", ch:[["switch","worried",90,.45],["switch","worried",510,.45]], over:[...Array.from({length:9},(_,i)=>["cable",160,90+i*16,440,100+i*15,[O7,T7,P7,"#2bb673","#1f6fd1"][i%5]])], fx:[["TANGLE!",300,50,30,-4,"#ffd23f",true]],
+   b:[["c","One cable per VLAN means 25 cables, and 25 ports gone on EACH switch.",14,82,26]]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["laptop","worried",150,.6]], over:[["sweat",215,100,1.2]],
+     b:[["s","It works. But half of Patch's 48 ports would just talk to Sid!",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Not efficient. Could ONE cable carry ALL the VLANs?",8,5,13,"b",55,"router"]]}]}
+]},
+/* ===== 6 ===== */
+{title:"Put the brains in the frame", rows:[
+ {h:260, p:[{bg:"hub", over:[["conveyor",20,190,560],["segbox",110,190,.8,"VLAN 10",O7],["segbox",250,190,.8,"VLAN 20",T7],["segbox",390,190,.8,"VLAN 10",O7],["segbox",530,190,.8,"VLAN 30",P7]],
+   b:[["c","Think of an airport belt: every bag rides the SAME belt, but each one wears a tag saying where it belongs.",2,3,34]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","So before a frame goes onto the shared cable, I stick a tag on it: 'I'm VLAN 10!'",4,3,15,"b",50,"switch"]]},
+   {bg:"rays:mint", ch:[["switch","happy",150,.55]], fx:[["GOT IT!",240,190,22,8,"#e63a2e",true]],
+     b:[["s","And I read the tag, Sid, and keep it inside VLAN 10 on my side!",4,3,15,"b",50,"switch"],["c","Patch",4,82,5]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,62,["Don't make the LINK smarter.","Make the FRAME smarter: label it.","That label is called a TAG."],19]],
+   b:[]}]}
+]},
+/* ===== 7 ===== */
+{title:"802.1Q: the tag rulebook", rows:[
+ {h:250, p:[{bg:"office:2", over:[["fbar",10,90,QFRAME]],
+   b:[["c","The {{802.1Q}} standard (people say 'dot1q') slips a 4-byte tag in right after the source MAC.",2,3,30],["c","The frame grows by 4 bytes.",44,72,9]]}]},
+ {h:260, p:[{bg:"blueprint", over:[["bitrow",96,40,"000000001010",0,34],["sign",30,110,540,110,["12 OF THE TAG'S 32 BITS = THE VLAN ID","2¹² = 4,096 values","usable VLANs: 1 to 4094"],22]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","Same 12 bits as last time! So that's where the 4,094 VLAN limit comes from?",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Exactly, Lappy. 4,094 VLANs is plenty for most companies.",6,4,14,"b",55,"router"]]}]}
+]},
+/* ===== 8 ===== */
+{title:"Access port vs trunk port", rows:[
+ {h:260, p:[{bg:"plain:#fff3c4", over:[["sign",15,30,275,170,["ACCESS PORT","goes to ONE device","ONE VLAN","frames are NOT tagged"],28,O7],["sign",310,30,275,170,["TRUNK PORT","goes to a switch","MANY VLANs","frames ARE tagged"],28,"#e63a2e"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sky", ch:[["laptop","confused",150,.6]],
+     b:[["s","So does MY network card ever see a tag, Sid?",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","Never! I add the tag going onto the trunk. Patch removes it before the PC gets it.",4,3,15,"b",50,"switch"]]}]},
+ {h:240, p:[{bg:"blueprint", ch:[["switch","happy",120,.45],["switch","happy",480,.45]], over:[["cable",190,180,410,180,"#e63a2e"],["segbox",270,150,.55,"10",O7],["segbox",360,150,.55,"20",T7],["word",300,215,"ONE TRUNK: Gi0/24 ↔ Gi0/24",14,0,"#fff3c4"]],
+   b:[["c","The spaghetti is gone: one trunk carries every VLAN.",14,3,22]]}]}
+]},
+/* ===== 9 ===== */
+{title:"Follow a tagged frame", rows:[
+ {h:260, p:[{bg:"hub", ch:[["laptop","happy",60,.4],["switch","proud",200,.42],["switch","proud",400,.42],["laptop","happy",550,.4]], over:[["cable",255,210,345,210,"#e63a2e"],["envelope",60,70,.45,"ARP"],["segbox",300,170,.5,"10",O7]],
+   b:[["c","1. S1's ARP enters Sid on a VLAN 10 access port. No tag yet.",2,3,16],["c","2. Sid tags it '10' and sends it over the trunk.",58,3,15]]}]},
+ {h:250, p:[
+   {bg:"rays:mint", ch:[["switch","proud",150,.55]],
+     b:[["s","3. I read '10', strip the tag, and flood ONLY my VLAN 10 ports. Design never hears it.",4,3,16,"b",50,"switch"],["c","Patch",4,82,5]]},
+   {bg:"rays:sun", ch:[["laptop","happy",150,.6]], over:[["hearts",230,80,1]],
+     b:[["s","4. S7: a normal ARP for me. I reply!",6,5,13,"b",55,"laptop"]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,62,["Broadcast? Flood it, but only inside the tagged VLAN.","Unicast? Send it to the one port the MAC table says,","again only inside that VLAN."],17]],
+   b:[]}]}
+]},
+/* ===== 10 ===== */
+{title:"The third column", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["switch","proud",530,.48]], over:[["rtable",20,30,380,[["VLAN 10 · AA","Fa0/1"],["VLAN 10 · BB","Gi0/24"],["VLAN 20 · CC","Fa0/3"],["VLAN 20 · DD","Gi0/24"]],"SID'S MAC TABLE: VLAN · MAC → PORT"]],
+   b:[["s","Remember the 'Vlan' column, Lappy? Now it matters!",64,4,11,"b",70,"switch"]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","A frame tagged VLAN 20 looking for BB? I only search my VLAN 20 rows.",4,3,15,"b",50,"switch"]]},
+   {bg:"rays:rose", ch:[["laptop","shock",150,.6]], fx:[["NOT FOUND!",150,40,22,-4,"#ffd23f",true]],
+     b:[["s","BB is only in VLAN 10... so it's an UNKNOWN unicast in VLAN 20?",4,34,15,"b",55,"laptop"]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,62,["Right! Sid floods it, but only to VLAN 20 ports.","The VLAN decides which rows a switch even looks at.","It all starts the same way: learning from ARP and other frames."],17]],
+   b:[]}]}
+]},
+/* ===== 11 ===== */
+{title:"Can VLANs talk over a trunk?", rows:[
+ {h:240, p:[{bg:"rays:sky", ch:[["phone","confused",110,.62]],
+   b:[["s","Hey Rooty! Now the trunk carries VLAN 10 AND 20. Can Sales finally talk to Design over it?",30,6,22,"bl",6,"phone"]]}]},
+ {h:270, p:[{bg:"blueprint", ch:[["router","proud",300,.5,1,140]], over:[["zone",10,165,250,80,O7,"VLAN 10","172.16.10.0/24"],["zone",340,165,250,80,T7,"VLAN 20","172.16.20.0/24"],["arrow",255,130,175,162,"#ffd23f"],["arrow",345,130,425,162,"#ffd23f"],["word",135,235,"gateway .10.1",15,0,"#fff3c4"],["word",465,235,"gateway .20.1",15,0,"#fff3c4"]],
+   b:[["s","Nope, Fonz! A trunk CARRIES VLANs, it doesn't CONNECT them. Different VLANs are different networks, so they need me.",2,3,34,"b",50,"router"]]}]},
+ {h:240, p:[
+   {bg:"rays:mint", ch:[["laptop","confused",150,.6]],
+     b:[["s","Rooty, do you need one cable per VLAN too?",8,5,13,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","happy",150,.58]],
+     b:[["s","I can use a trunk as well! It's called {{router-on-a-stick}}. Its own issue soon.",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 12 ===== */
+{title:"VLAN or subnet?", rows:[
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["phone","confused",150,.64]],
+     b:[["s","Wait, Rooty. What's the difference between a VLAN and a subnet?",6,4,14,"b",55,"phone"]]},
+   {bg:"plain:#fff3c4", over:[["sign",15,30,270,80,["SUBNET","floor 3: IP addresses"],24],["sign",15,130,270,80,["VLAN","floor 2: broadcast domain"],24,"#e63a2e"]],
+     b:[]}]},
+ {h:270, p:[{bg:"blueprint", ch:[["router","proud",540,.45]], over:[["sign",20,20,440,40,["172.16.40.0/24 → FOUR /26s"],20],["rtable",20,80,440,[["HR · 172.16.40.0/26","VLAN 40"],["SALES · 172.16.40.64/26","VLAN 50"],["MARKETING · .128/26","VLAN 60"],["ENGINEERING · .192/26","VLAN 70"]],"ONE SUBNET PER VLAN"]],
+   b:[]}]},
+ {h:240, p:[{bg:"rays:sun", ch:[["router","proud",90,.55],["phone","happy",500,.55]],
+   b:[["s","Each team can sit on ANY floor. Its VLAN follows it over the trunks, and its subnet comes along.",18,4,22,"bl",8,"router"],["s","VLAN = who hears my shouts. Subnet = my IP neighborhood!",56,54,12,"b",70,"phone"]]}]}
+]},
+/* ===== 13 ===== */
+{title:"A frame with no tag?", rows:[
+ {h:250, p:[{bg:"blueprint", ch:[["switch","confused",470,.5]], over:[["cable",40,180,380,180,"#e63a2e"],["envelope",200,150,.55,"NO TAG"]], fx:[["???",470,60,28,6,"#ffd23f",true]],
+   b:[["s","A frame on my trunk with NO tag. Which VLAN does it go in?!",4,4,15,"bl",80,"switch"],["c","Patch",72,84,5]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","Into the {{native VLAN}}! Untagged frames on a trunk belong to it. By default that's VLAN 1.",4,3,16,"b",50,"switch"]]},
+   {bg:"rays:mint", ch:[["laptop","confused",150,.6]],
+     b:[["s","VLAN 1, like the 'Vlan 1' in my very first MAC table?",6,4,14,"b",55,"laptop"]]}]},
+ {h:240, p:[{bg:"plain:#fff3c4", over:[["sign",20,24,560,150,["NATIVE VLAN RULES","Every port starts in VLAN 1 (the default)","Native VLAN = 1 unless you change it (say, to 99)","It MUST match on both ends of the trunk!"],26,"#e63a2e"]],
+   b:[["c","Mismatch? Untagged frames land in the WRONG VLAN.",4,84,22]]}]}
+]},
+/* ===== 14 ===== */
+{title:"The phone on every desk", rows:[
+ {h:260, p:[{bg:"room", ch:[["laptop","happy",110,.5,1,206],["switch","proud",510,.45]], over:[["desk",30,210,400],["deskphone",300,200,1.2],["cable",160,195,250,190,"#9aa3b5"],["cable",350,190,450,226,"#1f6fd1"]],
+   b:[["c","Each new desk gets a laptop AND a desk phone that sends calls over the network.",2,3,26]]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","Two devices, ONE wall jack? How, Sid?",8,5,12,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","The phone has a tiny switch inside! The PC plugs into the phone, the phone plugs into me.",4,3,16,"b",50,"switch"]]}]},
+ {h:240, p:[{bg:"chalk", over:[["chalktext",30,62,["On the wire it's all 1s and 0s. But voice is different:","a late email is fine, a late VOICE packet = a choppy call.","So voice gets its own VLAN, and extra priority."],17]],
+   b:[]}]}
+]},
+/* ===== 15 ===== */
+{title:"The voice VLAN", rows:[
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["switch","proud",530,.48]], over:[["cli",20,46,["SID(config)# interface fa0/7","SID(config-if)# switchport mode access","SID(config-if)# switchport access vlan 10","*SID(config-if)# switchport voice vlan 30"],15]],
+   b:[["c","One port, two VLANs: data in 10, voice in 30.",2,80,18]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","The PC's frames stay untagged in VLAN 10. The phone tags its own frames with VLAN 30.",4,3,16,"b",50,"switch"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","And voice in VLAN 30 can get priority. Nice!",8,5,13,"b",55,"laptop"]]}]},
+ {h:230, p:[{bg:"rays:sky", ch:[["router","proud",90,.55]],
+   b:[["s","Giving traffic priority is called {{QoS}}, Quality of Service. That's a whole topic for later!",22,8,24,"bl",8,"router"]]}]}
+]},
+/* ===== 16 ===== */
+{title:"Lappy's first customer", rows:[
+ {h:260, p:[{bg:"street", ch:[["person","#2f6f5e",110,.9],["laptop","happy",480,.55]], over:[["sign",190,24,220,40,["PINE RIDGE INN"],20,"#2f6f5e"]],
+   b:[["s","I'm Rosa. My front desk, kitchen and office are on three floors. Keep them apart, and let guests get online. Can you?",24,30,20,"bl",6],["s","Let me brainstorm and come back to you!",72,28,8,"b",50,"laptop"]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Customers speak in problems, Lappy, not in VLANs. Your job is to translate.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","So I shouldn't tell Rosa about 802.1Q tags?",8,5,13,"b",55,"laptop"]]}]},
+ {h:240, p:[{bg:"rays:mint", ch:[["router","happy",110,.55]],
+   b:[["s","Only if she asks! Listen for the real needs: who must be separated, where people sit, what's growing.",30,8,24,"bl",6,"router"]]}]}
+]},
+/* ===== 17 ===== */
+{title:"Lappy's design", rows:[
+ {h:300, p:[{bg:"blueprint", ch:[["switch","happy",470,.32,1,95],["switch","happy",470,.32,1,180],["switch","happy",470,.32,1,265]], over:[["rtable",20,20,330,[["VLAN 10","FRONT DESK"],["VLAN 20","KITCHEN"],["VLAN 30","OFFICE"],["VLAN 40","GUEST WI-FI"]],"PINE RIDGE VLAN PLAN"],["line",470,95,470,150,"#e63a2e"],["line",470,180,470,235,"#e63a2e"],["word",400,85,"FLOOR 3",14,0,"#fff3c4"],["word",400,170,"FLOOR 2",14,0,"#fff3c4"],["word",400,255,"FLOOR 1",14,0,"#fff3c4"]],
+   b:[["c","One switch per floor, the SAME four VLANs on each, and 802.1Q trunks (red) between them.",2,62,24]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","A kitchen tablet on floor 3? Still VLAN 20. Still separate!",6,4,14,"b",55,"laptop"]]},
+   {bg:"burst:yellow", ch:[["person","#2f6f5e",150,.8]], fx:[["DEAL!",230,70,30,8,"#e63a2e",true]],
+     b:[["s","That's exactly what I wanted!",6,40,10]]}]}
+]},
+/* ===== 18 ===== */
+{title:"The bigger picture", rows:[
+ {h:300, p:[{bg:"blueprint", ch:[["switch","proud",300,.36,1,90],["switch","happy",90,.3,1,190],["switch","happy",230,.3,1,190],["switch","happy",370,.3,1,190],["switch","happy",510,.3,1,190]], over:[["line",280,80,100,170,"#e63a2e"],["line",295,80,230,170,"#e63a2e"],["line",305,80,370,170,"#e63a2e"],["line",320,80,510,170,"#e63a2e"],["word",440,60,"DISTRIBUTION",16,0,"#fff3c4"],["word",160,225,"BUILDING 1 · ACCESS",14,0,"#fff3c4"],["word",440,225,"BUILDING 2 · ACCESS",14,0,"#fff3c4"],["pc",60,280,.42,O7,""],["pc",120,280,.42,T7,""],["pc",200,280,.42,O7,""],["pc",260,280,.42,T7,""],["pc",340,280,.42,O7,""],["pc",400,280,.42,T7,""],["pc",480,280,.42,O7,""],["pc",540,280,.42,T7,""]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","Access switches are where users plug in, and where Wi-Fi access points connect too.",4,3,16,"b",50,"switch"]]},
+   {bg:"rays:mint", ch:[["router","proud",150,.58]],
+     b:[["s","A distribution switch ties the access switches and buildings together.",4,4,15,"b",55,"router"]]}]},
+ {h:240, p:[{bg:"chalk", over:[["chalktext",30,62,["Big networks add a CORE layer on top: Cisco's three-tier design.","Smaller companies often merge core and distribution.","Routing joins this picture soon. Keep it in mind!"],17]],
+   b:[]}]}
+]},
+/* ===== 19 ===== */
+{title:"One cable too many", rows:[
+ {h:270, p:[{bg:"room", ch:[["switch","happy",150,.42,1,130],["switch","happy",450,.42,1,130],["switch","worried",300,.42,1,262]], over:[["tri",[[200,110],[400,110],[300,230]],"#1f6fd1"]], fx:[["CLICK.",400,200,20,6,"#e63a2e",true]],
+   b:[["c","Bright Trail adds Kit, a lobby switch. Someone plugs in 'one more cable for backup'... and makes a triangle.",2,3,34]]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["switch","confused",150,.55]],
+     b:[["s","Sid, Patch and me, Kit, all linked in a loop. Is that bad?",4,3,15,"b",50,"switch"]]},
+   {bg:"rays:rose", ch:[["router","worried",150,.58]], over:[["sweat",220,110,1.2]],
+     b:[["s","Watch what one little ARP does, Kit...",8,5,12,"b",55,"router"]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,62,["A broadcast is flooded out every port except the one it came in on.","Sid sends it to Patch AND Kit. They each pass it on...","to each other. And back to Sid."],17]],
+   b:[]}]}
+]},
+/* ===== 20 ===== */
+{title:"Broadcast storm", rows:[
+ {h:270, p:[{bg:"burst:red", ch:[["switch","shock",150,.42,1,130],["switch","shock",450,.42,1,130],["switch","shock",300,.42,1,262]], over:[["tri",[[200,110],[400,110],[300,230]],"#ffd23f"],["envelope",300,95,.4,"ARP"],["envelope",240,180,.4,"ARP"],["envelope",360,180,.4,"ARP"]], fx:[["AROUND AND AROUND!",300,40,22,-4,"#ffd23f",true]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["switch","shock",150,.55]], fx:[["CPU 100%",150,40,24,-6,"#ffd23f",true]],
+     b:[["s","I forward every frame as fast as I can, and they never stop coming!",4,40,15,null,null,"switch"]]},
+   {bg:"plain:#0e1530", ch:[["laptop","worried",150,.55]], over:[["cli",14,50,["ssh admin@SID-SW1","...","*timed out"],16]],
+     b:[["s","I can't even log in to Sid to fix it!",8,46,12,null,null,"laptop"]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,62,["Remember: frames have NO TTL. Nothing ever kills a looping frame.","A broadcast loop like this is called a BROADCAST STORM."],17]],
+   b:[]}]}
+]},
+/* ===== 21 ===== */
+{title:"MAC flapping", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["switch","confused",530,.48]], over:[["rtable",20,30,330,[["AA","Fa0/1"],["AA","Gi0/2 ?!","1"],["AA","Gi0/3 ?!","1"],["AA","Gi0/2 ?!","1"]],"SID'S MAC TABLE, ONE SECOND"]],
+   b:[["s","S1's ARP keeps coming back to me, round the loop, from other ports!",58,4,12,"b",70,"switch"]]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["switch","confused",150,.55]],
+     b:[["s","AA is on Fa0/1! No, Gi0/2! No, Gi0/3! Which is it?!",4,3,15,"b",50,"switch"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","That's {{MAC flapping}}: one MAC keeps jumping between ports. Frames go the wrong way.",4,4,15,"b",55,"router"]]}]},
+ {h:230, p:[{bg:"plain:#fff3c4", over:[["sign",30,30,540,150,["TWO LOOP PROBLEMS","1. Broadcast storm → switch CPU at 100%","2. MAC flapping → the MAC table can't be trusted"],28,"#e63a2e"]],
+   b:[]}]}
+]},
+/* ===== 22 ===== */
+{title:"Your fix, interns?", rows:[
+ {h:240, p:[
+   {bg:"rays:sky", ch:[["phone","proud",150,.64]],
+     b:[["s","Easy! Pull out one cable and the triangle is gone!",6,4,14,"b",55,"phone"]]},
+   {bg:"rays:sun", ch:[["router","happy",150,.58]],
+     b:[["s","Good, Fonz! But WHICH cable?",8,5,12,"b",55,"router"]]}]},
+ {h:270, p:[{bg:"room", ch:[["switch","happy",150,.42,1,130],["switch","happy",450,.42,1,130],["switch","happy",300,.42,1,262]], over:[["line",210,110,390,110,"#2bb673"],["line",170,140,270,225,"#2bb673"],["line",430,140,330,225,"#9aa3b5"],["word",300,92,"10 GIG",20,0,"#fff3c4"],["word",170,200,"10 GIG",20,0,"#fff3c4"],["word",440,200,"10 MBPS",20,0,"#ffd23f"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:mint", ch:[["laptop","proud",150,.6]],
+     b:[["s","The slow 10 Mbps one! Keep the fast links.",8,5,13,"b",55,"laptop"]]},
+   {bg:"rays:lilac", ch:[["router","proud",150,.58]],
+     b:[["s","And if a fast link DIES? The switches should wake the spare one up, all by themselves.",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 23 ===== */
+{title:"The GPS way", rows:[
+ {h:270, p:[{bg:"map", ch:[["van","happy",120,.42,1,240]], over:[["road",120,150,480,150,true],["road",120,150,300,70],["road",300,70,480,150],["word",210,182,"DIRECT: 15 KM",19,0,"#fff3c4"],["word",300,50,"TWO ROADS: 9 KM",19,0,"#fff3c4"],["dot",480,150,"HOUSE",null]],
+   b:[["s","My GPS skips the direct road! Two roads, but only 9 km. Lower cost wins.",52,64,15,"bl",6,"van"]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","Switches do the same. Every link gets a cost, they find the best paths, and they block what makes a loop.",4,3,17,"b",50,"switch"]]},
+   {bg:"rays:mint", ch:[["router","proud",150,.58]],
+     b:[["s","That standard is the {{Spanning Tree Protocol}}. A tree has no loops!",6,4,14,"b",55,"router"]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,62,["Even if you never build a loop, a customer might plug one in.","So switches run STP by default, just in case.","How the algorithm works: next issue!"],17]],
+   b:[]}]}
+]},
+/* ===== 24 ===== */
+{title:"Lab: two switches, one trunk", rows:[
+ {h:300, p:[{bg:"plain:#0e1530", ch:[["switch","proud",540,.45]], over:[["cli",18,34,["SW1(config)# vlan 2","SW1(config-vlan)# name SALES","SW1(config)# interface fa0/4","SW1(config-if)# switchport mode access","SW1(config-if)# switchport access vlan 2","SW1(config)# interface gi0/1","*SW1(config-if)# switchport trunk encapsulation dot1q","*SW1(config-if)# switchport mode trunk","SW1# show interfaces trunk"],13]],
+   b:[["c","Do the same on SW2. Some switches only speak dot1q and skip the yellow 'encapsulation' line.",44,80,22]]}]},
+ {h:250, p:[
+   {bg:"rays:sky", ch:[["laptop","confused",150,.6]],
+     b:[["s","Which cable between the two switches, Sid?",8,5,13,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","Classic answer: crossover. Most modern switches fix it themselves with {{Auto-MDIX}}.",4,3,15,"b",50,"switch"]]}]}
+]},
+/* ===== 25 ===== */
+{title:"Your turn", rows:[
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["switch","happy",530,.48]], over:[["sign",20,30,410,90,["PING TEST 1","same VLAN, different switches","should WORK"],24],["sign",20,140,410,90,["PING TEST 2","different VLANs","should FAIL (no router yet)"],24,"#e63a2e"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["laptop","worried",150,.6]],
+     b:[["s","What if I forget a command, Rooty?",8,5,12,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","happy",150,.58]],
+     b:[["s","Look it up! Nobody remembers every command. Knowing WHY a trunk exists is the part that sticks.",4,4,16,"b",55,"router"]]}]},
+ {h:240, p:[
+   {bg:"rays:mint", ch:[["switch","proud",150,.55]],
+     b:[["s","Half an hour of practice a day beats one all-nighter. See you at Spanning Tree!",4,3,15,"b",50,"switch"]]},
+   {bg:"burst:blue", ch:[["switch","happy",90,.42],["switch","happy",220,.42]],
+     b:[["c","To be continued: Spanning Tree!",4,4,13]]}]}
+]}
+];
+const ISSUE_G = {no:"7", cover:COVER6, t:"Why trunks?", b:"Stretch VLANs across switches with 802.1Q trunks, plan VLANs for a customer, and see why switch loops are dangerous.", m:25, star:"switch", part:1, pages:PAGES6,
+ take:"The same VLAN can live on many switches, with one subnet per VLAN; PCs never know their VLAN. One access link per VLAN between switches works but wastes ports. A trunk carries many VLANs over one link: the 802.1Q (dot1q) standard adds a 4-byte tag after the source MAC, with a 12-bit VLAN ID (1–4094). The sending switch tags, the receiving switch reads and removes the tag and keeps the frame inside that VLAN. MAC tables have a VLAN column, and lookups only use that VLAN's rows. A trunk carries VLANs but doesn't connect them: VLAN-to-VLAN traffic needs a router. Untagged frames on a trunk go to the native VLAN (VLAN 1 by default), which must match on both ends. A voice VLAN lets a desk phone and a PC share one port. Physical loops between switches cause broadcast storms and MAC flapping; Spanning Tree Protocol blocks the least useful link and re-enables it if needed.",
+ tip:"In Packet Tracer: two switches, two PCs on each. Put one PC per switch in VLAN 2 and the other in VLAN 3, make the link between switches a trunk, then run show interfaces trunk. Ping inside VLAN 2 across the switches (works) and from VLAN 2 to VLAN 3 (fails).",
+ q:{q:"A frame tagged VLAN 20 arrives on Patch's trunk port, for a MAC Patch knows only in VLAN 10. What does Patch do?",o:["Floods it to his VLAN 20 ports only (unknown unicast)","Sends it to the MAC's VLAN 10 port","Removes the tag and drops it"],why:"Switches only search the MAC table rows for the frame's VLAN. In VLAN 20 that MAC is unknown, so the frame is flooded inside VLAN 20 only."}};
+
+ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
 ISSUE_E.part = 1; ISSUE_E.free = true;
 ISSUE_F.part = 1; ISSUE_F.free = true;
-LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F);
-COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover);
+ISSUE_G.part = 1; ISSUE_G.free = true;
+LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G);
+COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
@@ -3964,7 +4283,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 6 issues are free, forever</li>
+          <li><i>\u2713</i>The first 7 issues are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>
