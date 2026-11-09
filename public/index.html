@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 21 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 22 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 turns that knowledge into real fixes, one troubleshooting case at a time.</li>
-            <li>The first 21 issues are free. One payment opens the rest.</li>
+            <li>The first 22 issues are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first 21 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first 22 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first 21 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first 22 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole “Fix your own network” series</li><li>New troubleshooting cases as they are added</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -6915,6 +6915,158 @@ const FIX_8 = {no:"8", cover:COVERF8, t:"Why TCP sequence and acknowledgement nu
  tip:"Open Wireshark, filter on 'tcp', and load any website. Find the three packets marked [SYN], [SYN, ACK] and [ACK], then check that each data segment's Seq plus Len equals the next segment's Seq.",
  q:{q:"A segment arrives with sequence number 101 and length 200. What acknowledgement number does the receiver send back?",o:["301","300","201"],why:"It now has bytes 101 to 300, so the next byte it expects is 301. The acknowledgement number is always the NEXT byte expected."}};
 
+/* ---------- Fix your own network · Case 9: the upload that freezes (original NetFixLab chapter) ---------- */
+const COVERF9 = {l:["THE","FROZEN","UPLOAD"], t:["CASE #9: MTU","AND MSS"], s:"blue", a:"phone", b:"router", ma:"shock", mb:"proud", sfx:"TOO BIG!"};
+const F9w = t => Math.max(8, Math.min(17, Math.round(Math.sqrt(t.length) * 1.75)));
+const F9one = (bg, ch, mood, t, fx) => ({bg, ch:[[ch, mood, 150, ch === "server" || ch === "phone" ? .5 : .56]], fx: fx ? [[fx, 150, 44, 22, -5, "#e63a2e", true]] : [], b: t ? [["s", t, 4, 4, F9w(t), "b", 55, ch]] : []});
+const F9duo = (bg, a, b, cap) => ({bg, ch:[[a[0], a[1], 110, .52], [b[0], b[1], 490, .52]], b:[["s", a[2], 2, 4, F9w(a[2]), "b", 18, a[0]], ["s", b[2], 97 - F9w(b[2]) * 2.3, 20, F9w(b[2]), "b", 80, b[0]]].concat(cap ? [["c", cap, 27, 78, 22]] : [])});
+/* path: Fonz → Rooty → Wally (firewall) → Rex → Servo; Rex's link to Servo has MTU 1400 */
+const PATH9 = (m) => [["phone",(m||[])[0]||"happy",60,.32,1,200],["router",(m||[])[1]||"proud",185,.34,1,200],["wall",(m||[])[2]||"proud",310,.34,1,200],["router",(m||[])[3]||"happy",430,.34,1,200],["server",(m||[])[4]||"happy",550,.3,1,200]];
+const PATHL9 = (c) => [["line",85,185,150,185,"#1f6fd1"],["line",220,185,280,185,"#1f6fd1"],["line",340,185,395,185,"#1f6fd1"],["line",465,185,525,185,(c||"#f08a24")],["word",495,160,"MTU 1400",13,0,"#ffd23f"],["word",60,232,"FONZ",12,0,"#fff3c4"],["word",185,232,"ROOTY",12,0,"#fff3c4"],["word",310,232,"WALLY",12,0,"#fff3c4"],["word",430,232,"REX",12,0,"#fff3c4"],["word",550,232,"SERVO",12,0,"#fff3c4"]];
+const PAGESF9 = [
+/* ===== 1 ===== */
+{title:"Case #9: the upload that freezes", rows:[
+ {h:250, p:[{bg:"room", ch:[["phone","shock",130,.55]], over:[["sweat",195,100,1.1]], fx:[["STUCK AT 0%",440,60,22,-3,"#e63a2e",true]],
+   b:[["s","Uploading my 200 holiday photos to Servo at HQ... and it's frozen!",30,30,16,"bl",8,"phone"]]}]},
+ {h:240, p:[
+   F9one("rays:lilac","laptop","confused","But you're connected? The upload page itself loaded?"),
+   F9one("rays:rose","phone","worried","The login page opens instantly. Little messages work. Only BIG transfers freeze!")]},
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["phone","worried",545,.38]], over:[["cli",14,40,["> ping servo.hq","Reply from 10.2.0.20: bytes=32 time=18ms","Reply from 10.2.0.20: bytes=32 time=17ms","Packets: Sent = 4, Received = 4, Lost = 0"],13]],
+   b:[["c","Ping works fine. Small packets get through. Hmm...",2,80,22]]}]},
+ {h:230, p:[
+   F9one("rays:sun","router","proud","Small works, big fails? That smells like a SIZE problem: MTU and MSS!"),
+   {bg:"chalk", over:[["chalktext",18,40,["CASE FILE #9","Symptom: small traffic OK,","big transfers freeze","Tools today: MTU · MSS","MSS in the handshake","Path MTU Discovery"],14]], b:[]}]}
+]},
+/* ===== 2 ===== */
+{title:"MTU: the biggest packet a link can send", rows:[
+ {h:250, p:[{bg:"blueprint", over:[["stack",30,95,.85,[["ETH 14","#9a7bff",80],["IP PACKET: up to 1500 bytes","#e63a2e",330],["FCS 4","#9a7bff",70]]],["word",300,40,"what actually travels on the Ethernet wire",15,0,"#fff3c4"],["word",300,190,"14 + 1500 + 4 = 1518 bytes on the wire",16,0,"#ffd23f"]],
+   b:[]}]},
+ {h:250, p:[
+   F9one("rays:sky","router","proud","{{MTU}}, Maximum Transmission Unit: the biggest packet the network layer may hand to the link. Ethernet default: 1500 bytes."),
+   F9one("rays:sun","switch","proud","So the 1500 is the IP packet. My Ethernet header (14) and FCS trailer (4) come on top!")]},
+ {h:240, p:[F9duo("room", ["laptop","confused","So the wire DOES carry more than 1500 bytes?"], ["router","proud","Yes: up to 1518 for the whole frame. MTU counts only the IP packet inside it."], "MTU = max size of the layer 3 packet on that interface.")]},
+ {h:220, p:[
+   F9one("rays:lilac","phone","confused","And if a packet is bigger than the MTU?"),
+   F9one("burst:red","router","shock",null,"WON'T FIT!")]}
+]},
+/* ===== 3 ===== */
+{title:"Why 1500 anyway?", rows:[
+ {h:250, p:[{bg:"sepia", over:[["sign",160,30,280,150,["THE 1970s–80s","network cards had","very little memory","to hold a whole","frame while checking it"],17]],
+   b:[["c","A network card must hold a whole frame to check it. Back then, memory was tiny and expensive.",2,80,34]]}]},
+ {h:240, p:[
+   F9one("rays:sky","server","proud","So 1500 became the standard, and it still is for laptops and phones today."),
+   F9one("rays:mint","switch","proud","In data centers, servers often use 9000-byte {{jumbo frames}}: fewer, bigger packets.")]},
+ {h:240, p:[F9duo("room", ["phone","confused","Can I change the MTU myself?"], ["router","proud","Yes, it's an interface setting. But every link on the path should agree, or trouble starts. Spoiler!"])]},
+ {h:220, p:[
+   F9one("burst:yellow","laptop","proud",null,"1500!"),
+   F9one("rays:sun","router","happy","Remember that number. Now meet its partner at layer 4.")]}
+]},
+/* ===== 4 ===== */
+{title:"MSS: how big is each segment?", rows:[
+ {h:250, p:[{bg:"blueprint", over:[["stack",30,40,.85,[["APP DATA: 200 photos... a huge stream","#ffd23f",420]]],["stack",30,110,.85,[["segment 1","#1f6fd1",130],["segment 2","#1f6fd1",130],["segment 3","#1f6fd1",130]]]],
+   b:[["c","TCP chops the app's byte stream into segments. But how big may each segment be?",2,78,34]]}]},
+ {h:250, p:[{bg:"blueprint", over:[["stack",20,70,.9,[["IP 20","#e63a2e",80],["TCP 20","#1f6fd1",90],["SEGMENT DATA = ?","#ffd23f",230]]],["sign",450,40,130,140,["= 1500","(MTU)"],22]],
+   b:[["c","IP header + TCP header + data must fit in the MTU.",2,80,22]]}]},
+ {h:240, p:[
+   F9one("rays:sky","laptop","proud","1500 − 20 (IP) − 20 (TCP) = 1460 bytes of data. That's the {{MSS}}: Maximum Segment Size!"),
+   F9one("rays:sun","router","proud","Segments can be smaller than 1460, never bigger.")]},
+ {h:220, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["IPv4, MTU 1500","1500 − 20 − 20 = MSS 1460"],["IPv6, MTU 1500","1500 − 40 − 20 = MSS 1440"],["IPv4, MTU 1400","1400 − 20 − 20 = MSS 1360"]],"MTU → MSS"]], b:[]}]}
+]},
+/* ===== 5 ===== */
+{title:"Layers talking to each other", rows:[
+ {h:250, p:[{bg:"blueprint", over:[["tower",160,240,.85,[2,4]],["arrow",250,140,250,90,"#ffd23f"],["sign",330,50,250,140,["LAYER 4 ASKS:","'what's my MTU?'","LAYER 2 SAYS: 1500","→ MSS = 1460"],18]], b:[]}]},
+ {h:240, p:[
+   F9one("rays:sky","phone","happy","So my phone's transport layer checks the interface MTU before chopping my photos!"),
+   F9one("rays:mint","router","proud","Exactly. MTU lives at layer 2, MSS at layer 4, and the OS connects them.")]},
+ {h:240, p:[F9duo("room", ["laptop","proud","Change the MTU to 1400, and the MSS drops to 1360 automatically."], ["switch","proud","Different layers, one rule: everything must fit in the frame I carry!"])]},
+ {h:230, p:[
+   F9one("rays:lilac","phone","confused","But Servo might have a DIFFERENT MTU than me..."),
+   F9one("rays:sun","router","proud","So the two ends tell each other. During the handshake!")]}
+]},
+/* ===== 6 ===== */
+{title:"MSS rides in the handshake", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["phone","proud",70,.36,1,240],["server","happy",530,.34,1,240]], over:[["arrow",120,70,480,70,"#ffd23f"],["word",300,55,"SYN  · MSS = 1460",15,0,"#fff3c4"],["arrow",480,130,120,130,"#2bb673"],["word",300,115,"SYN, ACK  · MSS = 1460",15,0,"#fff3c4"],["arrow",120,190,480,190,"#ffd23f"],["word",300,175,"ACK",15,0,"#fff3c4"]], b:[]}]},
+ {h:240, p:[
+   F9one("rays:sky","phone","proud","In my SYN: 'My MSS is 1460. Don't send me segments bigger than that.'"),
+   F9one("rays:mint","server","proud","And in my SYN-ACK I announce mine. Each side sends no more than the OTHER side's MSS.")]},
+ {h:240, p:[{bg:"room", ch:[["van","happy",110,.45],["server","proud",490,.48]],
+   b:[["s","Like a delivery rule: 'I can only lift 1460-gram boxes, so don't send heavier ones!'",2,4,16,"b",18,"van"],["s","If my MTU were 1400, I'd announce MSS 1360, and Fonz would send smaller segments to me.",50,22,16,"b",80,"server"]]}]},
+ {h:220, p:[
+   F9one("rays:lilac","laptop","confused","So both ends agree on sizes. Then where's the problem?"),
+   F9one("rays:rose","router","worried","The handshake only knows the two ENDS. Not every link in between!")]}
+]},
+/* ===== 7 ===== */
+{title:"Step 1: the facts", rows:[
+ {h:250, p:[{bg:"blueprint", ch:PATH9(), over:[...PATHL9()],
+   b:[["c","Fonz and Servo both have MTU 1500, so MSS 1460 on both ends. But Rex's link to Servo is a new branch link: MTU 1400.",2,4,34]]}]},
+ {h:240, p:[
+   F9one("rays:sky","phone","proud","Full segment: 1460 data + 20 TCP + 20 IP = a 1500-byte packet. Fine on MY link!"),
+   F9one("rays:rose","router","worried","Rex: but my link to Servo only sends 1400. That 1500-byte packet won't fit!")]},
+ {h:240, p:[F9duo("room", ["laptop","proud","And the handshake and little messages are tiny, well under 1400..."], ["router","proud","...so they sail through. Only FULL-SIZE packets hit the wall. That's our symptom!"], "Clue: big packets fail, small ones pass.")]},
+ {h:220, p:[
+   F9one("burst:red","router","shock",null,"1500 > 1400!"),
+   F9one("rays:lilac","phone","confused","So what does Rex do with my too-big packet?")]}
+]},
+/* ===== 8 ===== */
+{title:"Fragment, or drop?", rows:[
+ {h:250, p:[{bg:"blueprint", ch:[["router","proud",110,.45]], over:[["envelope",300,90,.5,"1500"],["arrow",360,90,420,60,"#ffd23f"],["arrow",360,90,420,130,"#ffd23f"],["envelope",480,55,.38,"1400"],["envelope",480,135,.38,"100+"]],
+   b:[["s","Option 1: cut it into smaller IP packets. That's {{fragmentation}}.",2,4,14,"b",18,"router"]]}]},
+ {h:240, p:[
+   F9one("rays:sky","phone","proud","But my packets carry the DF bit: Don't Fragment. Most TCP traffic does!"),
+   F9one("rays:rose","router","worried","DF set? Then I can't cut it. Option 2: DROP it.")]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["router","proud",545,.38]], over:[["cli",14,36,["ICMP from Rex to Fonz:","  Type 3: Destination unreachable","  Code 4: Fragmentation needed and DF set","  Next-hop MTU: 1400"],14]],
+   b:[["c","After dropping, Rex tells the sender WHY, and which size would fit.",2,80,26]]}]},
+ {h:220, p:[F9duo("room", ["phone","happy","So the ICMP message says: 'too big, 1400 max here'?"], ["router","proud","Exactly. It's the same ICMP family you met in the traceroute case."])]}
+]},
+/* ===== 9 ===== */
+{title:"Path MTU Discovery", rows:[
+ {h:250, p:[{bg:"blueprint", ch:PATH9(["proud","proud","proud","proud","happy"]), over:[...PATHL9(),["arrow",420,90,90,90,"#2bb673"],["word",255,75,"ICMP: frag needed, MTU 1400",13,0,"#fff3c4"]], b:[]}]},
+ {h:240, p:[
+   F9one("rays:sky","phone","proud","Got it! For Servo, my path MTU is 1400. So my MSS for this connection becomes 1360."),
+   F9one("rays:mint","router","happy","1360 + 20 + 20 = 1400. Fits every link on the path!")]},
+ {h:240, p:[{bg:"chalk", over:[["chalktext",24,48,["PATH MTU DISCOVERY (PMTUD):","1. send full-size packets with DF set","2. a smaller link drops one and sends ICMP 'fragmentation needed'","3. the sender lowers its packet size for that destination","→ the smallest MTU on the path wins"],15]], b:[]}]},
+ {h:220, p:[
+   F9one("rays:lilac","laptop","confused","So it SHOULD have fixed itself... why is the upload still frozen?"),
+   F9one("rays:rose","phone","worried","Unless that ICMP message never reached me...")]}
+]},
+/* ===== 10 ===== */
+{title:"Step 2: the missing message", rows:[
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["phone","shock",545,.38]], over:[["cli",12,34,["Wireshark on Fonz's phone, filter: tcp or icmp","  [SYN] MSS=1460      [SYN, ACK] MSS=1460","  Len=1460  ...  [TCP Retransmission] Len=1460","  [TCP Retransmission] Len=1460","*  (no ICMP 'fragmentation needed' ever arrives)"],12]], b:[]}]},
+ {h:250, p:[{bg:"blueprint", ch:PATH9(["worried","proud","proud","worried","worried"]), over:[...PATHL9(),["arrow",420,90,330,90,"#2bb673"],["word",310,75,"✗ BLOCKED",16,0,"#e63a2e"]], fx:[["NO ICMP!",310,40,16,-4,"#e63a2e",true]], b:[]}]},
+ {h:240, p:[
+   F9one("rays:rose","wall","worried","Wally: a rule says 'block ALL ICMP, for security'. I dropped Rex's message..."),
+   F9one("rays:sun","laptop","proud","So Fonz never learns to shrink, and keeps resending 1500-byte packets into a black hole!")]},
+ {h:220, p:[F9duo("room", ["phone","shock","Handshake fine, ping fine, little pages fine..."], ["router","proud","...and every full-size packet silently dropped. A classic PMTUD black hole."])]}
+]},
+/* ===== 11 ===== */
+{title:"Step 3: the fix", rows:[
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["wall","proud",545,.38]], over:[["cli",14,40,["Wally firewall rules","  + permit ICMP type 3 (destination unreachable)","    incl. code 4: fragmentation needed","  keep other rules as they are"],13]],
+   b:[["c","Let the 'fragmentation needed' messages through. Blocking ALL ICMP breaks PMTUD.",2,80,32]]}]},
+ {h:240, p:[
+   F9one("rays:sky","phone","proud","Now Rex's ICMP arrives, my MSS drops to 1360..."),
+   F9one("burst:yellow","phone","happy",null,"100% UPLOADED!")]},
+ {h:240, p:[F9duo("room", ["laptop","proud","Another fix: make the branch link's MTU match the rest, if the link allows it."], ["router","proud","Right. The goal is the same either way: every packet must fit every link on the path."])]},
+ {h:230, p:[
+   F9one("rays:mint","wall","happy","Lesson learned: block what's dangerous, not everything that's ICMP."),
+   F9one("burst:blue","router","proud",null,"PATH CLEAR!")]}
+]},
+/* ===== 12 ===== */
+{title:"Your fix-it checklist", rows:[
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["1","small traffic works, big transfers hang? suspect MTU"],["2","check MTU on every link: ends AND the path between"],["3","capture: MSS in the SYN, retransmitted full-size segments"],["4","is ICMP 'fragmentation needed' reaching the sender?"],["5","fix: allow that ICMP, or match the MTU along the path"]],"BIG TRANSFERS FREEZE?"]], b:[]}]},
+ {h:240, p:[F9duo("room", ["phone","proud","MTU: biggest IP packet on a link. MSS: biggest TCP data in a segment."], ["router","proud","And MSS = MTU − IP header − TCP header. 1500 − 20 − 20 = 1460!"])]},
+ {h:240, p:[
+   F9one("rays:sky","laptop","happy","Handshake announces MSS. PMTUD finds the smallest MTU on the path."),
+   F9one("rays:sun","wall","proud","As long as firewalls let the ICMP through!")]},
+ {h:220, p:[
+   F9one("burst:yellow","phone","proud",null,"CASE CLOSED!"),
+   {bg:"rays:mint", ch:[["server","happy",150,.5]], b:[["c","Case #9 closed. See you at the next case!",4,4,13]]}]}
+]}
+];
+const FIX_9 = {no:"9", cover:COVERF9, t:"Why MTU and MSS?", b:"Case #9: small traffic works but a big upload freezes. Solve it with MTU, MSS, the TCP handshake and Path MTU Discovery.", m:18, star:"router", part:2, pages:PAGESF9,
+ take:"The MTU (Maximum Transmission Unit) is the largest layer 3 packet an interface may send; Ethernet's default is 1500 bytes. The frame on the wire is bigger: 14 bytes of Ethernet header + up to 1500 bytes of IP packet + a 4-byte FCS trailer = 1518. 1500 dates from when network cards had very little memory; data centers often use 9000-byte jumbo frames. TCP chops the app's byte stream into segments, and the MSS (Maximum Segment Size) is the most data one segment may carry: MTU − IP header − TCP header, so 1500 − 20 − 20 = 1460 for IPv4 (1440 for IPv6, 1360 if the MTU is 1400). The transport layer works this out from the interface MTU. Each side announces its MSS in the SYN and SYN-ACK, and sends no more than the other side's MSS. But the handshake only knows the two ends: if a link in the middle has a smaller MTU, a full-size packet won't fit. The router can fragment it, but most TCP packets set DF (Don't Fragment), so it drops the packet and sends ICMP type 3 code 4, 'fragmentation needed and DF set', with the next-hop MTU. The sender then lowers its size for that destination: Path MTU Discovery. If a firewall blocks that ICMP, small traffic works but full-size packets vanish (a PMTUD black hole); fix it by allowing that ICMP or matching the MTU along the path.",
+ tip:"On Windows run: ping -f -l 1472 8.8.8.8 (-f sets Don't Fragment, -l is the data size). 1472 + 8 (ICMP header) + 20 (IP header) = 1500. Try 1473: if your path MTU is 1500, it should fail with 'Packet needs to be fragmented but DF set.'",
+ q:{q:"An interface has MTU 1400 and runs IPv4 with TCP (no options). What is the MSS?",o:["1360","1400","1460"],why:"MSS = MTU − IP header (20) − TCP header (20) = 1400 − 40 = 1360."}};
+
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
@@ -6935,9 +7087,10 @@ FIX_5.id = 30; FIX_5.part = 2; FIX_5.free = true;
 FIX_6.id = 31; FIX_6.part = 2; FIX_6.free = true;
 FIX_7.id = 32; FIX_7.part = 2; FIX_7.free = true;
 FIX_8.id = 33; FIX_8.part = 2; FIX_8.free = true;
+FIX_9.id = 34; FIX_9.part = 2; FIX_9.free = true;
 LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I, ISSUE_J, ISSUE_K, ISSUE_L, ISSUE_M);
 COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover, ISSUE_J.cover, ISSUE_K.cover, ISSUE_L.cover, ISSUE_M.cover);
-LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7, FIX_8); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover, FIX_8.cover);
+LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7, FIX_8, FIX_9); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover, FIX_8.cover, FIX_9.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
@@ -7723,7 +7876,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 21 issues are free, forever</li>
+          <li><i>\u2713</i>The first 22 issues are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>
