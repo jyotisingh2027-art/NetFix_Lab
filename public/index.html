@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 16 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 17 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 turns that knowledge into real fixes, one troubleshooting case at a time.</li>
-            <li>The first 16 issues are free. One payment opens the rest.</li>
+            <li>The first 17 issues are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first 16 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first 17 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first 16 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first 17 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole “Fix your own network” series</li><li>New troubleshooting cases as they are added</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -6167,6 +6167,186 @@ const FIX_3 = {no:"3", cover:COVERF3, t:"How do devices on different networks ta
  tip:"Run ipconfig (Windows) or check your Wi-Fi details and find your Default Gateway. Ping it. Then ping 8.8.8.8, which is outside your network. Finally run arp -a: your gateway's IP and MAC will be in the list.",
  q:{q:"Lappy (192.168.10.10/24) pings Servo (192.168.20.20/24). Whose MAC does Lappy's ARP request ask for?",o:["His default gateway's (192.168.10.1)","Servo's (192.168.20.20)","The broadcast address's"],why:"Servo is on another network, so the first hop is the default gateway. Lappy only needs the gateway's MAC; the router handles the next hop."}};
 
+/* ---------- Fix your own network · Case 4: the endless loop (original NetFixLab chapter) ---------- */
+const COVERF4 = {l:["THE","ENDLESS","LOOP"], t:["CASE #4: THE NETWORK","THAT FROZE"], s:"red", a:"switch", b:"laptop", ma:"shock", mb:"proud", sfx:"AGAIN! AGAIN!"};
+/* triangle: Patch top, Sid bottom-left, Kit bottom-right */
+const TRI4 = (cP,cS,cK) => [["line",270,108,160,222,cP||"#1f6fd1"],["line",330,108,440,222,cS||"#1f6fd1"],["line",200,245,400,245,cK||"#1f6fd1"]];
+const TRICH4 = (mP,mS,mK) => [["switch",mP||"happy",300,.4,1,120],["switch",mS||"happy",130,.4,1,262],["switch",mK||"happy",470,.4,1,262]];
+const TRILAB4 = [["word",300,34,"PATCH",17,0,"#fff3c4"],["word",60,200,"SID",17,0,"#fff3c4"],["word",540,200,"KIT",17,0,"#fff3c4"]];
+const PAGESF4 = [
+/* ===== 1 ===== */
+{title:"Case #4: the network that froze", rows:[
+ {h:260, p:[{bg:"room", ch:[["phone","shock",130,.6]], over:[["sweat",200,110,1.2]], fx:[["EVERYTHING STOPPED!",380,60,20,-3,"#e63a2e",true]],
+   b:[["s","Lappy! At 10:02 the whole office froze. Wi-Fi, printer, video calls... ALL of it!",30,34,17,"bl",8,"phone"]]}]},
+ {h:250, p:[
+   {bg:"burst:red", ch:[["switch","shock",150,.55]], over:[["sweat",215,95,1.1]], fx:[["BLINK BLINK BLINK",150,40,17,-5,"#ffd23f",true]],
+     b:[]},
+   {bg:"plain:#0e1530", ch:[["switch","worried",230,.32]], over:[["cli",12,40,["Sid# show processes cpu","*CPU utilization: 100%","*CPU utilization: 100%"],12]],
+     b:[["s","Every light flashing at once, and my brain is at 100%!",4,58,10,"b",70,"switch"]]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Lights all flashing together + CPU at 100%? That smells like a LOOP, Fonz.",4,4,15,"b",55,"laptop"]]},
+   {bg:"chalk", over:[["chalktext",20,46,["CASE FILE #4","Symptom: whole network frozen","Tools today:","· Layer 2 loops and storms","· MAC flapping","· broadcast domains and VLANs","· Spanning Tree Protocol"],15]],
+     b:[]}]}
+]},
+/* ===== 2 ===== */
+{title:"Step 1: what changed?", rows:[
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","Rule one of troubleshooting: what changed right before it broke?",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:rose", ch:[["switch","worried",150,.55]],
+     b:[["s","Kit here. At 10:01 someone plugged a 'backup cable' between Sid and me!",4,3,15,"b",50,"switch"]]}]},
+ {h:300, p:[{bg:"blueprint", ch:TRICH4("worried","worried","worried"), over:[...TRI4(null,null,"#e63a2e"),...TRILAB4,["word",300,290,"NEW 'BACKUP' CABLE (10:01)",14,0,"#ffd23f"],["sign",10,40,165,52,["LAPPY on SID","MAC AA"],14],["sign",425,40,165,52,["SERVO on KIT","MAC BB"],14]],
+   b:[]}]},
+ {h:230, p:[{bg:"rays:sun", ch:[["laptop","proud",110,.55]],
+   b:[["s","Three switches, three cables: a closed triangle. A frame can go round and round it. That's a {{Layer 2 loop}}!",28,8,26,"bl",6,"laptop"]]}]}
+]},
+/* ===== 3 ===== */
+{title:"Replay: one ARP, forever", rows:[
+ {h:300, p:[{bg:"blueprint", ch:TRICH4("shock","shock","shock"), over:[...TRI4("#e63a2e","#e63a2e","#e63a2e"),...TRILAB4,["envelope",212,165,.38,"ARP"],["envelope",388,165,.38,"ARP"],["envelope",300,245,.38,"ARP"],["arrow",250,150,285,105,"#ffd23f"],["arrow",315,105,350,150,"#ffd23f"],["arrow",425,250,470,250,"#ffd23f"]],
+   b:[["c","Lappy pings Servo, so he broadcasts an ARP. Sid floods it to Patch AND Kit...",2,3,17]]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["switch","shock",150,.55]],
+     b:[["s","Patch: a broadcast from Sid? I flood it to Kit!",6,4,13,"b",50,"switch"]]},
+   {bg:"rays:rose", ch:[["switch","shock",150,.55]],
+     b:[["s","Kit: and I flood it back to Sid and Patch. Again. And AGAIN!",4,3,14,"b",50,"switch"]]}]},
+ {h:240, p:[{bg:"chalk", over:[["chalktext",30,56,["Switches MUST flood broadcasts out every port except the one it came in.","An Ethernet frame has no TTL (no 'time to live' counter like IP has),","so nothing ever kills it. It loops until you break the loop."],15]],
+   b:[]}]}
+]},
+/* ===== 4 ===== */
+{title:"Two kinds of damage", rows:[
+ {h:250, p:[{bg:"burst:yellow", ch:[["switch","shock",110,.42,1,250],["switch","shock",300,.42,1,250],["switch","shock",490,.42,1,250]], over:[["envelope",200,80,.3,"ARP"],["envelope",400,70,.3,"ARP"],["envelope",300,40,.3,"ARP"],["envelope",120,40,.3,"ARP"],["envelope",480,40,.3,"ARP"]], fx:[["STORM!",300,140,40,-6,"#e63a2e",true]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:rose", ch:[["switch","worried",150,.55]],
+     b:[["s","Damage 1: a {{broadcast storm}}. Copies pile up, we spend 100% CPU forwarding them and have nothing left for real work.",4,3,16,"b",50,"switch"]]},
+   {bg:"plain:#0e1530", ch:[["switch","shock",520,.3]], over:[["rtable",12,30,360,[["AA","Gi0/1 (Lappy)"],["AA","Gi0/2 (from Patch)","1"],["AA","Gi0/3 (from Kit)","1"]],"SID'S MAC TABLE"]],
+     b:[]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","Damage 2: Sid learns MAC AA on one port, then another, then another. {{MAC flapping}}!",4,4,15,"b",55,"laptop"]]},
+   {bg:"plain:#0e1530", over:[["cli",14,60,["*MAC AA is flapping","*between Gi0/1 and Gi0/3","  ... wrong entry wins","  → frames sent the wrong way"],14]],
+     b:[]}]}
+]},
+/* ===== 5 ===== */
+{title:"Step 2: stop the bleeding", rows:[
+ {h:240, p:[
+   {bg:"burst:blue", ch:[["laptop","proud",150,.6]], fx:[["YANK!",150,50,28,-6,"#ffd23f",true]],
+     b:[]},
+   {bg:"rays:mint", ch:[["phone","happy",150,.55]],
+     b:[["s","The calls are back! So the backup cable was the villain?",6,4,13,"b",55,"phone"]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Not exactly, Fonz. A spare link is GOOD: if one cable dies, the other keeps you online.",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:rose", ch:[["switch","worried",150,.55]],
+     b:[["s","But a human can't stand by the switch pulling cables in and out all day!",4,3,15,"b",50,"switch"]]}]},
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["switch","shock",530,.4]], over:[["cli",14,46,["Sid# show spanning-tree","*  Spanning tree is DISABLED","  (turned off during setup 'to make ports come up faster')"],13]],
+   b:[["c","CLUE! The protocol that breaks loops by itself had been switched OFF.",2,78,30]]}]}
+]},
+/* ===== 6 ===== */
+{title:"How far does a broadcast go?", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["switch","proud",300,.45,1,250],["laptop","happy",70,.3,1,250],["laptop","happy",170,.3,1,250],["laptop","happy",430,.3,1,250],["laptop","happy",530,.3,1,250]], over:[["envelope",300,145,.35,"ARP"],["arrow",255,155,140,205,"#ffd23f"],["arrow",345,155,460,205,"#ffd23f"]],
+   b:[["c","A broadcast reaches EVERY host in its {{broadcast domain}}, and every one of them must open it.",2,3,34]]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","With 200 hosts, one ARP for ONE device makes 199 others stop and read it?",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","Yep. So we cut one switch into smaller groups called {{VLANs}}.",6,4,13,"b",50,"switch"]]}]},
+ {h:270, p:[{bg:"blueprint", ch:[["switch","proud",300,.38,1,95],["laptop","happy",85,.27,1,252],["laptop","happy",195,.27,1,252],["laptop","happy",405,.27,1,252],["laptop","happy",515,.27,1,252]], over:[["zone",20,118,260,142,"#f08a24","VLAN 1 (default)","ports 1-2 · hosts A, B"],["zone",320,118,260,142,"#1aa59a","VLAN 2","ports 3-4 · hosts C, D"],["word",300,26,"one switch, two broadcast domains",15,0,"#fff3c4"]],
+   b:[]}]}
+]},
+/* ===== 7 ===== */
+{title:"VLANs in the MAC table", rows:[
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["switch","proud",530,.4]], over:[["rtable",12,30,420,[["1","Gi0/1","AA"],["1","Gi0/2","BB"],["2","Gi0/3","CC"],["2","Gi0/4","DD"]].map(r=>[r[0]+"  ·  "+r[1],r[2]]),"VLAN · PORT  →  MAC"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","My MAC table really has THREE columns: VLAN, port, MAC. Every port starts in VLAN 1.",4,3,15,"b",50,"switch"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","So an ARP from C only reaches D. A and B never even see it!",6,4,13,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Why this matters today: spanning tree runs PER VLAN.","Keep that in mind, we'll come back to it at the end."],18]],
+   b:[]}]}
+]},
+/* ===== 8 ===== */
+{title:"Step 3: switch STP back on", rows:[
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","{{Spanning Tree Protocol}} (STP) finds loops and BLOCKS one port, so the triangle becomes a tree.",4,4,16,"b",55,"laptop"]]},
+   {bg:"rays:mint", over:[["tree",150,220,1.3]],
+     b:[["c","A tree: every switch reachable, no circles.",4,4,15]]}]},
+ {h:280, p:[{bg:"burst:yellow", ch:TRICH4("proud","proud","proud"), over:[...TRI4(),["envelope",212,165,.38,"BPDU"],["envelope",388,165,.38,"BPDU"],["envelope",300,245,.38,"BPDU"]], fx:[["I'M ROOT!",120,70,20,-6,"#e63a2e",true],["NO, ME!",480,70,20,6,"#e63a2e",true]],
+   b:[]}]},
+ {h:260, p:[
+   {bg:"blueprint", over:[["rtable",10,40,280,[["PATCH","32768 · …:11","1"],["SID","32768 · …:22"],["KIT","32768 · …:33"]],"BRIDGE ID = PRIORITY · MAC"]],
+     b:[]},
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","We trade {{BPDUs}}. LOWEST bridge ID wins: priority first (default 32768), then lowest MAC. That's me, the {{root bridge}}!",4,3,17,"b",50,"switch"]]}]}
+]},
+/* ===== 9 ===== */
+{title:"Root ports: the cheapest road home", rows:[
+ {h:260, p:[{bg:"map", over:[["road",130,70,470,70],["road",130,70,300,200],["road",470,70,300,200],["dot",130,70,"A",null],["dot",470,70,"B",null],["dot",300,200,"C",null],["word",300,52,"5 KM",18,0,"#fff3c4"],["word",170,150,"2 KM",18,0,"#fff3c4"],["word",430,150,"2 KM",18,0,"#fff3c4"]],
+   b:[["c","From A to B, the direct road looks shorter, but A→C→B is only 4 km. Shortest drawn ≠ cheapest!",2,82,36]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","STP counts COST, not cables. A 1 Gbps link costs 4. Lower total cost to the root = better path.",4,3,16,"b",50,"switch"]]},
+   {bg:"rays:mint", ch:[["switch","happy",150,.55]],
+     b:[["s","Each non-root switch picks ONE {{root port}}: its cheapest way to the root.",6,3,14,"b",50,"switch"]]}]},
+ {h:300, p:[{bg:"blueprint", ch:TRICH4("proud","happy","happy"), over:[...TRI4("#2bb673","#2bb673"),...TRILAB4,["pb",182,205,"R"],["pb",418,205,"R"],["word",165,150,"cost 4",14,0,"#fff3c4"],["word",440,150,"cost 4",14,0,"#fff3c4"],["word",300,288,"Sid & Kit: direct = 4, around = 8 → direct wins",14,0,"#fff3c4"]],
+   b:[]}]}
+]},
+/* ===== 10 ===== */
+{title:"Designated and blocked", rows:[
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","Each cable is a segment. Who gets the {{designated port}} on the Sid-Kit cable?",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","Both of us are cost 4 from the root: a tie! Tiebreaker: lower bridge ID. Sid's …:22 beats my …:33.",4,3,17,"b",50,"switch"]]}]},
+ {h:290, p:[{bg:"blueprint", ch:TRICH4("proud","happy","happy"), over:[...TRI4("#2bb673","#2bb673","#9aa3b5"),...TRILAB4,["pb",252,128,"D"],["pb",348,128,"D"],["pb",182,205,"R"],["pb",418,205,"R"],["pb",222,245,"D"],["pb",378,245,"X","#e63a2e"],["word",300,283,"R = root · D = designated · X = blocked",14,0,"#fff3c4"]],
+   b:[]}]},
+ {h:240, p:[{bg:"chalk", over:[["chalktext",26,48,["The 4 steps:","1. elect the ROOT bridge (lowest bridge ID)","2. one ROOT port per non-root switch (lowest cost)","3. one DESIGNATED port per segment (root's ports are all D)","4. any port that is neither → BLOCKED"],16]],
+   b:[]}]}
+]},
+/* ===== 11 ===== */
+{title:"Step 4: test the backup", rows:[
+ {h:240, p:[
+   {bg:"burst:blue", ch:[["phone","proud",150,.55]], fx:[["CALM!",150,40,26,-5,"#2bb673",true]],
+     b:[]},
+   {bg:"rays:mint", ch:[["switch","happy",150,.55]],
+     b:[["s","Backup cable plugged back in. My port to Sid is blocked, so no storm!",6,3,14,"b",50,"switch"]]}]},
+ {h:290, p:[{bg:"blueprint", ch:TRICH4("worried","happy","proud"), over:[...TRI4("#2bb673","#9aa3b5","#2bb673"),...TRILAB4,["pb",182,205,"R"],["pb",252,128,"D"],["pb",222,245,"D"],["pb",378,245,"R"],["word",385,165,"✂",30,0,"#e63a2e"],["word",300,283,"Patch-Kit cut → Kit's blocked port becomes ROOT port",14,0,"#fff3c4"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","When my main cable died, STP woke the blocked port up. New path to the root: via Sid, cost 8.",4,3,16,"b",50,"switch"]]},
+   {bg:"rays:mint", ch:[["laptop","proud",150,.6]],
+     b:[["s","Loop-free AND a backup, with nobody pulling cables. Case closed!",6,4,13,"b",55,"laptop"]]}]}
+]},
+/* ===== 12 ===== */
+{title:"One more thing: one tree per VLAN", rows:[
+ {h:260, p:[
+   {bg:"plain:#fff3c4", ch:[["switch","happy",150,.32,1,90],["switch","happy",60,.32,1,250],["switch","happy",240,.32,1,250]], over:[["line",130,80,70,215,"#f08a24"],["line",170,80,230,215,"#f08a24"],["line",100,240,200,240,"#9aa3b5"],["word",150,30,"VLAN 10",18,0,"#f08a24"],["pb",150,240,"X","#e63a2e"]],
+     b:[]},
+   {bg:"plain:#fff3c4", ch:[["switch","happy",150,.32,1,90],["switch","happy",60,.32,1,250],["switch","happy",240,.32,1,250]], over:[["line",130,80,70,215,"#1aa59a"],["line",170,80,230,215,"#9aa3b5"],["line",100,240,200,240,"#1aa59a"],["word",150,30,"VLAN 20",18,0,"#1aa59a"],["pb",200,150,"X","#e63a2e"]],
+     b:[]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,56,["A VLAN is just a group of switch ports, and STP runs on switch ports.","Per-VLAN spanning tree builds a separate tree for EACH VLAN:","2 VLANs = 2 STP instances, each with its own root and blocked ports."],16]],
+   b:[]}]}
+]},
+/* ===== 13 ===== */
+{title:"Your fix-it checklist", rows:[
+ {h:310, p:[{bg:"plain:#fff3c4", over:[["rtable",15,20,570,[["1","all lights flashing + CPU 100%? suspect a loop"],["2","what was just plugged in? unplug it first"],["3","look for MAC flapping messages in the logs"],["4","is spanning tree ON? never disable it"],["5","check which port is blocked: is it the one you expect?"]],"WHOLE NETWORK FROZEN?"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Spare links are great, as long as spanning tree is there to block the loop!",4,4,15,"b",55,"laptop"]]},
+   {bg:"burst:blue", ch:[["router","happy",150,.55]],
+     b:[["c","Case #4 closed. See you at the next case!",4,4,13]]}]}
+]}
+];
+const FIX_4 = {no:"4", cover:COVERF4, t:"How do you avoid loops in a Layer 2 network?", b:"Case #4: one 'backup cable' freezes the whole office. Solve it with broadcast storms, VLANs and Spanning Tree.", m:16, star:"switch", part:2, pages:PAGESF4,
+ take:"When switches are cabled in a closed circle, a broadcast (like an ARP request) is flooded out every port and keeps circling, because Ethernet frames have no TTL. Copies multiply into a broadcast storm: switch CPUs hit 100% and the whole Layer 2 network freezes. Loops also cause MAC flapping: a switch learns the same MAC on different ports and keeps the wrong entry. Unplugging the extra link stops a storm, but redundant links are useful, so Spanning Tree Protocol (STP) handles it automatically. Switches exchange BPDUs and elect a root bridge with the lowest bridge ID (priority, default 32768, then lowest MAC). Each non-root switch picks one root port, its lowest-cost path to the root; each segment gets one designated port (ties go to the lower bridge ID); any other port is blocked. If an active link fails, STP unblocks the backup port. A broadcast domain is every host a broadcast reaches; VLANs split one switch into smaller broadcast domains (all ports start in VLAN 1, and the MAC table records VLAN, port and MAC). Per-VLAN spanning tree runs a separate tree for each VLAN.",
+ tip:"Draw the switches and cables in your home or office as boxes and lines. Can you trace a closed circle? If so, that's a loop that only spanning tree is keeping in check. Many cheap home switches don't run STP at all, so never connect two of them with two cables.",
+ q:{q:"Three switches with default priority 32768 have MACs ending :11, :22 and :33. Which becomes the root bridge?",o:["The one ending :11","The one ending :33","The one with the most cables"],why:"With equal priorities, the lowest MAC address gives the lowest bridge ID, and the lowest bridge ID wins the root election."}};
+
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
@@ -6182,9 +6362,10 @@ ISSUE_M.part = 1; ISSUE_M.free = true;
 FIX_1.id = 26; FIX_1.part = 2; FIX_1.free = true;
 FIX_2.id = 27; FIX_2.part = 2; FIX_2.free = true;
 FIX_3.id = 28; FIX_3.part = 2; FIX_3.free = true;
+FIX_4.id = 29; FIX_4.part = 2; FIX_4.free = true;
 LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I, ISSUE_J, ISSUE_K, ISSUE_L, ISSUE_M);
 COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover, ISSUE_J.cover, ISSUE_K.cover, ISSUE_L.cover, ISSUE_M.cover);
-LESSONS.push(FIX_1, FIX_2, FIX_3); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover);
+LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
@@ -6486,7 +6667,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 16 issues are free, forever</li>
+          <li><i>\u2713</i>The first 17 issues are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>
