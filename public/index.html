@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 20 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 21 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 turns that knowledge into real fixes, one troubleshooting case at a time.</li>
-            <li>The first 20 issues are free. One payment opens the rest.</li>
+            <li>The first 21 issues are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first 20 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first 21 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first 20 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first 21 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole “Fix your own network” series</li><li>New troubleshooting cases as they are added</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -6771,6 +6771,150 @@ const FIX_7 = {no:"7", cover:COVERF7, t:"How does traceroute work?", b:"Case #7:
  tip:"Run tracert 8.8.8.8 (Windows) or traceroute 8.8.8.8 (Mac/Linux). Count the hops, find your own home router as hop 1, and look at the times: the round trip grows as the path gets longer.",
  q:{q:"A traceroute shows hop 1 and hop 2 answering, then only '* * *'. Where should you start troubleshooting?",o:["At hop 2, the last router that answered","At your own computer","At the destination server"],why:"Hop 2 still answered, so packets got that far. The break is just after it, so check hop 2's route to the destination (and the return path)."}};
 
+/* ---------- Fix your own network · Case 8: the missing word (original NetFixLab chapter) ---------- */
+const COVERF8 = {l:["THE","MISSING","WORD"], t:["CASE #8: TCP SEQUENCE AND","ACKNOWLEDGEMENT NUMBERS"], s:"yellow", a:"phone", b:"laptop", ma:"shock", mb:"proud", sfx:"DON'T?!"};
+const F8w = t => Math.max(8, Math.min(17, Math.round(Math.sqrt(t.length) * 1.75)));
+const F8one = (bg, ch, mood, t, fx) => ({bg, ch:[[ch, mood, 150, ch === "server" || ch === "phone" ? .5 : .56]], fx: fx ? [[fx, 150, 44, 22, -5, "#e63a2e", true]] : [], b: t ? [["s", t, 4, 4, F8w(t), "b", 55, ch]] : []});
+const F8duo = (bg, a, b, cap) => ({bg, ch:[[a[0], a[1], 110, .52], [b[0], b[1], 490, .52]], b:[["s", a[2], 2, 4, F8w(a[2]), "b", 18, a[0]], ["s", b[2], 97 - F8w(b[2]) * 2.3, 20, F8w(b[2]), "b", 80, b[0]]].concat(cap ? [["c", cap, 27, 78, 22]] : [])});
+const PAGESF8 = [
+/* ===== 1 ===== */
+{title:"Case #8: the pizza mix-up", rows:[
+ {h:250, p:[{bg:"room", ch:[["laptop","proud",120,.52],["phone","shock",480,.52]], fx:[["PINEAPPLE?!",300,60,24,-4,"#e63a2e",true]],
+   b:[["s","Pizza's here! Extra pineapple, just like you asked!",2,30,14,"b",18,"laptop"],["s","I said I DON'T like pineapple!",66,30,11,"b",80,"phone"]]}]},
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["laptop","shock",545,.4]], over:[["cli",14,40,["FonzChat · message from Fonz:","*  \"I like pineapple pizza\"","","Fonz's phone, Sent folder:","  \"I don't like pineapple pizza\""],14]],
+   b:[["c","Sent: 'I don't like...'. Received: 'I like...'. A WORD went missing!",2,80,30]]}]},
+ {h:240, p:[
+   F8one("rays:lilac","phone","confused","My message got... edited? By the network?!"),
+   F8one("rays:sun","router","proud","Not edited, Fonz. Something got LOST on the way. Let's find out what.")]},
+ {h:230, p:[
+   F8one("rays:mint","laptop","proud","A missing word, and nobody noticed. Detective time!"),
+   {bg:"chalk", over:[["chalktext",18,40,["CASE FILE #8","Symptom: message arrives with","a word missing","Tools today: IP vs TCP · connection","SYN/ACK · sequence & ack numbers"],14]], b:[]}]}
+]},
+/* ===== 2 ===== */
+{title:"Step 1: the facts", rows:[
+ {h:250, p:[{bg:"blueprint", over:[["envelope",80,110,.4,"\"I\""],["envelope",210,110,.4,"\"don't\""],["envelope",340,110,.4,"\"like\""],["envelope",480,110,.4,"\"pineapple pizza\""],["word",80,165,"I",16,0,"#ffd23f"],["word",210,165,"don't",16,0,"#ffd23f"],["word",340,165,"like",16,0,"#ffd23f"],["word",480,165,"pineapple pizza",16,0,"#ffd23f"],["word",300,200,"Fonz's message, split into 4 pieces",15,0,"#fff3c4"]],
+   b:[["c","The app chops the message into pieces and sends each one in its own packet.",2,4,32]]}]},
+ {h:240, p:[
+   F8one("rays:sky","phone","proud","I built FonzChat myself! It sends each piece over UDP. Quick and simple."),
+   F8one("rays:rose","router","worried","Rex: and at that moment my CPU was at 100%. I couldn't keep up, so I DROPPED some packets...")]},
+ {h:250, p:[{bg:"blueprint", ch:[["phone","happy",70,.36,1,230],["router","proud",220,.38,1,230],["router","worried",380,.38,1,230],["laptop","happy",530,.36,1,230]], over:[["line",100,215,185,215,"#1f6fd1"],["line",255,215,345,215,"#1f6fd1"],["line",415,215,495,215,"#e63a2e"],["envelope",300,110,.35,"\"don't\""],["word",380,150,"✗ DROPPED",16,0,"#e63a2e"]], fx:[["CPU 100%",380,40,16,-4,"#e63a2e",true]],
+   b:[]}]},
+ {h:230, p:[F8duo("room", ["laptop","shock","So 'don't' never reached me, and my app just showed the rest!"], ["phone","worried","And NOTHING told either of us. That's the scariest part."])]}
+]},
+/* ===== 3 ===== */
+{title:"IP: best effort, no promises", rows:[
+ {h:240, p:[
+   F8one("rays:sun","router","proud","IP's job: carry a packet from one host to another, using the destination IP."),
+   F8one("rays:rose","router","worried","But if a router is overloaded, packets get dropped. IP never notices, never resends.")]},
+ {h:240, p:[{bg:"plain:#fff3c4", over:[["rtable",15,20,570,[["IP (network layer)","best effort: no delivery guarantee, no order"],["UDP (transport)","adds ports and sends. No connection, no resend"],["TCP (transport)","connection-oriented: numbered, ACKed, resent"]],"WHO PROMISES WHAT?"]], b:[]}]},
+ {h:240, p:[F8duo("room", ["phone","confused","So 500 packets go in, 400 come out, and IP is fine with that?"], ["router","proud","Totally fine. That's why UDP suits live calls: a late word is useless anyway. But for a TEXT, every word matters!"])]},
+ {h:230, p:[
+   F8one("rays:lilac","laptop","confused","But TCP runs on top of that same lossy IP. How can it be reliable?"),
+   F8one("burst:yellow","router","proud",null,"GOOD QUESTION!")]}
+]},
+/* ===== 4 ===== */
+{title:"The simple idea: number the pieces", rows:[
+ {h:250, p:[{bg:"blueprint", over:[["envelope",80,100,.4,"#1 \"I\""],["envelope",210,100,.4,"#2 \"don't\""],["envelope",340,100,.4,"#3 \"like\""],["envelope",480,100,.4,"#4 \"pizza\""],["word",80,145,"#1 I",16,0,"#ffd23f"],["word",340,145,"#3 like",16,0,"#ffd23f"],["word",480,145,"#4 pineapple pizza",15,0,"#ffd23f"],["word",210,145,"#2 don't",16,0,"#ffd23f"],["word",210,175,"✗ missing!",15,0,"#e63a2e"]],
+   b:[["c","Write a number on every piece. Now the receiver can SEE that #2 is missing.",2,80,32]]}]},
+ {h:240, p:[
+   F8one("rays:sky","laptop","proud","I got #1, #3, #4... so I hold them and DON'T show the message yet!"),
+   F8one("rays:mint","phone","happy","And I send #2 again. Then you show all four, IN ORDER!")]},
+ {h:240, p:[{bg:"chalk", over:[["chalktext",24,48,["That's TCP's big idea:","· number the data (SEQUENCE numbers)","· the receiver confirms what arrived (ACKNOWLEDGEMENTS)","· anything missing is RESENT (retransmission)","· the app only gets complete data, in order"],15]], b:[]}]},
+ {h:220, p:[F8duo("room", ["phone","confused","But where does the counting START? 1? 5? 1000?"], ["router","proud","Exactly the right question. Both sides must AGREE on it before any data moves."])]}
+]},
+/* ===== 5 ===== */
+{title:"So what IS a 'connection'?", rows:[
+ {h:250, p:[{bg:"blueprint", ch:[["phone","proud",80,.38,1,230],["laptop","happy",520,.38,1,230]], over:[["arrow",130,70,470,70,"#ffd23f"],["word",300,55,"1. 'I want to talk. I'll start at number X.'",13,0,"#fff3c4"],["arrow",470,115,130,115,"#2bb673"],["word",300,100,"2. 'OK, got your X!'",13,0,"#fff3c4"],["arrow",470,160,130,160,"#ffd23f"],["word",300,145,"3. 'I want to talk too. I'll start at Y.'",13,0,"#fff3c4"],["arrow",130,205,470,205,"#2bb673"],["word",300,190,"4. 'OK, got your Y!'",13,0,"#fff3c4"]],
+   b:[]}]},
+ {h:240, p:[
+   F8one("rays:sky","phone","proud","Data flows BOTH ways: me → Lappy and Lappy → me. Two streams, two starting numbers!"),
+   F8one("rays:mint","laptop","happy","And if a message gets no answer, it's sent again after a short wait.")]},
+ {h:240, p:[F8duo("room", ["laptop","confused","So a 'connection' isn't a special wire between us?"], ["router","proud","Nope! It's just this AGREEMENT: both sides know the other is there and know each other's starting number."], "That's what 'connection-oriented' means.")]},
+ {h:220, p:[
+   F8one("rays:lilac","phone","happy","IP and UDP skip this. TCP does it first."),
+   F8one("burst:blue","laptop","proud",null,"CONNECTED!")]}
+]},
+/* ===== 6 ===== */
+{title:"Flags and numbers in the TCP header", rows:[
+ {h:250, p:[{bg:"room", ch:[["laptop","happy",110,.48]], over:[["sign",280,40,260,80,["FLAG UP","= keep serving me!"],18],["sign",280,140,260,80,["FLAG DOWN","= I'm done, thanks"],18,"#e63a2e"]],
+   b:[["s","A restaurant table flag: one tiny signal, up or down.",2,4,13,"b",20,"laptop"]]}]},
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["Sequence number (32 bits)","number of this segment's FIRST byte"],["Acknowledgement number (32 bits)","the NEXT byte I expect from you"],["SYN flag (1 bit)","'let's synchronize starting numbers'"],["ACK flag (1 bit)","'the acknowledgement number is valid'"]],"FOUR FIELDS FOR TODAY"]], b:[]}]},
+ {h:240, p:[F8duo("room", ["phone","confused","So 'ACK' is both a flag AND a number?"], ["router","proud","Two different fields! The ACK FLAG says 'I'm acknowledging'. The acknowledgement NUMBER says exactly what."])]},
+ {h:220, p:[
+   F8one("rays:sky","laptop","proud","Flag = 1 means set. Flag = 0 means not set."),
+   F8one("burst:yellow","phone","happy",null,"SYN! ACK!")]}
+]},
+/* ===== 7 ===== */
+{title:"Four messages → the three-way handshake", rows:[
+ {h:250, p:[F8duo("rays:lilac", ["phone","confused","Messages 2 and 3 both go from Lappy to me..."], ["laptop","proud","...so why not send them together? My 'got your number' AND my own 'here's my number' in ONE segment!"])]},
+ {h:260, p:[{bg:"blueprint", ch:[["phone","proud",70,.36,1,240],["laptop","happy",530,.36,1,240]], over:[["arrow",120,70,480,70,"#ffd23f"],["word",300,55,"SYN  seq=0",15,0,"#fff3c4"],["arrow",480,130,120,130,"#2bb673"],["word",300,115,"SYN, ACK  seq=0  ack=1",15,0,"#fff3c4"],["arrow",120,190,480,190,"#ffd23f"],["word",300,175,"ACK  seq=1  ack=1",15,0,"#fff3c4"]],
+   b:[]}]},
+ {h:240, p:[
+   F8one("rays:sun","router","proud","That's the {{three-way handshake}}: SYN, SYN-ACK, ACK. No data yet, length 0."),
+   F8one("rays:mint","laptop","happy","Then data can start: Fonz from 1, me from 1.")]},
+ {h:220, p:[F8duo("room", ["phone","confused","Wait, seq 0 with length 0... why is the answer ack=1, not 0?"], ["router","proud","Because a SYN counts as ONE number in the sequence. So the first real data byte is ISN + 1."])]}
+]},
+/* ===== 8 ===== */
+{title:"Chopping data into segments",  rows:[
+ {h:250, p:[{bg:"blueprint", over:[["stack",30,40,.9,[["APP DATA: a big file...","#ffd23f",380]]],["stack",30,110,.9,[["seg 1","#1f6fd1",120],["seg 2","#1f6fd1",120],["seg 3","#1f6fd1",120]]]],
+   b:[["c","TCP collects the app's data and chops it into {{segments}}: the transport-layer unit.",2,78,34]]}]},
+ {h:240, p:[{bg:"blueprint", over:[["stack",20,60,.9,[["IP 20","#e63a2e",80],["TCP 20","#1f6fd1",90],["DATA up to 1460","#ffd23f",220]]],["sign",420,40,160,140,["MTU 1500","1500 − 20 − 20","= MSS 1460"],18]], b:[]}]},
+ {h:240, p:[
+   F8one("rays:sky","laptop","proud","Ethernet's MTU is 1500 bytes. Minus IP's 20 and TCP's 20 header bytes = 1460 bytes of data."),
+   F8one("rays:sun","router","proud","That 1460 is the {{maximum segment size}} (MSS). Both sides share it in the handshake.")]},
+ {h:220, p:[F8duo("room", ["phone","confused","Is it always 1500?"], ["server","proud","Usually on laptops. Data center servers often use 9000-byte 'jumbo' frames, so their segments get much bigger."])]}
+]},
+/* ===== 9 ===== */
+{title:"Sequence numbers count BYTES", rows:[
+ {h:250, p:[{bg:"blueprint", over:[["stack",30,50,.9,[["1","#ffd23f",30],["2","#ffd23f",30],["3","#ffd23f",30],["4","#ffd23f",30],["5","#ffd23f",30],["6","#ffd23f",30],["7","#ffd23f",30],["8","#ffd23f",30],["9","#ffd23f",30],["10","#ffd23f",30]]],["word",180,130,"segment 1: bytes 1–10",16,0,"#fff3c4"],["sign",360,40,220,110,["seq = 1","length = 10","next seq = 11"],18]],
+   b:[["c","Every BYTE gets a number. A segment's sequence number = the number of its FIRST byte.",2,78,34]]}]},
+ {h:240, p:[
+   F8one("rays:sky","laptop","proud","Next segment's sequence number = sequence number + length. 1 + 10 = 11!"),
+   F8one("rays:mint","phone","happy","So seq 215, length 100 covers bytes 215 to 314, and the next one starts at 315.")]},
+ {h:240, p:[{bg:"plain:#fff3c4", over:[["rtable",15,20,570,[["Segment A","seq 1 · length 100 → bytes 1–100"],["Segment B","seq 101 · length 200 → bytes 101–300"],["Segment C","seq 301 · length 50 → bytes 301–350"]],"FONZ'S DATA STREAM"]], b:[]}]},
+ {h:220, p:[F8duo("room", ["phone","confused","Won't we run out of numbers?"], ["router","proud","32 bits = over 4 billion numbers, and it simply wraps around. Plenty!"])]}
+]},
+/* ===== 10 ===== */
+{title:"Acknowledgement numbers: 'send me THIS next'", rows:[
+ {h:250, p:[{bg:"blueprint", ch:[["phone","proud",70,.36,1,240],["laptop","happy",530,.36,1,240]], over:[["arrow",120,70,480,70,"#ffd23f"],["word",300,55,"seq=1  len=100",15,0,"#fff3c4"],["arrow",480,120,120,120,"#2bb673"],["word",300,105,"ACK 101",15,0,"#fff3c4"],["arrow",120,170,480,170,"#ffd23f"],["word",300,155,"seq=101  len=200",15,0,"#fff3c4"],["arrow",480,215,120,215,"#2bb673"],["word",300,200,"ACK 301",15,0,"#fff3c4"]],
+   b:[]}]},
+ {h:240, p:[
+   F8one("rays:sky","laptop","proud","ACK 101 means: 'I have everything up to byte 100. Send byte 101 next!'"),
+   F8one("rays:mint","phone","happy","So my next segment starts at 101. Your ACK tells me exactly where I am.")]},
+ {h:240, p:[{bg:"rays:rose", ch:[["laptop","worried",110,.5],["phone","proud",490,.5]],
+   b:[["s","Segment 101 got dropped! I keep sending 'ACK 101'... still waiting for 101.",2,4,16,"b",18,"laptop"],["s","No ACK for it in time? I resend from 101. {{Retransmission}}!",58,30,13,"b",80,"phone"]]}]},
+ {h:220, p:[
+   F8one("rays:sky","laptop","proud","Anything after the gap waits with me until 101 arrives."),
+   F8one("burst:yellow","laptop","happy",null,"IN ORDER!")]}
+]},
+/* ===== 11 ===== */
+{title:"Step 2: see it in Wireshark", rows:[
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["laptop","proud",550,.38]], over:[["cli",12,34,["No. Source        Dest          Info","1  192.168.0.30  192.168.0.20  51234 → 5000 [SYN] Seq=0 Len=0","2  192.168.0.20  192.168.0.30  5000 → 51234 [SYN, ACK] Seq=0 Ack=1","3  192.168.0.30  192.168.0.20  51234 → 5000 [ACK] Seq=1 Ack=1","4  192.168.0.30  192.168.0.20  [PSH, ACK] Seq=1 Ack=1 Len=23"],11]], b:[]}]},
+ {h:240, p:[
+   F8one("rays:lilac","phone","confused","Seq=0? I thought the starting number was random!"),
+   F8one("rays:sun","router","proud","It IS random, a big 32-bit number. Wireshark shows RELATIVE numbers starting at 0, to make reading easy.")]},
+ {h:240, p:[F8duo("room", ["laptop","proud","Ports too: Fonz's phone picked 51234, and FonzChat listens on 5000."], ["router","proud","Same idea for every TCP app: HTTPS listens on 443, and routers running BGP use TCP port 179."])]},
+ {h:220, p:[
+   F8one("rays:sky","laptop","happy","Handshake: 3 packets, Len=0. Then the data, Len=23."),
+   F8one("burst:blue","phone","proud",null,"I CAN READ IT!")]}
+]},
+/* ===== 12 ===== */
+{title:"Step 3: the fix", rows:[
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["phone","proud",545,.4]], over:[["cli",14,40,["FonzChat settings","  Transport:  UDP  →  TCP  ✓","Sent: \"I don't like pineapple pizza\"","Received: \"I don't like pineapple pizza\" ✓"],14]],
+   b:[["c","Switched to TCP. Even with Rex dropping packets, the lost piece gets resent.",2,80,30]]}]},
+ {h:240, p:[
+   F8one("burst:yellow","laptop","proud",null,"MESSAGE INTACT!"),
+   F8one("rays:mint","phone","happy","And the pineapple pizza is yours, Lappy.")]},
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["1","data arrives incomplete? is the app on UDP or TCP?"],["2","capture it: are segments missing or resent?"],["3","check the handshake: SYN, SYN-ACK, ACK"],["4","follow seq + length = next seq, and the ACKs"],["5","many retransmissions? look for a congested link"]],"MESSAGE ARRIVES WRONG?"]], b:[]}]},
+ {h:220, p:[
+   F8duo("room", ["phone","proud","Sequence numbers count my bytes. ACKs say what's next."], ["laptop","proud","And the handshake agrees where counting starts. Case #8 closed!"])]}
+]}
+];
+const FIX_8 = {no:"8", cover:COVERF8, t:"Why TCP sequence and acknowledgement numbers?", b:"Case #8: a chat message loses a word on the way. Solve it with TCP connections, the three-way handshake, and sequence and acknowledgement numbers.", m:18, star:"phone", part:2, pages:PAGESF8,
+ take:"IP is best effort: a congested router can drop packets, and IP never notices or resends. UDP adds ports and sends, with no connection and no recovery, which suits real-time traffic. TCP is connection-oriented and reliable on top of that same IP: it numbers the data, the receiver acknowledges what arrived, anything missing is retransmitted, and the app only receives complete data in order. A 'connection' is not a wire: it's the agreement made before data moves, where each side says it wants to talk and gives its initial sequence number (both directions, since data flows both ways). Combining the middle two messages gives the three-way handshake: SYN, SYN-ACK, ACK, all with length 0. A SYN uses up one sequence number, so the first data byte is ISN + 1. Flags (SYN, ACK) are 1-bit fields; the sequence and acknowledgement numbers are 32-bit fields. TCP chops app data into segments; on Ethernet (MTU 1500) minus 20 bytes of IP and 20 of TCP header, the maximum segment size is 1460. Sequence numbers count bytes: a segment's sequence number is its first byte, and seq + length = the next segment's seq. The acknowledgement number is the next byte expected (receive bytes 1–100 → ACK 101). Wireshark shows relative sequence numbers starting at 0; real initial numbers are random.",
+ tip:"Open Wireshark, filter on 'tcp', and load any website. Find the three packets marked [SYN], [SYN, ACK] and [ACK], then check that each data segment's Seq plus Len equals the next segment's Seq.",
+ q:{q:"A segment arrives with sequence number 101 and length 200. What acknowledgement number does the receiver send back?",o:["301","300","201"],why:"It now has bytes 101 to 300, so the next byte it expects is 301. The acknowledgement number is always the NEXT byte expected."}};
+
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
@@ -6790,9 +6934,10 @@ FIX_4.id = 29; FIX_4.part = 2; FIX_4.free = true;
 FIX_5.id = 30; FIX_5.part = 2; FIX_5.free = true;
 FIX_6.id = 31; FIX_6.part = 2; FIX_6.free = true;
 FIX_7.id = 32; FIX_7.part = 2; FIX_7.free = true;
+FIX_8.id = 33; FIX_8.part = 2; FIX_8.free = true;
 LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I, ISSUE_J, ISSUE_K, ISSUE_L, ISSUE_M);
 COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover, ISSUE_J.cover, ISSUE_K.cover, ISSUE_L.cover, ISSUE_M.cover);
-LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover);
+LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7, FIX_8); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover, FIX_8.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
@@ -7578,7 +7723,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 20 issues are free, forever</li>
+          <li><i>\u2713</i>The first 21 issues are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>
