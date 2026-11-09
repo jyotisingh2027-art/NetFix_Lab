@@ -1,6 +1,6 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <title>NetFixLab: learn home networking from a comic</title>
-<meta name="description" content="Beginner networking course taught through comics. Learn how your home network works and fix common problems yourself. First 14 lessons free.">
+<meta name="description" content="Beginner networking course taught through comics. Learn how your home network works and fix common problems yourself. First 15 lessons free.">
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "z3p5rr8io8");</script>
 <link rel="canonical" href="https://netfixlab.tech/">
 <meta name="google-site-verification" content="vXRz-6HjxXS-JCcw0DvwtxWJO3lzsg-fntcgCbN_eOA" />
@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 14 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 15 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 turns that knowledge into real fixes, one troubleshooting case at a time.</li>
-            <li>The first 14 issues are free. One payment opens the rest.</li>
+            <li>The first 15 issues are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first 14 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first 15 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first 14 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first 15 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole “Fix your own network” series</li><li>New troubleshooting cases as they are added</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -5900,6 +5900,146 @@ const FIX_1 = {no:"1", cover:COVERF1, t:"Why does my subnet mask matter?", b:"Ca
  tip:"Run ipconfig (Windows) or open Wi-Fi details (phone or Mac) and write down your IP, mask and gateway. Then work out your network number and broadcast address. Check your printer or smart TV: does its mask match?",
  q:{q:"Your laptop is 192.168.0.50 with mask 255.255.255.0. A printer is 192.168.0.200 with mask 255.255.255.128. What does the PRINTER think?",o:["The laptop is on a different network (it only sees .128–.255)","They're on the same network","The laptop is the broadcast address"],why:"With /25, the printer's network is 192.168.0.128 to .255. The laptop's .50 falls outside that range, so the printer tries to send replies through a gateway, and fails."}};
 
+/* ---------- Fix your own network · Case 2: the TV that won't answer (original NetFixLab chapter) ---------- */
+Object.assign(PROPS, {
+  tv:(x,y,s,on)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><rect x="-70" y="-110" width="140" height="86" rx="6" fill="#20263a" ${sk(3)}/><rect x="-62" y="-102" width="124" height="70" rx="3" fill="${on?"#7fc1f0":"#3a4258"}"/>${on?`<circle cx="-18" cy="-72" r="5" fill="${INK}"/><circle cx="18" cy="-72" r="5" fill="${INK}"/><path d="M-14 -56 Q0 -46 14 -56" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round"/>`:`<text x="0" y="-60" text-anchor="middle" font-family="${BANG}" font-size="16" fill="#9aa3b5">· · ·</text>`}<path d="M-10 -24 L-22 0 H22 L10 -24 Z" fill="#5a6378" ${sk(2.5)}/></g>`
+});
+const COVERF2 = {l:["THE TV","THAT WON'T","ANSWER"], t:["CASE #2: TWO DEVICES,","ONE NETWORK"], s:"red", a:"laptop", b:"switch", ma:"confused", mb:"proud", sfx:"WHO HAS .200?"};
+const PAGESF2 = [
+/* ===== 1 ===== */
+{title:"Case #2: the silent TV", rows:[
+ {h:260, p:[{bg:"room", ch:[["phone","happy",120,.55]], over:[["tv",430,215,1.2,false]],
+   b:[["s","New smart TV, plugged into the wall jack. But the streaming app on Lappy can't find it!",2,4,16,"b",22,"phone"]]}]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["laptop","shock",540,.42]], over:[["cli",18,50,["> ping 192.168.0.200","*Reply from 192.168.0.50: Destination host unreachable.","*Reply from 192.168.0.50: Destination host unreachable."],13]],
+   b:[["s","'Unreachable'... and the reply comes from MY OWN address?!",50,58,14,"b",80,"laptop"]]}]},
+ {h:230, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","A great clue, Lappy! To read it, you need to know how two devices on ONE network really talk.",4,4,16,"b",55,"router"]]},
+   {bg:"chalk", over:[["chalktext",20,46,["CASE FILE #2","Symptom: TV unreachable","Tools today:","· ping (ICMP)","· frames and MAC addresses","· ARP","· how a switch learns"],15]],
+     b:[]}]}
+]},
+/* ===== 2 ===== */
+{title:"Step 1: the facts", rows:[
+ {h:280, p:[{bg:"blueprint", ch:[["laptop","happy",90,.42],["switch","proud",300,.42,1,150]], over:[["tv",510,250,.8,false],["line",150,215,255,140,"#1f6fd1"],["line",345,140,450,215,"#1f6fd1"],["word",200,160,"Fa0/1",15,0,"#fff3c4"],["word",400,160,"Fa0/2",15,0,"#fff3c4"],["sign",15,30,170,62,["LAPPY","192.168.0.50/24 · MAC AA"],17],["sign",415,30,170,62,["TV","192.168.0.200/24 · MAC BB"],17]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["phone","confused",150,.62]],
+     b:[["s","Remember Case #1: same mask, same network number?",6,4,14,"b",55,"phone"]]},
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Both are 192.168.0.0/24. Same network! Sid the switch should connect us directly.",4,4,15,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Real MACs are 48 bits (like 3C:22:FB:1A:07:9E).","To keep it simple, we'll call them AA and BB."],19]],
+   b:[]}]}
+]},
+/* ===== 3 ===== */
+{title:"What ping really sends", rows:[
+ {h:260, p:[{bg:"office:3", over:[["stack",40,130,.95,[["IP: .50 → .200","#e63a2e",190],["ICMP ECHO REQUEST","#ffd23f",230]]]],
+   b:[["c","'ping' builds an ICMP echo request, wrapped in an IP header: from 192.168.0.50 to 192.168.0.200.",2,3,34]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Then I wait for an echo REPLY. A reply means the path works both ways!",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:mint", ch:[["router","proud",150,.58]],
+     b:[["s","And Lappy checks with his mask first: .200 is local, so no gateway needed. Send it straight out!",4,4,16,"b",55,"router"]]}]}
+]},
+/* ===== 4 ===== */
+{title:"A frame needs two MACs", rows:[
+ {h:260, p:[{bg:"office:2", over:[["stack",30,140,.85,[["ETH: AA → ??","#9a7bff",160],["IP: .50 → .200","#e63a2e",160],["ICMP","#ffd23f",90]]]], fx:[["??",450,90,40,8,"#ffd23f",true]],
+   b:[["c","To go out on Ethernet, the packet needs a FRAME: source MAC AA, destination MAC... unknown!",2,3,32]]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["laptop","worried",150,.6]], over:[["sweat",215,100,1.2]],
+     b:[["s","An incomplete frame can't leave my network card. I park the packet in memory...",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","...and solve the puzzle: 'what's the MAC for 192.168.0.200?' That's ARP's job!",4,4,15,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["At floor 3 we call it a PACKET. At floor 2 (Ethernet) it's a FRAME.","Same delivery, two wrappers."],19]],
+   b:[]}]}
+]},
+/* ===== 5 ===== */
+{title:"The ARP request", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["laptop","proud",530,.42]], over:[["rtable",15,24,440,[["SENDER MAC","AA"],["SENDER IP","192.168.0.50"],["TARGET MAC","00:00:00 (unknown!)","1"],["TARGET IP","192.168.0.200"]],"ARP REQUEST"]],
+   b:[]}]},
+ {h:250, p:[{bg:"office:2", over:[["stack",40,140,.9,[["ETH: AA → FF:FF:FF:FF:FF:FF","#9a7bff",300],["ARP: WHO HAS .200?","#2bb673",200]]]],
+   b:[["c","The ARP request rides in a frame to FF:FF:FF:FF:FF:FF: the BROADCAST address. Everyone on the network gets it.",2,3,34]]}]},
+ {h:230, p:[{bg:"cafe", ch:[["laptop","proud",120,.5]], fx:[["WHO HAS 192.168.0.200?",360,90,20,-4,"#e63a2e",true]],
+   b:[["c","Like shouting a name across a café.",50,78,14]]}]}
+]},
+/* ===== 6 ===== */
+{title:"Sid starts a notebook", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["switch","proud",530,.45]], over:[["rtable",15,30,420,[["VLAN 1 · Fa0/1","AA"]],"SID'S MAC (CAM) TABLE: VLAN · PORT → MAC"]],
+   b:[["s","Frame from AA arrived on Fa0/1. Noted! I learn from the SOURCE MAC.",48,62,15,"b",86,"switch"]]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","What's VLAN 1, Sid?",8,5,8,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","Out of the box, every port of mine is in VLAN 1, the default. Today, that's all of us.",4,3,15,"b",50,"switch"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["CAM = Content Addressable Memory: a super-fast lookup table.","A switch fills it automatically, from frames it receives."],18]],
+   b:[]}]}
+]},
+/* ===== 7 ===== */
+{title:"Flood the broadcast", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["laptop","happy",90,.4],["switch","proud",300,.42,1,150]], over:[["tv",510,250,.8,true],["line",150,215,255,140,"#1f6fd1"],["line",345,140,450,215,"#ffd23f"],["envelope",400,120,.45,"ARP"],["word",240,250,"came in here: not sent back",14,0,"#fff3c4"]],
+   b:[["c","Destination FF:FF...? Sid copies it out of EVERY VLAN 1 port except the one it came in on.",2,3,32]]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","And I don't rebuild the frame. I just pass it on as it is.",6,3,14,"b",50,"switch"]]},
+   {bg:"rays:mint", ch:[["router","happy",150,.58]],
+     b:[["s","Switches forward by DESTINATION MAC, and learn by SOURCE MAC.",6,4,14,"b",55,"router"]]}]}
+]},
+/* ===== 8 ===== */
+{title:"The TV answers", rows:[
+ {h:270, p:[{bg:"blueprint", over:[["tv",110,240,1,true],["rtable",230,24,355,[["SENDER MAC","BB"],["SENDER IP","192.168.0.200"],["TARGET MAC","AA"],["TARGET IP","192.168.0.50"]],"ARP REPLY"]],
+   b:[["c","The TV opens the broadcast, sees ITS OWN IP as the target, and replies.",2,82,26]]}]},
+ {h:250, p:[{bg:"office:2", over:[["stack",40,140,.9,[["ETH: BB → AA","#9a7bff",170],["ARP: .200 IS AT BB","#2bb673",210]]]],
+   b:[["c","The reply is UNICAST: the TV already knows exactly who asked (AA).",2,3,26]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,62,["ARP REQUEST = broadcast (to everyone).","ARP REPLY = unicast (straight back to the asker)."],20]],
+   b:[]}]}
+]},
+/* ===== 9 ===== */
+{title:"Sid finishes his notebook", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["switch","proud",530,.45]], over:[["rtable",15,30,420,[["VLAN 1 · Fa0/1","AA"],["VLAN 1 · Fa0/2","BB","1"]],"SID'S MAC TABLE"]],
+   b:[["s","Learned BB on Fa0/2. And AA? Fa0/1. So the reply goes out Fa0/1 ONLY!",48,62,15,"b",86,"switch"]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]], fx:[["GOT IT!",240,190,24,8,"#e63a2e",true]],
+     b:[["s",".200 is at BB! Now I finish the frame: AA → BB.",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","And I save it in my ARP cache, so I don't ask again next time.",6,4,14,"b",55,"laptop"]]}]}
+]},
+/* ===== 10 ===== */
+{title:"Ping... pong!", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["laptop","happy",90,.4],["switch","proud",300,.42,1,150]], over:[["tv",510,250,.8,true],["line",150,215,255,140,"#2bb673"],["line",345,140,450,215,"#2bb673"],["envelope",200,110,.42,"PING"],["envelope",400,110,.42,"PONG"]],
+   b:[["c","The echo request goes AA → BB. Sid's table says Fa0/2. The echo reply comes back BB → AA, out Fa0/1.",2,3,34]]}]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["laptop","proud",540,.42]], over:[["cli",18,50,["> ping 192.168.0.200","Reply from 192.168.0.200: time=6ms","Reply from 192.168.0.200: time=1ms","*> arp -a  →  192.168.0.200   bb-bb-bb...   dynamic"],13]],
+   b:[["c","The first reply is a bit slower: it waited for ARP. After that, the MAC is cached.",2,80,30]]}]}
+]},
+/* ===== 11 ===== */
+{title:"Step 2: solve the case", rows:[
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","So why did I get 'unreachable' from MY OWN address earlier?",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Your ARP got NO answer. No MAC = no frame = you report 'unreachable' yourself!",4,4,15,"b",55,"router"]]}]},
+ {h:270, p:[{bg:"plain:#0e1530", ch:[["switch","worried",540,.42]], over:[["cli",18,50,["SID# show mac address-table","VLAN  MAC   PORT","1     AA    Fa0/1","*      (nothing on Fa0/2!)"],15]],
+   b:[["c","Sid never learned BB. No frame ever came from the TV's port...",2,80,26]]}]},
+ {h:240, p:[
+   {bg:"room", ch:[["phone","shock",150,.6]], over:[["cable",200,215,280,180,"#9aa3b5"]], fx:[["LOOSE!",240,70,26,8,"#e63a2e",true]],
+     b:[]},
+   {bg:"rays:mint", over:[["tv",150,210,1,true]], fx:[["CLICK!",240,70,26,8,"#2bb673",true]],
+     b:[["c","Cable back in. Ping works!",4,4,11]]}]}
+]},
+/* ===== 12 ===== */
+{title:"Your fix-it checklist", rows:[
+ {h:300, p:[{bg:"plain:#fff3c4", over:[["rtable",15,20,570,[["1","same network? (Case #1: IP + mask)"],["2","ping the device"],["3","'unreachable' from your OWN IP = ARP failed"],["4","arp -a: is the device's MAC there?"],["5","check power, cable, port light, Wi-Fi"]],"LOCAL DEVICE WON'T ANSWER?"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["phone","proud",150,.62]],
+     b:[["s","Now I can explain ARP, MAC tables AND flooding. Case closed!",6,4,14,"b",55,"phone"]]},
+   {bg:"burst:blue", ch:[["laptop","happy",90,.45],["router","happy",230,.42]],
+     b:[["c","Next case: talking to a device on a DIFFERENT network.",4,4,16]]}]}
+]}
+];
+const FIX_2 = {no:"2", cover:COVERF2, t:"How do two devices on one network talk?", b:"Case #2: a smart TV that won't answer a ping. Solve it with ARP, MAC addresses and how a switch learns.", m:15, star:"laptop", part:2, pages:PAGESF2,
+ take:"Ping sends an ICMP echo request in an IP packet and waits for an echo reply. If the destination is on the same network (check with the mask), the sender sends it directly in an Ethernet frame, which needs a source and destination MAC. If the destination MAC is unknown, the sender parks the packet and sends an ARP request (sender MAC/IP, target MAC all zeros, target IP) in a frame to the broadcast MAC FF:FF:FF:FF:FF:FF. A switch learns the sender's MAC and port into its MAC (CAM) table (VLAN, port, MAC; VLAN 1 by default), and floods broadcasts out every port in the VLAN except the one it arrived on, without changing the frame. The owner of the target IP sends a unicast ARP reply; the switch learns that MAC too and forwards the reply out one port. The sender caches the answer (arp -a), completes the frame and the ping flows. If no device answers the ARP, the sender reports 'Destination host unreachable' from its own address.",
+ tip:"Ping another device on your home network (your printer, TV or a family laptop), then run arp -a. Find its IP in the list and read its MAC address. Then unplug or switch it off, clear your cache (arp -d * as administrator on Windows) and ping again: you'll see ARP fail.",
+ q:{q:"Lappy pings 192.168.0.200 and gets 'Reply from 192.168.0.50: Destination host unreachable' (his own IP). What most likely failed?",o:["His ARP request got no reply, so he never learned the MAC","The switch's MAC table was full","The subnet masks are different"],why:"When a device on the same network doesn't answer ARP, the sender can't build the frame and reports 'unreachable' itself. Check that the device is powered on and connected."}};
+
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
@@ -5913,9 +6053,10 @@ ISSUE_K.part = 1; ISSUE_K.free = true;
 ISSUE_L.part = 1; ISSUE_L.free = true;
 ISSUE_M.part = 1; ISSUE_M.free = true;
 FIX_1.id = 26; FIX_1.part = 2; FIX_1.free = true;
+FIX_2.id = 27; FIX_2.part = 2; FIX_2.free = true;
 LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I, ISSUE_J, ISSUE_K, ISSUE_L, ISSUE_M);
 COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover, ISSUE_J.cover, ISSUE_K.cover, ISSUE_L.cover, ISSUE_M.cover);
-LESSONS.push(FIX_1); COVERS.push(FIX_1.cover);
+LESSONS.push(FIX_1, FIX_2); COVERS.push(FIX_1.cover, FIX_2.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
@@ -6217,7 +6358,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 14 issues are free, forever</li>
+          <li><i>\u2713</i>The first 15 issues are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>
