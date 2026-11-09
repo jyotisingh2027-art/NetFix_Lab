@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 22 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 23 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 turns that knowledge into real fixes, one troubleshooting case at a time.</li>
-            <li>The first 22 issues are free. One payment opens the rest.</li>
+            <li>The first 23 issues are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first 22 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first 23 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first 22 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first 23 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole “Fix your own network” series</li><li>New troubleshooting cases as they are added</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -7067,6 +7067,162 @@ const FIX_9 = {no:"9", cover:COVERF9, t:"Why MTU and MSS?", b:"Case #9: small tr
  tip:"On Windows run: ping -f -l 1472 8.8.8.8 (-f sets Don't Fragment, -l is the data size). 1472 + 8 (ICMP header) + 20 (IP header) = 1500. Try 1473: if your path MTU is 1500, it should fail with 'Packet needs to be fragmented but DF set.'",
  q:{q:"An interface has MTU 1400 and runs IPv4 with TCP (no options). What is the MSS?",o:["1360","1400","1460"],why:"MSS = MTU − IP header (20) − TCP header (20) = 1400 − 40 = 1360."}};
 
+/* ---------- Fix your own network · Case 10: the internet that "disappeared" (original NetFixLab chapter) ---------- */
+const COVERF10 = {l:["THE","VANISHING","INTERNET"], t:["CASE #10: WHY DNS","MATTERS"], s:"red", a:"phone", b:"dns", ma:"shock", mb:"proud", sfx:"NOT FOUND!"};
+const F10w = t => Math.max(8, Math.min(17, Math.round(Math.sqrt(t.length) * 1.75)));
+const F10one = (bg, ch, mood, t, fx) => ({bg, ch:[[ch, mood, 150, ch === "server" || ch === "phone" ? .5 : .56]], fx: fx ? [[fx, 150, 44, 22, -5, "#e63a2e", true]] : [], b: t ? [["s", t, 4, 4, F10w(t), "b", 55, ch]] : []});
+const F10duo = (bg, a, b, cap) => ({bg, ch:[[a[0], a[1], 110, .52], [b[0], b[1], 490, .52]], b:[["s", a[2], 2, 4, F10w(a[2]), "b", 18, a[0]], ["s", b[2], 97 - F10w(b[2]) * 2.3, 20, F10w(b[2]), "b", 80, b[0]]].concat(cap ? [["c", cap, 27, 78, 22]] : [])});
+const PAGESF10 = [
+/* ===== 1 ===== */
+{title:"Case #10: 'the internet is DOWN!'", rows:[
+ {h:250, p:[{bg:"room", ch:[["phone","shock",130,.55]], over:[["sweat",195,100,1.1]], fx:[["SERVER NOT FOUND",430,60,20,-3,"#e63a2e",true]],
+   b:[["s","Lappy! Every website says 'server not found'. Videos, shopping, news... the whole internet is GONE!",30,30,17,"bl",8,"phone"]]}]},
+ {h:240, p:[
+   F10one("rays:lilac","laptop","confused","The WHOLE internet? But your online game is still running..."),
+   F10one("rays:sky","phone","confused","Huh. You're right. The game works. Only websites are broken?!")]},
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["laptop","proud",545,.38]], over:[["cli",14,36,["> ping www.example.com","*Ping request could not find host www.example.com.","> ping 8.8.8.8","Reply from 8.8.8.8: bytes=32 time=12ms TTL=117"],13]],
+   b:[["c","By NAME: fails. By IP address: works! The network is fine. NAMES are broken.",2,80,32]]}]},
+ {h:230, p:[
+   F10one("rays:sun","router","proud","Names broken, IPs fine? That's a {{DNS}} problem, Fonz!"),
+   {bg:"chalk", over:[["chalktext",18,40,["CASE FILE #10","Symptom: websites 'not found',","pinging an IP works","Tools today: names vs IPs","DNS hierarchy · UDP 53","resolvers · nslookup"],14]], b:[]}]}
+]},
+/* ===== 2 ===== */
+{title:"Names for humans, numbers for computers", rows:[
+ {h:250, p:[{bg:"room", ch:[["laptop","happy",110,.45]], over:[["rtable",250,30,320,[["Roll no. 31","Rahul"],["Roll no. 32","Priya"],["Roll no. 33","Sam"]],"COLLEGE REGISTER"]],
+   b:[["c","The college tracks students by ROLL NUMBER. Parents and friends use NAMES.",2,3,15]]}]},
+ {h:240, p:[
+   F10one("rays:sky","router","proud","Networks are the same: we routers only understand IP addresses."),
+   F10one("rays:mint","phone","happy","And humans remember names! I can't remember 142.250.x.x for every site.")]},
+ {h:240, p:[F10duo("room", ["laptop","confused","So when I type a name, somebody must turn it into an IP first?"], ["router","proud","Exactly. Without an IP, I can't route your packet anywhere. A name means nothing to me."], "Name → IP translation has to happen BEFORE any traffic flows.")]},
+ {h:220, p:[
+   F10one("burst:yellow","phone","proud",null,"NAMES!"),
+   F10one("burst:blue","router","proud",null,"NUMBERS!")]}
+]},
+/* ===== 3 ===== */
+{title:"The old way: one big file", rows:[
+ {h:250, p:[{bg:"sepia", ch:[["server","proud",110,.45]], over:[["rtable",250,30,330,[["192.168.5.4","rahul"],["192.168.5.6","priya"],["10.0.0.9","lab-printer"]],"HOSTS.TXT (1970s–80s)"]],
+   b:[]}]},
+ {h:240, p:[
+   F10one("rays:sky","server","proud","Back then, ONE person kept a file: every computer's name and IP. Everyone downloaded a copy."),
+   F10one("rays:mint","laptop","happy","Simple! Look up the name in the file, find the IP, done.")]},
+ {h:240, p:[{bg:"rays:rose", ch:[["server","worried",110,.5],["laptop","shock",490,.5]],
+   b:[["s","70 computers, fine. 2,000? Every change, every new computer, re-send the file to EVERYONE!",2,4,17,"b",18,"server"],["s","And today there are millions... one file could never keep up!",58,30,13,"b",80,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",26,52,["Fun fact: your computer STILL has a small 'hosts' file today,","checked before DNS. But the whole internet needed","a SYSTEM, not a file."],16]], b:[]}]}
+]},
+/* ===== 4 ===== */
+{title:"Enter DNS", rows:[
+ {h:250, p:[{bg:"blueprint", ch:[["laptop","happy",90,.45,1,230],["dns","proud",470,.5,1,230]], over:[["arrow",150,90,400,90,"#ffd23f"],["word",275,75,"'IP of www.example.com?'",14,0,"#fff3c4"],["arrow",400,150,150,150,"#2bb673"],["word",275,135,"'93.184.215.14'",14,0,"#fff3c4"]], b:[]}]},
+ {h:240, p:[
+   F10one("rays:sky","dns","proud","I'm Dee, from the {{Domain Name System}}. Give me a name, I give you its IP address."),
+   F10one("rays:mint","laptop","happy","So DNS replaced the giant file with a whole SYSTEM of servers?")]},
+ {h:240, p:[F10duo("room", ["phone","confused","But how can a system know the IP of EVERY website on Earth?"], ["dns","proud","Nobody knows everything! The information is split up and organized in LAYERS: a hierarchy."])]},
+ {h:220, p:[
+   F10one("rays:lilac","laptop","confused","Layers? Like floors in a building?"),
+   F10one("rays:sun","dns","proud","Like an ADDRESS. Next page!")]}
+]},
+/* ===== 5 ===== */
+{title:"Hierarchy: huge information in layers", rows:[
+ {h:250, p:[{bg:"map", over:[["sign",30,40,120,60,["EARTH"],18],["arrow",150,70,190,70,"#e63a2e"],["sign",190,40,110,60,["INDIA"],18],["arrow",300,70,340,70,"#e63a2e"],["sign",340,40,120,60,["KARNATAKA"],15],["arrow",460,70,480,70,"#e63a2e"],["sign",480,40,100,60,["RAHUL"],16]],
+   b:[["c","Over a billion people in India, but follow the layers and you find ONE person.",2,78,32]]}]},
+ {h:250, p:[{bg:"blueprint", over:[["sign",230,20,140,50,["ROOT  ( . )"],18],["line",260,70,140,110,"#ffd23f"],["line",300,70,300,110,"#ffd23f"],["line",340,70,460,110,"#ffd23f"],["sign",80,110,120,46,[".com"],18],["sign",240,110,120,46,[".org"],18],["sign",400,110,120,46,[".in"],18],["line",140,156,140,180,"#ffd23f"],["sign",50,180,180,46,["example.com"],17]], b:[]}]},
+ {h:240, p:[
+   F10one("rays:sky","dns","proud","At the top: the {{root}}. Below it: {{top-level domains}} (TLDs) like .com, .org, .in."),
+   F10one("rays:mint","dns","happy","Below each TLD: domains like example.com. And below those: hosts like www.")]},
+ {h:220, p:[F10duo("room", ["laptop","proud","Read a name right to left: www.example.com. = root → com → example → www!"], ["dns","proud","Exactly! Each layer only needs to know the layer just below it."])]}
+]},
+/* ===== 6 ===== */
+{title:"Who knows what?", rows:[
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["Root servers","know where every TLD's servers are"],["TLD servers (.com)","know which name servers hold each .com domain"],["Authoritative name server","holds the real records: name → IP"]],"THE DNS CHAIN OF KNOWLEDGE"]], b:[]}]},
+ {h:240, p:[
+   F10one("rays:sky","dns","proud","There are 13 root server names worldwide (A to M), each copied to many places around the globe."),
+   F10one("rays:mint","server","proud","Each TLD is run by an organization called a registry. And a domain's owner runs its {{authoritative name server}}.")]},
+ {h:240, p:[F10duo("room", ["phone","confused","So root servers DON'T know example.com's IP?"], ["dns","proud","Nope! They just point you down one layer. Only the authoritative name server has the final answer."])]},
+ {h:220, p:[
+   F10one("burst:yellow","dns","proud",null,"ROOT!"),
+   F10one("rays:lilac","laptop","happy","Root → TLD → authoritative. Three stops to an answer!")]}
+]},
+/* ===== 7 ===== */
+{title:"DNS rides on UDP port 53", rows:[
+ {h:250, p:[{bg:"blueprint", ch:[["laptop","proud",90,.42,1,230],["dns","happy",500,.48,1,230]], over:[["line",140,210,450,210,"#1f6fd1"],["envelope",295,110,.45,"UDP → 53"]],
+   b:[["s","My question: a small UDP packet, source port random, destination port 53.",1,4,15,"b",14,"laptop"],["s","One little question, one little answer. No handshake needed!",62,4,13,"b",82,"dns"]]}]},
+ {h:240, p:[
+   F10one("rays:sky","router","proud","Remember UDP: no connection, no resend. Just ports and send. Fast and light!"),
+   F10one("rays:mint","laptop","happy","And if an answer gets lost? My computer simply asks again.")]},
+ {h:240, p:[F10duo("room", ["phone","confused","Why not TCP? Isn't TCP more reliable?"], ["router","proud","A DNS lookup is tiny and happens all the time. A TCP handshake first would slow EVERY website down. (Big DNS answers can use TCP 53.)"])]},
+ {h:220, p:[
+   F10one("burst:blue","dns","proud",null,"PORT 53!"),
+   F10one("rays:sun","laptop","proud","Same UDP we met in the traceroute case!")]}
+]},
+/* ===== 8 ===== */
+{title:"Walking the tree", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["laptop","proud",70,.36,1,250],["dns","happy",330,.32,1,90],["dns","happy",430,.32,1,165],["dns","proud",530,.32,1,250]], over:[["arrow",110,200,290,70,"#ffd23f"],["word",200,110,"1",22,0,"#ffd23f"],["arrow",110,215,390,145,"#ffd23f"],["word",260,165,"2",22,0,"#ffd23f"],["arrow",110,230,490,230,"#ffd23f"],["word",300,245,"3",22,0,"#ffd23f"],["word",400,30,"ROOT",14,0,"#fff3c4"],["word",510,110,".COM",14,0,"#fff3c4"],["word",560,195,"AUTH",14,0,"#fff3c4"]], b:[]}]},
+ {h:240, p:[
+   F10one("rays:sky","dns","proud","Root: 'example.com? Not mine. Ask the .com servers, here's their address.'"),
+   F10one("rays:mint","dns","happy",".com: 'Not mine either. Ask example.com's name servers, here they are.'")]},
+ {h:240, p:[
+   F10one("rays:sun","dns","proud","Authoritative: 'YES, that's mine. www.example.com is 93.184.215.14.'"),
+   F10one("burst:yellow","laptop","proud",null,"ANSWER!")]},
+ {h:220, p:[F10duo("room", ["laptop","confused","So I have to make three trips for EVERY website?!"], ["dns","proud","You could... but there's a much better way. Meet the resolver!"])]}
+]},
+/* ===== 9 ===== */
+{title:"The recursive resolver does it for you", rows:[
+ {h:250, p:[{bg:"blueprint", ch:[["laptop","proud",70,.36,1,240],["server","proud",300,.36,1,240],["dns","happy",520,.3,1,240]], over:[["arrow",110,90,260,90,"#ffd23f"],["word",185,75,"1 question",13,0,"#fff3c4"],["arrow",340,90,480,90,"#ffd23f"],["arrow",480,130,340,130,"#2bb673"],["word",410,75,"root → .com → auth",12,0,"#fff3c4"],["arrow",260,170,110,170,"#2bb673"],["word",185,155,"1 answer",13,0,"#fff3c4"]], b:[]}]},
+ {h:240, p:[
+   F10one("rays:sky","server","proud","I'm a {{recursive resolver}}, like 8.8.8.8 or 1.1.1.1, or your own router. You ask me ONCE..."),
+   F10one("rays:mint","server","happy","...and I walk root → TLD → authoritative on your behalf, then bring back the IP.")]},
+ {h:240, p:[F10duo("room", ["phone","happy","And if a million people ask for the same site?"], ["server","proud","I keep answers in my CACHE for a while. The next person gets the answer instantly, without walking the tree again!"])]},
+ {h:220, p:[
+   F10one("rays:lilac","laptop","proud","My computer caches answers too! It checks its own cache first, then asks the resolver."),
+   F10one("burst:blue","server","proud",null,"CACHED!")]}
+]},
+/* ===== 10 ===== */
+{title:"DNS in Wireshark", rows:[
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["laptop","proud",550,.36]], over:[["cli",12,34,["No. Source         Dest           Info","1  192.168.0.10   8.8.8.8        Standard query A www.example.com","2  8.8.8.8        192.168.0.10   Standard query response A 93.184.215.14","User Datagram Protocol, Src Port: 51544, Dst Port: 53"],12]], b:[]}]},
+ {h:240, p:[
+   F10one("rays:sky","laptop","proud","Query type 'A' = 'give me the IPv4 address'. 'AAAA' asks for the IPv6 address."),
+   F10one("rays:mint","dns","happy","Big sites often return SEVERAL A records: many servers, one name!")]},
+ {h:240, p:[{bg:"blueprint", over:[["stack",30,60,.9,[["Ethernet","#9a7bff",110],["IPv4","#e63a2e",80],["UDP 53","#1f6fd1",100],["DNS query","#ffd23f",130]]]], b:[["c","Same layers as always: DNS (the app) inside UDP inside IP inside an Ethernet frame.",2,78,32]]}]},
+ {h:220, p:[F10duo("room", ["phone","proud","So EVERY website visit starts with this little question?"], ["dns","proud","Every new name, yes! No answer, no IP, no website."])]}
+]},
+/* ===== 11 ===== */
+{title:"Step 1: who's Fonz asking?", rows:[
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["phone","worried",545,.38]], over:[["cli",14,36,["> ipconfig /all","   Default Gateway . . : 192.168.0.1","*   DNS Servers . . . . : 10.0.0.53","> nslookup www.example.com","*DNS request timed out."],13]],
+   b:[["c","Fonz's DNS server is set to 10.0.0.53... and it doesn't answer!",2,80,26]]}]},
+ {h:240, p:[
+   F10one("rays:rose","phone","worried","10.0.0.53? Oh no. I typed that in by hand when I borrowed my old office's settings!"),
+   F10one("rays:sun","router","proud","That office server was switched off last week. Your phone asks a server that's gone.")]},
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["laptop","proud",545,.38]], over:[["cli",14,40,["> nslookup www.example.com 8.8.8.8","Server:  dns.google","Address: 8.8.8.8","Name:    www.example.com","Address: 93.184.215.14"],13]],
+   b:[["c","Ask a working resolver directly: instant answer. Case cracked!",2,80,26]]}]},
+ {h:220, p:[F10duo("room", ["laptop","proud","The network was fine all along. Only Fonz's DNS server was wrong."], ["phone","shock","And without DNS, it LOOKED like the whole internet had vanished!"])]}
+]},
+/* ===== 12 ===== */
+{title:"Step 2: the fix (and a true story)", rows:[
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["phone","proud",545,.38]], over:[["cli",14,40,["Wi-Fi settings → IP settings: Automatic (DHCP) ✓","   DNS Servers . . . . : 192.168.0.1","> ipconfig /flushdns","> ping www.example.com   → Reply ✓"],13]],
+   b:[["c","Back to automatic: DHCP hands out the right DNS server again.",2,80,26]]}]},
+ {h:240, p:[
+   F10one("burst:yellow","phone","proud",null,"IT'S BACK!"),
+   F10one("rays:mint","router","happy","I forward your DNS questions to the resolver. All sorted!")]},
+ {h:180, p:[{bg:"chalk", over:[["chalktext",24,44,["A TRUE STORY · OCTOBER 2016","Attackers flooded a big DNS provider with junk traffic (a DDoS).","Its name servers couldn't answer, so many big streaming,","shopping and news sites seemed to vanish from the internet."],15]],
+   b:[]}]},
+ {h:220, p:[F10duo("room", ["laptop","shock","The sites were running fine... people just couldn't get their IPs?"], ["dns","proud","Exactly like Fonz today. No DNS answers, and the internet LOOKS dead."])]}
+]},
+/* ===== 13 ===== */
+{title:"Your fix-it checklist", rows:[
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["1","'site not found'? ping an IP (8.8.8.8): does THAT work?"],["2","IP works, names fail → it's DNS"],["3","ipconfig /all: which DNS server are you using?"],["4","nslookup name, then nslookup name 8.8.8.8 to compare"],["5","fix the DNS setting (or DHCP), then ipconfig /flushdns"]],"'THE INTERNET IS DOWN'?"]], b:[]}]},
+ {h:240, p:[F10duo("room", ["phone","proud","DNS turns names into IPs. Root → TLD → authoritative, over UDP 53."], ["server","proud","And resolvers like me walk that tree for you, and cache the answers."])]},
+ {h:240, p:[
+   F10one("rays:sky","laptop","happy","No DNS, no IP. No IP, no website!"),
+   F10one("rays:sun","dns","proud","That's why DNS is so important for the internet.")]},
+ {h:220, p:[
+   F10one("burst:blue","phone","proud",null,"CASE CLOSED!"),
+   {bg:"rays:mint", ch:[["dns","happy",150,.5]], b:[["c","Case #10 closed. See you at the next case!",4,4,13]]}]}
+]}
+];
+const FIX_10 = {no:"10", cover:COVERF10, t:"Why is DNS so important for the internet?", b:"Case #10: every website says 'not found', yet the network works. Solve it with DNS: names, the hierarchy, resolvers and nslookup.", m:18, star:"dns", part:2, pages:PAGESF10,
+ take:"Humans remember names; computers and routers only route by IP address, so every name must be turned into an IP before traffic can flow. Early on, one HOSTS.TXT file listed every computer's name and IP and everyone downloaded it, which couldn't scale (a small hosts file still exists on your computer). DNS, the Domain Name System, replaced it with a distributed system that organizes huge amounts of information in a hierarchy: the root at the top, then top-level domains (TLDs) such as .com, .org and .in, then domains such as example.com, then hosts such as www. Root servers (13 named root servers, A to M, each copied worldwide) point to TLD servers; TLD servers point to a domain's authoritative name server, which holds the real record. DNS queries normally use UDP port 53, because they're small and frequent (large answers can use TCP 53). A recursive resolver (your router, 8.8.8.8, 1.1.1.1) takes one question from your computer, walks root → TLD → authoritative on your behalf, and caches answers; your computer also caches. Record type A holds an IPv4 address, AAAA an IPv6 address. If DNS fails, websites appear 'not found' even though the network works: in 2016 a DDoS attack on a major DNS provider made many big sites seem to vanish. To troubleshoot, compare pinging an IP with pinging a name, check your DNS server with ipconfig /all, and test with nslookup.",
+ tip:"Run nslookup www.wikipedia.org, then nslookup www.wikipedia.org 1.1.1.1. Compare the 'Server' line in each answer: the first shows the resolver your computer normally uses.",
+ q:{q:"ping 8.8.8.8 works, but ping www.example.com says 'could not find host'. What's most likely broken?",o:["DNS: the name can't be turned into an IP","The default gateway","The Wi-Fi signal"],why:"Reaching an IP proves the network path and gateway work. Only the name lookup fails, which is DNS's job."}};
+
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
@@ -7088,9 +7244,10 @@ FIX_6.id = 31; FIX_6.part = 2; FIX_6.free = true;
 FIX_7.id = 32; FIX_7.part = 2; FIX_7.free = true;
 FIX_8.id = 33; FIX_8.part = 2; FIX_8.free = true;
 FIX_9.id = 34; FIX_9.part = 2; FIX_9.free = true;
+FIX_10.id = 35; FIX_10.part = 2; FIX_10.free = true;
 LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I, ISSUE_J, ISSUE_K, ISSUE_L, ISSUE_M);
 COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover, ISSUE_J.cover, ISSUE_K.cover, ISSUE_L.cover, ISSUE_M.cover);
-LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7, FIX_8, FIX_9); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover, FIX_8.cover, FIX_9.cover);
+LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7, FIX_8, FIX_9, FIX_10); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover, FIX_8.cover, FIX_9.cover, FIX_10.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
@@ -7876,7 +8033,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 22 issues are free, forever</li>
+          <li><i>\u2713</i>The first 23 issues are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>
