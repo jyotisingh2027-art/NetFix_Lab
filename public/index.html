@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 17 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 18 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 turns that knowledge into real fixes, one troubleshooting case at a time.</li>
-            <li>The first 17 issues are free. One payment opens the rest.</li>
+            <li>The first 18 issues are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first 17 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first 18 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first 17 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first 18 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole “Fix your own network” series</li><li>New troubleshooting cases as they are added</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -975,7 +975,7 @@ function cover(n, mini){
     + `<text x="208" y="49" text-anchor="middle" font-family="${BANG}" font-size="46" letter-spacing="2" fill="#e63a2e" stroke="#14213d" stroke-width="5" paint-order="stroke" stroke-linejoin="round">NETFIXLAB</text>`
     + `<circle cx="40" cy="35" r="26" fill="#ffd23f" stroke="#14213d" stroke-width="4"/>`
     + `<text x="40" y="26" text-anchor="middle" font-family="Comic Neue, sans-serif" font-weight="700" font-size="10" fill="#14213d">NO.</text>`
-    + `<text x="40" y="51" text-anchor="middle" font-family="${BANG}" font-size="28" fill="#14213d">${n}</text>`
+    + `<text x="40" y="51" text-anchor="middle" font-family="${BANG}" font-size="28" fill="#14213d">${pn(n)}</text>`
     + `<rect y="438" width="360" height="42" fill="#fff3c4"/><path d="M0 438H360" stroke="#14213d" stroke-width="4"/>`
     + `<text x="180" y="456" text-anchor="middle" font-family="Comic Neue, sans-serif" font-weight="700" font-size="12.5" letter-spacing="1" fill="#14213d">${C.t[0]}</text>`
     + `<text x="180" y="472" text-anchor="middle" font-family="Comic Neue, sans-serif" font-weight="700" font-size="12.5" letter-spacing="1" fill="#14213d">${C.t[1]}</text>`
@@ -1277,7 +1277,7 @@ function coverTall(n, R){
     + `<text x="212" y="56" text-anchor="middle" font-family="${BANG}" font-size="52" letter-spacing="2" fill="#e63a2e" stroke="#14213d" stroke-width="5" paint-order="stroke" stroke-linejoin="round">NETFIXLAB</text>`
     + `<circle cx="44" cy="38" r="28" fill="#ffd23f" stroke="#14213d" stroke-width="4"/>`
     + `<text x="44" y="29" text-anchor="middle" font-family="Comic Neue, sans-serif" font-weight="700" font-size="10" fill="#14213d">NO.</text>`
-    + `<text x="44" y="55" text-anchor="middle" font-family="${BANG}" font-size="${String(n).length > 1 ? 22 : 30}" fill="#14213d">${n}</text>`
+    + `<text x="44" y="55" text-anchor="middle" font-family="${BANG}" font-size="${String(pn(n)).length > 1 ? 22 : 30}" fill="#14213d">${pn(n)}</text>`
     + `<rect y="${Hd - 50}" width="${Wd}" height="50" fill="#fff3c4"/><path d="M0 ${Hd - 50}H${Wd}" stroke="#14213d" stroke-width="4"/>`
     + `<text x="180" y="${Hd - 30}" text-anchor="middle" font-family="Comic Neue, sans-serif" font-weight="700" font-size="13" letter-spacing="1" fill="#14213d">${C.t[0]}</text>`
     + `<text x="180" y="${Hd - 12}" text-anchor="middle" font-family="Comic Neue, sans-serif" font-weight="700" font-size="13" letter-spacing="1" fill="#14213d">${C.t[1]}</text>`
@@ -1789,7 +1789,7 @@ const MacPet = (() => {
     build();
     const L = (typeof LESSONS !== "undefined" && LESSONS[n - 1]) || {t: "this chapter"};
     const big = CHEERS[Math.floor(Math.random() * CHEERS.length)];
-    arrive("right", {who: true, kind: "cheer", big, text: `You finished Issue ${n}: ${L.t} Your network brain just levelled up!`, mood: "happy", ms: 7500, acts: [["Yay!", "close"]]});
+    arrive("right", {who: true, kind: "cheer", big, text: `You finished Issue ${typeof pn === "function" && LESSONS[n - 1] ? pn(n) : n}: ${L.t} Your network brain just levelled up!`, mood: "happy", ms: 7500, acts: [["Yay!", "close"]]});
     setTimeout(() => { el.dataset.mood = "happy"; anim("spin", 1950); confetti(); }, 450);
     setTimeout(() => anim("hop", 1600), 2000);
   }
@@ -6347,6 +6347,158 @@ const FIX_4 = {no:"4", cover:COVERF4, t:"How do you avoid loops in a Layer 2 net
  tip:"Draw the switches and cables in your home or office as boxes and lines. Can you trace a closed circle? If so, that's a loop that only spanning tree is keeping in check. Many cheap home switches don't run STP at all, so never connect two of them with two cables.",
  q:{q:"Three switches with default priority 32768 have MACs ending :11, :22 and :33. Which becomes the root bridge?",o:["The one ending :11","The one ending :33","The one with the most cables"],why:"With equal priorities, the lowest MAC address gives the lowest bridge ID, and the lowest bridge ID wins the root election."}};
 
+/* ---------- Fix your own network · Case 5: the message that won't send (original NetFixLab chapter) ---------- */
+const COVERF5 = {l:["THE","MESSAGE","THAT WON'T SEND"], t:["CASE #5: OSI vs","TCP/IP LAYERS"], s:"blue", a:"phone", b:"laptop", ma:"shock", mb:"proud", sfx:"WHICH LAYER?"};
+const PAGESF5 = [
+/* ===== 1 ===== */
+{title:"Case #5: 'the network is broken!'", rows:[
+ {h:260, p:[{bg:"room", ch:[["phone","shock",130,.6]], over:[["sweat",200,110,1.2]], fx:[["NOT SENT!",440,60,26,-4,"#e63a2e",true]],
+   b:[["s","Lappy! My chat messages to you won't send. The network is BROKEN!",30,34,17,"bl",8,"phone"]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","'The network' is a LOT of parts, Fonz. Which part is broken?",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:lilac", ch:[["phone","confused",150,.55]],
+     b:[["s","Parts? I only know the Wi-Fi icon...",8,5,12,"b",55,"phone"]]}]},
+ {h:240, p:[
+   {bg:"rays:mint", ch:[["router","proud",150,.58]],
+     b:[["s","Then today you learn the map every troubleshooter uses: the LAYERS.",4,4,15,"b",55,"router"]]},
+   {bg:"chalk", over:[["chalktext",20,46,["CASE FILE #5","Symptom: chat messages won't send","Tools today:","· why networks have layers","· OSI vs TCP/IP","· headers and encapsulation","· why IP AND MAC addresses"],15]],
+     b:[]}]}
+]},
+/* ===== 2 ===== */
+{title:"Why layers at all?", rows:[
+ {h:250, p:[{bg:"sepia", ch:[["laptop","happy",110,.45,1,240],["laptop","happy",490,.45,1,240]], over:[["word",300,150,"? ? ?",40,0,"#ffd23f"],["sign",150,24,300,64,["THE BIG PROBLEM (1960s-70s)","how does one computer send a file to another?"],16]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", over:[["puzzle",80,120,.9,"#e63a2e",-10],["puzzle",170,90,.9,"#1f6fd1",8],["puzzle",120,190,.9,"#2bb673",4],["puzzle",220,170,.9,"#ffd23f",-6]],
+     b:[["c","One huge problem → many small pieces.",4,4,15]]},
+   {bg:"rays:mint", ch:[["router","proud",150,.58]],
+     b:[["s","Each piece is a LAYER. One team per layer, and each layer only does its own job!",4,4,15,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Layers are independent: one team can improve its layer","without the others even noticing. That's the whole trick."],18]],
+   b:[]}]}
+]},
+/* ===== 3 ===== */
+{title:"Five jobs, five layers", rows:[
+ {h:205, p:[{bg:"plain:#fff3c4", over:[["rtable",15,20,570,[["5 APPLICATION","the app makes the data (chat, web, files)"],["4 TRANSPORT","is the other side there? deliver to the RIGHT app"],["3 NETWORK","host to host, even across networks (IP)"],["2 DATA LINK","one hop, inside ONE network or link"],["1 PHYSICAL","bits as signals: electricity, light, radio"]],"TCP/IP: WHO DOES WHAT"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["phone","confused",150,.55]],
+     b:[["s","So the network layer gets it to Lappy's laptop, but not to his chat app?",4,4,15,"b",55,"phone"]]},
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Right! Picking the app is the {{transport layer}}'s job. Remember that, it's a clue!",4,4,15,"b",55,"laptop"]]}]}
+]},
+/* ===== 4 ===== */
+{title:"Two teams, two models", rows:[
+ {h:250, p:[
+   {bg:"rays:sky", ch:[["router","worried",150,.55]],
+     b:[["s","Team OSI: a huge committee. 7 layers, careful design... and LOTS of arguing.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.55]],
+     b:[["s","Team TCP/IP: a small group. Build it, test it, ship it. And it was free to use!",4,4,15,"b",55,"router"]]}]},
+ {h:290, p:[{bg:"blueprint", over:[["rtable",15,20,270,[["7 Application","app data"],["6 Presentation","data format"],["5 Session","the session"],["4 Transport","app to app"],["3 Network","host to host"],["2 Data link","one link"],["1 Physical","signals"]],"OSI (7)"],["rtable",315,20,270,[["Application","OSI 5-7"],["Transport","OSI 4"],["Network","OSI 3"],["Data link","OSI 2"],["Physical","OSI 1"]],"TCP/IP (5)"]],
+   b:[]}]},
+ {h:240, p:[{bg:"chalk", over:[["chalktext",26,50,["TCP/IP got running first, networks built on it joined up,","and that web of networks became the INTERNET.","OSI stayed as the REFERENCE model: a tidy map we still use.","(TCP/IP was first described with 4 layers; today it's usually taught as 5.)"],15]],
+   b:[]}]}
+]},
+/* ===== 5 ===== */
+{title:"Where ARE the layers?", rows:[
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["phone","confused",150,.55]],
+     b:[["s","Can I SEE these layers? Where are they hiding?",8,5,12,"b",55,"phone"]]},
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Inside me! Every device that goes online runs the whole TCP/IP stack: software plus the network card.",4,4,16,"b",55,"laptop"]]}]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["laptop","happy",540,.42]], over:[["cli",18,40,["Wi-Fi adapter > Properties","  ☑ Internet Protocol Version 4 (TCP/IPv4)","  ☑ Internet Protocol Version 6 (TCP/IPv6)","  IP: obtain automatically (DHCP)","  ...or type IP, mask, gateway by hand"],14]],
+   b:[]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["You've seen the layers already: the IP settings (Cases #1 and #3)","ARE the network layer, sitting right there in your laptop."],17]],
+   b:[]}]}
+]},
+/* ===== 6 ===== */
+{title:"Sending: wrap, wrap, wrap", rows:[
+ {h:330, p:[{bg:"blueprint", ch:[["phone","proud",545,.36,1,320]], over:[["stack",20,40,.9,[["\"hi Lappy!\"","#ffd23f",150]]],["stack",20,100,.9,[["TCP: to app port","#1f6fd1",180],["\"hi Lappy!\"","#ffd23f",150]]],["stack",20,160,.9,[["IP: .30 → .20","#e63a2e",150],["TCP","#1f6fd1",80],["\"hi Lappy!\"","#ffd23f",150]]],["stack",20,220,.9,[["ETH: MACs","#9a7bff",120],["IP","#e63a2e",60],["TCP","#1f6fd1",80],["\"hi Lappy!\"","#ffd23f",150]]],["bitrow",30,295,"0110100101101001",null,18]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["phone","proud",150,.55]],
+     b:[["s","Each layer adds its own {{header}}: TCP says WHICH APP, IP says WHICH HOST.",4,4,15,"b",55,"phone"]]},
+   {bg:"rays:mint", ch:[["router","proud",150,.58]],
+     b:[["s","And to IP, the TCP part is just 'data'. No layer reads the layers above it!",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 7 ===== */
+{title:"Receiving: unwrap, unwrap, unwrap", rows:[
+ {h:280, p:[{bg:"blueprint", ch:[["laptop","proud",540,.4,1,270]], over:[["stack",20,40,.9,[["ETH: my MAC? ✓","#9a7bff",170],["IP","#e63a2e",60],["TCP","#1f6fd1",80],["DATA","#ffd23f",90]]],["stack",20,110,.9,[["IP: my IP? ✓","#e63a2e",150],["TCP","#1f6fd1",80],["DATA","#ffd23f",90]]],["stack",20,180,.9,[["TCP: port → chat app","#1f6fd1",210],["DATA","#ffd23f",90]]]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Each layer checks ITS header, removes it and passes the rest up.",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:rose", ch:[["laptop","worried",150,.6]],
+     b:[["s","And if no app is waiting on that port? Transport has nobody to hand it to!",4,4,15,"b",55,"laptop"]]}]}
+]},
+/* ===== 8 ===== */
+{title:"Why IP AND MAC?", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["laptop","happy",60,.32,1,200],["switch","happy",185,.32,1,200],["router","proud",330,.38,1,200],["router","happy",520,.38,1,200]], over:[["line",100,185,145,185,"#1f6fd1"],["line",225,185,285,185,"#1f6fd1"],["line",375,185,475,185,"#f08a24"],["word",160,240,"ETHERNET (many devices)",14,0,"#fff3c4"],["word",425,240,"POINT-TO-POINT",14,0,"#ffd23f"],["word",330,60,"R1",17,0,"#fff3c4"],["word",520,60,"R2 → server 5.5.5.5",15,0,"#fff3c4"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.55]],
+     b:[["s","My network layer just picks the exit: LAN side or the link to R2. It doesn't care what KIND of link it is.",4,4,17,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["switch","proud",150,.55]],
+     b:[["s","On Ethernet, many devices share the link, so a frame needs a MAC to say WHICH one.",4,3,16,"b",50,"switch"]]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["router","happy",150,.55]],
+     b:[["s","On a point-to-point link there's only ONE other end. No MAC needed! It uses its own header (like PPP).",4,4,17,"b",55,"router"]]},
+   {bg:"chalk", over:[["chalktext",14,40,["IP = end to end, the same","on every link.","Data link = per link, and","every link type has its","own rules. So we need both!"],15]],
+     b:[]}]}
+]},
+/* ===== 9 ===== */
+{title:"Step 1: climb the layers", rows:[
+ {h:270, p:[{bg:"blueprint", over:[["tower",160,250,.9,[1,2,3]],["rtable",290,50,295,[["L1/L2","connected?"],["L3","ping works?"],["L4","app port open?"],["L5-7","app OK?"]],"TEST BOTTOM-UP"]],
+   b:[]}]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["phone","proud",540,.4]], over:[["cli",18,46,["Wi-Fi: connected, IP 192.168.0.30  ✓","> ping 192.168.0.20","  Reply from 192.168.0.20: time=3ms","  Reply from 192.168.0.20: time=2ms"],14]],
+   b:[["c","Layers 1, 2 and 3 are fine: Fonz's phone reaches Lappy's laptop!",2,80,30]]}]},
+ {h:230, p:[
+   {bg:"rays:lilac", ch:[["phone","confused",150,.55]],
+     b:[["s","So the network ISN'T broken?!",8,5,11,"b",55,"phone"]]},
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Not up to Layer 3. Let's check one floor higher: transport.",6,4,14,"b",55,"laptop"]]}]}
+]},
+/* ===== 10 ===== */
+{title:"Step 2: the transport clue", rows:[
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["laptop","shock",540,.42]], over:[["cli",14,40,["> Test-NetConnection 192.168.0.20 -Port 5000","  PingSucceeded    : True","*  TcpTestSucceeded : False"],13]],
+   b:[["c","The host answers, but NOTHING is listening on the chat app's port 5000.",2,80,30]]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["laptop","worried",150,.6]],
+     b:[["s","FOUND IT! My chat app closed itself after last night's update. No app = no one on port 5000.",4,4,16,"b",55,"laptop"]]},
+   {bg:"burst:yellow", ch:[["laptop","proud",150,.6]], fx:[["CLICK!",150,40,26,-5,"#e63a2e",true]],
+     b:[["c","App reopened.",4,82,8]]}]},
+ {h:240, p:[
+   {bg:"rays:mint", ch:[["phone","happy",150,.55]], fx:[["DING!",250,50,22,6,"#2bb673",true]],
+     b:[["s","SENT! And delivered!",8,5,9,"b",55,"phone"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","And I never needed fixing. The layers told you exactly where to look!",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 11 ===== */
+{title:"So why keep OSI?", rows:[
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["phone","confused",150,.55]],
+     b:[["s","If TCP/IP runs everything, why does anyone still learn OSI?",6,4,14,"b",55,"phone"]]},
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Because it's a great MAP. People say 'a Layer 2 problem' or 'a Layer 7 app' using OSI numbers.",4,4,16,"b",55,"laptop"]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,56,["TCP/IP = what actually runs on every device.","OSI = the reference map engineers use to talk and troubleshoot.","Know both, and you know where every protocol lives."],17]],
+   b:[]}]}
+]},
+/* ===== 12 ===== */
+{title:"Your fix-it checklist", rows:[
+ {h:205, p:[{bg:"plain:#fff3c4", over:[["rtable",15,20,570,[["1","L1/L2: Wi-Fi or cable connected? link light on?"],["2","L3: right IP and gateway? does ping work?"],["3","L4: is the app's port open? (port test)"],["4","L5-7: is the app running and signed in?"],["5","fix the LOWEST broken layer first"]],"'THE NETWORK IS BROKEN'?"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["phone","proud",150,.55]],
+     b:[["s","Next time I'll say WHICH layer is broken!",8,5,12,"b",55,"phone"]]},
+   {bg:"burst:blue", ch:[["laptop","happy",150,.55]],
+     b:[["c","Case #5 closed. See you at the next case!",4,4,13]]}]}
+]}
+];
+const FIX_5 = {no:"5", cover:COVERF5, t:"Why OSI if TCP/IP runs everywhere?", b:"Case #5: chat messages won't send. Use the network layers as a map to find the broken part.", m:16, star:"phone", part:2, pages:PAGESF5,
+ take:"Making two computers talk is a big problem, so it was split into layers, each with its own job and able to change without affecting the others. TCP/IP is usually taught as 5 layers: application (makes data), transport (checks the other side and delivers to the right app, using port numbers), network (host to host across networks with IP), data link (one hop inside one network or link) and physical (bits as electrical, light or radio signals). OSI has 7 layers (adding presentation and session). It was designed by a large committee and was slow to finish, while the TCP/IP group built, tested and freely released TCP and IP; networks built on TCP/IP joined up into the internet. OSI survives as the reference model engineers use to name layers. The layers live in every connected device's software and network card. When sending, each layer adds a header (encapsulation): TCP names the app, IP names the hosts, Layer 2 names the next device on the link. The receiver removes them in reverse. We need both IP and MAC addresses because IP is end to end while data link addressing depends on the link type: Ethernet needs MACs, a point-to-point link doesn't. Troubleshoot bottom-up and fix the lowest broken layer.",
+ tip:"Next time something 'doesn't work', climb the layers: is Wi-Fi connected? Can you ping your gateway? Does the website or app work on another device? Each answer tells you which layer to look at.",
+ q:{q:"Fonz can ping Lappy's laptop, but his chat app can't connect to it on port 5000. Which layer should he check next?",o:["Transport (port 5000 / is the app listening?)","Physical (the Wi-Fi signal)","Network (Lappy's IP address)"],why:"A working ping proves Layers 1-3. A port failure points to the transport layer: no app is listening on that port."}};
+
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
@@ -6363,9 +6515,10 @@ FIX_1.id = 26; FIX_1.part = 2; FIX_1.free = true;
 FIX_2.id = 27; FIX_2.part = 2; FIX_2.free = true;
 FIX_3.id = 28; FIX_3.part = 2; FIX_3.free = true;
 FIX_4.id = 29; FIX_4.part = 2; FIX_4.free = true;
+FIX_5.id = 30; FIX_5.part = 2; FIX_5.free = true;
 LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I, ISSUE_J, ISSUE_K, ISSUE_L, ISSUE_M);
 COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover, ISSUE_J.cover, ISSUE_K.cover, ISSUE_L.cover, ISSUE_M.cover);
-LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover);
+LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
@@ -6578,12 +6731,14 @@ function updateHeader(){
 
 /* ---------- home ---------- */
 const LOCK = '<svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" fill="currentColor"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="3"/></svg>';
+/* Issue numbers on screen restart at 1 in each part */
+function pn(n){ const P = LESSONS[n-1].part; return LESSONS.slice(0, n).filter(x => x.part === P).length; }
 function card(n){
   const L = LESSONS[n-1], done = S.done.includes(L.id), locked = isLocked(n);
   const tag = done ? ["read","Read"] : L.free ? ["free","Free"] : locked ? ["lock", LOCK+" Locked"] : ["open","Open"];
-  return `<button class="card" data-open="${n}" aria-label="Lesson ${n}: ${L.t}${locked ? ", locked" : ""}">
+  return `<button class="card" data-open="${n}" aria-label="Lesson ${pn(n)}: ${L.t}${locked ? ", locked" : ""}">
     <span class="cv">${cover(n,true)}</span>
-    <span class="ctext"><span class="tag ${tag[0]} tagpos">${tag[1]}</span><span class="meta">Issue ${n} · ${L.m} min read</span><span class="cb">${L.b}</span></span></button>`;
+    <span class="ctext"><span class="tag ${tag[0]} tagpos">${tag[1]}</span><span class="meta">Issue ${pn(n)} · ${L.m} min read</span><span class="cb">${L.b}</span></span></button>`;
 }
 function renderHome(){
   $("#ph1").textContent = PARTS[1].n; $("#pd1").textContent = PARTS[1].d;
@@ -6607,7 +6762,7 @@ function openLesson(n){
   const L = LESSONS[n-1];
   const opts = shuffle(L.q.o.map((t,i) => ({t, ok: i === 0})));
   const last = n === LESSONS.length;
-  const kick = `${PARTS[L.part].n} · Issue ${n} of ${LESSONS.length} · ${L.m} min`;
+  const kick = `${PARTS[L.part].n} · Issue ${pn(n)} of ${LESSONS.filter(x => x.part === L.part).length} · ${L.m} min`;
   $("#reader").innerHTML = `
     <div class="cover-view" id="cv">
       <div class="bigcover">${cover(n,false)}</div>
@@ -6667,7 +6822,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 17 issues are free, forever</li>
+          <li><i>\u2713</i>The first 18 issues are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>
@@ -6803,7 +6958,7 @@ function openProfile(note, bad){
   const joined = USER.joined ? new Date(USER.joined).toLocaleDateString("en", {month:"long", year:"numeric"}) : "";
   const minis = LESSONS.map((L,i) => {
     const n = i+1, d = S.done.includes(L.id), lk = isLocked(n);
-    return `<button class="mini ${d ? "is-done" : ""}" data-open="${n}" aria-label="Issue ${n}: ${L.t}${d ? ", read" : lk ? ", locked" : ""}"><span class="cv">${cover(n,true)}</span><span class="mk">${d ? "✓ Read" : lk ? LOCK + " Locked" : "Unread"}</span></button>`;
+    return `<button class="mini ${d ? "is-done" : ""}" data-open="${n}" aria-label="Issue ${pn(n)}: ${L.t}${d ? ", read" : lk ? ", locked" : ""}"><span class="cv">${cover(n,true)}</span><span class="mk">${d ? "✓ Read" : lk ? LOCK + " Locked" : "Unread"}</span></button>`;
   }).join("");
   const cont = nxt ? `<button class="btn" data-open="${nxt}">${done ? "Continue reading" : "Start reading"}</button>` : `<span class="tag read">You finished every issue</span>`;
   const buy = S.unlocked ? "" : `<button class="btn alt" data-buy>Unlock all lessons</button>` + (USE_SB && CONFIG.paymentLink ? `<button class="btn alt" id="checkPay">I have paid, check my account</button>` : "");
@@ -6890,7 +7045,7 @@ function renderReceipt(r){
       ${ok ? `<p class="fine">Dodo Payments has also emailed a receipt to ${esc(r.email || USER.email)}. Keep this page or that email as your proof of purchase.</p>` : ""}
       ${bad ? `<p class="fine">If money left your account, it is released automatically by your bank. Questions? Use the Contact form and quote the payment ID.</p>` : ""}
       <div class="prow">
-        ${ok ? `<button class="btn" data-open="${FIRST_PAID}">Start issue ${FIRST_PAID} ▸</button>` : ""}
+        ${ok ? `<button class="btn" data-open="${FIRST_PAID}">Start issue ${pn(FIRST_PAID)} ▸</button>` : ""}
         ${bad ? `<button class="btn" data-buy>Try again</button>` : ""}
         ${r.state === "pending" ? `<button class="btn" id="recheck">Check again</button>` : ""}
         ${ok ? `<button class="btn alt" type="button" onclick="window.print()">Print or save as PDF</button>` : ""}

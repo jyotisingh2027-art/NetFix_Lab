@@ -16,7 +16,7 @@ returns boolean
 language sql
 immutable
 set search_path = ''
-as $$ select p_lesson in (13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29) $$;
+as $$ select p_lesson in (13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30) $$;
 
 -- 3. Save progress: free lessons for everyone signed in, the rest only after payment
 create or replace function public.record_progress(p_lesson int, p_action text)
