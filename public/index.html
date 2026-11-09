@@ -562,7 +562,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <p>NetFixLab explains networking the way a comic would. Devices talk, argue, break and get fixed, and you learn what is really happening along the way. Every issue ends with a takeaway, a try-it-yourself task and a quick quiz.</p>
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
-            <li>Part 2 teaches a calm routine for the problems you will really meet at home.</li>
+            <li>Part 2 turns that knowledge into real fixes, one troubleshooting case at a time.</li>
             <li>The first 13 issues are free. One payment opens the rest.</li>
           </ul>
         </div>
@@ -649,7 +649,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
     <p>The first 13 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
-    <ul><li>The whole troubleshooting part, including ping</li><li>Fix slow Wi-Fi and “connected, but no internet”</li><li>No subscription, ever</li></ul>
+    <ul><li>The whole “Fix your own network” series</li><li>New troubleshooting cases as they are added</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
   </div>
@@ -943,62 +943,8 @@ function panel(p, i){
 /* ---------- lessons 1-6 ---------- */
 const PARTS = [null,
   {n:"Part 1 · Networking from zero", d:"No jargon assumed. Start here."},
-  {n:"Part 2 · Fix your own network", d:"A calm routine for the problems everyone hits."}];
+  {n:"Part 2 · Fix your own network", d:"Real problems, solved like a detective, one case at a time."}];
 const LESSONS = [
-{id:8, t:"The five-step fix routine", b:"A calm routine that solves most home problems.", m:5, star:"laptop", part:2,
- pan:[
-  P("laptop","router","sad","confused","broken",["l:Step one. Is it only me? Try another device on the same Wi-Fi.","r:One device failing points to that device. Everything failing points to me, the modem, or the provider."],"Something is wrong. Do not panic."),
-  P("laptop","phone","confused","happy","wifi",["l:Step two. Restart the device, or switch Wi-Fi or airplane mode off and on.","r:That alone clears a surprising number of problems."]),
-  P("router","modem","confused","happy","cable",["l:Step three. Check cables and lights. Push each cable in until it clicks.","r:A loose cable and a dead light tell you more than any setting."]),
-  P("router","modem","worried","proud","cable",["l:Step four. Restart in order. Unplug both and wait 30 seconds.","r:Plug the modem in first and let its lights settle. Then plug in the router."]),
-  P("laptop","router","proud","happy","check",["l:Step five. Still stuck? Call your provider and say what you found.","r:Tell them which devices fail, what the lights show and what you already tried. You will skip half the script."])],
- take:"1. One device or all?\n2. Restart the device.\n3. Check cables and lights.\n4. Restart modem first, then router.\n5. Call the provider with your notes.",
- tip:"Practice step one now, while nothing is broken. See which devices are on your Wi-Fi at the moment.",
- q:{q:"In which order do you power the equipment back on?",o:["Modem first, then router","Router first, then modem","Any order"],why:"The modem needs to be online before the router asks it for a connection."}},
-
-{id:9, t:"Connected to Wi-Fi, but no internet", b:"Full bars, nothing loads. Where to look.", m:6, star:"phone", part:2,
- pan:[
-  P("phone","router","shock","confused","broken",["l:Full Wi-Fi bars, but nothing loads!","r:That means you and I can talk. The road out to the internet is the part that is blocked."],"","NO NET"),
-  P("laptop","router","confused","happy","question",["l:Where do I start?","r:Same as always. Is it every device or just one? If it is one device, forget the network on that device and join again."]),
-  P("laptop","router","confused","happy","wifi",["l:I am at a café and still nothing.","r:Public Wi-Fi often needs a sign-in page first. Open a plain site like {{neverssl.com}} to make that page appear."]),
-  P("router","modem","worried","worried","broken",["l:If every device fails, look at the modem lights, then restart in order.","r:Still dark? Your provider may have an outage. Check their app or status page on mobile data."])],
- take:"Connected to Wi-Fi is not the same as connected to the internet. Work outward: one device or all, then router and modem, then provider.",
- tip:"Find your provider's outage page now, using mobile data, before you need it.",
- q:{q:"Wi-Fi shows connected, but nothing loads on any device. Where do you look first?",o:["Router, modem and provider","Laptop screen brightness","Buy a new laptop"],why:"When every device fails, the shared parts are the suspects: router, modem and provider."}},
-
-{id:10, t:"Why is my internet slow?", b:"Five suspects, and how to question each one.", m:6, star:"router", part:2,
- pan:[
-  P("laptop","router","sad","happy","packet",["l:Everything crawls!","r:Start with a speed test. Use a cable if you can, so Wi-Fi is not the suspect."],"Everything crawls.","SLOW"),
-  P("router","phone","happy","confused","packet",["l:Many devices sharing one line each get a slice. Streaming, downloads and updates all take a slice.","r:Pause the big ones and test again."]),
-  P("router","laptop","confused","happy","wifi",["l:Place me in the middle of the home, up high, in the open. Not in a cupboard or behind the TV.","r:And keep microwaves and thick walls out of our way."]),
-  P("laptop","server","confused","worried","question",["l:Try three different websites. If only one is slow, the problem may be that site.","r:Not you, me. I am having a busy day."]),
-  P("router","modem","proud","happy","check",["l:Compare your speed test with the plan you pay for.","r:If even a cable gives far less, send the result to your provider."])],
- take:"Test by cable, pause heavy downloads, move the router to a central open spot, try several sites, then compare with your plan.",
- tip:"Run a speed test now and write the numbers down. You will want a baseline when it feels slow.",
- q:{q:"Where is the best place for a Wi-Fi router?",o:["Central, raised and in the open","Inside a cupboard","Behind the TV in a corner"],why:"Signal is strongest in the open and closer to the middle of the home."}},
-
-{id:11, t:"Ping: ask the network a question", b:"A two-minute test that tells you where the break is.", m:7, star:"server", part:2,
- pan:[
-  P("laptop","server","happy","happy","packet",["l:Ping sends a tiny message and waits for the reply. Like shouting Marco and waiting for Polo.","r:Polo!"],"","PING!"),
-  P("laptop","server","proud","happy","packet",["l:The reply time shows in {{ms}}, milliseconds. Lower is better.","r:As a rough guide, under 50 ms feels great at home. Past 150 ms you notice lag in calls and games."]),
-  P("server","laptop","confused","shock","broken",["r:Request timed out. Nobody answered!","l:Silence is useful information too."],"And when nobody replies...","TIMEOUT"),
-  P("laptop","router","happy","proud","check",["l:Rung one of the ladder. Ping your router, often {{192.168.1.1}}. Check the label on it.","r:No reply? The problem is inside your home: Wi-Fi, cable or me."]),
-  P("laptop","server","happy","happy","check",["l:Rung two. Ping {{8.8.8.8}}, a public server.","r:No reply here, but the router answered? The break is between your home and the internet."]),
-  P("laptop","dns","proud","happy","check",["l:Rung three. Ping a name, like {{google.com}}.","r:If the number worked but the name fails, it is me, DNS."])],
- take:"Ping your router. Ping {{8.8.8.8}}. Ping a website name.\nThe first one to fail shows where the problem lives: your home, the internet link, or DNS.",
- tip:"Open Command Prompt or Terminal and type {{ping 8.8.8.8}}. Windows stops after 4 replies. On a Mac, press Control and C to stop.",
- q:{q:"{{ping 8.8.8.8}} works but {{ping google.com}} fails. What is likely?",o:["DNS","A broken router","An unplugged cable"],why:"The internet link works, because the number replied. Names fail, so the translation step, DNS, is the suspect."}},
-
-{id:12, t:"Keep your network safe", b:"Five small habits that lock the front door.", m:5, star:"wall", part:2,
- pan:[
-  P("wall","router","proud","happy","check",["l:Your router is the front door. Change the default admin password on day one.","r:Default passwords are often printed on the label or easy to find online."]),
-  P("router","phone","happy","happy","wifi",["l:Use WPA3 for Wi-Fi, or WPA2 if that is all I support, with a long passphrase.","r:Never choose open Wi-Fi or the old WEP setting."]),
-  P("router","laptop","happy","proud","check",["l:Turn on a guest network for visitors and smart gadgets.","r:Then they cannot see your laptop, even if one of them is compromised."]),
-  P("router","server","confused","happy","packet",["l:Update my firmware. Updates fix security holes.","r:Many routers can do it automatically. Turn that on if you can."]),
-  P("wall","phone","worried","confused","question",["l:Look at the list of connected devices. Spot one you do not know?","r:Change the Wi-Fi password, then reconnect your own devices."])],
- take:"Change default passwords, use WPA3 or WPA2, keep a guest network, update the router and check who is connected.",
- tip:"Open your router's app or admin page and look at the list of connected devices. Name the ones you recognise.",
- q:{q:"Which is the best Wi-Fi security setting for home?",o:["WPA3, or WPA2 if that is all you have","WEP","No password"],why:"WPA3 and WPA2 encrypt your traffic. WEP is broken and open Wi-Fi has no protection."}}
 ];
 /* ---------- comic-book covers ---------- */
 const SCHEMES = {
@@ -1007,11 +953,6 @@ const SCHEMES = {
   yellow: {bg:"#ffd23f", ray:"#ffb400", title:"#e63a2e"}
 };
 const COVERS = [
- {l:["THE 5-STEP","FIX-IT","ROUTINE"], t:["STAY CALM AND","FIX YOUR NETWORK"], s:"blue", a:"laptop", b:"router", ma:"proud", mb:"happy", sfx:"FIX!"},
- {l:["WI-FI ON,","NET OFF!"], t:["CONNECTED, BUT","NOTHING LOADS?"], s:"yellow", a:"phone", b:"router", ma:"shock", mb:"confused", sfx:"NO NET"},
- {l:["WHY IS IT","SO SLOW?!"], t:["FIVE SUSPECTS","AND HOW TO QUESTION THEM"], s:"red", a:"laptop", b:"router", ma:"sad", mb:"confused", sfx:"SLOW"},
- {l:["PING!","PONG!"], t:["THE TWO-MINUTE TEST","THAT FINDS THE BREAK"], s:"blue", a:"laptop", b:"server", ma:"proud", mb:"happy", sfx:"PING!"},
- {l:["LOCK THE","FRONT","DOOR"], t:["FIVE SMALL HABITS","FOR A SAFER NETWORK"], s:"yellow", a:"wall", b:"router", ma:"proud", mb:"happy", sfx:"SAFE!"}
 ];
 function cover(n, mini){
   const C = COVERS[n-1], L = LESSONS[n-1], sc = SCHEMES[C.s], id = "c" + (++UID);
@@ -5817,6 +5758,148 @@ const ISSUE_M = {no:"13", cover:COVER12, t:"Why ACLs, DHCP, DNS and QoS?", b:"Fi
  tip:"On your own computer run ipconfig /all (Windows) or ipconfig getpacket en0 (Mac) to see your DHCP server, lease, gateway and DNS. Then run nslookup with any website name to watch DNS turn the name into an IP address.",
  q:{q:"A standard ACL has two lines: 'deny 10.10.10.0 0.0.0.255' then 'permit any'. A packet arrives from 10.10.10.30. What happens?",o:["It's denied: line 1 matches first","It's permitted: 'permit any' matches everything","It's denied by the invisible deny any at the end"],why:"ACLs are read top to bottom and the first match wins. 10.10.10.30 matches line 1, so it's denied; the router never reaches 'permit any'."}};
 
+/* ---------- Fix your own network · Case 1: the printer nobody can reach (original NetFixLab chapter) ---------- */
+Object.assign(PROPS, {
+  printer:(x,y,s,mood)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><rect x="-56" y="-62" width="112" height="44" rx="8" fill="#e9edf5" ${sk(3)}/><rect x="-40" y="-86" width="80" height="26" fill="#ffffff" ${sk(3)}/><rect x="-62" y="-22" width="124" height="22" rx="6" fill="#c9d0de" ${sk(3)}/><rect x="-36" y="-10" width="72" height="20" fill="#fff" ${sk(2.5)}/><circle cx="-20" cy="-42" r="5" fill="${INK}"/><circle cx="20" cy="-42" r="5" fill="${INK}"/>${mood==="sad"?`<path d="M-12 -28 Q0 -36 12 -28" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round"/>`:`<path d="M-12 -32 Q0 -24 12 -32" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round"/>`}<circle cx="44" cy="-52" r="4" fill="${mood==="sad"?"#ff4b3e":"#3fe08f"}"/></g>`
+});
+const COVERF1 = {l:["THE","PRINTER","NOBODY SEES"], t:["CASE #1: THE SUBNET","MASK MYSTERY"], s:"blue", a:"phone", b:"laptop", ma:"shock", mb:"proud", sfx:"/25?!"};
+const PAGESF1 = [
+/* ===== 1 ===== */
+{title:"Case #1: the silent printer", rows:[
+ {h:260, p:[{bg:"room", ch:[["phone","shock",140,.62]], over:[["printer",440,210,1.1,"sad"]], fx:[["PRINTER NOT RESPONDING",300,40,18,-3,"#e63a2e",true]],
+   b:[["s","Lappy! My brand-new printer is RIGHT THERE on the Wi-Fi, and I can't print a thing!",2,26,16,"b",22,"phone"]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Don't panic, Fonz. We'll solve it like detectives: facts first, then the fix.",4,4,15,"b",55,"laptop"]]},
+   {bg:"chalk", over:[["chalktext",20,46,["CASE FILE #1","Symptom: printer unreachable","Tools today:","· IP address + subnet mask","· network vs host part","· network, broadcast, valid hosts","· subnetting"],15]],
+     b:[]}]},
+ {h:220, p:[{bg:"rays:mint", ch:[["router","happy",100,.55]],
+   b:[["s","I'm Rooty, Fonz's home router. Every clue in this case starts with one number people ignore: the subnet mask.",28,8,24,"bl",6,"router"]]}]}
+]},
+/* ===== 2 ===== */
+{title:"Step 1: collect the facts", rows:[
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["phone","proud",540,.42]], over:[["cli",18,46,["Fonz's laptop > ipconfig","  IPv4 Address . . : 192.168.0.50","*  Subnet Mask . . . : 255.255.255.0","  Default Gateway . : 192.168.0.1"],14]],
+   b:[]}]},
+ {h:250, p:[{bg:"room", over:[["printer",120,200,1.1,"sad"],["sign",250,30,330,170,["PRINTER SETUP","IP: 192.168.0.200","Mask: 255.255.255.128","Gateway: 192.168.0.1"],24]],
+   b:[["c","The printer's own settings screen. Typed in by the installer.",2,3,22]]}]},
+ {h:230, p:[
+   {bg:"rays:lilac", ch:[["phone","confused",150,.62]],
+     b:[["s","Same 192.168.0 start on both. So they're on the same network... right?",6,4,14,"b",55,"phone"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Not so fast! An IP address alone means NOTHING without its mask.",6,4,14,"b",55,"router"]]}]}
+]},
+/* ===== 3 ===== */
+{title:"An IP has two parts", rows:[
+ {h:260, p:[{bg:"office:3", over:[["fbar",40,80,[["192","8 bits",120,"#8fdcc0"],["168","8 bits",120,"#8fdcc0"],["0","8 bits",120,"#8fdcc0"],["50","8 bits",120,"#ffd23f"]],70],["word",220,190,"NETWORK PART · 24 bits",18,0,"#fff3c4"],["word",460,190,"HOST",18,0,"#fff3c4"]],
+   b:[["c","An IPv4 address is 32 bits. The mask /24 says: the first 24 bits are the NETWORK, the rest is the HOST.",2,3,34]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","A logical address needs its logic: the mask tells me where the street ends and the house number starts.",4,4,16,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","proud",150,.6]],
+     b:[["s","So 192.168.0.50/24 is house 50 on street 192.168.0!",6,4,14,"b",55,"laptop"]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,56,["NETWORK NUMBER: keep the network part, host part = 0","→ 192.168.0.0/24","Always 0? No! It's always the FIRST address of the block."],17]],
+   b:[]}]}
+]},
+/* ===== 4 ===== */
+{title:"How many houses on the street?", rows:[
+ {h:270, p:[{bg:"blueprint", over:[["rtable",30,24,540,[["1 bit","0, 1 → 2 options"],["2 bits","00, 01, 10, 11 → 4"],["3 bits","→ 8"],["n bits","→ 2ⁿ"],["8 bits","→ 256","1"]],"COUNTING WITH BITS"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["phone","confused",150,.62]],
+     b:[["s","So 8 host bits means 2⁸ = 256 addresses?",8,5,12,"b",55,"phone"]]},
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Yep! From 192.168.0.0 to 192.168.0.255.",8,5,12,"b",55,"laptop"]]}]}
+]},
+/* ===== 5 ===== */
+{title:"Two addresses are reserved", rows:[
+ {h:260, p:[{bg:"plain:#eaf6ff", over:[["fbar",30,80,[[".0","NETWORK",110,"#c9b6f2"],[".1 → .254","254 VALID HOSTS",320,"#8fdcc0"],[".255","BROADCAST",110,"#f5958a"]],80]],
+   b:[["c","First address = the network number. Last address = broadcast (to EVERYONE on the network). The rest are for devices.",2,3,34]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","192.168.0.50/24: network 192.168.0.0, broadcast 192.168.0.255, and it's the 50th valid host.",4,4,16,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["phone","proud",150,.62]],
+     b:[["s","And 192.168.0.100/24 is the 100th host! I get it.",6,4,14,"b",55,"phone"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Valid hosts = 2ⁿ − 2  (n = host bits).","For /24: 256 − 2 = 254."],20]],
+   b:[]}]}
+]},
+/* ===== 6 ===== */
+{title:"Cutting the street in half", rows:[
+ {h:270, p:[{bg:"plain:#eaf6ff", over:[["fbar",30,60,[["192.168.0.0/24 · 256 addresses","",540,"#d7dbe4"]],50],["fbar",30,150,[[".0 – .127 · /25","",270,"#8fdcc0"],[".128 – .255 · /25","",270,"#ffd23f"]],60]],
+   b:[["c","Real networks use /25, /26, /29... Let's do it the easy way: in plain decimal. 256 ÷ 2 = 128 each.",2,78,34]]}]},
+ {h:260, p:[{bg:"blueprint", over:[["rtable",15,24,570,[["FIRST HALF","network .0 · broadcast .127"],["SECOND HALF","network .128 · broadcast .255"],["128 = 2⁷","7 host bits → 32 − 7 = /25"],["/25","= 255.255.255.128"]],"TWO /25 SUBNETS"]],
+   b:[]}]},
+ {h:220, p:[{bg:"rays:sun", ch:[["laptop","proud",110,.55]],
+   b:[["s","Wait... 255.255.255.128. That's EXACTLY the printer's mask!",30,10,20,"bl",6,"laptop"]]}]}
+]},
+/* ===== 7 ===== */
+{title:"And in quarters", rows:[
+ {h:260, p:[{bg:"plain:#eaf6ff", over:[["fbar",30,70,[[".0–.63","",135,"#8fdcc0"],[".64–.127","",135,"#c9b6f2"],[".128–.191","",135,"#ffd23f"],[".192–.255","",135,"#f5958a"]],60],["sign",60,170,480,50,["64 = 2⁶ → 6 host bits → /26 (255.255.255.192)"],18]],
+   b:[["c","Split again: four blocks of 64.",2,3,14]]}]},
+ {h:250, p:[{bg:"blueprint", over:[["rtable",15,24,570,[["0 – 63","net .0 · bcast .63"],["64 – 127","net .64 · bcast .127"],["128 – 191","net .128 · bcast .191"],["192 – 255","net ? · bcast ?  (your turn!)","1"]],"FOUR /26 SUBNETS"]],
+   b:[]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Keep halving: 8, 16, 32, 64 subnets.","Each split adds 1 network bit: /27, /28, /29, /30..."],19]],
+   b:[]}]}
+]},
+/* ===== 8 ===== */
+{title:"Step 2: work out each network", rows:[
+ {h:270, p:[{bg:"blueprint", over:[["zone",10,40,280,200,"#2bb673","FONZ'S LAPTOP","192.168.0.50/24"],["zone",310,40,280,200,"#e63a2e","PRINTER","192.168.0.200/25"],["word",150,150,"net 192.168.0.0",16,0,"#fff3c4"],["word",150,180,".0 – .255",16,0,"#fff3c4"],["word",450,150,"net 192.168.0.128",16,0,"#fff3c4"],["word",450,180,".128 – .255 ONLY",16,0,"#ffd23f"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]], fx:[["FOUND IT!",240,190,22,8,"#e63a2e",true]],
+     b:[["s","The printer thinks its network is ONLY .128 to .255. Fonz's .50 is outside it!",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:rose", ch:[["phone","shock",150,.62]],
+     b:[["s","And its gateway .1 is outside too?!",8,5,11,"b",55,"phone"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Same first three numbers DON'T mean same network.","The mask decides. Different masks = different maps."],19]],
+   b:[]}]}
+]},
+/* ===== 9 ===== */
+{title:"Why it only half works", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["laptop","happy",80,.4]], over:[["printer",510,220,.9,"sad"],["arrow",150,110,440,110,"#2bb673"],["arrow",440,170,160,170,"#e63a2e"],["sign",130,20,340,44,["PING → arrives ✓"],18,"#2bb673"],["sign",150,196,300,60,["REPLY → 'not my network, use gateway .1'","but .1 isn't in its /25 either → DROPPED"],16,"#e63a2e"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["phone","confused",150,.62]],
+     b:[["s","So my requests ARRIVE, but the printer's answers never come back?",6,4,14,"b",55,"phone"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Exactly! A mask mismatch often breaks only ONE direction. That's what makes it sneaky.",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 10 ===== */
+{title:"Step 3: the fix", rows:[
+ {h:250, p:[{bg:"room", over:[["printer",120,200,1.1,"happy"],["sign",250,30,330,170,["PRINTER SETUP","IP: 192.168.0.200","Mask: 255.255.255.0 ✓","Gateway: 192.168.0.1"],24,"#2bb673"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"burst:yellow", ch:[["phone","proud",150,.62]], fx:[["PRINT!",240,70,30,8,"#e63a2e",true]],
+     b:[["s","Same mask as everyone else: /24. It prints!",6,40,12,null,null,"phone"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]], over:[["hearts",230,80,1]],
+     b:[["s","Case closed! One wrong number, found with simple math.",6,4,14,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"rays:sky", ch:[["router","proud",110,.55]],
+   b:[["s","Easiest fix of all? Set the printer to get its address automatically from me (DHCP). I hand out the right mask every time.",28,8,24,"bl",6,"router"]]}]}
+]},
+/* ===== 11 ===== */
+{title:"Why cut networks at all?", rows:[
+ {h:250, p:[{bg:"blueprint", over:[["fbar",30,80,[["172.16.0.0/16","16 host bits → 65,536 addresses",540,"#ffd23f"]],70]],
+   b:[["c","One giant network for 65,000 devices? It works on paper...",2,3,22]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","...but every broadcast reaches EVERY device. Smaller networks stay quieter and easier to fix.",4,4,16,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","proud",150,.6]],
+     b:[["s","That's why we subnet: small, tidy streets instead of one huge city!",6,4,14,"b",55,"laptop"]]}]}
+]},
+/* ===== 12 ===== */
+{title:"Your fix-it checklist", rows:[
+ {h:300, p:[{bg:"plain:#fff3c4", over:[["rtable",15,20,570,[["1","note IP + MASK + gateway on BOTH devices"],["2","work out each one's network number"],["3","same network? masks should match on one LAN"],["4","gateway must sit INSIDE your own network"],["5","when in doubt, switch the device to DHCP"]],"DEVICE CAN'T BE REACHED? CHECK:"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["phone","proud",150,.62]],
+     b:[["s","Run ipconfig (Windows) or check Wi-Fi details on my phone. Mask is right there!",4,4,15,"b",55,"phone"]]},
+   {bg:"burst:blue", ch:[["laptop","happy",90,.45]], over:[["printer",220,210,.8,"happy"]],
+     b:[["c","Next case: how two devices on the SAME network actually talk.",4,4,16]]}]}
+]}
+];
+const FIX_1 = {no:"1", cover:COVERF1, t:"Why does my subnet mask matter?", b:"Case #1: a printer nobody can reach. Solve it with IP addresses, subnet masks and a little subnetting.", m:15, star:"phone", part:2, pages:PAGESF1,
+ take:"An IP address only has meaning with its subnet mask. The mask splits the 32 bits into a network part and a host part: /24 means 24 network bits and 8 host bits. n host bits give 2ⁿ addresses; the first is the network number and the last is the broadcast, so 2ⁿ − 2 are usable (254 for a /24). Subnetting is just halving: a /24 splits into two /25s (128 addresses, mask 255.255.255.128), then four /26s (64 addresses, 255.255.255.192), and so on. Devices on one LAN should use the same mask; if masks differ, one side may think the other is on a different network, and traffic often fails in only one direction. The gateway must be inside the device's own network. Large networks are split into subnets to keep them smaller, quieter and easier to manage.",
+ tip:"Run ipconfig (Windows) or open Wi-Fi details (phone or Mac) and write down your IP, mask and gateway. Then work out your network number and broadcast address. Check your printer or smart TV: does its mask match?",
+ q:{q:"Your laptop is 192.168.0.50 with mask 255.255.255.0. A printer is 192.168.0.200 with mask 255.255.255.128. What does the PRINTER think?",o:["The laptop is on a different network (it only sees .128–.255)","They're on the same network","The laptop is the broadcast address"],why:"With /25, the printer's network is 192.168.0.128 to .255. The laptop's .50 falls outside that range, so the printer tries to send replies through a gateway, and fails."}};
+
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
@@ -5829,8 +5912,10 @@ ISSUE_J.part = 1; ISSUE_J.free = true;
 ISSUE_K.part = 1; ISSUE_K.free = true;
 ISSUE_L.part = 1; ISSUE_L.free = true;
 ISSUE_M.part = 1; ISSUE_M.free = true;
+FIX_1.id = 26; FIX_1.part = 2; FIX_1.free = false;
 LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I, ISSUE_J, ISSUE_K, ISSUE_L, ISSUE_M);
 COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover, ISSUE_J.cover, ISSUE_K.cover, ISSUE_L.cover, ISSUE_M.cover);
+LESSONS.push(FIX_1); COVERS.push(FIX_1.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
