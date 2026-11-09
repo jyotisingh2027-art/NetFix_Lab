@@ -1,6 +1,6 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <title>NetFixLab: learn home networking from a comic</title>
-<meta name="description" content="Beginner networking course taught through comics. Learn how your home network works and fix common problems yourself. First 15 lessons free.">
+<meta name="description" content="Beginner networking course taught through comics. Learn how your home network works and fix common problems yourself. First 16 lessons free.">
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "z3p5rr8io8");</script>
 <link rel="canonical" href="https://netfixlab.tech/">
 <meta name="google-site-verification" content="vXRz-6HjxXS-JCcw0DvwtxWJO3lzsg-fntcgCbN_eOA" />
@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 15 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 16 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 turns that knowledge into real fixes, one troubleshooting case at a time.</li>
-            <li>The first 15 issues are free. One payment opens the rest.</li>
+            <li>The first 16 issues are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first 15 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first 16 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first 15 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first 16 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole “Fix your own network” series</li><li>New troubleshooting cases as they are added</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -6040,6 +6040,133 @@ const FIX_2 = {no:"2", cover:COVERF2, t:"How do two devices on one network talk?
  tip:"Ping another device on your home network (your printer, TV or a family laptop), then run arp -a. Find its IP in the list and read its MAC address. Then unplug or switch it off, clear your cache (arp -d * as administrator on Windows) and ping again: you'll see ARP fail.",
  q:{q:"Lappy pings 192.168.0.200 and gets 'Reply from 192.168.0.50: Destination host unreachable' (his own IP). What most likely failed?",o:["His ARP request got no reply, so he never learned the MAC","The switch's MAC table was full","The subnet masks are different"],why:"When a device on the same network doesn't answer ARP, the sender can't build the frame and reports 'unreachable' itself. Check that the device is powered on and connected."}};
 
+/* ---------- Fix your own network · Case 3: the missing gateway (original NetFixLab chapter) ---------- */
+const COVERF3 = {l:["THE","MISSING","GATEWAY"], t:["CASE #3: TWO DEVICES,","TWO NETWORKS"], s:"yellow", a:"laptop", b:"router", ma:"shock", mb:"proud", sfx:"WHICH WAY?"};
+const NET3 = (mL,mR,mS) => [["laptop",mL||"happy",60,.36,1,262],["switch","happy",170,.32,1,262],["router",mR||"proud",300,.4,1,150],["switch","happy",430,.32,1,262],["server",mS||"happy",540,.36,1,262]];
+const NET3L = [["line",95,240,135,240,"#1f6fd1"],["line",205,240,270,160,"#1f6fd1"],["line",330,160,395,240,"#1f6fd1"],["line",465,240,505,240,"#1f6fd1"],["zone",8,175,232,110,"#f08a24","",""],["zone",360,175,232,110,"#1aa59a","",""],["word",120,195,"192.168.10.0/24",14,0,"#fff3c4"],["word",480,195,"192.168.20.0/24",14,0,"#fff3c4"],["word",240,130,"g0/1 .10.1",13,0,"#ffd23f"],["word",360,130,"g0/2 .20.1",13,0,"#ffd23f"]];
+const PAGESF3 = [
+/* ===== 1 ===== */
+{title:"Case #3: the movie that won't play", rows:[
+ {h:260, p:[{bg:"room", ch:[["phone","happy",110,.55],["server","proud",470,.5]],
+   b:[["s","Our family media server is set up! Lappy, can you stream from Servo?",2,4,15,"b",20,"phone"],["s","Movies ready!",70,40,6,"b",50,"server"]]}]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["laptop","shock",540,.42]], over:[["cli",18,50,["> ping 192.168.20.20","*PING: transmit failed. General failure.","*PING: transmit failed. General failure."],14]],
+   b:[["s","I can't even SEND the ping!",56,62,9,"b",80,"laptop"]]}]},
+ {h:230, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Look closer, Lappy: Servo is on a DIFFERENT network from you. That changes everything.",4,4,15,"b",55,"router"]]},
+   {bg:"chalk", over:[["chalktext",20,46,["CASE FILE #3","Symptom: can't reach another network","Tools today:","· Layer 2 vs Layer 3 devices","· the routing table","· the default gateway","· the Layer 3 packet walk"],15]],
+     b:[]}]}
+]},
+/* ===== 2 ===== */
+{title:"Step 1: draw the map", rows:[
+ {h:300, p:[{bg:"blueprint", ch:NET3(), over:[...NET3L,["sign",10,30,175,58,["LAPPY","192.168.10.10 · MAC AA"],15],["sign",415,30,175,58,["SERVO","192.168.20.20 · MAC BB"],15],["word",300,100,"ROOTY · MAC CC (g0/1) · DD (g0/2)",13,0,"#fff3c4"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","192.168.10 vs 192.168.20, both /24. Different networks!",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","And joining networks is MY job. Each of my interfaces sits in one of them.",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 3 ===== */
+{title:"Layer 2 or Layer 3?", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["switch","proud",110,.42,1,250],["router","proud",300,.45,1,250],["laptop","happy",490,.42,1,250]], over:[["tower",110,170,.42,[1,2]],["tower",300,170,.42,[1,2,3]],["tower",490,170,.42,[1,2,3,4,5]]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","I'm a {{Layer 3 device}}: I go up to floor 3 (IP). I still use floors 1 and 2 underneath!",4,4,15,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["switch","proud",150,.55]],
+     b:[["s","I stop at floor 2: Layer 2. Laptops and servers use ALL five floors.",4,3,15,"b",50,"switch"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["A device is named by the HIGHEST floor it works up to.","That's why a router needs an IP address on every interface."],18]],
+   b:[]}]}
+]},
+/* ===== 4 ===== */
+{title:"Rooty's routing table", rows:[
+ {h:270, p:[{bg:"plain:#0e1530", ch:[["router","proud",540,.42]], over:[["cli",18,46,["R(config)# interface g0/1","R(config-if)# ip address 192.168.10.1 255.255.255.0","R(config)# interface g0/2","R(config-if)# ip address 192.168.20.1 255.255.255.0"],13]],
+   b:[]}]},
+ {h:260, p:[{bg:"blueprint", ch:[["router","proud",540,.42]], over:[["rtable",15,24,450,[["C 192.168.10.0/24","g0/1"],["C 192.168.20.0/24","g0/2"]],"TYPE · NETWORK/MASK → EXIT INTERFACE"]],
+   b:[["s","Give an interface an IP and I instantly write a CONNECTED route!",52,62,14,"b",86,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Routing in one line: packet arrives → read DESTINATION IP →","find the matching network in the table → send it out that interface."],17]],
+   b:[]}]}
+]},
+/* ===== 5 ===== */
+{title:"Not my network: find the gateway", rows:[
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","Servo isn't on my network, so I can't ARP for him. ARP broadcasts never cross a router!",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","So you send it to ME first. I'm your {{default gateway}}: the door out of your network.",4,4,15,"b",55,"router"]]}]},
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["laptop","shock",540,.42]], over:[["cli",18,50,["> ipconfig","  IPv4 Address . . : 192.168.10.10","  Subnet Mask . . . : 255.255.255.0","*  Default Gateway . :           ← EMPTY!"],14]],
+   b:[["c","FOUND IT! Someone typed Lappy's IP by hand and left the gateway blank.",2,80,28]]}]},
+ {h:230, p:[
+   {bg:"rays:rose", ch:[["laptop","worried",150,.6]],
+     b:[["s","No gateway = no door. I had NOWHERE to send the ping. 'General failure'!",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:mint", ch:[["router","happy",150,.58]],
+     b:[["s","Usually DHCP fills this in for you. Hand-typed settings are where it goes wrong.",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 6 ===== */
+{title:"Step 2: the fix", rows:[
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["laptop","proud",540,.42]], over:[["cli",18,50,["  IPv4 Address . . : 192.168.10.10","  Subnet Mask . . . : 255.255.255.0","*  Default Gateway . : 192.168.10.1   ✓"],14]],
+   b:[["c","Gateway set to Rooty's g0/1 address (or switch Lappy back to DHCP).",2,80,28]]}]},
+ {h:240, p:[
+   {bg:"burst:yellow", ch:[["laptop","proud",150,.6]], fx:[["IT PLAYS!",150,40,24,-4,"#e63a2e",true]],
+     b:[]},
+   {bg:"rays:sun", ch:[["server","happy",150,.55]],
+     b:[["s","Reply from 192.168.20.20! Popcorn time!",6,4,13,"b",55,"server"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Case solved. Now let's follow that ping step by step,","so you could find this bug on your own next time."],19]],
+   b:[]}]}
+]},
+/* ===== 7 ===== */
+{title:"Hop 1: ARP for the GATEWAY", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["laptop","proud",530,.42]], over:[["rtable",15,24,440,[["SENDER MAC","AA"],["SENDER IP","192.168.10.10"],["TARGET MAC","00:00:00"],["TARGET IP","192.168.10.1  ← the GATEWAY!","1"]],"LAPPY'S ARP REQUEST"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","I ask for the GATEWAY's MAC, not Servo's. Broadcast to FF:FF:FF:FF:FF:FF.",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:mint", ch:[["router","happy",150,.58]],
+     b:[["s","That's my IP! Unicast reply: '192.168.10.1 is at CC.'",6,4,14,"b",55,"router"]]}]},
+ {h:240, p:[{bg:"office:2", over:[["stack",30,150,.85,[["ETH: AA → CC","#9a7bff",150],["IP: .10.10 → .20.20","#e63a2e",190],["PING","#ffd23f",80]]]],
+   b:[["c","The frame goes to Rooty's MAC. The IP inside still says: to Servo.",2,3,26]]}]}
+]},
+/* ===== 8 ===== */
+{title:"Inside Rooty", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["router","proud",530,.45]], over:[["rtable",15,30,450,[["C 192.168.10.0/24","g0/1"],["C 192.168.20.0/24","g0/2  ← match!","1"]],"DESTINATION 192.168.20.20 → ?"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","The frame is for my MAC, so I unwrap it, read the IP, and match 192.168.20.0/24 → out g0/2.",4,4,16,"b",55,"router"]]},
+   {bg:"rays:rose", ch:[["router","worried",150,.58]],
+     b:[["s","But to send on g0/2 I need a NEW frame... and I don't know Servo's MAC!",4,4,15,"b",55,"router"]]}]},
+ {h:230, p:[{bg:"rays:mint", ch:[["router","proud",110,.55]],
+   b:[["s","So I park the packet and send my OWN ARP broadcast on that network. I never pass Lappy's broadcast across, but I can make my own!",28,8,26,"bl",6,"router"]]}]}
+]},
+/* ===== 9 ===== */
+{title:"Hop 2: a brand-new frame", rows:[
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["server","proud",150,.55]],
+     b:[["s","Rooty's asking for 192.168.20.20? That's me! I'm at BB.",6,4,14,"b",55,"server"]]},
+   {bg:"rays:mint", ch:[["switch","proud",150,.55]],
+     b:[["s","Patch here, on the 20 side. I learn DD and BB, and forward by MAC.",4,3,15,"b",50,"switch"]]}]},
+ {h:280, p:[{bg:"blueprint", over:[["sign",20,30,270,90,["HOP 1 (10 side)","MAC: AA → CC","IP: .10.10 → .20.20"],20],["sign",310,30,270,90,["HOP 2 (20 side)","MAC: DD → BB","IP: .10.10 → .20.20"],20,"#e63a2e"],["sign",40,160,520,60,["IPs NEVER change · MACs change at every router"],18,"#2bb673"]],
+   b:[]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["The reply walks back: Servo → his gateway (.20.1) → Rooty → Lappy.","So SERVO needs a correct gateway too!"],17]],
+   b:[]}]}
+]},
+/* ===== 10 ===== */
+{title:"Your fix-it checklist", rows:[
+ {h:300, p:[{bg:"plain:#fff3c4", over:[["rtable",15,20,570,[["1","same network or different? (Case #1)"],["2","different → is a default gateway set?"],["3","is the gateway INSIDE your own network?"],["4","ping your gateway: does IT answer?"],["5","check the OTHER side's gateway too (replies!)"]],"CAN'T REACH ANOTHER NETWORK?"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Same network: ARP the device. Different network: ARP the GATEWAY. Got it!",4,4,15,"b",55,"laptop"]]},
+   {bg:"burst:blue", ch:[["switch","happy",90,.42],["switch","happy",220,.42]],
+     b:[["c","Next case: when switches get stuck in a LOOP.",4,4,15]]}]}
+]}
+];
+const FIX_3 = {no:"3", cover:COVERF3, t:"How do devices on different networks talk?", b:"Case #3: a movie server nobody can reach. Solve it with routers, routing tables and the default gateway.", m:15, star:"router", part:2, pages:PAGESF3,
+ take:"A router joins networks. It's a Layer 3 device (it works up to the IP layer, using Layers 1 and 2 underneath); a switch is Layer 2, and hosts use all layers. Each router interface gets an IP from the network it connects to, which instantly adds a connected route to the routing table (type, network/mask, exit interface). Routing means reading the destination IP, finding the matching network and sending the packet out that interface. A host sends traffic for another network to its default gateway, so it ARPs for the gateway's MAC, not the far device's. The router unwraps the frame, looks up the destination, ARPs on the outgoing network (routers never forward ARP broadcasts, but create their own) and builds a new frame. IP addresses stay the same end to end; MAC addresses change at every router. A missing or wrong default gateway (often from hand-typed settings) breaks all traffic to other networks, and the reply side needs a correct gateway too.",
+ tip:"Run ipconfig (Windows) or check your Wi-Fi details and find your Default Gateway. Ping it. Then ping 8.8.8.8, which is outside your network. Finally run arp -a: your gateway's IP and MAC will be in the list.",
+ q:{q:"Lappy (192.168.10.10/24) pings Servo (192.168.20.20/24). Whose MAC does Lappy's ARP request ask for?",o:["His default gateway's (192.168.10.1)","Servo's (192.168.20.20)","The broadcast address's"],why:"Servo is on another network, so the first hop is the default gateway. Lappy only needs the gateway's MAC; the router handles the next hop."}};
+
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
@@ -6054,9 +6181,10 @@ ISSUE_L.part = 1; ISSUE_L.free = true;
 ISSUE_M.part = 1; ISSUE_M.free = true;
 FIX_1.id = 26; FIX_1.part = 2; FIX_1.free = true;
 FIX_2.id = 27; FIX_2.part = 2; FIX_2.free = true;
+FIX_3.id = 28; FIX_3.part = 2; FIX_3.free = true;
 LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I, ISSUE_J, ISSUE_K, ISSUE_L, ISSUE_M);
 COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover, ISSUE_J.cover, ISSUE_K.cover, ISSUE_L.cover, ISSUE_M.cover);
-LESSONS.push(FIX_1, FIX_2); COVERS.push(FIX_1.cover, FIX_2.cover);
+LESSONS.push(FIX_1, FIX_2, FIX_3); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
@@ -6358,7 +6486,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 15 issues are free, forever</li>
+          <li><i>\u2713</i>The first 16 issues are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>
