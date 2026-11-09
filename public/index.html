@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 18 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 19 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 turns that knowledge into real fixes, one troubleshooting case at a time.</li>
-            <li>The first 18 issues are free. One payment opens the rest.</li>
+            <li>The first 19 issues are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first 18 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first 19 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first 18 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first 19 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole “Fix your own network” series</li><li>New troubleshooting cases as they are added</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -6499,6 +6499,134 @@ const FIX_5 = {no:"5", cover:COVERF5, t:"Why OSI if TCP/IP runs everywhere?", b:
  tip:"Next time something 'doesn't work', climb the layers: is Wi-Fi connected? Can you ping your gateway? Does the website or app work on another device? Each answer tells you which layer to look at.",
  q:{q:"Fonz can ping Lappy's laptop, but his chat app can't connect to it on port 5000. Which layer should he check next?",o:["Transport (port 5000 / is the app listening?)","Physical (the Wi-Fi signal)","Network (Lappy's IP address)"],why:"A working ping proves Layers 1-3. A port failure points to the transport layer: no app is listening on that port."}};
 
+/* ---------- Fix your own network · Case 6: same IP, new box (original NetFixLab chapter) ---------- */
+const COVERF6 = {l:["SAME IP,","NEW BOX"], t:["CASE #6: WHY MAC IF","WE HAVE IP?"], s:"yellow", a:"laptop", b:"server", ma:"confused", mb:"happy", sfx:"WHO'S .20?"};
+const PAGESF6 = [
+/* ===== 1 ===== */
+{title:"Case #6: the new server nobody sees", rows:[
+ {h:260, p:[{bg:"room", ch:[["phone","happy",120,.55],["server","proud",470,.5]], fx:[["NEW!",470,40,24,6,"#e63a2e",true]],
+   b:[["s","Old Servo died, so we put in a brand-new server and gave it the SAME IP: 192.168.0.20. Easy!",2,4,17,"b",20,"phone"]]}]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["laptop","shock",540,.42]], over:[["cli",18,50,["> ping 192.168.0.20","*Request timed out.","*Request timed out.","*Request timed out."],14]],
+   b:[["s","Same IP... but I can't reach it!",56,62,9,"b",80,"laptop"]]}]},
+ {h:240, p:[
+   {bg:"rays:mint", ch:[["phone","proud",150,.55]],
+     b:[["s","Weird, my phone streams from it fine!",8,5,12,"b",55,"phone"]]},
+   {bg:"chalk", over:[["chalktext",20,46,["CASE FILE #6","Symptom: one device can't reach","a replaced server (same IP)","Tools today:","· why MAC AND IP exist","· what each one is for","· the ARP cache"],15]],
+     b:[]}]}
+]},
+/* ===== 2 ===== */
+{title:"Two addresses?", rows:[
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","If an address is an address, why does every device have TWO? Why not just IP?",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Great question, Lappy. It's really asking: do we even NEED Layer 2? Let's go back in time.",4,4,16,"b",55,"router"]]}]},
+ {h:150, p:[{bg:"blueprint", over:[["rtable",30,30,540,[["MAC address","Layer 2 · built into the network card"],["IP address","Layer 3 · set by you or by DHCP"]],"EVERY DEVICE HAS BOTH"]],
+   b:[]}]}
+]},
+/* ===== 3 ===== */
+{title:"Ethernet: a hall full of devices", rows:[
+ {h:270, p:[{bg:"sepia", ch:[["laptop","proud",80,.38,1,250],["server","happy",520,.38,1,250]], over:[["pc",210,228,1,"#9aa3b5","Xavi"],["pc",340,228,1,"#9aa3b5","Yuki"]], fx:[["WHO IS SERVO?",430,60,22,-4,"#e63a2e",true]],
+   b:[["c","The early 1970s: Ethernet links devices in one building, like people in one hall.",2,3,19]]}]},
+ {h:250, p:[
+   {bg:"rays:sky", ch:[["laptop","proud",150,.6]],
+     b:[["s","I shout to everyone: 'Who is Servo?' Xavi and Yuki hear it but ignore it.",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:mint", ch:[["server","proud",150,.55]],
+     b:[["s","Only I answer: 'That's me, my address is BB!' Now Lappy labels his messages 'to BB'.",4,4,15,"b",55,"server"]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",26,52,["Many devices share one Ethernet: a MULTI-ACCESS network.","So every frame needs an address saying WHICH device it's for: the MAC.","Inside one hall, MAC alone works perfectly. No IP needed!"],16]],
+   b:[]}]}
+]},
+/* ===== 4 ===== */
+{title:"But Servo moved to another city", rows:[
+ {h:270, p:[{bg:"map", over:[["zone",20,40,170,110,"#f08a24","HALL 1","Lappy's network"],["zone",215,140,170,110,"#1aa59a","HALL 2",""],["zone",410,40,170,110,"#9a7bff","HALL 3","Servo is here"],["word",300,60,"? ? ?",30,0,"#e63a2e"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["laptop","worried",150,.6]],
+     b:[["s","I can't shout into every hall in the world asking 'Is Servo here?' That's thousands of networks!",4,4,16,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","That's the problem IP solved. An IP address is LOGICAL: it tells you WHICH network someone is in.",4,4,16,"b",55,"router"]]}]},
+ {h:240, p:[{bg:"blueprint", over:[["sign",20,30,260,90,["LAPPY","192.168.0.10/24","network 192.168.0.x"],18],["sign",320,30,260,90,["FAR SERVER","192.168.30.10/24","network 192.168.30.x"],18,"#e63a2e"],["word",300,170,"different network → don't shout, send it to the GATEWAY",15,0,"#fff3c4"]],
+   b:[]}]}
+]},
+/* ===== 5 ===== */
+{title:"Routers pass IP packets along", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["laptop","happy",60,.3,1,240],["router","proud",190,.34,1,240],["router","happy",330,.34,1,240],["router","proud",470,.34,1,240],["server","happy",565,.3,1,240]], over:[["line",85,225,155,225,"#1f6fd1"],["line",225,225,295,225,"#f08a24"],["line",365,225,435,225,"#f08a24"],["line",505,225,545,225,"#1f6fd1"],["envelope",260,110,.4,"IP → .30.10"],["arrow",320,110,420,110,"#ffd23f"],["word",190,40,"R1",16,0,"#fff3c4"],["word",330,40,"R2",16,0,"#fff3c4"],["word",470,40,"R3",16,0,"#fff3c4"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Each router checks the destination IP in its routing table and hands the packet to the next router.",4,4,16,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["router","happy",150,.58]],
+     b:[["s","R3 here: 192.168.30.0/24 is MY connected network. Last stop!",6,4,14,"b",55,"router"]]}]}
+]},
+/* ===== 6 ===== */
+{title:"The last hop needs a MAC", rows:[
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["switch","confused",150,.55]],
+     b:[["s","R3 sends me an IP packet? I'm an Ethernet switch: I only read MAC addresses!",4,3,15,"b",50,"switch"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","So I ask on Ethernet's own terms: ARP, 'Who has 192.168.30.10? Tell me your MAC.'",4,4,16,"b",55,"router"]]}]},
+ {h:240, p:[{bg:"office:2", over:[["stack",30,150,.85,[["ETH: to MAC AA","#9a7bff",170],["IP: to 192.168.30.10","#e63a2e",210],["DATA","#ffd23f",90]]]],
+   b:[["c","IP gets the packet to the right NETWORK. The MAC gets it to the right DEVICE on that network.",2,3,34]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Ethernet was designed in its own right, around MACs.","It doesn't speak IP, so IP rides INSIDE an Ethernet frame."],18]],
+   b:[]}]}
+]},
+/* ===== 7 ===== */
+{title:"Not every link is Ethernet", rows:[
+ {h:175, p:[{bg:"plain:#fff3c4", over:[["rtable",15,20,570,[["Ethernet / Wi-Fi","many devices share it → MAC address"],["Point-to-point","only ONE other end → no MAC needed"],["Frame Relay (older WAN)","its own address: the DLCI"],["...and more","each link type, its own Layer 2 rules"]],"LAYER 2 DEPENDS ON THE LINK"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","IP never cares which link is next. It finds the exit; the data link layer handles the rest.",4,4,16,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","proud",150,.6]],
+     b:[["s","We mostly see Ethernet, so it LOOKS like MAC and IP always come together. They don't have to!",4,4,16,"b",55,"laptop"]]}]}
+]},
+/* ===== 8 ===== */
+{title:"So: why both?", rows:[
+ {h:190, p:[{bg:"blueprint", over:[["rtable",15,30,280,[["type","logical · L3"],["finds","network + host"],["trip","same end to end"],["read by","routers"]],"IP ADDRESS"],["rtable",305,30,280,[["type","hardware · L2"],["finds","device on THIS link"],["trip","new at each router"],["read by","switches"]],"MAC ADDRESS"]],
+   b:[]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,56,["IP: where in the world. MAC: which box on this wire.","Swap the box and the IP can stay the same...","but the MAC changes. Hmm. Sound familiar?"],18]],
+   b:[]}]}
+]},
+/* ===== 9 ===== */
+{title:"Step 1: check the ARP cache", rows:[
+ {h:270, p:[{bg:"plain:#0e1530", ch:[["laptop","shock",545,.4]], over:[["cli",14,36,["> arp -a","  Internet Address   Physical Address   Type","*  192.168.0.20       11-11-11-11-11-11  dynamic","  192.168.0.1        cc-cc-cc-cc-cc-cc  dynamic"],13]],
+   b:[["c","Lappy still remembers the OLD server's MAC for .20!",2,82,24]]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["laptop","worried",150,.6]],
+     b:[["s","I saved IP → MAC in my {{ARP cache}} so I don't have to ask every time. Now I'm addressing frames to a dead box!",4,4,17,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["server","proud",150,.55]],
+     b:[["s","My card is 22-22-22-22-22-22. Fonz's phone ARPed fresh, so it found me!",4,4,15,"b",55,"server"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Same IP, new hardware = new MAC.","Any device holding the old IP → MAC pair sends to nowhere."],18]],
+   b:[]}]}
+]},
+/* ===== 10 ===== */
+{title:"Step 2: the fix", rows:[
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["laptop","proud",545,.4]], over:[["cli",14,40,["(as administrator)","> arp -d 192.168.0.20","> ping 192.168.0.20","  Reply from 192.168.0.20: time=2ms"],14]],
+   b:[["c","Delete the stale entry. Lappy ARPs again and learns 22-22-22...",2,82,26]]}]},
+ {h:240, p:[
+   {bg:"burst:yellow", ch:[["laptop","proud",150,.6]], fx:[["CONNECTED!",150,40,24,-4,"#e63a2e",true]],
+     b:[]},
+   {bg:"rays:mint", ch:[["router","happy",150,.58]],
+     b:[["s","No admin rights? Old entries expire by themselves, or a restart clears the cache.",4,4,15,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Many devices announce their MAC when they join the network,","which refreshes everyone's cache. This new server didn't."],17]],
+   b:[]}]}
+]},
+/* ===== 11 ===== */
+{title:"Your fix-it checklist", rows:[
+ {h:230, p:[{bg:"plain:#fff3c4", over:[["rtable",15,20,570,[["1","swapped a device but kept its IP? expect a NEW MAC"],["2","works from some devices, not others? suspect stale ARP"],["3","run arp -a: does the MAC match the new device?"],["4","clear it: arp -d (admin), wait, or restart"],["5","still stuck? check for TWO devices with the same IP"]],"REPLACED IT AND NOW IT'S 'GONE'?"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","IP finds the network. MAC finds the device. I need BOTH!",6,4,13,"b",55,"laptop"]]},
+   {bg:"burst:blue", ch:[["server","happy",150,.5]],
+     b:[["c","Case #6 closed. See you at the next case!",4,4,13]]}]}
+]}
+];
+const FIX_6 = {no:"6", cover:COVERF6, t:"Why do we need MAC if we have IP?", b:"Case #6: a new server with the old IP that one laptop can't reach. Solve it with MAC vs IP and the ARP cache.", m:15, star:"server", part:2, pages:PAGESF6,
+ take:"Every device has a MAC address (Layer 2, on the network card) and an IP address (Layer 3, set by you or DHCP). Ethernet was developed in the early 1970s for devices in one place: it's a multi-access network, so frames need a MAC to say which device they're for, and inside one network MAC alone works (find someone with an ARP-style broadcast, then address frames to their MAC). But you can't broadcast into every network in the world, so IP adds a logical address that shows which network a host is in: a host sends traffic for other networks to its gateway, and routers forward by destination IP. At the last hop the router must use that link's own addressing; on Ethernet that means ARP for the MAC, because switches only read MACs. Not every link uses MACs: a point-to-point link has only one other end, and older WAN links like Frame Relay used DLCIs. IP stays the same end to end; MAC is per link and changes at every router. Replacing hardware but keeping its IP gives a new MAC, so devices with the old IP→MAC pair in their ARP cache can't reach it until the entry is cleared (arp -d), expires, or the device announces itself.",
+ tip:"Run arp -a on your computer. Find your router's IP (your default gateway) in the list and note its MAC. That's the device your laptop actually sends every internet-bound frame to.",
+ q:{q:"A server is replaced and keeps IP 192.168.0.20. A laptop that talked to the old server can't reach it, but a new phone can. Most likely cause?",o:["The laptop's ARP cache still holds the old server's MAC","The new server needs a different IP","The phone is using a different subnet mask"],why:"The IP is the same but the hardware (MAC) changed. The laptop keeps addressing frames to the old MAC until its ARP entry is cleared or expires."}};
+
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
@@ -6516,9 +6644,10 @@ FIX_2.id = 27; FIX_2.part = 2; FIX_2.free = true;
 FIX_3.id = 28; FIX_3.part = 2; FIX_3.free = true;
 FIX_4.id = 29; FIX_4.part = 2; FIX_4.free = true;
 FIX_5.id = 30; FIX_5.part = 2; FIX_5.free = true;
+FIX_6.id = 31; FIX_6.part = 2; FIX_6.free = true;
 LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I, ISSUE_J, ISSUE_K, ISSUE_L, ISSUE_M);
 COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover, ISSUE_J.cover, ISSUE_K.cover, ISSUE_L.cover, ISSUE_M.cover);
-LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover);
+LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
@@ -6822,7 +6951,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 18 issues are free, forever</li>
+          <li><i>\u2713</i>The first 19 issues are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>
