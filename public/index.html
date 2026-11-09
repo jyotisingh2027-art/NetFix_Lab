@@ -1,6 +1,6 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <title>NetFixLab: learn home networking from a comic</title>
-<meta name="description" content="Beginner networking course taught through comics. Learn how your home network works and fix common problems yourself. First 9 lessons free.">
+<meta name="description" content="Beginner networking course taught through comics. Learn how your home network works and fix common problems yourself. First 13 lessons free.">
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "z3p5rr8io8");</script>
 <link rel="canonical" href="https://netfixlab.tech/">
 <meta name="google-site-verification" content="vXRz-6HjxXS-JCcw0DvwtxWJO3lzsg-fntcgCbN_eOA" />
@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 9 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 13 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 teaches a calm routine for the problems you will really meet at home.</li>
-            <li>The first nine issues are free. One payment opens the rest.</li>
+            <li>The first 13 issues are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -584,7 +584,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
       <article class="plan">
         <h3>Free preview</h3>
         <p class="price">Free</p>
-        <ul><li>Issues 1 to 9: why networks exist, the TCP/IP model, IP addresses and subnetting, routers and switches, the packet walk, VLANs, trunks, Spanning Tree, routing</li><li>Comics, takeaways and quizzes included</li><li>No sign-up needed to read</li></ul>
+        <ul><li>Issues 1 to 13: why networks exist, the TCP/IP model, IP addresses and subnetting, routers and switches, the packet walk, VLANs, trunks, Spanning Tree, routing, OSPF and HSRP, automation and Wi-Fi, security, ACLs and IP services</li><li>Comics, takeaways and quizzes included</li><li>No sign-up needed to read</li></ul>
         <button class="btn alt" data-open="1">Start issue 1</button>
       </article>
       <article class="plan featured">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first nine lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first 13 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first nine lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first 13 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole troubleshooting part, including ping</li><li>Fix slow Wi-Fi and “connected, but no internet”</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -4612,7 +4612,1212 @@ const ISSUE_I = {no:"9", cover:COVER8, t:"Why routing?", b:"How routers find the
  tip:"In Packet Tracer: chain three routers with /30 links and put a PC network on each end. Add static routes in BOTH directions until the end-to-end ping works, then check show ip route for C and S entries. Bonus: add a second path and make it a floating static route with AD 35.",
  q:{q:"Rooty has 10.10.10.0/24 via Rex and 10.10.10.0/27 via Ruby. A packet arrives for 10.10.10.10. Where does it go?",o:["To Ruby: the /27 is the longest (most specific) match","To Rex: the /24 was learned first","It's dropped, because the routes conflict"],why:"Both routes are in the table because their masks differ. The packet matches both, and the router picks the longest prefix match: the /27 via Ruby."}};
 
-ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21;
+/* ---------- Issue: Why OSPF and HSRP? (original NetFixLab chapter) ---------- */
+const COVER9 = {l:["THE MAP","EVERY ROUTER","SHARES"], t:["NAT, OSPF AND A","BACKUP GATEWAY"], s:"red", a:"router", b:"router", ma:"proud", mb:"happy", sfx:"HELLO!"};
+const O10 = "#f08a24", T10 = "#1aa59a", P10 = "#8e5bd8";
+/* four routers in a diamond: Rooty (left), Rex (top), Ruby (bottom), Rio (right) */
+const DIA = (m) => [["router",(m&&m[0])||"happy",90,.36,1,165],["router",(m&&m[1])||"happy",300,.36,1,75],["router",(m&&m[2])||"happy",300,.36,1,262],["router",(m&&m[3])||"happy",510,.36,1,165]];
+const DIAL = (c) => [["line",125,140,265,60,(c&&c[0])||"#1f6fd1"],["line",335,60,475,140,(c&&c[1])||"#1f6fd1"],["line",125,160,265,245,(c&&c[2])||"#1f6fd1"],["line",335,245,475,160,(c&&c[3])||"#1f6fd1"],["line",300,95,300,215,(c&&c[4])||"#1f6fd1"],["word",90,195,"ROOTY",13,0,"#fff3c4"],["word",390,35,"REX",13,0,"#fff3c4"],["word",390,280,"RUBY",13,0,"#fff3c4"],["word",510,195,"RIO",13,0,"#fff3c4"]];
+const PAGES9 = [
+/* ===== 1 ===== */
+{title:"Go-live day at Maple Dental", rows:[
+ {h:260, p:[{bg:"street", ch:[["person","#2f6f5e",110,.9],["laptop","happy",480,.55]], over:[["sign",190,24,220,40,["MAPLE DENTAL"],20,"#2f6f5e"]],
+   b:[["s","Lappy, the network's in! But will my PCs actually reach the internet?",24,30,18,"bl",6],["s","Let's trace it, Rosa!",72,30,7,"b",50,"laptop"]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Big day, Lappy: the internet, then routers that share maps, then a backup for ME.",4,4,15,"b",55,"router"]]},
+   {bg:"chalk", over:[["chalktext",20,46,["TODAY:","1. Private IPs and NAT","2. Bigger offices","3. Why dynamic routing","4. OSPF, step by step","5. HSRP: a spare gateway"],16]],
+     b:[]}]},
+ {h:230, p:[{bg:"rays:mint", ch:[["laptop","happy",90,.55],["phone","happy",300,.52],["router","happy",500,.5]],
+   b:[["s","Three hours of good stuff, Fonz!",4,8,9,"bl",8,"laptop"],["s","OSPF is a big topic. Today: the 1,000-foot view!",60,40,10,"b",70,"router"]]}]}
+]},
+/* ===== 2 ===== */
+{title:"Private addresses", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["router","proud",530,.48]], over:[["rtable",20,30,400,[["10.0.0.0/8","~16.7 million"],["172.16.0.0/12","~1 million"],["192.168.0.0/16","65,536"]],"PRIVATE RANGES · FREE TO USE"]],
+   b:[["c","Anyone can use these inside their own network. No permission needed.",2,78,26]]}]},
+ {h:250, p:[
+   {bg:"rays:sky", ch:[["laptop","happy",150,.6]],
+     b:[["s","My home network is 192.168.1.0/24!",8,5,12,"b",55,"laptop"]]},
+   {bg:"rays:lilac", ch:[["phone","shock",150,.62]], fx:[["SAME!",240,190,24,8,"#e63a2e",true]],
+     b:[["s","So is MINE! Same addresses, different houses?!",6,4,14,"b",55,"phone"]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,62,["Totally fine inside each house. Millions of networks reuse them.","But that causes a problem the moment you go OUT to the internet..."],17]],
+   b:[]}]}
+]},
+/* ===== 3 ===== */
+{title:"The reply that gets lost", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["laptop","happy",70,.38],["router","proud",250,.42],["server","happy",530,.42]], over:[["line",290,215,470,215,"#ffd23f"],["word",380,190,"ISP · 203.0.113.0/30",14,0,"#ffd23f"],["envelope",380,110,.55,"→ 8.8.8.8"],["word",380,70,"FROM 192.168.10.30",14,0,"#fff3c4"]],
+   b:[["c","A Maple Dental PC (192.168.10.30) pings a server at 8.8.8.8. Rooty forwards it to the ISP.",2,3,32]]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["server","confused",150,.55]],
+     b:[["s","Reply to 192.168.10.30? Thousands of networks use that address! Which one?!",4,4,15,"b",55,"server"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]], fx:[["DROP!",240,190,24,8,"#e63a2e",true]],
+     b:[["s","Internet routers never route to private addresses. The reply dies.",6,4,14,"b",55,"router"],["c","ISP",4,82,4]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["The ISP gave Maple Dental ONE public address: 203.0.113.2.","Public addresses are unique worldwide. Somehow, we have to use it."],17]],
+   b:[]}]}
+]},
+/* ===== 4 ===== */
+{title:"NAT: Rooty swaps the address", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["router","proud",300,.45,1,185]], over:[["envelope",100,90,.6,""],["envelope",500,90,.6,""],["word",100,50,"192.168.10.30 → 8.8.8.8",13,0,"#fff3c4"],["word",500,50,"203.0.113.2 → 8.8.8.8",13,0,"#ffd23f"],["arrow",160,90,440,90,"#ffd23f"]], fx:[["SWAP!",300,50,24,-6,"#e63a2e",true]],
+   b:[["c","Going out, Rooty replaces the private SOURCE with his public address. The destination stays the same.",2,74,32]]}]},
+ {h:250, p:[{bg:"blueprint", ch:[["router","proud",530,.45]], over:[["rtable",20,30,400,[["INSIDE 192.168.10.30","OUTSIDE 203.0.113.2"]],"ROOTY'S NAT TABLE"]],
+   b:[["s","I write down every swap. The reply comes to 203.0.113.2, I check my table, and swap it BACK to .30!",30,52,22,"b",88,"router"]]}]},
+ {h:230, p:[
+   {bg:"rays:sun", ch:[["laptop","shock",150,.6]],
+     b:[["s","My home Wi-Fi router does this right now?",8,5,12,"b",55,"laptop"]]},
+   {bg:"rays:mint", ch:[["router","happy",150,.58]],
+     b:[["s","Every day! It's {{NAT}}: Network Address Translation.",6,4,14,"b",55,"router"]]}]}
+]},
+/* ===== 5 ===== */
+{title:"Three PCs, one public IP", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["router","worried",350,.45]], over:[["pc",80,90,.6,O10,".10"],["pc",80,170,.6,O10,".20"],["pc",80,250,.6,O10,".30"],["line",110,70,300,190,O10],["line",110,150,300,200,O10],["line",110,230,300,210,O10],["word",480,120,"ONLY 203.0.113.2",16,0,"#ffd23f"]], fx:[["???",470,200,26,6,"#ffd23f",true]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["router","confused",150,.58]],
+     b:[["s","All three become 203.0.113.2. A reply comes back... whose is it?!",6,4,14,"b",55,"router"]]},
+   {bg:"rays:sky", ch:[["laptop","confused",150,.6]],
+     b:[["s","Ask the ISP for more public IPs?",8,5,11,"b",55,"laptop"],["c","Too pricey for a small office!",16,80,10]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["The IP address alone can't tell the three apart.","We need ONE MORE number to tell conversations apart..."],18]],
+   b:[]}]}
+]},
+/* ===== 6 ===== */
+{title:"Port numbers to the rescue", rows:[
+ {h:260, p:[{bg:"office:2", over:[["fbar",30,80,[["SRC IP","",95,"#c9b6f2"],["DST IP","",95,"#9a7bff"],["SRC PORT","random",110,"#ffd23f"],["DST PORT","80",110,"#ffd23f"],["DATA","",120,"#8fdcc0"]]]],
+   b:[["c","Inside the IP packet sits the TCP or UDP header. It carries two PORT numbers.",2,3,28],["c","A port says WHICH app: web = 80 (443 for HTTPS), DNS = 53.",2,74,26]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["server","proud",150,.55]],
+     b:[["s","I run many apps. Port 80 tells me 'this is for my web server'.",4,4,15,"b",55,"server"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","And my SOURCE port is just a random 16-bit number my PC picks!",6,4,14,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Ports are 16 bits: 0 to 65,535.","They stay the SAME from end to end, in every packet."],19]],
+   b:[]}]}
+]},
+/* ===== 7 ===== */
+{title:"PAT: one IP, many ports", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["router","proud",540,.42]], over:[["rtable",15,24,460,[["192.168.10.10 : 5001","203.0.113.2 : 5001"],["192.168.10.20 : 6002","203.0.113.2 : 6002"],["192.168.10.30 : 5001","203.0.113.2 : 7003","1"]],"INSIDE IP:PORT → OUTSIDE IP:PORT"]],
+   b:[["c",".30 picked 5001 too! Rooty gives it a different outside port.",4,80,24]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Reply to 203.0.113.2 port 7003? That's .30's conversation! I swap it back.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","proud",150,.6]],
+     b:[["s","IP + port together = unique. That's {{PAT}}, Port Address Translation!",4,4,15,"b",55,"laptop"]]}]},
+ {h:230, p:[
+   {bg:"rays:lilac", ch:[["phone","confused",150,.62]],
+     b:[["s","Why not use MAC addresses to tell them apart?",6,4,14,"b",55,"phone"]]},
+   {bg:"rays:sun", ch:[["router","happy",150,.58]],
+     b:[["s","Great thinking, Fonz! But MACs change every hop. Ports stay put end to end.",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 8 ===== */
+{title:"A bigger office", rows:[
+ {h:300, p:[{bg:"blueprint", ch:[["router","proud",300,.34,1,60],["switch","proud",180,.32,1,140],["switch","proud",420,.32,1,140],["switch","happy",100,.3,1,240],["switch","happy",240,.3,1,240],["switch","happy",360,.3,1,240],["switch","happy",500,.3,1,240]], over:[["line",285,55,195,115,"#e63a2e"],["line",315,55,405,115,"#e63a2e"],["line",170,150,105,210,"#ffd23f"],["line",190,150,235,210,"#ffd23f"],["line",410,150,365,210,"#ffd23f"],["line",430,150,495,210,"#ffd23f"],["line",200,135,400,135,"#ffd23f"],["word",470,40,"CORE",15,0,"#fff3c4"],["word",530,125,"DISTRIBUTION",14,0,"#fff3c4"],["word",170,288,"BUILDING 1 · ACCESS",13,0,"#fff3c4"],["word",430,288,"BUILDING 2 · ACCESS",13,0,"#fff3c4"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","Bright Trail's new campus: access switches in each building, Layer 3 distribution switches with the VLAN gateways (SVIs).",4,3,17,"b",50,"switch"]]},
+   {bg:"rays:mint", ch:[["router","proud",150,.58]],
+     b:[["s","Small budget? Merge core into distribution: a {{collapsed core}}, two tiers.",4,4,15,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["20 VLANs on the distribution switches = 20 networks.","How does the router at the top LEARN about all of them?"],18]],
+   b:[]}]}
+]},
+/* ===== 9 ===== */
+{title:"Static routes don't scale", rows:[
+ {h:280, p:[{bg:"blueprint", ch:DIA(["worried"]), over:[...DIAL()],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["router","worried",150,.58]], over:[["sweat",220,110,1.2]],
+     b:[["s","A route for every network, on every router, typed by hand?! And if a link breaks, nobody fixes it.",4,4,16,"b",55,"router"]]},
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Then let the routers TELL each other!",8,5,12,"b",55,"laptop"]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,62,["Static routing is fine for small networks.","50 or 500 networks? Routers must share routes themselves."],17]],
+   b:[]}]}
+]},
+/* ===== 10 ===== */
+{title:"Routers that talk", rows:[
+ {h:280, p:[{bg:"blueprint", ch:DIA(["proud","happy","happy","happy"]), over:[...DIAL(),["envelope",195,85,.4,""],["envelope",405,85,.4,""]], fx:[["I HAVE 192.168.5.0!",170,30,15,-4,"#ffd23f",true]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Hey Rooty, I'm connected to 192.168.20.0. Got packets for it? Send them to me!",4,4,15,"b",55,"router"],["c","Rex",4,82,4]]},
+   {bg:"rays:mint", ch:[["router","happy",150,.58]],
+     b:[["s","Thanks, Rex! And I'll pass that on to my other neighbors.",6,4,14,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Everyone tells everyone, in a shared language.","That language is a DYNAMIC ROUTING PROTOCOL."],19]],
+   b:[]}]}
+]},
+/* ===== 11 ===== */
+{title:"Which road is best?", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["router","proud",90,.4,1,150],["router","happy",300,.36,1,70],["router","happy",300,.36,1,262],["router","happy",510,.4,1,150]], over:[["line",130,120,265,55,"#2bb673"],["line",335,55,470,120,"#2bb673"],["line",130,150,265,240,"#9aa3b5"],["line",335,240,470,150,"#9aa3b5"],["word",180,70,"10G",16,0,"#ffd23f"],["word",420,70,"10G",16,0,"#ffd23f"],["word",180,230,"1G",16,0,"#ffd23f"],["word",420,230,"1G",16,0,"#ffd23f"],["word",530,195,"NETWORK 1",13,0,"#fff3c4"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["router","confused",150,.58]],
+     b:[["s","Both paths come from the SAME protocol, so AD ties. I'd split traffic... onto the slow 1G road too!",4,4,16,"b",55,"router"]]},
+   {bg:"rays:sun", ch:[["van","proud",150,.48]],
+     b:[["s","Count the kilometers! 10 + 10 beats 20 + 20. Lower number wins.",4,4,15,"b",55,"van"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Each protocol scores paths with a METRIC.","OSPF's metric is COST: faster link = lower cost."],18]],
+   b:[]}]}
+]},
+/* ===== 12 ===== */
+{title:"Rumors or a full map?", rows:[
+ {h:260, p:[{bg:"plain:#fff3c4", over:[["sign",15,30,275,170,["DISTANCE VECTOR","'Rex says Network 1","is 20 km away.'","trust the neighbor's summary"],22],["sign",310,30,275,170,["LINK STATE","everyone gets the","SAME full map","and does their own math"],22,"#e63a2e"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["router","worried",150,.58]],
+     b:[["s","Pure rumors can go wrong: packets bounce in {{routing loops}}.",6,4,14,"b",55,"router"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","OSPF is LINK STATE. Every router builds the whole map!",6,4,14,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["OSPF = Open Shortest Path First.","The most common routing protocol inside companies."],19]],
+   b:[]}]}
+]},
+/* ===== 13 ===== */
+{title:"Everyone shares their links", rows:[
+ {h:280, p:[{bg:"blueprint", ch:DIA(), over:[...DIAL(),["sign",10,12,150,56,["ROOTY:","2 LINKS"],18],["sign",440,12,150,56,["REX:","3 LINKS"],18,"#e63a2e"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","I only describe MY links: 'I'm on 192.168.5.0, and on the link to Rex, cost 10.'",4,4,15,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["router","happy",150,.58]],
+     b:[["s","I add my own note, and forward Rooty's note UNCHANGED to Ruby and Rio.",4,4,15,"b",55,"router"],["c","Rex",4,82,4]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Soon every router holds the SAME stack of notes:","the Link State DataBase (LSDB). It's a picture of the whole network."],17]],
+   b:[]}]}
+]},
+/* ===== 14 ===== */
+{title:"From notes to a map", rows:[
+ {h:280, p:[{bg:"blueprint", ch:DIA(), over:[...DIAL(["#2bb673","#9aa3b5","#9aa3b5","#2bb673","#9aa3b5"]),["word",180,85,"10",18,0,"#ffd23f"],["word",420,85,"30",18,0,"#ffd23f"],["word",180,225,"10",18,0,"#ffd23f"],["word",420,225,"5",18,0,"#ffd23f"],["word",320,155,"10",18,0,"#ffd23f"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["router","confused",150,.58]],
+     b:[["s","To reach Rex: direct costs 30. Via Ruby: 5 + 10 = 15. Ruby wins!",4,4,15,"b",55,"router"],["c","Rio",4,82,4]]},
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","That's a GRAPH! Routers are dots, links are lines with costs.",6,4,14,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Shortest paths in a graph? Computer science solved that:","DIJKSTRA'S ALGORITHM. OSPF runs it, called SPF."],18]],
+   b:[]}]}
+]},
+/* ===== 15 ===== */
+{title:"OSPF in four steps", rows:[
+ {h:280, p:[{bg:"plain:#fff3c4", over:[["sign",15,24,275,110,["1. FIND NEIGHBORS","say HELLO"],24,"#2bb673"],["sign",310,24,275,110,["2. FLOOD LSAs","share your links"],24,"#1f6fd1"],["sign",15,150,275,110,["3. BUILD THE LSDB","same map for all"],24,P10],["sign",310,150,275,110,["4. RUN SPF","best path to all"],24,"#e63a2e"]],
+   b:[]}]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["router","proud",540,.45]], over:[["cli",20,50,["R1# show ip route","*O   192.168.20.0/24 [110/20] via 192.168.12.2","C   192.168.5.0/24 is directly connected"],14]],
+   b:[["c","O = learned by OSPF. [110/20] = AD 110, cost 20.",2,80,22]]}]},
+ {h:220, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","You don't type routes anymore. Just switch OSPF on!",6,4,14,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]], fx:[["NO MORE TYPING!",150,40,18,-4,"#e63a2e",true]],
+     b:[]}]}
+]},
+/* ===== 16 ===== */
+{title:"Switching OSPF on", rows:[
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["router","proud",540,.45]], over:[["cli",20,50,["R1(config)# router ospf 1","R1(config-router)# network 192.168.12.0 0.0.0.3 area 0","R1(config-router)# network 192.168.5.0 0.0.0.255 area 0"],13]],
+   b:[["c","'network' picks which interfaces run OSPF. 0.0.0.3 is a WILDCARD mask: the inverse of 255.255.255.252.",2,74,32]]}]},
+ {h:250, p:[{bg:"blueprint", ch:[["router","happy",150,.42],["router","happy",450,.42]], over:[["line",190,215,410,215,"#ffd23f"],["word",300,195,"192.168.12.0/31",18,0,"#ffd23f"],["word",205,240,".0",16,0,"#fff3c4"],["word",395,240,".1",16,0,"#fff3c4"]],
+   b:[["c","Bonus: on a two-router link, modern routers can use a /31. Both addresses usable, nothing wasted!",2,3,32]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["The '1' in 'router ospf 1' is a local process number.","Routers don't need the same one to become neighbors."],18]],
+   b:[]}]}
+]},
+/* ===== 17 ===== */
+{title:"Hello, neighbor!", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["router","happy",130,.45],["router","happy",470,.45]], over:[["line",200,215,400,215,"#ffd23f"],["envelope",240,140,.5,"HELLO"],["envelope",360,140,.5,"HELLO"]], fx:[["HELLO!",130,50,20,-6,"#ffd23f",true],["HELLO!",470,50,20,6,"#ffd23f",true]],
+   b:[]}]},
+ {h:250, p:[{bg:"plain:#fff3c4", ch:[["router","proud",540,.45]], over:[["sign",20,24,440,190,["TO BECOME NEIGHBORS, MATCH:","same subnet and mask","same area","same hello and dead timers (10 s / 40 s)","same authentication"],22,"#e63a2e"]],
+   b:[]}]},
+ {h:220, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Hello every 10 s is my heartbeat. 40 s of silence? Neighbor's gone.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["router","happy",150,.58]],
+     b:[["s","Then we swap {{LSAs}}: Link State Advertisements!",6,4,14,"b",55,"router"]]}]}
+]},
+/* ===== 18 ===== */
+{title:"Five routers, one Ethernet", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["router","worried",70,.32,1,90],["router","worried",210,.32,1,90],["router","worried",390,.32,1,90],["router","worried",530,.32,1,90],["router","worried",300,.32,1,262]], over:[["line",30,150,570,150,"#ffd23f"],["line",70,95,70,150,"#ffd23f"],["line",210,95,210,150,"#ffd23f"],["line",390,95,390,150,"#ffd23f"],["line",530,95,530,150,"#ffd23f"],["line",300,150,300,215,"#ffd23f"]], fx:[["10 PAIRS?!",460,220,22,-4,"#e63a2e",true]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","5 routers, everyone neighbors with everyone: 5 × 4 ÷ 2 = 10 pairs!",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:rose", ch:[["router","worried",150,.58]],
+     b:[["s","And every update copied 10 ways. That's an LSA flood!",6,4,14,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["On a shared Ethernet segment, everyone can reach everyone.","So OSPF elects a leader instead..."],19]],
+   b:[]}]}
+]},
+/* ===== 19 ===== */
+{title:"DR and BDR", rows:[
+ {h:280, p:[{bg:"blueprint", ch:[["router","happy",70,.32,1,262],["router","happy",210,.32,1,262],["router","proud",300,.38,1,90],["router","happy",390,.32,1,262],["router","proud",530,.32,1,262]], over:[["line",290,100,85,220,"#2bb673"],["line",295,100,215,220,"#2bb673"],["line",305,100,385,220,"#2bb673"],["line",310,100,520,220,"#2bb673"],["word",380,50,"DR",22,0,"#ffd23f"],["word",530,200,"BDR",18,0,"#ffd23f"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","I'm the {{designated router}}. Everyone sends updates to ME, and I pass them on.",4,4,15,"b",55,"router"],["c","DR",4,82,3]]},
+   {bg:"rays:mint", ch:[["router","happy",150,.58]],
+     b:[["s","And I'm the {{BDR}}: the backup. If the DR fails, I take over right away.",4,4,15,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Election: highest OSPF priority wins, then highest router ID.","Fewer neighbor relationships = less flooding."],18]],
+   b:[]}]}
+]},
+/* ===== 20 ===== */
+{title:"One flapping cable", rows:[
+ {h:280, p:[{bg:"burst:red", ch:[["router","shock",80,.3,1,90],["router","shock",200,.3,1,90],["router","shock",320,.3,1,90],["router","shock",440,.3,1,90],["router","shock",80,.3,1,250],["router","shock",200,.3,1,250],["router","shock",320,.3,1,250],["router","shock",440,.3,1,250],["person","#c0553a",540,.6]], fx:[["DOWN! UP! DOWN!",300,160,22,-4,"#ffd23f",true]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["router","worried",150,.58]], over:[["sweat",220,110,1.2]],
+     b:[["s","An intern keeps unplugging one port. Every change floods LSAs to all 130 routers!",4,4,15,"b",55,"router"]]},
+   {bg:"rays:lilac", ch:[["router","shock",150,.58]],
+     b:[["s","And we ALL re-run SPF each time. My CPU!",6,4,14,"b",55,"router"],["c","Rio",4,82,4]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Sound familiar? ARP broadcasts flooded every PC,","so we used VLANs to fence them in. OSPF needs fences too!"],18]],
+   b:[]}]}
+]},
+/* ===== 21 ===== */
+{title:"OSPF areas", rows:[
+ {h:290, p:[{bg:"plain:#eaf6ff", ch:[["router","proud",300,.34,1,150],["router","happy",110,.3,1,262],["router","happy",490,.3,1,262]], over:[["zone",200,20,200,150,"#e63a2e","AREA 0","backbone"],["zone",10,175,200,110,O10,"AREA 1",""],["zone",390,175,200,110,T10,"AREA 2",""],["line",280,155,140,220,"#1f6fd1"],["line",320,155,460,220,"#1f6fd1"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Split OSPF into {{areas}}. Detailed link updates (type 1 LSAs) stay INSIDE their area.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","So the intern only bothers Area 1. Nice!",8,5,12,"b",55,"laptop"]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,56,["Area 0 is the BACKBONE. Every other area must connect to it,","and traffic between areas passes through area 0.","(There are 7 LSA types. Start with neighbors, DR/BDR and areas.)"],17]],
+   b:[]}]}
+]},
+/* ===== 22 ===== */
+{title:"Rooty is the only door", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["switch","happy",300,.4,1,180],["router","proud",160,.36,1,70],["router","happy",440,.36,1,70]], over:[["line",190,80,280,140,"#2bb673"],["line",410,80,320,140,"#9aa3b5"],["pc",160,260,.5,O10,".10"],["pc",440,260,.5,O10,".20"],["word",160,25,"ROOTY .1",14,0,"#ffd23f"],["word",440,25,"REX .3",14,0,"#fff3c4"]],
+   b:[["c","VLAN 10: every PC's default gateway is 10.0.10.1, on Rooty.",2,40,16]]}]},
+ {h:250, p:[
+   {bg:"burst:red", ch:[["router","shock",150,.58]], fx:[["CRASH!",150,40,28,-4,"#ffd23f",true]],
+     b:[]},
+   {bg:"rays:rose", ch:[["laptop","worried",150,.6]], over:[["sweat",215,100,1.2]],
+     b:[["s","Rooty's down! Rex is RIGHT THERE, but my gateway is still .1!",6,4,14,"b",55,"laptop"]]}]},
+ {h:230, p:[
+   {bg:"rays:lilac", ch:[["phone","confused",150,.62]],
+     b:[["s","Call all 200 staff and change their gateway to .3?",6,4,14,"b",55,"phone"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","It works, but no! A NETWORK problem should be fixed in the network.",4,4,15,"b",55,"router"],["c","Rex",4,82,4]]}]}
+]},
+/* ===== 23 ===== */
+{title:"HSRP: a virtual gateway", rows:[
+ {h:280, p:[{bg:"blueprint", ch:[["router","proud",110,.36,1,110],["router","happy",490,.36,1,110],["switch","happy",300,.38,1,262]], over:[["zone",220,30,160,90,"#ffd23f","VIRTUAL","10.0.10.1"],["line",145,120,280,220,"#2bb673"],["line",455,120,320,220,"#9aa3b5"],["word",110,150,"ROOTY .2 · ACTIVE",13,0,"#ffd23f"],["word",490,150,"REX .3 · STANDBY",13,0,"#fff3c4"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Neither of us OWNS .1 now. HSRP creates it as a virtual IP, with a virtual MAC.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["router","happy",150,.58]],
+     b:[["s","We send each other hellos. Higher priority = ACTIVE, the other waits on STANDBY.",4,4,15,"b",55,"router"],["c","Rex",4,82,4]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["The gateway is a packet's FIRST HOP out of its network.","Protocols that back it up = First Hop Redundancy Protocols (FHRP)."],17]],
+   b:[]}]}
+]},
+/* ===== 24 ===== */
+{title:"Rex takes over", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["router","sad",130,.36,1,110],["router","proud",470,.36,1,110],["switch","happy",300,.38,1,262]], over:[["zone",500,20,95,50,"#ffd23f","10.0.10.1",""],["line",165,120,280,220,"#9aa3b5"],["line",435,120,320,220,"#2bb673"],["word",130,150,"SILENT...",14,0,"#fff3c4"],["word",470,150,"NOW ACTIVE!",14,0,"#ffd23f"]], fx:[["MINE NOW!",300,90,20,-4,"#e63a2e",true]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","No hellos from Rooty? I take the virtual IP AND MAC, and send a gratuitous ARP.",4,4,15,"b",55,"router"],["c","Rex",4,82,4]]},
+   {bg:"rays:mint", ch:[["switch","proud",150,.55]],
+     b:[["s","That ARP updates my MAC table: the virtual MAC now lives on Rex's port!",4,3,15,"b",50,"switch"]]}]},
+ {h:220, p:[
+   {bg:"rays:lilac", ch:[["laptop","happy",150,.6]], over:[["hearts",230,80,1]],
+     b:[["s","My gateway is still .1. I didn't notice a thing!",6,4,13,"b",55,"laptop"]]},
+   {bg:"plain:#0e1530", ch:[["router","proud",250,.4]], over:[["cli",12,46,["int g0/0","standby 1 ip 10.0.10.1","standby 1 priority 110"],12]],
+     b:[]}]}
+]},
+/* ===== 25 ===== */
+{title:"Your turn", rows:[
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["router","happy",530,.48]], over:[["sign",20,30,410,90,["LAB 1","4 routers · OSPF area 0 · show ip ospf neighbor","check the O routes in show ip route"],19],["sign",20,140,410,90,["LAB 2","2 routers · HSRP · ping the virtual IP","shut the active router and watch"],19]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","OSPF looks huge, but it's just 4 steps. Learn them well and advanced topics get easy!",4,4,15,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","Neighbors, LSAs, map, shortest path. Got it!",8,5,12,"b",55,"laptop"]]}]},
+ {h:240, p:[{bg:"burst:blue", ch:[["router","happy",150,.42],["switch","happy",300,.42],["router","happy",450,.42]],
+   b:[["c","To be continued: what a big company's network looks like!",4,4,22]]}]}
+]}
+];
+const ISSUE_J = {no:"10", cover:COVER9, t:"Why OSPF and HSRP?", b:"How NAT gets a small office online, how routers share a map with OSPF, and how HSRP keeps the gateway alive.", m:25, star:"router", part:1, pages:PAGES9,
+ take:"Private ranges (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16) are reused everywhere, so internet routers won't route to them. NAT swaps a private source address for a public one and remembers it in a NAT table; PAT also uses port numbers (web 80/443, DNS 53, random 16-bit source ports) so many PCs can share one public IP. Bigger offices use access, distribution (with SVI gateways) and core layers, or a two-tier collapsed core. Static routes don't scale, so routers share routes with a dynamic routing protocol and choose by metric. OSPF is link state: 1) find neighbors with hellos (same subnet, area, timers, authentication), 2) flood LSAs about their own links, 3) build the same LSDB (a map/graph), 4) run SPF (Dijkstra) to find the lowest-cost paths; routes show as O with AD 110. On Ethernet, a DR and BDR cut down the number of adjacencies. Areas limit LSA flooding, and every area connects to backbone area 0. HSRP gives a VLAN a virtual gateway IP and MAC shared by an active and a standby router; if the active one stops sending hellos, the standby takes over and PCs never change their gateway.",
+ tip:"In Packet Tracer: connect 4 routers, enable router ospf 1 with network ... area 0 on each, then run show ip ospf neighbor and show ip route to find the O routes. For HSRP: two routers on one VLAN with standby 1 ip, ping the virtual IP from a PC, then shut the active router's interface and keep pinging.",
+ q:{q:"Rooty is the HSRP active router for virtual IP 10.0.10.1 and suddenly fails. What must the PCs do?",o:["Nothing: Rex takes over the virtual IP and MAC","Change their default gateway to Rex's real IP","Restart so they can learn a new gateway"],why:"HSRP's whole point is that PCs keep using the virtual gateway. The standby router becomes active, takes the virtual IP and MAC, and sends a gratuitous ARP so switches learn the new port."}};
+
+/* ---------- Issue: Why automation and wireless? (original NetFixLab chapter) ---------- */
+Object.assign(PROPS, {
+  ap:(x,y,s,lbl)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><path d="M-30 -60 A40 40 0 0 1 30 -60" fill="none" stroke="#1f6fd1" stroke-width="5" stroke-linecap="round"/><path d="M-46 -72 A60 60 0 0 1 46 -72" fill="none" stroke="#1f6fd1" stroke-width="5" stroke-linecap="round" opacity=".7"/><path d="M-62 -84 A80 80 0 0 1 62 -84" fill="none" stroke="#1f6fd1" stroke-width="5" stroke-linecap="round" opacity=".45"/><rect x="-36" y="-36" width="72" height="30" rx="14" fill="#f4f6fb" ${sk(3)}/><circle cx="0" cy="-21" r="5" fill="#2bb673"/>${lbl?`<text x="0" y="16" text-anchor="middle" font-family="${BANG}" font-size="15" letter-spacing="1" fill="${INK}" stroke="#fff" stroke-width="4" paint-order="stroke">${lbl}</text>`:""}</g>`,
+  sine:(x,y,w,amp,cycles,col,phase)=>{ let d=""; for(let i=0;i<=80;i++){ const t=i/80, xx=x+t*w, yy=y-amp*Math.sin(2*Math.PI*cycles*t+(phase||0)); d+=(i?" L":"M")+xx.toFixed(1)+" "+yy.toFixed(1); } return `<path d="${d}" fill="none" stroke="${INK}" stroke-width="8" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${col||"#ffd23f"}" stroke-width="4" stroke-linecap="round"/>`; }
+});
+const COVER10 = {l:["ROBOTS","AND","RADIO WAVES"], t:["AUTOMATION, APIs","AND WI-FI"], s:"blue", a:"laptop", b:"phone", ma:"proud", mb:"happy", sfx:"NO CABLES!"};
+const PAGES10 = [
+/* ===== 1 ===== */
+{title:"Forty switches by Friday", rows:[
+ {h:260, p:[{bg:"room", ch:[["person","#c0553a",90,.9],["laptop","shock",480,.55]], fx:[["40?!",480,70,28,6,"#ffd23f",true]],
+   b:[["c","Bright Trail now runs 40 switches across two buildings.",2,3,18],["s","New guest VLAN on ALL 40 switches by Friday, Lappy!",22,28,14,"bl",8]]}]},
+ {h:250, p:[
+   {bg:"plain:#0e1530", ch:[["laptop","worried",230,.45]], over:[["cli",14,46,["ssh SW1 ... vlan 50","ssh SW2 ... vlan 50","ssh SW3 ... vlan 50","...","*37 to go"],13]],
+     b:[]},
+   {bg:"chalk", over:[["chalktext",20,46,["TODAY:","1. Why automate the network","2. APIs and data models (YANG)","3. XML, JSON, YAML","4. NETCONF and RESTCONF","5. Wi-Fi from the radio up"],16]],
+     b:[]}]},
+ {h:230, p:[{bg:"rays:mint", ch:[["laptop","worried",90,.55],["router","proud",300,.52],["phone","happy",500,.52]],
+   b:[["s","Typing the same thing 40 times? Let a program do it!",30,6,13,"b",44,"router"],["s","And later: how I stay online with NO cable!",62,42,10,"b",80,"phone"]]}]}
+]},
+/* ===== 2 ===== */
+{title:"The old way: the CLI", rows:[
+ {h:270, p:[{bg:"plain:#0e1530", ch:[["switch","proud",540,.45]], over:[["cli",18,44,["SW1# show version","Cisco IOS XE Software, Version 17.9.4","SW1 uptime is 41 weeks, 2 days","*Processor board ID FOC2231X0JK","512K bytes of non-volatile memory"],13]],
+   b:[["c","Every command we've typed so far is the CLI: Command Line Interface. Built for HUMANS to read.",2,80,34]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","I can spot the serial number in a second. I'm a network engineer!",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:lilac", ch:[["router","proud",150,.58]],
+     b:[["s","Reading out what you need is {{parsing}}. A script can do it with a regular expression...",4,4,15,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["...but it's fragile. Change one word in the output after an","upgrade, and the script breaks. 'Screen scraping' isn't a real interface."],17]],
+   b:[]}]}
+]},
+/* ===== 3 ===== */
+{title:"Three ways manual hurts", rows:[
+ {h:250, p:[{bg:"room", ch:[["server","proud",110,.5],["person","#2f6f5e",300,.75],["router","worried",500,.5]],
+   b:[["s","My new grade-book app is ready in two weeks!",2,4,12,"bl",10,"server"],["s","...and the network for it takes two MORE weeks?",58,8,12,"b",80,"router"]]}]},
+ {h:260, p:[{bg:"plain:#fff3c4", over:[["sign",10,30,185,180,["1. TIME","apps ship fast,","networks wait","on humans"],22,"#e63a2e"],["sign",207,30,185,180,["2. REPEATS","same commands,","box after box,","typo after typo"],22,"#1f6fd1"],["sign",404,30,185,180,["3. SCALE","hundreds of devices,","plus the cloud"],22,"#2bb673"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"sky", ch:[["nimbus","happy",150,.42]],
+     b:[["s","And now apps live in ME, the cloud, with a whole network of my own!",4,4,15,"b",55,"nimbus"]]},
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","TCP/IP was designed in the 1970s for way smaller networks!",6,4,14,"b",55,"laptop"]]}]}
+]},
+/* ===== 4 ===== */
+{title:"What we actually need", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["router","proud",530,.45]], over:[["rtable",15,24,440,[["1","an interface code AND devices both understand"],["2","config data kept apart from state data"],["3","think SERVICES, not boxes"],["4","a feedback loop that checks the result"]],"WISH LIST"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"plain:#0e1530", ch:[["router","proud",250,.4]], over:[["cli",12,46,["CONFIG DATA:","router ospf 1","network ... area 0"],13]],
+     b:[["c","What we WANT the box to do.",4,80,12]]},
+   {bg:"plain:#0e1530", ch:[["router","proud",250,.4]], over:[["cli",12,46,["STATE DATA:","show ip ospf neighbor","*FULL/DR 00:00:35"],13]],
+     b:[["c","What the box IS doing.",4,80,12]]}]},
+ {h:220, p:[{bg:"rays:mint", ch:[["router","happy",110,.55]],
+   b:[["s","Don't say 'configure 200 boxes'. Say 'give Sales routing from desk to app', and let software handle the boxes!",30,8,24,"bl",6,"router"]]}]}
+]},
+/* ===== 5 ===== */
+{title:"Meet the API", rows:[
+ {h:260, p:[{bg:"street", ch:[["van","happy",130,.48],["person","#7a4e2d",470,.7]], over:[["sign",320,30,250,90,["DRIVE-THRU MENU","#1 burger · #2 wrap","#3 fries"],20,"#e63a2e"]],
+   b:[["s","I just say '#2, please'. I never walk into the kitchen!",2,4,13,"bl",10,"van"]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","An {{API}} is my menu: Application Programming Interface. Programs order from it.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:lilac", ch:[["laptop","happy",150,.6]],
+     b:[["s","So no human typing in a terminal window. A network APP talks to the router!",4,4,15,"b",55,"laptop"]]}]},
+ {h:230, p:[{bg:"blueprint", ch:[["laptop","happy",110,.42],["router","proud",480,.45]], over:[["line",180,200,420,200,"#ffd23f"],["envelope",300,160,.5,"API"]],
+   b:[["c","Machine talks to machine, using rules both sides agree on.",14,3,22]]}]}
+]},
+/* ===== 6 ===== */
+{title:"Three building blocks", rows:[
+ {h:270, p:[{bg:"plain:#fff3c4", over:[["sign",10,30,185,190,["DATA MODEL","the RULES","what can be said","(YANG)"],22,"#e63a2e"],["sign",207,30,185,190,["FORMAT","how it's WRITTEN","XML · JSON","YAML"],22,"#1f6fd1"],["sign",404,30,185,190,["TRANSPORT","how it TRAVELS","NETCONF","RESTCONF"],22,"#2bb673"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["van","proud",150,.45]],
+     b:[["s","Like a letter: grammar rules, neat handwriting, and me to deliver it!",4,4,15,"b",55,"van"]]},
+   {bg:"rays:mint", ch:[["router","happy",150,.58]],
+     b:[["s","Good news: engineers already built most of this. Our job is to know how to USE it.",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 7 ===== */
+{title:"The rules: a data model", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["van","happy",530,.4]], over:[["rtable",15,24,440,[["recipient","text"],["weight","number, kg"],["size","small / medium / large"],["fragile","yes / no"]],"DASH'S PARCEL MODEL"]],
+   b:[]}]},
+ {h:260, p:[{bg:"blueprint", ch:[["router","proud",530,.45]], over:[["rtable",15,24,440,[["IPv4 address","4 numbers, each 0–255"],["interface status","up / down"],["VLAN ID","1–4094"],["BGP AS number","whole number in range"]],"NETWORK RULES"]],
+   b:[]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["A DATA MODEL lists the objects (interface, route, VLAN),","their attributes, and the rules each value must follow."],18]],
+   b:[]}]}
+]},
+/* ===== 8 ===== */
+{title:"YANG", rows:[
+ {h:280, p:[{bg:"plain:#0e1530", ch:[["router","proud",540,.42]], over:[["cli",18,40,["module ietf-interfaces","  +--rw interfaces          (container)","     +--rw interface* [name]  (list)","        +--rw name           (leaf)","        +--rw description    (leaf)","        +--rw enabled        (leaf)","        +--ro oper-status    (leaf, state)"],13]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","{{YANG}} is THE modeling language. Module → container → list → leaf. The leaves hold the real values.",4,4,16,"b",55,"router"]]},
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","What's rw and ro?",8,5,8,"b",55,"laptop"],["c","rw = config you set. ro = state, read-only!",14,74,14]]}]},
+ {h:230, p:[{bg:"plain:#fff3c4", over:[["sign",15,30,275,140,["STANDARD MODELS","written by the IETF","work on any brand"],22],["sign",310,30,275,140,["VENDOR MODELS","e.g. Cisco IOS XE native","for brand-only features"],22,"#e63a2e"]],
+   b:[]}]}
+]},
+/* ===== 9 ===== */
+{title:"Peeking at a model", rows:[
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["laptop","happy",540,.42]], over:[["cli",18,44,["$ pip install pyang","$ pyang -f tree ietf-interfaces.yang","*  module: ietf-interfaces","     +--rw interfaces ..."],14]],
+   b:[["c","The tool 'pyang' turns a .yang file into an easy tree.",2,80,22]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Thousands of models live in a public GitHub catalog called YangModels. No need to write your own!",4,4,16,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","proud",150,.6]],
+     b:[["s","And the model a router supports tells me what it CAN do.",6,4,14,"b",55,"laptop"]]}]}
+]},
+/* ===== 10 ===== */
+{title:"Same data, three outfits", rows:[
+ {h:300, p:[
+   {bg:"plain:#0e1530", over:[["cli",10,40,["XML","<interface>","  <name>","   Lo100","  </name>","  <enabled>","   true","  </enabled>","</interface>"],12]],
+     b:[]},
+   {bg:"plain:#0e1530", over:[["cli",10,40,["JSON","{","  \"interface\": {","    \"name\": \"Lo100\",","    \"enabled\": true","  }","}"],12]],
+     b:[]}]},
+ {h:240, p:[
+   {bg:"plain:#0e1530", over:[["cli",14,46,["YAML","interface:","  name: Lo100","  enabled: true"],14]],
+     b:[]},
+   {bg:"plain:#fff3c4", over:[["sign",15,30,270,150,["MACHINE ↔ HUMAN","XML: best for machines","JSON: both","YAML: most human"],22,"#e63a2e"]],
+     b:[]}]},
+ {h:220, p:[{bg:"rays:sun", ch:[["laptop","happy",110,.55]],
+   b:[["s","XML wraps everything in tags. JSON is key: value pairs. YAML just uses indentation!",30,8,24,"bl",6,"laptop"]]}]}
+]},
+/* ===== 11 ===== */
+{title:"Reading JSON and YAML", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["router","proud",530,.45]], over:[["rtable",15,24,440,[["\"name\": \"Lo100\"","key : value"],["{ ... }","an object (a group of keys)"],["[ ... ]","a list"],["YAML indent","same as { }"],["YAML - dash","same as a list item"]],"CHEAT SHEET"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["phone","confused",150,.62]],
+     b:[["s","So JSON and YAML say exactly the same thing?",6,4,14,"b",55,"phone"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Same data, Fonz! YAML just drops the brackets. Great for files humans edit.",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 12 ===== */
+{title:"The delivery truck", rows:[
+ {h:260, p:[{bg:"office:2", over:[["fbar",20,80,[["ETH","",70,"#c9b6f2"],["IP","",70,"#e63a2e"],["TCP 443","",90,"#2f8fdd"],["HTTPS","",90,"#8fdcc0"],["JSON DATA","YANG rules",200,"#ffd23f"]],70]],
+   b:[["c","The data rides the same stack as everything else. Nothing new below it!",2,3,26]]}]},
+ {h:270, p:[{bg:"plain:#fff3c4", over:[["rtable",15,24,570,[["NETCONF","over SSH · port 830 · XML only"],["RESTCONF","over HTTPS · port 443 · XML or JSON"],["gRPC","Google's framework, also used for networks"],["SNMP","the OLD way: numbered OIDs"]],"TRANSPORT OPTIONS"]],
+   b:[]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["NETCONF came first (2006) and is network-only.","RESTCONF (2017) reuses the web's own HTTP."],19]],
+   b:[]}]}
+]},
+/* ===== 13 ===== */
+{title:"NETCONF", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["laptop","happy",110,.42],["router","proud",480,.45]], over:[["line",180,215,420,215,"#ffd23f"],["envelope",230,130,.5,"HELLO"],["envelope",370,130,.5,"MODELS"]],
+   b:[["s","What models do you support?",2,4,9,"bl",10,"laptop"],["s","ietf-interfaces, ospf, vss, and 300 more!",60,4,12,"b",70,"router"]]}]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["laptop","proud",540,.42]], over:[["cli",18,44,["from ncclient import manager","m = manager.connect(host='10.0.0.1',","        port=830, username=..., password=...)","print(m.get_config('running'))"],13]],
+   b:[["c","Python's 'ncclient' library speaks NETCONF.",2,80,18]]}]},
+ {h:230, p:[{bg:"plain:#fff3c4", over:[["sign",30,30,540,140,["NETCONF OPERATIONS","get · get-config · edit-config","lock · commit · copy-config · close-session"],24,"#e63a2e"]],
+   b:[]}]}
+]},
+/* ===== 14 ===== */
+{title:"RESTCONF speaks web", rows:[
+ {h:260, p:[{bg:"blueprint", over:[["rtable",30,30,540,[["GET","read data (config or state)"],["POST","create something new"],["PUT / PATCH","replace / update"],["DELETE","remove it"]],"HTTP VERBS = RESTCONF ACTIONS"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","RESTCONF reuses HTTP, the language of every website. Why reinvent the wheel?",4,4,15,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["server","happy",150,.55]],
+     b:[["s","So my web apps can talk to the network directly. Teamwork!",6,4,14,"b",55,"server"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["REST = REpresentational State Transfer, the style most web APIs use.","Every vendor publishes API documentation: your map of URLs."],17]],
+   b:[]}]}
+]},
+/* ===== 15 ===== */
+{title:"Lab: GET with Postman", rows:[
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["laptop","proud",540,.42]], over:[["cli",14,44,["GET https://10.0.0.1/restconf/data/","    ietf-interfaces:interfaces/interface=Gi1","*{ \"name\": \"GigabitEthernet1\",","*  \"oper-status\": \"up\", \"in-unicast-pkts\": 18213 }"],12]],
+   b:[["c","Postman: a free tool for sending HTTP requests.",2,80,20]]}]},
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["fbar",15,80,[["https://","",80,"#d7dbe4"],["10.0.0.1","device",100,"#ffd23f"],["/restconf","",100,"#8fdcc0"],["/data","",70,"#8fdcc0"],["/model:container/...","what you want",220,"#c9b6f2"]],70]],
+   b:[["c","Every RESTCONF URL has the same shape. Only the end changes.",4,4,22]]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["phone","confused",150,.62]],
+     b:[["s","How do I find the URL for the ROUTING table?",6,4,14,"b",55,"phone"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Check the capabilities and API docs for a routing model, then build the path!",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 16 ===== */
+{title:"POST: build a loopback", rows:[
+ {h:280, p:[{bg:"plain:#0e1530", ch:[["laptop","proud",540,.42]], over:[["cli",14,40,["POST https://10.0.0.1/restconf/data/ietf-interfaces:interfaces","Content-Type: application/yang-data+json","{ \"interface\": { \"name\": \"Loopback100\",","  \"type\": \"iana-if-type:softwareLoopback\",","  \"enabled\": true, \"ipv4\": { ... 10.100.100.1 } } }","*201 Created"],11]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]], fx:[["CREATED!",240,190,22,8,"#e63a2e",true]],
+     b:[["s","Loopback100 is up, and nobody typed a single CLI command!",6,4,14,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","Now loop it over 40 switches... the guest VLAN is done by Friday!",6,4,14,"b",55,"laptop"]]}]}
+]},
+/* ===== 17 ===== */
+{title:"Brains vs muscles", rows:[
+ {h:260, p:[{bg:"plain:#fff3c4", over:[["sign",15,30,275,170,["CONTROL PLANE","the BRAINS","routing tables, OSPF,","'where should this go?'"],22,"#e63a2e"],["sign",310,30,275,170,["DATA PLANE","the MUSCLES","actually moving","frames and packets"],22,"#1f6fd1"]],
+   b:[]}]},
+ {h:270, p:[{bg:"blueprint", ch:[["server","proud",300,.42,1,110],["switch","happy",120,.34,1,262],["switch","happy",300,.34,1,262],["switch","happy",480,.34,1,262]], over:[["line",270,120,140,215,"#ffd23f"],["line",300,120,300,215,"#ffd23f"],["line",330,120,460,215,"#ffd23f"],["word",430,60,"SDN CONTROLLER",16,0,"#ffd23f"]],
+   b:[]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Software-Defined Networking (SDN): the BRAINS move to a controller.","The switches just move traffic the way the controller says."],17]],
+   b:[]}]}
+]},
+/* ===== 18 ===== */
+{title:"Northbound and southbound", rows:[
+ {h:300, p:[{bg:"blueprint", ch:[["laptop","happy",300,.36,1,60],["server","proud",300,.36,1,170],["router","happy",160,.32,1,280],["switch","happy",440,.32,1,280]], over:[["line",300,70,300,120,"#2bb673"],["line",270,180,180,240,"#e63a2e"],["line",330,180,420,240,"#e63a2e"],["word",440,90,"NORTHBOUND API",15,0,"#2bb673"],["word",470,110,"(REST)",13,0,"#fff3c4"],["word",130,200,"SOUTHBOUND API",15,0,"#e63a2e"],["word",130,220,"(NETCONF ...)",13,0,"#fff3c4"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Apps talk to the controller through the NORTHBOUND API. The controller talks to devices through the SOUTHBOUND API.",4,4,16,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","proud",150,.6]],
+     b:[["s","And all of it still runs on the basics: VLANs, OSPF, ARP...",6,4,14,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Engineers who struggle with SDN usually skipped the fundamentals.","Strong basics first. That's why we started with them!"],18]],
+   b:[]}]}
+]},
+/* ===== 19 ===== */
+{title:"Cutting the cable", rows:[
+ {h:260, p:[{bg:"room", ch:[["person","#c0553a",90,.9],["phone","happy",480,.6]], over:[["ap",470,90,.9,""]],
+   b:[["s","The new open-plan floor: no desks, no cables. Everyone on Wi-Fi!",22,8,15,"bl",8],["s","My kind of office!",72,48,7,"b",50,"phone"]]}]},
+ {h:270, p:[{bg:"blueprint", over:[["rtable",30,30,540,[["1971","ALOHAnet links Hawaii's islands by radio"],["1990s","vendors sell slow wireless gear"],["1997","IEEE ratifies the original 802.11"],["1999+","amendments: faster, farther, busier"]],"A SHORT HISTORY OF WIRELESS"]],
+   b:[]}]},
+ {h:220, p:[{bg:"rays:sun", ch:[["phone","proud",110,.6]],
+   b:[["s","Same Ethernet idea, Lappy, but my 'cable' is a radio wave!",30,10,20,"bl",6,"phone"]]}]}
+]},
+/* ===== 20 ===== */
+{title:"Who makes the Wi-Fi rules?", rows:[
+ {h:290, p:[{bg:"plain:#fff3c4", over:[["rtable",15,20,570,[["ITU-R, FCC","radio rules: which frequencies, how much power"],["IEEE","writes the 802.11 standards"],["IETF","internet standards"],["WI-FI ALLIANCE","tests and certifies devices"],["REGIONAL BODIES","rules per region (Europe, Asia ...)"]],"THE WI-FI RULE MAKERS"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","Why does my laptop box have a 'Wi-Fi CERTIFIED' logo?",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["phone","proud",150,.62]],
+     b:[["s","The Wi-Fi Alliance tested it against the 802.11 standards. Passed!",6,4,14,"b",55,"phone"]]}]}
+]},
+/* ===== 21 ===== */
+{title:"802.11 and its letters", rows:[
+ {h:290, p:[{bg:"blueprint", over:[["rtable",15,20,570,[["802.11","1997 · the parent standard"],["802.11b","faster rates in 2.4 GHz"],["802.11a / g","more bandwidth (a: 5 GHz, g: 2.4 GHz)"],["802.11n","Wi-Fi 4"],["802.11ac","Wi-Fi 5"],["802.11ax","Wi-Fi 6 · crowds: stadiums, campuses"]],"EACH LETTER = AN AMENDMENT"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["phone","proud",150,.62]],
+     b:[["s","The 'parent' standard for Wi-Fi? Just 802.11! The letters add upgrades.",6,4,14,"b",55,"phone"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","Two main bands: 2.4 GHz (farther) and 5 GHz (faster).",6,4,14,"b",55,"laptop"]]}]}
+]},
+/* ===== 22 ===== */
+{title:"Riding a radio wave", rows:[
+ {h:260, p:[{bg:"plain:#eaf6ff", over:[["fbar",20,40,[["RADIO","Wi-Fi lives here",200,"#ffd23f"],["MICRO","",80,"#f5958a"],["IR","",60,"#e63a2e"],["LIGHT","",70,"#8fdcc0"],["UV · X · GAMMA","",150,"#c9b6f2"]],60],["ap",120,220,.9,"AP"],["sine",180,180,380,24,4,"#1f6fd1"]],
+   b:[["c","An access point pushes an AC current to its antenna, which radiates a radio wave.",42,80,26]]}]},
+ {h:270, p:[{bg:"blueprint", over:[["sine",30,90,250,40,2,"#ffd23f"],["word",155,30,"WAVELENGTH: peak to peak",15,0,"#fff3c4"],["sine",320,90,250,40,4,"#2bb673"],["word",445,30,"FREQUENCY: cycles per second",15,0,"#fff3c4"],["sine",30,210,250,15,2,"#9aa3b5"],["sine",30,210,250,45,2,"#e63a2e"],["word",155,262,"AMPLITUDE: strength",15,0,"#fff3c4"],["sine",320,210,250,35,2,"#1f6fd1"],["sine",320,210,250,35,2,"#f08a24",Math.PI],["word",445,262,"PHASE: 180° apart = cancel!",15,0,"#fff3c4"]],
+   b:[]}]},
+ {h:220, p:[{bg:"rays:sun", ch:[["router","proud",110,.55]],
+   b:[["s","Wavelength, frequency, amplitude, phase: the four things that describe every wave.",30,10,24,"bl",6,"router"]]}]}
+]},
+/* ===== 23 ===== */
+{title:"What happens to my signal?", rows:[
+ {h:270, p:[{bg:"plain:#fff3c4", over:[["rtable",15,20,570,[["ABSORPTION","walls and doors soak some up"],["REFLECTION","bounces off metal, glass"],["SCATTERING","many tiny reflections at once"],["DIFFRACTION","bends around obstacles"],["LOSS","weaker after every obstacle"]],"WAVE BEHAVIORS"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"map", ch:[["van","happy",90,.38,1,230]], over:[["road",160,140,500,140]],
+     b:[["s","Diffraction is like a river meeting a rock: it flows AROUND it!",30,6,20,"bl",6,"van"]]}]},
+ {h:240, p:[{bg:"blueprint", over:[["rtable",20,24,560,[["UPFADE","reflections arrive in step → stronger"],["DOWNFADE","out of step → weaker"],["NULLING","exactly opposite → signal canceled"]],"MULTIPATH: ONE SIGNAL, MANY COPIES"]],
+   b:[]}]}
+]},
+/* ===== 24 ===== */
+{title:"The wireless team", rows:[
+ {h:290, p:[{bg:"blueprint", ch:[["phone","happy",90,.36,1,270],["laptop","happy",210,.34,1,270],["switch","happy",420,.32,1,200],["server","proud",530,.36,1,110]], over:[["ap",250,130,.9,"AP"],["line",290,110,390,180,"#9aa3b5"],["line",450,180,510,130,"#9aa3b5"],["word",530,40,"WLC",17,0,"#ffd23f"],["word",360,70,"CAPWAP tunnel",14,0,"#ffd23f"],["word",150,190,"SSID: BrightTrail",14,0,"#fff3c4"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["phone","proud",150,.62]],
+     b:[["s","I'm a {{client}}. I join an {{SSID}}: the network name I see in my Wi-Fi list.",6,4,14,"b",55,"phone"]]},
+   {bg:"rays:mint", ch:[["server","proud",150,.55]],
+     b:[["s","I'm the {{WLC}}, the Wireless LAN Controller. I manage every AP through CAPWAP tunnels.",4,4,15,"b",55,"server"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["The ACCESS POINT is the bridge between radio and cable:","wireless clients on one side, the switch on the other."],18]],
+   b:[]}]}
+]},
+/* ===== 25 ===== */
+{title:"Four ways to build Wi-Fi", rows:[
+ {h:290, p:[{bg:"plain:#fff3c4", over:[["sign",15,20,275,125,["AUTONOMOUS","each AP manages itself","tiny office, 2–3 APs"],20,"#2bb673"],["sign",310,20,275,125,["CLOUD-MANAGED","a cloud dashboard runs it all","no controller on site"],20,"#1f6fd1"],["sign",15,155,275,125,["CENTRALIZED","a WLC on site","the most common design"],20,"#e63a2e"],["sign",310,155,275,125,["DISTRIBUTED","WLC in the data center,","branches over the WAN"],20,"#8e5bd8"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","A WLC for just 3 APs feels like overkill...",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Exactly why autonomous APs exist! Pick the design that fits the customer.",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 26 ===== */
+{title:"FlexConnect for branches", rows:[
+ {h:260, p:[{bg:"map", over:[["road",150,190,300,110],["road",450,190,300,110],["dot",300,110,"DATA CENTER WLC",null],["ap",150,180,.7,""],["ap",450,180,.7,""],["word",150,205,"BRANCH",15,0,"#14213d"],["word",450,205,"BRANCH",15,0,"#14213d"]],
+   b:[["c","10–20 APs per branch: too many for autonomous, too few for their own WLC. Enter {{FlexConnect}}.",2,3,34]]}]},
+ {h:270, p:[{bg:"blueprint", over:[["rtable",15,24,570,[["CENTRAL SWITCHING","data goes back to the WLC"],["LOCAL SWITCHING","data stays in the branch, saves WAN"],["CENTRAL AUTH","logins checked by the WLC"],["LOCAL AUTH","the AP checks logins itself"]],"FLEXCONNECT CHOICES"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"burst:red", ch:[["server","shock",150,.5]], fx:[["WAN DOWN!",150,40,22,-4,"#ffd23f",true]],
+     b:[]},
+   {bg:"rays:mint", ch:[["phone","happy",150,.62]],
+     b:[["s","My AP goes STANDALONE: I stay connected. New clients just can't join yet.",4,4,15,"b",55,"phone"]]}]}
+]},
+/* ===== 27 ===== */
+{title:"Inside the WLC", rows:[
+ {h:280, p:[{bg:"plain:#eaf6ff", over:[["frame",20,20,560,40,"#14213d"],["word",300,48,"WLC DASHBOARD",18,0,"#fff3c4"],["sign",30,80,170,80,["SSIDs","2 active"],20],["sign",215,80,170,80,["APs","48 joined"],20],["sign",400,80,170,80,["CLIENTS","312 · 2.4 / 5 GHz"],18],["sign",30,180,260,80,["ROGUES","unknown APs nearby"],20,"#e63a2e"],["sign",310,180,260,80,["INTERFERERS","microwaves, etc."],20,"#e63a2e"]],
+   b:[]}]},
+ {h:270, p:[{bg:"blueprint", over:[["rtable",15,24,570,[["MONITOR","the WLC, its ports, clients"],["WLANs","create SSIDs: open or secured"],["WIRELESS","every AP it manages"],["SECURITY","RADIUS / login servers"],["MANAGEMENT","SNMP, local admin users"],["COMMANDS","upgrades, backups"]],"MAIN TABS"]],
+   b:[]}]}
+]},
+/* ===== 28 ===== */
+{title:"Your turn", rows:[
+ {h:270, p:[{bg:"plain:#0e1530", ch:[["laptop","happy",530,.48]], over:[["sign",20,24,420,70,["LAB 1","Postman: GET an interface from a sandbox router"],18],["sign",20,104,420,70,["LAB 2","pyang -f tree on ietf-interfaces"],18],["sign",20,184,420,70,["LAB 3","Packet Tracer: WLC + AP + an SSID"],18]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Engineers who can't automate will fall behind. Learn this alongside the basics!",4,4,15,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["phone","happy",150,.62]],
+     b:[["s","And next time you use Wi-Fi, think: radio, AP, WLC!",6,4,14,"b",55,"phone"]]}]},
+ {h:230, p:[{bg:"burst:blue", ch:[["laptop","happy",150,.42],["router","happy",300,.42],["phone","happy",450,.42]],
+   b:[["c","To be continued: what a big company's network looks like!",4,4,22]]}]}
+]}
+];
+const ISSUE_K = {no:"11", cover:COVER10, t:"Why automation and Wi-Fi?", b:"Why networks are run by software now: APIs, YANG, JSON, NETCONF and RESTCONF. Plus how Wi-Fi works, from radio waves to controllers.", m:25, star:"laptop", part:1, pages:PAGES10,
+ take:"Configuring box by box through the CLI is slow, repetitive and doesn't scale, and screen-scraping CLI output is fragile. Programmability gives devices an API. It has three building blocks: a data model (YANG: module, container, list, leaf; standard IETF models or vendor models; rw = config, ro = state), a format (XML for machines, JSON for both, YAML for humans) and a transport (NETCONF over SSH on port 830 with XML and operations like get-config and edit-config; RESTCONF over HTTPS on port 443 using GET, POST, PUT/PATCH and DELETE; also gRPC; SNMP is the older way). SDN splits the control plane (decisions) from the data plane (forwarding): apps use northbound APIs to a controller, which uses southbound APIs to devices. Wi-Fi grew from 1971's ALOHAnet to IEEE 802.11 (1997) and amendments up to 802.11ax (Wi-Fi 6). Regulators set frequencies and power, IEEE writes the standards and the Wi-Fi Alliance certifies devices. Waves have wavelength, frequency, amplitude and phase, and they are absorbed, reflected, scattered and diffracted; multipath causes upfade, downfade or nulling. Clients join an SSID on an access point; a WLC manages APs over CAPWAP. Designs are autonomous, cloud-managed, centralized or distributed (FlexConnect with local or central switching and authentication, and standalone mode if the WAN fails).",
+ tip:"Install Postman and the Python tool pyang (pip install pyang). Download ietf-interfaces.yang from the YangModels GitHub catalog, run pyang -f tree on it, and match each leaf to an interface setting you already know from the CLI. If you have access to a sandbox router, send a RESTCONF GET to /restconf/data/ietf-interfaces:interfaces.",
+ q:{q:"Lappy wants a web-style API that accepts JSON to create a loopback interface. Which choice fits?",o:["RESTCONF with POST over HTTPS","NETCONF over SSH on port 830, sending JSON","SNMP using OIDs"],why:"RESTCONF runs over HTTPS and supports JSON, and POST creates new data. NETCONF only carries XML, and SNMP is the older, OID-based method."}};
+
+/* ---------- Issue: Why network security? (original NetFixLab chapter) ---------- */
+Object.assign(PROPS, {
+  tunnel:(x1,y,x2,col)=>`<rect x="${x1}" y="${y-18}" width="${x2-x1}" height="36" rx="18" fill="${col||"#2bb673"}" fill-opacity=".25" stroke="${col||"#2bb673"}" stroke-width="5" stroke-dasharray="14 7"/><text x="${(x1+x2)/2}" y="${y+6}" text-anchor="middle" font-family="${BANG}" font-size="15" letter-spacing="1" fill="#fff3c4">ENCRYPTED</text>`,
+  padlock:(x,y,s,col)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><path d="M-14 -22 V-34 A14 14 0 0 1 14 -34 V-22" fill="none" stroke="${INK}" stroke-width="7"/><rect x="-22" y="-24" width="44" height="34" rx="5" fill="${col||"#ffd23f"}" ${sk(3)}/><circle cx="0" cy="-8" r="5" fill="${INK}"/></g>`
+});
+const COVER11 = {l:["WALLY","GUARDS","THE GATE"], t:["FIREWALLS, ATTACKS","AND SECRET TUNNELS"], s:"red", a:"wall", b:"laptop", ma:"proud", mb:"shock", sfx:"ACCESS DENIED!"};
+const BAD = "#3a3550", O12 = "#f08a24", T12 = "#1aa59a";
+const PAGES11 = [
+/* ===== 1 ===== */
+{title:"Bright Trail goes national", rows:[
+ {h:260, p:[{bg:"map", ch:[["person","#c0553a",560,.7,1,250]], over:[["dot",300,110,"DENVER HQ",null],["dot",150,180,"AUSTIN",null],["dot",440,70,"SEATTLE",null],["dot",480,170,"DETROIT FACTORY",null]],
+   b:[["s","Our online store is booming! New offices in Austin and Seattle, and a factory in Detroit.",30,74,22,"b",92]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["wall","proud",150,.55]], fx:[["FINALLY!",240,190,22,8,"#e63a2e",true]],
+     b:[["s","Bigger company, bigger target. Time for ME, Wally the firewall!",4,4,15,"b",55,"wall"]]},
+   {bg:"chalk", over:[["chalktext",20,46,["TODAY:","1. A real company network","2. TCP vs UDP","3. Firewalls and IPS","4. Attacks: DoS, spoofing","5. Certificates and VPNs"],16]],
+     b:[]}]},
+ {h:230, p:[{bg:"rays:mint", ch:[["laptop","happy",90,.55],["router","proud",300,.52],["wall","happy",500,.5]],
+   b:[["s","First, let's map the whole company, Wally.",6,6,11,"bl",8,"laptop"],["s","Then I'll show you who's knocking at the door!",60,40,11,"b",70,"wall"]]}]}
+]},
+/* ===== 2 ===== */
+{title:"Apps run the business", rows:[
+ {h:270, p:[{bg:"room", ch:[["server","proud",120,.42],["server","happy",300,.42],["server","happy",480,.42]], over:[["sign",50,60,140,36,["ONLINE STORE"],16],["sign",230,60,140,36,["FINANCE"],16],["sign",400,60,160,36,["FACTORY ORDERS"],14]],
+   b:[["c","Each server runs an APPLICATION a team depends on.",2,82,20]]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["server","worried",150,.55]],
+     b:[["s","If I, the store, go down, nobody can buy anything. Zero sales!",6,4,14,"b",55,"server"]]},
+   {bg:"rays:lilac", ch:[["server","worried",150,.55]],
+     b:[["s","And if I, finance, go down, nobody gets paid on Friday!",6,4,14,"b",55,"server"]]}]},
+ {h:230, p:[{bg:"rays:sky", ch:[["person","#c0553a",90,.8],["laptop","proud",480,.5]],
+   b:[["s","Lappy, explain the VLAN plan to me. Simply, please!",22,6,13,"bl",8],["s","I'll keep each team's traffic separate and secure, Maya.",58,42,13,"b",80,"laptop"]]}]}
+]},
+/* ===== 3 ===== */
+{title:"Branches across the country", rows:[
+ {h:310, p:[{bg:"blueprint", ch:[["router","proud",300,.36,1,90],["router","happy",110,.32,1,250],["router","happy",300,.32,1,262],["router","happy",490,.32,1,250]], over:[["line",270,100,140,215,"#ffd23f"],["line",300,100,300,225,"#ffd23f"],["line",330,100,460,215,"#ffd23f"],["word",300,30,"HQ CAMPUS · DENVER",15,0,"#ffd23f"],["word",110,285,"AUSTIN",13,0,"#fff3c4"],["word",300,295,"SEATTLE",13,0,"#fff3c4"],["word",490,285,"DETROIT",13,0,"#fff3c4"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Hundreds of miles apart? Linking sites like that is a {{WAN}}: a Wide Area Network.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","And the Austin finance team still needs the finance server in Denver?",6,4,14,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["The quickest link between sites: the INTERNET.","But it's a public road, open to everyone. Remember that!"],18]],
+   b:[]}]}
+]},
+/* ===== 4 ===== */
+{title:"The data center", rows:[
+ {h:270, p:[{bg:"hub", ch:[["server","proud",110,.4],["server","happy",230,.4],["server","happy",350,.4],["server","happy",470,.4]],
+   b:[["c","The servers move out of the HQ closet into a {{data center}}: a building just for servers, with power, cooling and fast links.",2,3,34]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Put it somewhere central, and every site reaches it equally well. Even if HQ has a bad day!",4,4,16,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["switch","proud",150,.55]],
+     b:[["s","A data center network is still switches and routers. Just full of servers instead of people!",4,3,16,"b",50,"switch"]]}]},
+ {h:220, p:[{bg:"plain:#fff3c4", over:[["sign",10,30,185,140,["CAMPUS","where people","sit and work"],22,O12],["sign",207,30,185,140,["WAN","links the sites","(often SD-WAN)"],22,"#1f6fd1"],["sign",404,30,185,140,["DATA CENTER","where servers","live"],22,T12]],
+   b:[]}]}
+]},
+/* ===== 5 ===== */
+{title:"Renting servers in the cloud", rows:[
+ {h:260, p:[{bg:"sky", ch:[["nimbus","proud",300,.5,1,200]], 
+   b:[["s","Don't build a data center. RENT servers from me! I have them all over the world.",4,4,18,"b",48,"nimbus"]]}]},
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["sign",15,30,275,150,["ON-PREM","on your premises:","your building, your gear"],22],["sign",310,30,275,150,["CLOUD","someone else's servers,","rented as a service (IaaS)"],22,"#1f6fd1"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["person","#c0553a",150,.8]],
+     b:[["s","So we move EVERYTHING to the cloud?",6,4,12,"b",55]]},
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Not always! Some keep sensitive data on-prem. And cloud isn't automatically cheaper.",4,4,15,"b",55,"laptop"]]}]}
+]},
+/* ===== 6 ===== */
+{title:"Who's out there?", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["laptop","happy",90,.38],["phone","happy",200,.42],["person",BAD,400,.6],["server","proud",530,.42]], over:[["word",400,150,"INTRUDER",17,0,"#e63a2e"],["word",145,170,"CUSTOMERS",17,0,"#2bb673"]],
+   b:[["c","The store sits on the internet. Most visitors are customers... a few are not.",2,3,30]]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["wall","proud",150,.55]],
+     b:[["s","Attackers know protocols well. They just use that skill to break things.",6,4,14,"b",55,"wall"]]},
+   {bg:"rays:lilac", ch:[["laptop","shock",150,.6]],
+     b:[["s","And attacks can come from INSIDE too? From our own staff?!",6,4,14,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Many breaches start inside the company: an unhappy employee,","or a staff laptop that got infected. Protect both directions."],17]],
+   b:[]}]}
+]},
+/* ===== 7 ===== */
+{title:"Floor 4 is back", rows:[
+ {h:260, p:[{bg:"office:4", ch:[["laptop","proud",420,.45]],
+   b:[["s","To understand firewalls, you must understand floor 4, Lappy: TCP and UDP. It's where port numbers live.",4,4,20,null,null,"router"]]}]},
+ {h:270, p:[{bg:"blueprint", ch:[["laptop","happy",80,.38],["router","happy",250,.32],["router","worried",380,.32],["phone","shock",530,.4]], over:[["envelope",160,130,.45,""],["envelope",300,130,.45,""],["envelope",440,130,.45,""],["word",160,100,"1: DO",15,0,"#fff3c4"],["word",300,100,"2: NOT",15,0,"#e63a2e"],["word",440,100,"3: DEPLOY FRIDAY",15,0,"#fff3c4"],["word",380,175,"#2 DROPPED!",16,0,"#e63a2e"]],
+   b:[["c","Imagine NO floor 4. Lappy's message 'DO NOT DEPLOY FRIDAY' is split into packets. A busy router drops one...",2,3,34]]}]},
+ {h:240, p:[
+   {bg:"rays:rose", ch:[["phone","shock",150,.62]], fx:[["DO... DEPLOY FRIDAY?!",150,40,16,-4,"#e63a2e",true]],
+     b:[]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","IP never promises delivery. A congested router CAN drop packets.",6,4,14,"b",55,"router"]]}]}
+]},
+/* ===== 8 ===== */
+{title:"Number every packet", rows:[
+ {h:260, p:[{bg:"street", ch:[["van","happy",110,.45]], over:[["parcel",300,200,.6,"1"],["parcel",390,200,.6,"3"],["parcel",480,200,.6,"4"]],
+   b:[["s","Parcels 1, 3, 4... where's #2? I'll ask for it again!",30,6,15,"bl",8,"van"]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["phone","proud",150,.62]],
+     b:[["s","{{Sequence numbers}} show me what's missing. I send an ACK for what arrived...",4,4,15,"b",55,"phone"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","...and I {{retransmit}} #2. Now it reads right: DO NOT DEPLOY!",4,4,15,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Numbering, acknowledging and resending: that's TCP's job,","the Transmission Control Protocol. Apps and IP don't do it."],18]],
+   b:[]}]}
+]},
+/* ===== 9 ===== */
+{title:"The three-way handshake", rows:[
+ {h:280, p:[{bg:"blueprint", ch:[["laptop","happy",90,.42],["phone","happy",510,.45]], over:[["arrow",160,90,440,90,"#ffd23f"],["arrow",440,150,160,150,"#2bb673"],["arrow",160,210,440,210,"#ffd23f"],["word",300,75,"1. SYN · 'I'll start at #100'",15,0,"#ffd23f"],["word",300,135,"2. SYN-ACK · 'Got it. I'll start at #900'",15,0,"#2bb673"],["word",300,195,"3. ACK · 'Got yours too'",15,0,"#ffd23f"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Both sides send data, so BOTH pick a starting number. Three messages sync them up.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","So TCP sets up a connection BEFORE any data moves? That's 'connection-oriented'?",4,4,15,"b",55,"laptop"]]}]}
+]},
+/* ===== 10 ===== */
+{title:"UDP: no time to resend", rows:[
+ {h:260, p:[{bg:"room", ch:[["laptop","happy",110,.5],["phone","confused",480,.55]],
+   b:[["s","Hi Fonz, how are— *glitch* —you?",4,6,11,"bl",10,"laptop"],["s","Resending 'how are' 5 seconds later would make no sense on a LIVE call!",54,8,14,"b",70,"phone"]]}]},
+ {h:250, p:[{bg:"office:4", over:[["fbar",30,90,[["SRC PORT","",130,"#ffd23f"],["DST PORT","",130,"#ffd23f"],["LENGTH","",130,"#8fdcc0"],["CHECKSUM","",130,"#f5958a"]],60]],
+   b:[["c","The {{UDP}} header: just 4 fields. No handshake, no sequence numbers, no resending.",2,3,30]]}]},
+ {h:240, p:[
+   {bg:"rays:lilac", ch:[["phone","confused",150,.62]],
+     b:[["s","What's the checksum for?",8,5,9,"b",55,"phone"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Same idea as Ethernet's FCS: it spots a message damaged on the way.",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 11 ===== */
+{title:"TCP or UDP?", rows:[
+ {h:260, p:[{bg:"plain:#fff3c4", over:[["sign",15,30,275,190,["TCP","connection-oriented","numbered, acknowledged","resends what's lost","web, email, files"],22],["sign",310,30,275,190,["UDP","connectionless","tiny and fast","no resending","calls, video, DNS"],22,"#e63a2e"]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","TCP and IP are so central they named the whole model after them: TCP/IP!",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:mint", ch:[["wall","proud",150,.55]],
+     b:[["s","And knowing ports and handshakes is how I read every packet!",6,4,14,"b",55,"wall"]]}]}
+]},
+/* ===== 12 ===== */
+{title:"Meet Wally", rows:[
+ {h:280, p:[{bg:"blueprint", ch:[["wall","proud",300,.48]], over:[["zone",10,40,220,200,T12,"INSIDE","our network"],["zone",370,40,220,200,"#e63a2e","OUTSIDE","the internet"],["arrow",130,105,470,105,"#2bb673"],["arrow",470,160,130,160,"#e63a2e"],["word",300,92,"✓ inside → out",15,0,"#2bb673"],["word",300,147,"✗ outside → in",15,0,"#e63a2e"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["wall","proud",150,.55]],
+     b:[["s","By default: anything from inside may go out. NOTHING from outside gets in.",6,4,14,"b",55,"wall"]]},
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","But when I visit a website, its REPLY comes from outside!",6,4,14,"b",55,"laptop"]]}]},
+ {h:230, p:[{bg:"rays:mint", ch:[["wall","happy",110,.5]],
+   b:[["s","I remember every conversation you START. A reply with the swapped IPs and ports? Welcome in. That's a {{stateful}} firewall!",30,8,24,"bl",6,"wall"]]}]}
+]},
+/* ===== 13 ===== */
+{title:"Wally's rule book", rows:[
+ {h:270, p:[{bg:"plain:#0e1530", ch:[["wall","proud",540,.42]], over:[["rtable",15,24,440,[["PERMIT tcp any → STORE 443","customers can shop"],["DENY ENG VLAN → FINANCE","insiders blocked"],["PERMIT FIN VLAN → FINANCE","finance team only"],["DENY everything else","(the default)","1"]],"WALLY'S RULES"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["laptop","shock",150,.6]], fx:[["DENIED!",240,190,24,8,"#e63a2e",true]],
+     b:[["s","An engineering laptop tried to open the finance server?",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Route outside AND inside traffic through Wally, and his rules see it all.",4,4,15,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Common ports: web 80, secure web 443, SSH 22, DNS 53.","Modern firewalls can look even deeper, up to the app itself."],18]],
+   b:[]}]}
+]},
+/* ===== 14 ===== */
+{title:"IPS: the sniffer dog", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["wall","proud",120,.42],["snoop","proud",330,.42],["server","happy",520,.42]], over:[["line",170,215,280,215,"#2bb673"],["line",380,215,470,215,"#2bb673"],["word",330,40,"IPS",20,0,"#ffd23f"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["snoop","proud",150,.5]],
+     b:[["s","Wally checks the address label. I open the box and check what's INSIDE the data.",4,4,15,"b",55,"snoop"]]},
+   {bg:"rays:rose", ch:[["snoop","shock",150,.5]], fx:[["MATCH!",240,190,24,8,"#e63a2e",true]],
+     b:[["s","This data matches a known attack {{signature}}. DROPPED!",6,4,14,"b",55,"snoop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["IPS = Intrusion Prevention System. It works like antivirus:","a huge list of signatures of known attacks, checked against traffic."],17]],
+   b:[]}]}
+]},
+/* ===== 15 ===== */
+{title:"Vulnerability, exploit, attack", rows:[
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["router","worried",540,.42]], over:[["cli",18,50,["R1> enable","*R1#   ← no password asked!","R1# configure terminal","R1(config)# ..."],16]],
+   b:[["c","Someone set up Rooty but forgot to protect privileged mode.",2,80,24]]}]},
+ {h:270, p:[{bg:"plain:#fff3c4", over:[["sign",10,30,185,190,["WEAKNESS","(vulnerability)","the missing","password"],22,"#e63a2e"],["sign",207,30,185,190,["EXPLOIT","a tool or script","that uses the","weakness"],22,O12],["sign",404,30,185,190,["ATTACK","the whole event:","someone actually","does it"],22,BAD]],
+   b:[]}]},
+ {h:230, p:[
+   {bg:"plain:#0e1530", ch:[["router","proud",250,.4]], over:[["cli",14,50,["*R1(config)# enable secret S3cr3t!"],13]],
+     b:[["c","Fixed in one line.",4,80,8]]},
+   {bg:"rays:sun", ch:[["router","happy",150,.58]],
+     b:[["s","Bugs in app code are vulnerabilities too. Patching closes them!",6,4,14,"b",55,"router"]]}]}
+]},
+/* ===== 16 ===== */
+{title:"Default passwords and botnets", rows:[
+ {h:260, p:[{bg:"blueprint", over:[["pc",90,200,.9,"#9aa3b5","admin/admin"],["pc",230,200,.9,"#9aa3b5","root/root"],["pc",370,200,.9,"#9aa3b5","admin/1234"],["pc",510,200,.9,"#9aa3b5","admin/admin"]],
+   b:[["c","Thousands of cameras and devices online still use their factory username and password.",2,3,32]]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["person",BAD,150,.7]],
+     b:[["s","The attacker logs in to all of them and quietly uses a little of each one.",4,4,15,"b",55]]},
+   {bg:"rays:lilac", ch:[["laptop","shock",150,.6]],
+     b:[["s","Their owners never notice. That army of hijacked devices is a {{botnet}}!",4,4,15,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Lesson #1 of security: CHANGE DEFAULT PASSWORDS.","On routers, cameras, printers, everything."],20]],
+   b:[]}]}
+]},
+/* ===== 17 ===== */
+{title:"The SYN flood", rows:[
+ {h:270, p:[{bg:"burst:red", ch:[["server","shock",500,.45]], over:[["envelope",80,70,.4,"SYN"],["envelope",180,110,.4,"SYN"],["envelope",90,170,.4,"SYN"],["envelope",200,210,.4,"SYN"],["envelope",300,80,.4,"SYN"],["envelope",310,180,.4,"SYN"]], fx:[["SO MANY!",500,40,22,-4,"#ffd23f",true]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["server","worried",150,.55]], over:[["sweat",220,110,1.2]],
+     b:[["s","Every SYN, I save memory and reply SYN-ACK... then wait for an ACK that NEVER comes.",4,4,15,"b",55,"server"]]},
+   {bg:"rays:lilac", ch:[["phone","worried",150,.62]],
+     b:[["s","It's the big summer sale and I can't even load the store!",6,4,14,"b",55,"phone"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Denial of Service (DoS): real users are DENIED, the server is swamped.","From a whole botnet at once: a DISTRIBUTED DoS (DDoS)."],17]],
+   b:[]}]}
+]},
+/* ===== 18 ===== */
+{title:"Spoofing", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["person",BAD,80,.55],["server","proud",300,.4],["laptop","confused",520,.38]], over:[["envelope",190,90,.45,""],["word",190,55,"FROM: 66.6.5.0 (fake!)",13,0,"#e63a2e"],["envelope",410,90,.45,""],["word",410,55,"SYN-ACK → 66.6.5.0",13,0,"#ffd23f"],["word",520,250,"66.6.5.0",13,0,"#fff3c4"]],
+   b:[["c","The attacker writes someone ELSE's address as the source IP.",2,82,24]]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","I'm getting replies for a conversation I never started?!",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["wall","proud",150,.55]],
+     b:[["s","That's {{spoofing}}: faking the source address. It hides the attacker and drags in a victim.",4,4,15,"b",55,"wall"]]}]}
+]},
+/* ===== 19 ===== */
+{title:"The three goals: CIA", rows:[
+ {h:280, p:[{bg:"plain:#fff3c4", over:[["sign",10,24,185,190,["CONFIDENTIALITY","only the right person","can READ it","(encryption)"],16,"#1f6fd1"],["sign",207,24,185,190,["INTEGRITY","nobody can CHANGE it","on the way"],16,"#2bb673"],["sign",404,24,185,190,["AUTHENTICATION","you're talking to who","you THINK you are"],16,"#e63a2e"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["phone","shock",150,.62]], fx:[["$10 → $1,000?!",150,40,18,-4,"#ffd23f",true]],
+     b:[["s","Someone edited my bank transfer on the way! An integrity attack.",6,34,14,"b",55,"phone"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Real security starts from these three, Fonz. Let's look at authentication first.",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 20 ===== */
+{title:"Prove it: certificates", rows:[
+ {h:260, p:[{bg:"room", ch:[["laptop","proud",110,.5],["person","#7a4e2d",480,.7]], over:[["sign",230,90,150,90,["DIPLOMA","State Univ."],20]],
+   b:[["s","I'm an engineer! Here's my diploma.",2,4,11,"bl",10,"laptop"],["s","Signed by a university I trust? OK, I believe you.",58,8,13,"b",70]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["server","proud",150,.55]], over:[["padlock",240,90,1.2]],
+     b:[["s","Websites have diplomas too: {{digital certificates}}, signed by a {{Certificate Authority}} (CA).",4,4,15,"b",55,"server"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","And a CA checks your papers before it signs. Like a university checking you passed!",4,4,15,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["A certificate is only as trusted as whoever signed it.","Browsers come with a list of CAs they trust."],19]],
+   b:[]}]}
+]},
+/* ===== 21 ===== */
+{title:"Hello, bank!", rows:[
+ {h:280, p:[{bg:"blueprint", ch:[["phone","happy",90,.42],["server","proud",510,.42]], over:[["arrow",160,90,440,90,"#ffd23f"],["arrow",440,150,160,150,"#2bb673"],["arrow",160,210,440,210,"#ffd23f"],["word",300,75,"1. 'Hello, bank!'",15,0,"#ffd23f"],["word",300,135,"2. 'Hello! Here's my certificate.'",15,0,"#2bb673"],["word",300,195,"3. Fonz checks the CA's signature ✓",15,0,"#ffd23f"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["phone","proud",150,.62]], over:[["padlock",230,90,1]],
+     b:[["s","Checks out! Padlock on, http becomes {{HTTPS}}. The S = secured with TLS.",4,4,15,"b",55,"phone"]]},
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","But couldn't an attacker just COPY the bank's certificate file?",6,4,14,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"rays:mint", ch:[["router","proud",110,.55]],
+   b:[["s","Great question! Only the real bank holds the secret PRIVATE KEY that goes with it. TLS covers all three CIA goals.",30,8,24,"bl",6,"router"]]}]}
+]},
+/* ===== 22 ===== */
+{title:"Remote access VPN", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["laptop","happy",80,.4],["wall","proud",520,.42],["person",BAD,300,.4,1,140]], over:[["tunnel",140,175,470],["word",80,190,"CAFÉ WI-FI",14,0,"#fff3c4"],["word",520,190,"HQ",14,0,"#fff3c4"]],
+   b:[["c","Lappy works from a café. The internet between him and HQ is a public road.",2,3,26]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","My VPN app builds an encrypted TUNNEL to Wally at HQ. The café crowd sees only scrambled data!",4,4,16,"b",55,"laptop"]]},
+   {bg:"rays:mint", ch:[["wall","proud",150,.55]],
+     b:[["s","I unwrap each packet and route it inside, as if Lappy were at his desk.",4,4,15,"b",55,"wall"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["VPN = Virtual Private Network: a private network built on top of a public one.","One person connecting from anywhere = REMOTE ACCESS VPN (often TLS)."],16]],
+   b:[]}]}
+]},
+/* ===== 23 ===== */
+{title:"Site-to-site VPN", rows:[
+ {h:280, p:[{bg:"blueprint", ch:[["router","proud",300,.36,1,90],["router","happy",110,.32,1,262],["router","happy",490,.32,1,262]], over:[["line",270,100,140,215,"#2bb673"],["line",330,100,460,215,"#2bb673"],["padlock",200,170,.8],["padlock",400,170,.8],["word",300,30,"DATA CENTER",15,0,"#ffd23f"],["word",110,295,"AUSTIN (50 staff)",13,0,"#fff3c4"],["word",490,295,"DETROIT (80 staff)",13,0,"#fff3c4"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Not one laptop now: whole SITES. My router in Austin keeps a tunnel open to the data center, for everyone there.",4,4,17,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","And the staff don't even need a VPN app!",8,5,12,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["SITE-TO-SITE VPN: router/firewall to router/firewall, usually IPsec.","Branches and data centers, safely linked over the internet."],16]],
+   b:[]}]}
+]},
+/* ===== 24 ===== */
+{title:"Layers of defense", rows:[
+ {h:290, p:[{bg:"blueprint", over:[["rtable",15,20,570,[["CHANGE DEFAULTS","passwords, enable secret"],["SEGMENT","VLANs for each team"],["FIREWALL","stateful rules, in and out"],["IPS","signatures of known attacks"],["TLS / HTTPS","certificates + encryption"],["VPN","safe tunnels over the internet"]],"NO SINGLE WALL. MANY LAYERS."]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["wall","proud",150,.55]],
+     b:[["s","I'm just the start, Lappy. Real security stacks many layers together.",6,4,14,"b",55,"wall"]]},
+   {bg:"rays:mint", ch:[["laptop","proud",150,.6]],
+     b:[["s","And every layer builds on the basics: ports, IPs, VLANs!",6,4,14,"b",55,"laptop"]]}]}
+]},
+/* ===== 25 ===== */
+{title:"Your turn", rows:[
+ {h:270, p:[{bg:"plain:#0e1530", ch:[["wall","happy",530,.45]], over:[["sign",20,24,420,70,["LAB 1","Packet Tracer: set enable secret, then test it"],18],["sign",20,104,420,70,["LAB 2","click a website's padlock · who is the CA?"],18],["sign",20,184,420,70,["LAB 3","list 5 apps: TCP or UDP? which port?"],18]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Security is huge. Today was the map. Every topic here goes much deeper!",6,4,14,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["phone","happy",150,.62]],
+     b:[["s","And I'm changing my router's default password tonight!",6,4,14,"b",55,"phone"]]}]},
+ {h:230, p:[{bg:"burst:blue", ch:[["wall","happy",150,.42],["laptop","happy",300,.42],["router","happy",450,.42]],
+   b:[["c","To be continued: the IP services that keep it all running!",4,4,22]]}]}
+]}
+];
+const ISSUE_L = {no:"12", cover:COVER11, t:"Why network security?", b:"How a real company network fits together, why TCP numbers its packets, and how firewalls, certificates and VPNs keep attackers out.", m:25, star:"wall", part:1, pages:PAGES11,
+ take:"A company network has campuses (people), a WAN linking branches (often over the internet, sometimes SD-WAN), and data centers or cloud servers (IaaS) running the apps the business depends on; on-prem means on your own premises. IP can drop packets, so TCP numbers them (sequence numbers), acknowledges them and retransmits what's lost, after a SYN, SYN-ACK, ACK three-way handshake. UDP is connectionless (source port, destination port, length, checksum) and suits live calls and video. A stateful firewall allows inside-to-outside traffic and its replies, blocks outside-to-inside by default, and applies rules that can also stop insiders. An IPS checks traffic against signatures of known attacks. A vulnerability is a weakness, an exploit uses it, and an attack is the event. Default passwords let attackers build botnets; a SYN flood exhausts a server's memory (DoS, or DDoS from many bots); spoofing fakes the source IP. Security aims for confidentiality, integrity and authentication. Digital certificates signed by a trusted Certificate Authority prove a server's identity in TLS (HTTPS). VPNs build encrypted tunnels over the internet: remote access for one user (often TLS), site-to-site between routers or firewalls (often IPsec).",
+ tip:"Click the padlock next to any HTTPS website address and open its certificate: find who it was issued to, which Certificate Authority signed it, and when it expires. Then, in Packet Tracer, add enable secret to a router and check you're asked for it the next time you type enable.",
+ q:{q:"Thousands of bots send SYN messages to the store server but never send the final ACK. Real customers can't connect. What is this?",o:["A SYN flood (distributed denial of service)","IP spoofing alone","A remote access VPN"],why:"Each SYN makes the server reserve resources and wait for an ACK that never comes. From many machines at once, it denies service to real users: a DDoS."}};
+
+/* ---------- Issue: Why ACLs, DHCP, DNS and QoS? (original NetFixLab chapter) ---------- */
+const COVER12 = {l:["THE","HELPERS","BEHIND THE WEB"], t:["ACLs, DHCP, DNS","AND QoS"], s:"yellow", a:"router", b:"dns", ma:"proud", mb:"happy", sfx:"WHO IS IT?"};
+const O13 = "#f08a24", T13 = "#1aa59a";
+const PAGES12 = [
+/* ===== 1 ===== */
+{title:"No budget for another Wally", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["router","proud",300,.42,1,140]], over:[["line",270,130,150,175,"#ffd23f"],["line",330,130,450,175,"#ffd23f"],["zone",10,170,250,110,O13,"VLAN 10 · STAFF","10.10.10.0/24"],["zone",340,170,250,110,T13,"VLAN 20 · SERVERS","10.10.20.0/24"],["pc",90,270,.45,O13,""],["pc",170,270,.45,O13,""]],
+   b:[["c","Detroit factory: staff laptops in VLAN 10, important servers in VLAN 20. Rooty routes between them.",2,3,34]]}]},
+ {h:250, p:[
+   {bg:"room", ch:[["person","#c0553a",150,.8]],
+     b:[["s","Factory staff must NEVER touch those servers. But no new firewall this year!",4,4,15,"b",55]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","No firewall needed for this one, Maya. I can filter traffic myself!",6,4,14,"b",55,"router"]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",20,46,["TODAY:","1. ACLs: Rooty's own filter  2. Port security","3. Virtualization and VRFs  4. DHCP and DNS","5. What happens when you type a website","6. DHCP relay and snooping  7. QoS"],16]],
+   b:[]}]}
+]},
+/* ===== 2 ===== */
+{title:"Think in traffic flows", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["router","proud",300,.42,1,140]], over:[["zone",10,170,250,110,O13,"STAFF",""],["zone",340,170,250,110,T13,"SERVERS",""],["arrow",130,170,270,120,"#2bb673"],["arrow",330,90,330,30,"#2bb673"],["arrow",180,200,420,200,"#e63a2e"],["word",400,40,"→ INTERNET ✓",15,0,"#2bb673"],["word",300,230,"✗ BLOCK",16,0,"#e63a2e"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Staff to the internet: allowed. Staff to the servers: blocked. Each arrow is a {{traffic flow}}.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","proud",150,.6]],
+     b:[["s","So first I draw the flows, THEN I write the rules!",6,4,14,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Big companies run thousands of devices.","Understand the traffic flows, and you understand the network."],19]],
+   b:[]}]}
+]},
+/* ===== 3 ===== */
+{title:"Wildcard masks", rows:[
+ {h:260, p:[{bg:"blueprint", over:[["rtable",30,30,540,[["SUBNET MASK","255.255.255.0"],["WILDCARD (255 minus each)","0.0.0.255"]],"FLIP IT"],["sign",30,140,540,90,["IN A WILDCARD:","0 bit = MUST match · 1 bit = don't care"],24,"#e63a2e"]],
+   b:[]}]},
+ {h:260, p:[{bg:"plain:#fff3c4", over:[["rtable",20,24,560,[["10.10.10.30","✓ matches (first 3 octets 10.10.10)"],["10.10.10.200","✓ matches"],["10.10.20.30","✗ third octet differs","1"]],"10.10.10.0 0.0.0.255 MATCHES..."]],
+   b:[]}]},
+ {h:230, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","Could a wildcard be 0.255.0.255, with gaps?",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Yes! Unlike a subnet mask, its 1s don't have to be in one block. Try a few!",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 4 ===== */
+{title:"A standard ACL", rows:[
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["router","proud",540,.42]], over:[["cli",14,50,["R1(config)# access-list 1 deny 10.10.10.0 0.0.0.255","R1(config)# access-list 1 permit any","*R1(config)# interface g0/2","*R1(config-if)# ip access-group 1 out"],13]],
+   b:[["c","An {{ACL}} (Access Control List) is a list of permit/deny lines.",2,80,26]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Standard ACLs (numbers 1–99) only look at the SOURCE address. Simple, but blunt.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","Writing it isn't enough? I also APPLY it, on an interface, in a direction?",4,4,15,"b",55,"laptop"]]}]},
+ {h:230, p:[{bg:"blueprint", ch:[["router","proud",300,.45]], over:[["arrow",60,180,220,180,"#2bb673"],["arrow",380,180,540,180,"#e63a2e"],["word",140,160,"INBOUND: coming in",15,0,"#2bb673"],["word",460,160,"OUTBOUND: going out",15,0,"#e63a2e"],["word",140,210,"g0/1",14,0,"#fff3c4"],["word",460,210,"g0/2 (servers)",14,0,"#fff3c4"]],
+   b:[]}]}
+]},
+/* ===== 5 ===== */
+{title:"Top to bottom", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["router","proud",540,.42]], over:[["rtable",15,30,450,[["10","deny 10.10.10.0 0.0.0.255"],["20","permit any"],["(hidden)","deny any","1"]],"ACCESS-LIST 1"]],
+   b:[["c","Rooty checks lines from the top. The FIRST match wins, and he stops reading.",2,78,30]]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["laptop","shock",150,.6]], fx:[["DENIED!",240,190,24,8,"#e63a2e",true]],
+     b:[["s","My packet from 10.10.10.30 hit line 10 straight away!",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","And every ACL ends with an invisible 'deny any'. No permit line? Everything's blocked!",4,4,15,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Each line is an ACE: Access Control Entry.","Internet traffic still flows: this ACL only sits on the servers' port."],18]],
+   b:[]}]}
+]},
+/* ===== 6 ===== */
+{title:"Extended ACLs", rows:[
+ {h:250, p:[{bg:"room", ch:[["person","#c0553a",90,.85],["router","confused",480,.5]],
+   b:[["s","Change of plan! Staff may use most servers. Just NOT the web app on 10.10.20.20.",22,8,18,"bl",8]]}]},
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["router","proud",540,.42]], over:[["cli",14,50,["R1(config)# access-list 101 deny tcp 10.10.10.0 0.0.0.255","             host 10.10.20.20 eq 80","R1(config)# access-list 101 permit ip any any","R1(config-if)# ip access-group 101 out"],13]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Extended ACLs (100 and up) match source, DESTINATION, protocol AND port. Way more precise!",4,4,16,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","'host 10.10.20.20' = wildcard 0.0.0.0: just that one IP!",6,4,14,"b",55,"laptop"]]}]}
+]},
+/* ===== 7 ===== */
+{title:"The stranger's laptop", rows:[
+ {h:260, p:[{bg:"room", ch:[["switch","worried",470,.5],["person","#3a3550",150,.75]], over:[["cable",200,200,410,215,"#9aa3b5"]],
+   b:[["c","An empty desk. A stranger walks in and plugs a laptop into the wall jack.",2,3,26]]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["switch","worried",150,.55]],
+     b:[["s","Plug in, and I'll happily switch his frames. I don't check WHO you are!",4,3,15,"b",50,"switch"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Modern networks use {{802.1X}} to log devices in first. The simple fix? Port security.",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 8 ===== */
+{title:"Port security", rows:[
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["switch","proud",540,.42]], over:[["cli",14,50,["SID(config)# interface fa0/1","SID(config-if)# switchport mode access","*SID(config-if)# switchport port-security","*SID(config-if)# switchport port-security mac-address sticky"],13]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","The first MAC I learn on this port STICKS to it. A different MAC? Violation, blocked!",4,3,15,"b",50,"switch"]]},
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","But what if the stranger plugs in FIRST?",8,5,12,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["Then his MAC sticks! Port security is simple but doesn't scale well.","That's why big networks move to 802.1X logins."],18]],
+   b:[]}]}
+]},
+/* ===== 9 ===== */
+{title:"One server, many computers", rows:[
+ {h:280, p:[{bg:"blueprint", over:[["frame",120,210,360,50,"#9aa3b5"],["word",300,242,"HARDWARE: 128 CPUs · 512 GB · 2 NICs",14,0,"#fff3c4"],["frame",120,160,360,44,"#ffd23f"],["word",300,188,"HYPERVISOR",17,0,"#fff3c4"],["frame",120,60,110,94,"#8fdcc0"],["frame",245,60,110,94,"#c9b6f2"],["frame",370,60,110,94,"#f5958a"],["word",175,112,"VM: WINDOWS",13,0,"#fff3c4"],["word",300,112,"VM: LINUX",13,0,"#fff3c4"],["word",425,112,"VM: LINUX",13,0,"#fff3c4"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["server","proud",150,.55]],
+     b:[["s","A {{hypervisor}} is an OS that runs OTHER operating systems on me, at the same time!",4,4,15,"b",55,"server"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","Each one is a {{virtual machine}}. The hypervisor shares out CPUs, RAM and network cards.",4,4,15,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["That's how the cloud works: one big server, many customers' VMs.","Even routers and firewalls come as virtual machines now."],17]],
+   b:[]}]}
+]},
+/* ===== 10 ===== */
+{title:"VRFs: virtual routers", rows:[
+ {h:260, p:[
+   {bg:"rays:sky", ch:[["switch","proud",150,.5]],
+     b:[["s","Remember? My VLANs turn one switch into several virtual switches!",4,3,15,"b",50,"switch"]]},
+   {bg:"blueprint", ch:[["router","proud",150,.45,1,250]], over:[["rtable",10,20,270,[["GLOBAL","table 1"],["VRF ORANGE","table 2"],["VRF GREEN","table 3"]],"ONE ROUTER, 3 TABLES"]],
+     b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","A {{VRF}} (Virtual Routing and Forwarding) gives me separate routing tables, one per group of interfaces.",4,4,16,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","proud",150,.6]],
+     b:[["s","So one physical router acts like several, each with its own routes!",6,4,14,"b",55,"laptop"]]}]}
+]},
+/* ===== 11 ===== */
+{title:"Your home Wi-Fi box", rows:[
+ {h:270, p:[{bg:"room", ch:[["modem","happy",300,.7,1,200]], over:[["ap",300,90,.8,""],["sign",20,120,200,40,["LAN PORTS = a switch"],15],["sign",380,120,200,40,["WAN PORT = to the ISP"],15]],
+   b:[["c","The box at home is a switch, a router, a Wi-Fi access point... and a DHCP server, all in one.",2,80,34]]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","I've never typed an IP into my laptop. Where does it come from?",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","From {{DHCP}}: Dynamic Host Configuration Protocol. It hands out addresses automatically.",4,4,15,"b",55,"router"]]}]}
+]},
+/* ===== 12 ===== */
+{title:"DHCP: D-O-R-A", rows:[
+ {h:300, p:[{bg:"blueprint", ch:[["laptop","happy",80,.42],["server","proud",520,.42]], over:[["arrow",150,60,450,60,"#ffd23f"],["arrow",450,120,150,120,"#2bb673"],["arrow",150,180,450,180,"#ffd23f"],["arrow",450,240,150,240,"#2bb673"],["word",300,48,"1. DISCOVER · broadcast: any DHCP server?",14,0,"#ffd23f"],["word",300,108,"2. OFFER · 'You can have 10.10.10.20'",14,0,"#2bb673"],["word",300,168,"3. REQUEST · 'Yes please, I'll take it'",14,0,"#ffd23f"],["word",300,228,"4. ACK · 'It's yours: mask, gateway, DNS'",14,0,"#2bb673"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Discover, Offer, Request, Acknowledge: {{DORA}}! All before I open a browser.",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:lilac", ch:[["phone","confused",150,.62]],
+     b:[["s","Wait. How can Lappy send a Discover if he has NO IP yet?",6,4,14,"b",55,"phone"]]}]},
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,56,["Great puzzle! Lappy uses source IP 0.0.0.0 ('I have none yet'),","destination 255.255.255.255 and destination MAC FF:FF:FF:FF:FF:FF.","DHCP rides on UDP (server port 67, client port 68). Try it in Wireshark!"],16]],
+   b:[]}]}
+]},
+/* ===== 13 ===== */
+{title:"Setting up a DHCP pool", rows:[
+ {h:280, p:[{bg:"plain:#0e1530", ch:[["router","proud",540,.42]], over:[["cli",14,44,["R1(config)# ip dhcp excluded-address 10.10.10.1 10.10.10.9","R1(config)# ip dhcp pool STAFF","R1(dhcp-config)# network 10.10.10.0 255.255.255.0","R1(dhcp-config)# default-router 10.10.10.1","R1(dhcp-config)# dns-server 10.10.20.53"],12]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","The pool: which addresses to hand out, plus the gateway and the DNS server.",4,4,15,"b",55,"router"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","And the excluded ones stay free for routers, printers and servers!",6,4,14,"b",55,"laptop"]]}]}
+]},
+/* ===== 14 ===== */
+{title:"Names, not numbers", rows:[
+ {h:260, p:[{bg:"room", ch:[["phone","confused",130,.55],["laptop","happy",470,.5]],
+   b:[["s","Quick, what's the store's IP? 203.0.113...?",2,6,11,"bl",10,"phone"],["s","Just type brighttrail-store.com!",60,8,9,"b",70,"laptop"]]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["dns","proud",150,.55]],
+     b:[["s","I'm Dee, the {{DNS}} server. Ask me a name, I give you the IP. Like a phone book!",4,4,15,"b",55,"dns"]]},
+   {bg:"rays:mint", ch:[["router","proud",150,.58]],
+     b:[["s","And DHCP already told Lappy where Dee is: that 'dns-server' line!",6,4,14,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["DNS = Domain Name System. Queries usually use UDP port 53.","Billions of names? No single server holds them all: DNS is a huge hierarchy."],17]],
+   b:[]}]}
+]},
+/* ===== 15 ===== */
+{title:"Typing a website, step 1", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["laptop","happy",120,.45],["server","proud",470,.45]], over:[["arrow",190,150,400,150,"#ffd23f"],["word",300,130,"DORA",22,0,"#ffd23f"]],
+   b:[["c","Lappy opens his lid. DHCP gives him: IP 10.10.10.20/24 · gateway 10.10.10.1 · DNS 10.10.20.53.",2,3,32]]}]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["laptop","proud",540,.42]], over:[["cli",14,60,["> https://brighttrail-store.com","*  need an IP first..."],16]],
+   b:[["c","He types the store's name into his browser.",2,80,18]]}]},
+ {h:230, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Floor 3 only knows IPs. So my FIRST packet asks Dee for the address!",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:mint", ch:[["dns","proud",150,.55]],
+     b:[["s","UDP to port 53: 'Who is brighttrail-store.com?' It's 203.0.113.10!",4,4,15,"b",55,"dns"]]}]}
+]},
+/* ===== 16 ===== */
+{title:"Typing a website, step 2", rows:[
+ {h:270, p:[{bg:"office:2", over:[["fbar",15,90,[["ETH","to GATEWAY MAC",120,"#c9b6f2"],["IP","→ 203.0.113.10",120,"#e63a2e"],["TCP","port 443",100,"#2f8fdd"],["TLS + HTTP GET","",230,"#ffd23f"]],70]],
+   b:[["c","Now he builds the real request, wrapped floor by floor.",2,3,22]]}]},
+ {h:250, p:[
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","Why the gateway's MAC, not the store's? Oh, it's on ANOTHER network!",4,4,15,"b",55,"laptop"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","Then: ARP, TCP handshake, TLS certificate check, routing hop by hop, NAT... Every issue we've done!",4,4,16,"b",55,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["'What happens when you type a website?' You can now answer in","3 minutes... or keep going for 3 hours. That's real understanding!"],18]],
+   b:[]}]}
+]},
+/* ===== 17 ===== */
+{title:"One DHCP server for 50 branches?", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["server","proud",300,.36,1,80],["router","happy",110,.32,1,250],["router","worried",300,.32,1,262],["router","happy",490,.32,1,250]], over:[["line",270,90,140,215,"#ffd23f"],["line",300,90,300,225,"#ffd23f"],["line",330,90,460,215,"#ffd23f"],["word",430,40,"DHCP IN THE DATA CENTER",14,0,"#ffd23f"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["router","worried",150,.58]],
+     b:[["s","A branch laptop's Discover is a BROADCAST. Routers never forward broadcasts to other networks!",4,4,16,"b",55,"router"]]},
+   {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
+     b:[["s","So we'd need a DHCP server in every branch?",6,4,14,"b",55,"laptop"]]}]},
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["router","proud",540,.42]], over:[["cli",14,60,["R5(config)# interface g0/0","*R5(config-if)# ip helper-address 10.50.0.10"],14]],
+   b:[["c","{{DHCP relay}}: the branch router catches the broadcast and sends it as UNICAST to the central server.",2,74,32]]}]}
+]},
+/* ===== 18 ===== */
+{title:"The fake DHCP server", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["laptop","happy",80,.4],["switch","proud",300,.42],["server","proud",520,.4],["person","#3a3550",300,.5,1,140]], over:[["word",300,90,"ATTACKER'S ROGUE DHCP",15,0,"#e63a2e"],["word",520,150,"REAL DHCP",15,0,"#2bb673"],["word",80,170,"LAPPY",15,0,"#fff3c4"],["word",300,250,"SWITCH",14,0,"#fff3c4"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["person","#3a3550",150,.7]],
+     b:[["s","My Offer arrives first: 'Your gateway is ME.' Now every packet passes through my laptop!",4,4,16,"b",55]]},
+   {bg:"rays:lilac", ch:[["laptop","shock",150,.6]], fx:[["SPIED ON!",150,40,22,-4,"#e63a2e",true]],
+     b:[["s","And he forwards them on, so I never notice!",6,40,13,"b",55,"laptop"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["An attacker sitting between you and your gateway:","a MAN-IN-THE-MIDDLE attack. Often an insider!"],19]],
+   b:[]}]}
+]},
+/* ===== 19 ===== */
+{title:"DHCP snooping", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["switch","proud",300,.45]], over:[["zone",10,40,240,200,"#e63a2e","UNTRUSTED PORTS","PCs: no Offers / ACKs allowed"],["zone",350,40,240,200,"#2bb673","TRUSTED PORT","the real DHCP server"]],
+   b:[]}]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["switch","proud",540,.42]], over:[["cli",14,50,["SID(config)# ip dhcp snooping","SID(config)# ip dhcp snooping vlan 10","*SID(config)# interface g0/24","*SID(config-if)# ip dhcp snooping trust"],13]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","Every port starts UNTRUSTED. An Offer arriving there? Dropped! Only the trusted port may answer.",4,3,16,"b",50,"switch"]]},
+   {bg:"rays:mint", ch:[["laptop","happy",150,.6]],
+     b:[["s","Offer and ACK only come from SERVERS. So we only trust the server's port!",4,4,15,"b",55,"laptop"]]}]}
+]},
+/* ===== 20 ===== */
+{title:"QoS: who goes first?", rows:[
+ {h:260, p:[{bg:"street", ch:[["van","happy",130,.42]], over:[["road",40,200,560,200],["sign",330,40,240,70,["AMBULANCE LANE","emergencies first"],20,"#e63a2e"]],
+   b:[["s","At rush hour, ambulances get their own lane!",2,6,13,"bl",10,"van"]]}]},
+ {h:250, p:[
+   {bg:"rays:rose", ch:[["phone","worried",150,.62]],
+     b:[["s","A big backup is filling the link, and my video call is choppy!",6,4,14,"b",55,"phone"]]},
+   {bg:"rays:sun", ch:[["router","proud",150,.58]],
+     b:[["s","{{QoS}}, Quality of Service: when a link is busy, I decide who goes first.",4,4,15,"b",55,"router"]]}]},
+ {h:240, p:[{bg:"plain:#fff3c4", over:[["rtable",20,24,560,[["CLASSIFY","what is it? voice, video, web, backup"],["MARK","tag the packet (DSCP value, e.g. EF for voice)"],["QUEUE","voice in the priority line"],["POLICE / SHAPE","limit or smooth the bulk traffic"]],"QoS IN FOUR STEPS"]],
+   b:[]}]}
+]},
+/* ===== 21 ===== */
+{title:"Why voice goes first", rows:[
+ {h:260, p:[{bg:"plain:#fff3c4", over:[["sign",15,30,275,170,["VOICE & VIDEO","hate delay and jitter","a late packet is useless","(UDP, no resend)"],22,"#e63a2e"],["sign",310,30,275,170,["BACKUPS & EMAIL","don't mind waiting","a few seconds","(TCP resends anyway)"],22,"#1f6fd1"]],
+   b:[]}]},
+ {h:250, p:[
+   {bg:"rays:sun", ch:[["switch","proud",150,.55]],
+     b:[["s","Remember the voice VLAN? That's where QoS starts: phone traffic gets marked as voice.",4,3,16,"b",50,"switch"]]},
+   {bg:"rays:mint", ch:[["phone","happy",150,.62]], over:[["hearts",230,80,1]],
+     b:[["s","Crystal-clear call, and the backup still finishes. Everyone wins!",6,4,14,"b",55,"phone"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["QoS only matters when a link is BUSY (congested).","On an empty road, everyone drives fast anyway."],19]],
+   b:[]}]}
+]},
+/* ===== 22 ===== */
+{title:"Your turn", rows:[
+ {h:280, p:[{bg:"plain:#0e1530", ch:[["router","happy",530,.45]], over:[["sign",20,20,420,70,["LAB 1","standard ACL out on the server port · test ping"],17],["sign",20,100,420,70,["LAB 2","DHCP pool on a router · PC set to DHCP"],17],["sign",20,180,420,70,["LAB 3","ip helper-address to a DHCP server 2 hops away"],17]],
+   b:[]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.6]],
+     b:[["s","Run ipconfig /all. I can see my DHCP server, gateway AND DNS!",6,4,14,"b",55,"laptop"]]},
+   {bg:"rays:mint", ch:[["dns","happy",150,.55]],
+     b:[["s","And nslookup shows me in action. Try it!",6,4,13,"b",55,"dns"]]}]},
+ {h:230, p:[{bg:"burst:blue", ch:[["router","happy",150,.42],["dns","happy",300,.42],["laptop","happy",450,.42]],
+   b:[["c","You've walked the whole network, from cables to clouds. Keep exploring!",4,4,24]]}]}
+]}
+];
+const ISSUE_M = {no:"13", cover:COVER12, t:"Why ACLs, DHCP, DNS and QoS?", b:"Filter traffic with ACLs, lock switch ports, and see how DHCP, DNS and QoS quietly keep every network running.", m:25, star:"router", part:1, pages:PAGES12,
+ take:"ACLs let a router filter traffic without a firewall. A wildcard mask is the inverse of a subnet mask (0 = must match, 1 = don't care). Standard ACLs (1–99) match only the source IP; extended ACLs (100+) match source, destination, protocol and port. An ACL is applied to an interface, inbound or outbound, is read top to bottom (first match wins), and ends with an invisible deny any. Port security limits which MAC addresses may use a switch port (sticky learns the first one); 802.1X is the scalable login method. A hypervisor runs many virtual machines on one server, and VRFs give one router several separate routing tables. DHCP hands out IP, mask, gateway and DNS with Discover, Offer, Request, Acknowledge (DORA), starting from 0.0.0.0 to a broadcast over UDP 67/68. DNS turns names into IPs, usually over UDP 53. Typing a website uses DHCP, DNS, ARP, TCP, TLS, routing and NAT together. DHCP relay (ip helper-address) turns the broadcast into unicast to a central server. DHCP snooping blocks rogue DHCP servers by trusting only the real server's port, stopping a man-in-the-middle attack. QoS classifies, marks (DSCP), queues and polices traffic so voice and video go first when a link is congested.",
+ tip:"On your own computer run ipconfig /all (Windows) or ipconfig getpacket en0 (Mac) to see your DHCP server, lease, gateway and DNS. Then run nslookup with any website name to watch DNS turn the name into an IP address.",
+ q:{q:"A standard ACL has two lines: 'deny 10.10.10.0 0.0.0.255' then 'permit any'. A packet arrives from 10.10.10.30. What happens?",o:["It's denied: line 1 matches first","It's permitted: 'permit any' matches everything","It's denied by the invisible deny any at the end"],why:"ACLs are read top to bottom and the first match wins. 10.10.10.30 matches line 1, so it's denied; the router never reaches 'permit any'."}};
+
+ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
 ISSUE_E.part = 1; ISSUE_E.free = true;
@@ -4620,8 +5825,12 @@ ISSUE_F.part = 1; ISSUE_F.free = true;
 ISSUE_G.part = 1; ISSUE_G.free = true;
 ISSUE_H.part = 1; ISSUE_H.free = true;
 ISSUE_I.part = 1; ISSUE_I.free = true;
-LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I);
-COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover);
+ISSUE_J.part = 1; ISSUE_J.free = true;
+ISSUE_K.part = 1; ISSUE_K.free = true;
+ISSUE_L.part = 1; ISSUE_L.free = true;
+ISSUE_M.part = 1; ISSUE_M.free = true;
+LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I, ISSUE_J, ISSUE_K, ISSUE_L, ISSUE_M);
+COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover, ISSUE_J.cover, ISSUE_K.cover, ISSUE_L.cover, ISSUE_M.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
@@ -4923,7 +6132,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 9 issues are free, forever</li>
+          <li><i>\u2713</i>The first 13 issues are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>
