@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 19 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 20 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 turns that knowledge into real fixes, one troubleshooting case at a time.</li>
-            <li>The first 19 issues are free. One payment opens the rest.</li>
+            <li>The first 20 issues are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first 19 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first 20 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first 19 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first 20 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole “Fix your own network” series</li><li>New troubleshooting cases as they are added</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -6627,6 +6627,150 @@ const FIX_6 = {no:"6", cover:COVERF6, t:"Why do we need MAC if we have IP?", b:"
  tip:"Run arp -a on your computer. Find your router's IP (your default gateway) in the list and note its MAC. That's the device your laptop actually sends every internet-bound frame to.",
  q:{q:"A server is replaced and keeps IP 192.168.0.20. A laptop that talked to the old server can't reach it, but a new phone can. Most likely cause?",o:["The laptop's ARP cache still holds the old server's MAC","The new server needs a different IP","The phone is using a different subnet mask"],why:"The IP is the same but the hardware (MAC) changed. The laptop keeps addressing frames to the old MAC until its ARP entry is cleared or expires."}};
 
+/* ---------- Fix your own network · Case 7: the broken hop (original NetFixLab chapter) ---------- */
+const COVERF7 = {l:["THE","BROKEN","HOP"], t:["CASE #7: HOW","TRACEROUTE WORKS"], s:"red", a:"router", b:"laptop", ma:"worried", mb:"proud", sfx:"* * *"};
+const F7w = t => Math.max(8, Math.min(17, Math.round(Math.sqrt(t.length) * 1.75)));
+const F7one = (bg, ch, mood, t, fx) => ({bg, ch:[[ch, mood, 150, ch === "server" || ch === "phone" ? .5 : .56]], fx: fx ? [[fx, 150, 44, 22, -5, "#e63a2e", true]] : [], b: t ? [["s", t, 4, 4, F7w(t), "b", 55, ch]] : []});
+const F7duo = (bg, a, b, cap) => ({bg, ch:[[a[0], a[1], 110, .52], [b[0], b[1], 490, .52]], b:[["s", a[2], 2, 4, F7w(a[2]), "b", 18, a[0]], ["s", b[2], 97 - F7w(b[2]) * 2.3, 20, F7w(b[2]), "b", 80, b[0]]].concat(cap ? [["c", cap, 27, 78, 22]] : [])});
+/* the path: Rooty (R1) → Rex (R2) → Ruby (R3) → Rio (R4, game server 4.4.4.4) */
+const PATH7 = (m, cols) => [["router",(m||[])[0]||"proud",75,.36,1,200],["router",(m||[])[1]||"happy",225,.36,1,200],["router",(m||[])[2]||"happy",375,.36,1,200],["router",(m||[])[3]||"happy",525,.36,1,200]];
+const PATHL7 = (c) => [["line",110,185,190,185,(c||[])[0]||"#1f6fd1"],["line",260,185,340,185,(c||[])[1]||"#1f6fd1"],["line",410,185,490,185,(c||[])[2]||"#1f6fd1"],["word",75,232,"ROOTY .12.1",12,0,"#fff3c4"],["word",225,232,"REX .12.2/.23.2",12,0,"#fff3c4"],["word",375,232,"RUBY .23.3/.34.3",12,0,"#fff3c4"],["word",525,232,"RIO 4.4.4.4",12,0,"#ffd23f"]];
+const PAGESF7 = [
+/* ===== 1 ===== */
+{title:"Case #7: the game that won't connect", rows:[
+ {h:240, p:[{bg:"room", ch:[["laptop","shock",130,.55]], over:[["sweat",200,100,1.1]], fx:[["CONNECTION LOST",430,60,20,-3,"#e63a2e",true]],
+   b:[["s","The game server at 4.4.4.4 won't let me in! Everyone else is already playing!",30,30,17,"bl",8,"laptop"]]}]},
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["router","worried",540,.4]], over:[["cli",14,40,["Rooty# ping 4.4.4.4","Sending 5, 100-byte ICMP Echos to 4.4.4.4:","*.....","*Success rate is 0 percent (0/5)"],13]],
+   b:[["c","Five dots = five pings, zero replies.",2,80,16]]}]},
+ {h:240, p:[{bg:"blueprint", ch:PATH7(["worried","happy","happy","happy"]), over:[...PATHL7()],
+   b:[["s","Four routers between me and the server. Which one is the problem?",1,4,16,"b",12,"router"]]}]},
+ {h:240, p:[
+   {bg:"rays:sun", ch:[["laptop","proud",150,.56]], b:[["s","Ping says IF. We need a tool that says WHERE: {{traceroute}}!",4,4,14,"b",55,"laptop"]]},
+   {bg:"chalk", over:[["chalktext",18,40,["CASE FILE #7","Symptom: server unreachable,","4 routers on the path","Tools today:","· ICMP and ping · TTL","· UDP · Wireshark · traceroute"],14]], b:[]}]}
+]},
+/* ===== 2 ===== */
+{title:"Break it with a hammer", rows:[
+ {h:250, p:[{bg:"rays:sun", ch:[["router","proud",110,.5]], over:[["puzzle",320,110,.8,"#e63a2e",-10],["puzzle",420,90,.8,"#1f6fd1",8],["puzzle",370,180,.8,"#2bb673",4],["puzzle",500,170,.8,"#ffd23f",-6]], fx:[["BONK!",420,40,24,-6,"#e63a2e",true]],
+   b:[["s","Traceroute looks like magic. So we smash it into pieces and learn each one.",2,4,15,"b",18,"router"]]}]},
+ {h:230, p:[{bg:"plain:#fff3c4", over:[["rtable",15,20,570,[["Piece 1: ICMP","the network's error messenger (and ping)"],["Piece 2: TTL","a countdown that kills looping packets"],["Piece 3: UDP","ports, and 'nobody is listening here'"],["Bonus: Wireshark","seeing real packets with your own eyes"]],"THE PIECES OF TRACEROUTE"]], b:[]}]},
+ {h:240, p:[F7duo("room", ["laptop","confused","And once I know all three pieces...?"], ["router","proud","...we snap them back together, and traceroute will feel obvious. Promise!"])]},
+ {h:230, p:[
+   F7one("rays:lilac","phone","happy","Can I watch too? My game's down as well!"),
+   F7one("burst:yellow","laptop","proud",null,"CLASS IS ON!")]}
+]},
+/* ===== 3 ===== */
+{title:"Piece 1: ICMP, the messenger", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["router","proud",110,.42,1,220],["router","worried",470,.42,1,220]], over:[["line",150,205,430,205,"#1f6fd1"],["word",290,185,"MTU 500 bytes",15,0,"#ffd23f"],["envelope",290,110,.45,"1500 B · DF"]],
+   b:[["s","Rex: a 1,500-byte packet marked 'Don't Fragment'... but my next link only carries 500 bytes!",50,4,17,"b",80,"router"]]}]},
+ {h:240, p:[
+   F7one("rays:rose","router","worried","I can't cut it, I can't send it. So I DROP it..."),
+   F7one("rays:sun","router","proud","...and I tell the sender WHY, with an {{ICMP}} message!")]},
+ {h:230, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["Type 8 / Type 0","echo request / echo reply (ping)"],["Type 3","destination unreachable (incl. port unreachable)"],["Type 11","time exceeded (TTL hit zero)"]],"A FEW ICMP MESSAGES"]], b:[]}]},
+ {h:230, p:[F7duo("room", ["laptop","confused","So ICMP is how routers report problems back to me?"], ["router","proud","Yes. It rides inside an IP packet, addressed back to whoever sent the original."])]}
+]},
+/* ===== 4 ===== */
+{title:"Ping: are you alive? How far?", rows:[
+ {h:240, p:[{bg:"blueprint", ch:PATH7(), over:[...PATHL7(),["envelope",200,90,.35,"ECHO"],["arrow",250,90,450,90,"#ffd23f"],["envelope",470,130,.35,"REPLY"],["arrow",420,130,230,130,"#2bb673"]],
+   b:[]}]},
+ {h:240, p:[
+   F7one("rays:sky","router","proud","Echo REQUEST out (type 8). Echo REPLY back (type 0). Reply = it's alive!"),
+   F7one("rays:mint","router","happy","And the time between them is the {{round-trip time}}: there and back.")]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["laptop","proud",545,.4]], over:[["cli",14,36,["> ping 8.8.8.8","Reply from 8.8.8.8: bytes=32 time=10ms TTL=117","Reply from 8.8.8.8: bytes=32 time=11ms TTL=117","Packets: Sent = 4, Received = 4, Lost = 0"],13]],
+   b:[["c","4 sent, 4 back, about 10 ms round trip. Healthy!",2,80,22]]}]},
+ {h:230, p:[F7duo("rays:lilac", ["phone","confused","And Rio's address 4.4.4.4 is a 'loopback'?"], ["router","proud","A virtual interface I create in software. It never goes down, unlike a cable port. Great for testing!"])]}
+]},
+/* ===== 5 ===== */
+{title:"Piece 2: TTL, the countdown", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["router","worried",300,.38,1,95],["router","worried",130,.38,1,245],["router","worried",470,.38,1,245]], over:[["line",270,108,160,215,"#e63a2e"],["line",330,108,440,215,"#e63a2e"],["line",200,235,400,235,"#e63a2e"],["envelope",215,160,.32,"→ 5.5.5.5"]], fx:[["ROUND AND ROUND!",300,40,18,-3,"#ffd23f",true]],
+   b:[["c","Bad routes: 'for 5.5.5.5, ask the next router'... in a circle!",2,80,26]]}]},
+ {h:240, p:[
+   F7one("rays:rose","router","worried","Layer 2 had Spanning Tree. What stops a loop at Layer 3?"),
+   F7one("rays:sun","router","proud","A number in every IP header: {{TTL}}, Time To Live.")]},
+ {h:240, p:[{bg:"blueprint", over:[["stack",30,40,.85,[["TTL 255","#2bb673",110],["→ Rex","#1f6fd1",90]]],["stack",30,100,.85,[["TTL 254","#ffd23f",110],["→ Ruby","#1f6fd1",90]]],["stack",30,160,.85,[["TTL 1","#e63a2e",110],["→ 0? DROP!","#e63a2e",150]]],["sign",340,40,240,150,["EVERY ROUTER","subtracts 1","before forwarding.","At 0: drop it, send","ICMP 'time exceeded'"],17]], b:[]}]},
+ {h:220, p:[F7duo("room", ["laptop","confused","So a looping packet dies after at most 255 hops?"], ["router","proud","Yes. Hosts often start at 64 or 128, routers often 255. Real paths need far fewer hops."])]}
+]},
+/* ===== 6 ===== */
+{title:"Piece 3: UDP and closed ports", rows:[
+ {h:250, p:[{bg:"blueprint", ch:[["laptop","proud",100,.45,1,230],["server","happy",500,.45,1,230]], over:[["line",140,210,460,210,"#1f6fd1"],["envelope",300,120,.45,"UDP → port 90"]],
+   b:[["s","{{UDP}}: no handshake, no checking. Just add ports and send!",1,4,14,"b",14,"laptop"],["s","Port 90? I hand it to whichever app listens there.",62,4,13,"b",82,"server"]]}]},
+ {h:240, p:[
+   F7one("rays:sky","phone","happy","Like a live call: a lost 'how are' isn't worth resending later."),
+   F7one("rays:sun","laptop","proud","Right! TCP checks every piece. UDP is fast and simple.")]},
+ {h:250, p:[{bg:"rays:rose", ch:[["server","worried",110,.5],["router","proud",490,.5]],
+   b:[["s","Port 8435? Nobody's listening there. I have to drop it...",2,4,14,"b",18,"server"],["s","...but ICMP tells the sender: 'port unreachable'. And that proves the packet ARRIVED!",50,20,16,"b",80,"router"]]}]},
+ {h:220, p:[{bg:"chalk", over:[["chalktext",26,52,["Time exceeded (type 11) = a ROUTER on the way dropped it.","Port unreachable (type 3) = the DESTINATION got it, but no app was listening.","Remember both. Traceroute is built on them."],15]], b:[]}]}
+]},
+/* ===== 7 ===== */
+{title:"Bonus: reading packets in Wireshark", rows:[
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["laptop","proud",550,.38]], over:[["cli",12,30,["Frame 19: 98 bytes captured","Ethernet II, Src: R1 MAC, Dst: R2 MAC","Internet Protocol Version 4, Src: 192.168.12.1, Dst: 4.4.4.4","  Time to Live: 255   Protocol: ICMP (1)","Internet Control Message Protocol","  Type: 8 (Echo (ping) request)"],12]], b:[]}]},
+ {h:240, p:[
+   F7one("rays:lilac","laptop","confused","Wait, 'Frame 19' is layer 1?"),
+   F7one("rays:sun","router","proud","Nope! That line is Wireshark's own notes: capture number and time. Not part of the packet.")]},
+ {h:240, p:[{bg:"blueprint", over:[["stack",30,60,.9,[["Ethernet II","#9a7bff",150],["IPv4","#e63a2e",90],["ICMP","#ffd23f",90]]],["sign",340,30,240,170,["READ IT AS","Ethernet = layer 2","IPv4 = layer 3","ICMP inside IP","Protocol 1 = ICMP, 17 = UDP"],17]], b:[["c","Top to bottom on screen = outside to inside of the packet.",2,80,26]]}]},
+ {h:220, p:[F7duo("room", ["phone","confused","Thousands of packets on screen... how do you find the right one?"], ["laptop","proud","Type a filter like 'icmp' or 'udp'. Only those stay on screen!"])]}
+]},
+/* ===== 8 ===== */
+{title:"Traceroute, probe 1: TTL = 1", rows:[
+ {h:250, p:[{bg:"blueprint", ch:PATH7(["proud","shock","happy","happy"]), over:[...PATHL7(),["envelope",150,100,.35,"UDP · TTL 1"],["arrow",110,140,190,140,"#ffd23f"]], fx:[["0!",225,60,22,6,"#e63a2e",true]],
+   b:[]}]},
+ {h:240, p:[
+   F7one("rays:sky","router","proud","Rooty: a UDP probe to 4.4.4.4, a high random port... and TTL set to just 1, on purpose!"),
+   F7one("rays:rose","router","worried","Rex: TTL 1 → 0. Can't forward. Drop it, and send 'time exceeded' from 192.168.12.2.")]},
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["router","proud",545,.4]], over:[["cli",14,46,["Rooty# traceroute 4.4.4.4","  1  192.168.12.2  2 msec  1 msec  2 msec"],14]],
+   b:[["c","Whoever sends the 'time exceeded' IS hop 1. Rooty just learned Rex's address!",2,70,30]]}]},
+ {h:230, p:[F7duo("room", ["laptop","shock","So the error message is the whole point?!"], ["router","proud","Exactly! Traceroute makes each router fail on purpose, one at a time, so it answers."])]}
+]},
+/* ===== 9 ===== */
+{title:"Probe 2, probe 3... and the finish line", rows:[
+ {h:240, p:[{bg:"blueprint", ch:PATH7(["proud","happy","shock","happy"]), over:[...PATHL7(),["envelope",300,100,.35,"TTL 2"],["arrow",260,140,340,140,"#ffd23f"]], fx:[["0!",375,60,22,6,"#e63a2e",true]],
+   b:[["c","TTL 2: Rex takes it to 1, Ruby takes it to 0 → 'time exceeded' from Ruby. Hop 2!",2,4,34]]}]},
+ {h:240, p:[{bg:"blueprint", ch:PATH7(["proud","happy","happy","proud"]), over:[...PATHL7(),["envelope",450,100,.35,"TTL 3"],["arrow",410,140,490,140,"#ffd23f"]], fx:[["PORT CLOSED!",525,50,16,6,"#2bb673",true]],
+   b:[["c","TTL 3 reaches Rio, the destination. No app on that port → 'port unreachable'. Done!",2,4,34]]}]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["router","proud",545,.4]], over:[["cli",14,36,["Rooty# traceroute 4.4.4.4","  1  192.168.12.2  2 msec  1 msec  2 msec","  2  192.168.23.3  4 msec  3 msec  4 msec","  3  4.4.4.4       6 msec  5 msec  6 msec"],13]],
+   b:[["c","3 probes per TTL, so 3 times per hop: how long each round trip took.",2,78,28]]}]},
+ {h:220, p:[F7duo("rays:mint", ["phone","confused","Does my Windows PC do the same thing?"], ["laptop","proud","Same TTL trick! But Windows 'tracert' sends ICMP echo probes, so the last hop answers with an echo reply."])]}
+]},
+/* ===== 10 ===== */
+{title:"Step 1: run the trace", rows:[
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["router","worried",545,.4]], over:[["cli",14,36,["Rooty# traceroute 4.4.4.4","  1  192.168.12.2  2 msec  1 msec  2 msec","  2  192.168.23.3  4 msec  3 msec  4 msec","*  3  * * *","*  4  * * *"],13]],
+   b:[["c","Hop 1 answers. Hop 2 answers. Then... silence.",2,80,22]]}]},
+ {h:240, p:[
+   F7one("rays:lilac","phone","confused","Stars? What do the stars mean?"),
+   F7one("rays:sun","router","proud","No answer at all for that TTL. The trail goes cold right after Ruby.")]},
+ {h:240, p:[{bg:"blueprint", ch:PATH7(["proud","happy","worried","worried"]), over:[...PATHL7(["#2bb673","#2bb673","#e63a2e"]),["word",450,150,"✗",30,0,"#e63a2e"]],
+   b:[["c","Rooty → Rex → Ruby is fine. The last router that answered is where we start looking.",2,4,34]]}]},
+ {h:230, p:[F7duo("room", ["laptop","proud","So we skip Rooty and Rex completely and go straight to Ruby!"], ["router","proud","That's the gift of traceroute: it tells you WHERE to start troubleshooting."])]}
+]},
+/* ===== 11 ===== */
+{title:"Step 2: inside Ruby", rows:[
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["router","shock",545,.4]], over:[["cli",14,36,["Ruby# show ip route 4.4.4.4","*% Network not in table","Ruby# show ip route","  C 192.168.23.0/24 ... C 192.168.34.0/24"],13]],
+   b:[["c","FOUND IT! Ruby has no route to 4.4.4.4, so packets for it die here.",2,80,28]]}]},
+ {h:240, p:[
+   F7one("rays:rose","router","worried","Ruby: someone removed my route during last night's change. Oops!"),
+   F7one("rays:sun","laptop","proud","Some routers send back 'network unreachable' (!N) here. Others stay silent: stars.")]},
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["router","proud",545,.4]], over:[["cli",14,46,["Ruby(config)# ip route 4.4.4.4 255.255.255.255 192.168.34.4","Rooty# traceroute 4.4.4.4","  3  4.4.4.4  6 msec  5 msec  6 msec"],12]],
+   b:[["c","Route back in. The trace reaches hop 3!",2,80,18]]}]},
+ {h:230, p:[
+   F7one("burst:yellow","laptop","proud",null,"CONNECTED!"),
+   F7one("rays:mint","phone","happy","We're in the game! Ruby, you're forgiven.")]}
+]},
+/* ===== 12 ===== */
+{title:"Your fix-it checklist", rows:[
+ {h:240, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["1","ping fails? run traceroute to the same address"],["2","find the LAST hop that answered"],["3","check that router's route to the destination"],["4","check the RETURN route too: replies need a path back"],["5","'* * *' can also mean a router just doesn't send ICMP"]],"CAN'T REACH IT? FIND THE BROKEN HOP"]], b:[]}]},
+ {h:240, p:[F7duo("room", ["laptop","proud","ICMP reports, TTL counts down, UDP knocks on a closed port..."], ["router","proud","...and together they draw the whole path, hop by hop. That's traceroute!"])]},
+ {h:240, p:[
+   F7one("rays:sky","phone","happy","Time exceeded = a router on the way. Port unreachable = arrived!"),
+   F7one("rays:sun","router","proud","Exactly. You can read any trace now.")]},
+ {h:220, p:[
+   F7one("burst:blue","laptop","proud",null,"CASE CLOSED!"),
+   {bg:"rays:mint", ch:[["router","happy",150,.52]], b:[["c","Case #7 closed. See you at the next case!",4,4,13]]}]}
+]}
+];
+const FIX_7 = {no:"7", cover:COVERF7, t:"How does traceroute work?", b:"Case #7: a game server nobody can reach across four routers. Find the broken hop with ICMP, TTL, UDP and traceroute.", m:18, star:"router", part:2, pages:PAGESF7,
+ take:"ICMP is the network's messenger: it carries ping (echo request type 8, echo reply type 0) and error reports such as destination unreachable (type 3, including fragmentation needed and port unreachable) and time exceeded (type 11), inside an IP packet sent back to the original sender. Ping shows whether a host is alive and the round-trip time. A loopback is a virtual interface that never goes down. Every IP header carries a TTL; each router subtracts 1 before forwarding, and at 0 it drops the packet and sends ICMP time exceeded, which stops Layer 3 routing loops. UDP just adds ports and sends with no handshake; if nothing listens on the destination port, the host replies ICMP port unreachable. In Wireshark, the 'Frame' line is capture metadata, then come Ethernet II, IPv4 (TTL, protocol 1 = ICMP, 17 = UDP) and the payload. Traceroute (on routers and Linux) sends UDP probes to a high port with TTL 1, 2, 3 and so on, usually 3 probes per TTL: each router where TTL hits 0 reveals itself with time exceeded, and the destination answers with port unreachable. Windows tracert uses ICMP echo probes instead. Where the replies stop ('* * *' or !N) is where to start troubleshooting, and remember the return path needs routes too.",
+ tip:"Run tracert 8.8.8.8 (Windows) or traceroute 8.8.8.8 (Mac/Linux). Count the hops, find your own home router as hop 1, and look at the times: the round trip grows as the path gets longer.",
+ q:{q:"A traceroute shows hop 1 and hop 2 answering, then only '* * *'. Where should you start troubleshooting?",o:["At hop 2, the last router that answered","At your own computer","At the destination server"],why:"Hop 2 still answered, so packets got that far. The break is just after it, so check hop 2's route to the destination (and the return path)."}};
+
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
@@ -6645,9 +6789,10 @@ FIX_3.id = 28; FIX_3.part = 2; FIX_3.free = true;
 FIX_4.id = 29; FIX_4.part = 2; FIX_4.free = true;
 FIX_5.id = 30; FIX_5.part = 2; FIX_5.free = true;
 FIX_6.id = 31; FIX_6.part = 2; FIX_6.free = true;
+FIX_7.id = 32; FIX_7.part = 2; FIX_7.free = true;
 LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I, ISSUE_J, ISSUE_K, ISSUE_L, ISSUE_M);
 COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover, ISSUE_J.cover, ISSUE_K.cover, ISSUE_L.cover, ISSUE_M.cover);
-LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover);
+LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
@@ -6669,7 +6814,7 @@ const R = (h, ...p) => ({h, p});
 /* Issue 3: IP addresses and subnetting */
 ENRICH[15] = [
 [0,2,R(220, one("rays:sun","laptop","proud","Gaps first, then the new floor. Deal!"), one("rays:mint","router","happy","Deal. And no question is too small, Lappy."))],
-[1,2,R(220, duo("cafe", ["laptop","confused","So when Chat and Web both send at once, floor 4 keeps them apart?"], ["router","proud","Yes! Each app gets its own label, so the answers come back to the right app."]))],
+[1,2,R(220, duo("room", ["laptop","confused","So when Chat and Web both send at once, floor 4 keeps them apart?"], ["router","proud","Yes! Each app gets its own label, so the answers come back to the right app."]))],
 [2,1,R(210, one("burst:yellow","router","proud",null,"CHOP!"), one("rays:sky","laptop","happy","Big data in, small segments out!"))],
 [3,2,R(220, duo("rays:lilac", ["laptop","happy","So my packet hops from router to router, like letters between post offices?"], ["router","proud","Exactly. Each router reads the address and passes it closer to the destination."]))],
 [4,1,R(220, one("rays:lilac","laptop","confused","Neighborhoods? I thought we were talking about networks!"), one("rays:sun","router","proud","Same idea, Lappy. You'll see in a second."))],
@@ -6691,7 +6836,7 @@ ENRICH[16] = [
 [0,3,R(220, one("rays:sky","phone","happy","From Austin to Seattle in a blink. How?!"), one("rays:sun","router","proud","Hop by hop, Fonz. Let's follow one packet."))],
 [1,3,R(200, duo("rays:mint", ["laptop","happy","So I just hand anything for another network to my gateway?"], ["router","proud","Yes. You don't need to know the whole road. Your gateway takes it from there."]))],
 [2,3,R(200, one("burst:yellow","router","proud",null,"FORWARD!"), one("rays:mint","laptop","happy","Read the destination, check the table, send it on!"))],
-[3,3,R(220, duo("cafe", ["phone","confused","Rooty, does each router know the WHOLE way to Seattle?"], ["router","proud","Nope! Just the next hop. Everyone does a small step, and the packet arrives."]))],
+[3,3,R(220, duo("room", ["phone","confused","Rooty, does each router know the WHOLE way to Seattle?"], ["router","proud","Nope! Just the next hop. Everyone does a small step, and the packet arrives."]))],
 [4,3,R(200, one("rays:lilac","laptop","confused","Holes, slots, lights... it looks scary!"), one("rays:sun","router","happy","Each one has a job. Let's meet them one at a time."))],
 [5,3,R(200, duo("blueprint", ["router","proud","On a diagram I'm a little circle with arrows."], ["laptop","happy","And in real life you're a box with blinking lights. Same router!"]))],
 [6,3,R(200, one("burst:yellow","server","shock",null,"SFP!"), one("rays:mint","van","happy","So I plug a little module in, then the cable!"))],
@@ -6704,7 +6849,7 @@ ENRICH[16] = [
 [12,3,R(220, one("rays:lilac","laptop","confused","Other teams? I thought TCP/IP did everything!"), one("rays:sun","server","proud","TCP/IP handled floors 3 and up. Local networks were their own story."))],
 [14,3,R(200, one("rays:sky","switch","proud","Inside the building: my job."), one("rays:sun","router","proud","Between buildings and cities: mine!"))],
 [15,3,R(200, one("burst:yellow","laptop","proud",null,"FRAME!"), one("rays:mint","switch","happy","Ethernet header outside, IP packet inside!"))],
-[16,3,R(220, duo("cafe", ["laptop","shock","My MAC is 48 bits and nobody can change it?"], ["switch","proud","It's set at the factory, and every card gets its own. Great for 'this card', useless for 'which city'!"]))],
+[16,3,R(220, duo("room", ["laptop","shock","My MAC is 48 bits and nobody can change it?"], ["switch","proud","It's set at the factory, and every card gets its own. Great for 'this card', useless for 'which city'!"]))],
 [17,3,R(200, one("rays:sky","phone","happy","Now I know Servo's MAC!"), one("burst:blue","server","happy",null,"PRINTING!"))],
 [18,3,R(220, duo("blueprint", ["switch","proud","Broadcast = to everyone (all Fs). Unicast = to ONE known MAC."], ["laptop","happy","So once you've learned the port, no more shouting!"]))],
 [19,3,R(200, one("rays:sun","laptop","proud","Drag, drop, connect, ping. My own network on my desk!"), one("burst:yellow","laptop","happy",null,"LAB TIME!"))]
@@ -6716,7 +6861,7 @@ ENRICH[17] = [
 [2,3,R(220, duo("blueprint", ["laptop","proud","IP: the address I was GIVEN, so it can change. MAC: burned into my card."], ["phone","happy","One card, two name tags. One for the network, one for the hardware!"]))],
 [3,3,R(200, one("burst:yellow","laptop","proud",null,"PING!"), one("burst:blue","phone","happy",null,"PONG!"))],
 [4,3,R(220, one("rays:lilac","laptop","worried","IP header: done. Ethernet frame: half empty!"), one("rays:mint","router","proud","Park it for a moment. The missing piece has its own helper."))],
-[5,3,R(200, duo("cafe", ["laptop","proud","So ARP asks: 'I know the IP. Who owns it, and what's your MAC?'"], ["phone","happy","And only the owner of that IP answers. Polite!"]))],
+[5,3,R(200, duo("room", ["laptop","proud","So ARP asks: 'I know the IP. Who owns it, and what's your MAC?'"], ["phone","happy","And only the owner of that IP answers. Polite!"]))],
 [6,3,R(200, one("rays:sky","switch","proud","Learn from the SOURCE, forward by the DESTINATION."), one("burst:yellow","switch","happy",null,"FLOOD!"))],
 [7,3,R(200, one("rays:mint","laptop","happy","My ARP cache: .200 → BB. Got it!"), one("rays:sun","phone","proud","And I learned Lappy's MAC from his question. Fair trade!"))],
 [8,3,R(200, one("burst:yellow","laptop","proud",null,"!!!!!"), one("rays:mint","phone","happy","Five replies, zero lost. Happy Thanksgiving, network!"))],
@@ -6728,7 +6873,7 @@ ENRICH[17] = [
 [14,3,R(220, duo("blueprint", ["phone","proud","My frame: to Rooty's MAC, CC."], ["router","proud","But the IP inside still says 'to Servo, 20.20'. I'm only the next step!"]))],
 [15,3,R(200, one("burst:yellow","router","proud",null,"NEW FRAME!"), one("rays:mint","server","happy","From DD to EE. Same packet inside!"))],
 [16,3,R(200, one("rays:mint","phone","happy","Reply goes back the same way: gateway, router, me!"), one("burst:blue","laptop","proud",null,"ROUND TRIP!"))],
-[17,3,R(220, duo("cafe", ["laptop","confused","So between Austin and Seattle my frame gets rebuilt at EVERY router?"], ["router","proud","Every single one. New MACs each hop. The IP packet inside stays the same."]))],
+[17,3,R(220, duo("room", ["laptop","confused","So between Austin and Seattle my frame gets rebuilt at EVERY router?"], ["router","proud","Every single one. New MACs each hop. The IP packet inside stays the same."]))],
 [18,3,R(200, one("rays:sky","laptop","proud","Switch = Layer 2. Router = Layer 3. Me = all the floors!"), one("rays:sun","router","happy","Exactly, Lappy."))],
 [19,3,R(200, one("burst:yellow","laptop","proud",null,"WALKED IT!"), one("rays:mint","phone","happy","ARP, MAC tables, gateways. Pie time!"))]
 ];
@@ -6739,25 +6884,25 @@ ENRICH[18] = [
 [1,3,R(220, duo("blueprint", ["laptop","proud","PC1: 10.0.0.11. PC2: 10.0.0.12. Both /24."], ["switch","happy","Same subnet, so they only need me. No router in the middle yet!"]))],
 [2,3,R(200, one("burst:yellow","switch","proud",null,"SID-SW1!"), one("rays:mint","laptop","happy","A name on the prompt. Now I know which switch I'm typing on!"))],
 [3,3,R(220, one("rays:sky","laptop","proud","Ping works, MAC table filled, ARP done."), one("rays:sun","router","happy","Now let's open the frame itself and see what's inside."))],
-[4,3,R(220, duo("cafe", ["phone","confused","A race? Frames have a starting gun?"], ["switch","proud","Kind of! The receiver needs a moment to lock onto the bits before the real data starts."]))],
+[4,3,R(220, duo("room", ["phone","confused","A race? Frames have a starting gun?"], ["switch","proud","Kind of! The receiver needs a moment to lock onto the bits before the real data starts."]))],
 [5,3,R(240, one("rays:mint","laptop","happy","1010... 1010... 11! GO!"), one("burst:yellow","switch","proud",null,"SYNC!"))],
 [6,3,R(240, duo("rays:mint", ["laptop","proud","Destination first, so you can start forwarding as soon as you've read 6 bytes."], ["switch","proud","Exactly. Every microsecond counts when frames fly by the millions."]))],
 [7,3,R(220, one("rays:sky","phone","happy","0x0800 = 'IP inside'. Neat!"), one("rays:sun","switch","proud","The receiver hands the payload to the right floor-3 protocol."))],
-[8,3,R(240, duo("cafe", ["phone","proud","So data between 46 and 1500 bytes fits in one frame?"], ["switch","proud","Yes. Too small gets padded, too big gets split up before it reaches me."]))],
+[8,3,R(240, duo("room", ["phone","proud","So data between 46 and 1500 bytes fits in one frame?"], ["switch","proud","Yes. Too small gets padded, too big gets split up before it reaches me."]))],
 [9,3,R(240, one("burst:red","switch","worried",null,"DROPPED!"), one("rays:mint","laptop","happy","Better no frame than a scrambled one!"))],
 [10,3,R(230, duo("blueprint", ["laptop","proud","One hex digit = 4 bits. Twelve hex digits = 48 bits."], ["switch","happy","That's a whole MAC! Dots, dashes or colons are just different ways to write it."]))],
 [11,3,R(230, one("rays:lilac","laptop","shock","A frame that circles FOREVER?"), one("rays:sun","switch","proud","Only if there's a loop and nothing stops it. We'll fix that soon!"))],
 [12,3,R(240, one("rays:sky","phone","happy","Only my port lit up!"), one("rays:mint","dns","happy","Quiet on my port. Thanks, Sid!"))],
 [13,3,R(240, duo("rays:mint", ["laptop","confused","So unknown MAC = flood, just like a broadcast?"], ["switch","proud","Just the first time. After the reply I know the port, and it's unicast from then on."]))],
 [14,3,R(240, one("burst:yellow","switch","proud",null,"FILTER!"), one("rays:mint","laptop","happy","Never back out the port it came in on. Got it!"))],
-[15,3,R(250, duo("cafe", ["laptop","shock","A hub sends EVERY frame to EVERY port?"], ["switch","proud","Every one. That's why switches replaced hubs: I only send where it needs to go."]))],
+[15,3,R(250, duo("room", ["laptop","shock","A hub sends EVERY frame to EVERY port?"], ["switch","proud","Every one. That's why switches replaced hubs: I only send where it needs to go."]))],
 [16,3,R(230, one("rays:lilac","laptop","confused","One subnet, one big room. What could go wrong?"), one("rays:rose","switch","worried","You'll hear it in a moment, Lappy..."))],
 [17,3,R(250, one("burst:red","laptop","shock",null,"NOT FOR ME!"), one("rays:rose","server","worried","Every shout interrupts my payroll work!"))],
 [18,3,R(250, duo("rays:rose", ["laptop","worried","500 people, all shouting ARPs in one room..."], ["switch","worried","...means everyone opens thousands of broadcasts that aren't for them. Wasted effort!"]))],
 [19,3,R(250, one("burst:blue","switch","proud",null,"FENCES!"), one("rays:sun","laptop","happy","Same switch, but each team only hears its own shouts!"))],
 [20,3,R(230, duo("blueprint", ["laptop","proud","Broadcast domain = everyone who hears your shout."], ["switch","proud","And a VLAN draws the fence around one domain, using my ports."]))],
 [21,3,R(240, one("rays:sky","laptop","happy","Port fa0/1 → VLAN 10. Simple!"), one("rays:mint","switch","proud","Ports and VLAN numbers. That's all I need to know."))],
-[22,3,R(250, duo("cafe", ["laptop","proud","Sales VLAN 10 gets one /26, Finance VLAN 20 another, Design VLAN 30 another."], ["router","proud","Perfect plan, Lappy. One VLAN, one subnet. Now type it!"]))],
+[22,3,R(250, duo("room", ["laptop","proud","Sales VLAN 10 gets one /26, Finance VLAN 20 another, Design VLAN 30 another."], ["router","proud","Perfect plan, Lappy. One VLAN, one subnet. Now type it!"]))],
 [23,3,R(230, one("burst:yellow","laptop","proud",null,"CONFIGURED!"), one("rays:mint","switch","happy","Three VLANs on one box. Nice work, intern!"))],
 [24,3,R(240, one("rays:sky","switch","proud","12 bits = 4096 VLAN numbers."), one("rays:sun","laptop","happy","Way more than Bright Trail will ever need!"))],
 [25,3,R(240, duo("rays:mint", ["laptop","confused","So to cross from VLAN 10 to VLAN 20 we need Rooty?"], ["router","proud","Yes. Different VLANs are different networks, and joining networks is a router's job."]))],
@@ -6772,13 +6917,13 @@ ENRICH[19] = [
 [2,3,R(240, one("burst:yellow","switch","proud",null,"ONE CABLE PER VLAN"), one("rays:mint","laptop","happy","VLAN 10 cable, VLAN 20 cable. It works!"))],
 [3,3,R(230, duo("rays:mint", ["laptop","proud","So Sid just points at the cable to Patch for every upstairs MAC?"], ["switch","proud","Right. I learn 'BB is out Gi0/23'. Patch knows the exact port upstairs."]))],
 [4,3,R(240, one("burst:red","switch","shock",null,"25 CABLES?!"), one("rays:rose","laptop","worried","That's a whole switch just for cables between switches!"))],
-[5,3,R(240, duo("cafe", ["laptop","happy","So the cable stays dumb, and the FRAME carries a little VLAN label?"], ["switch","proud","Exactly! One cable, every VLAN, and the label tells us where each frame belongs."]))],
+[5,3,R(240, duo("room", ["laptop","happy","So the cable stays dumb, and the FRAME carries a little VLAN label?"], ["switch","proud","Exactly! One cable, every VLAN, and the label tells us where each frame belongs."]))],
 [6,1,R(240, duo("blueprint", ["switch","proud","4 bytes, slipped in right after the source MAC."], ["laptop","happy","And 12 of those bits are the VLAN number!"]))],
 [7,0,R(240, duo("blueprint", ["switch","proud","Access port: ONE VLAN, no tags. That's where PCs plug in."], ["switch","proud","Trunk port: MANY VLANs, tagged. That's the cable between switches."]))],
 [8,3,R(240, one("burst:yellow","switch","proud",null,"TAG 10!"), one("rays:mint","laptop","happy","Tagged across, untagged on arrival!"))],
 [9,3,R(240, duo("rays:mint", ["laptop","proud","So the same MAC could even exist in two VLANs without confusion?"], ["switch","proud","Yes. Each VLAN is its own little table. I always look up VLAN + MAC together."]))],
 [10,3,R(220, one("rays:sky","phone","confused","A trunk carries both VLANs but doesn't join them?"), one("rays:sun","router","proud","Right. Only a router joins VLANs, Fonz."))],
-[11,0,R(240, duo("cafe", ["router","proud","A VLAN is the Layer 2 group: who hears your broadcasts."], ["phone","happy","And a subnet is the Layer 3 group: the IP range. One VLAN, one subnet!"]))],
+[11,0,R(240, duo("room", ["router","proud","A VLAN is the Layer 2 group: who hears your broadcasts."], ["phone","happy","And a subnet is the Layer 3 group: the IP range. One VLAN, one subnet!"]))],
 [12,3,R(240, one("rays:rose","switch","worried","Native VLAN 1 on my side, 99 on Patch's? Trouble!"), one("rays:sun","router","proud","So set the SAME native VLAN on both ends of a trunk."))],
 [13,3,R(240, duo("blueprint", ["laptop","happy","So the phone passes my laptop's frames through, untagged."], ["switch","proud","And tags its OWN voice frames, so I can tell them apart on one port!"]))],
 [14,3,R(240, one("burst:blue","phone","happy",null,"CRYSTAL CLEAR!"), one("rays:mint","laptop","proud","Voice first, downloads second. Calls never stutter!"))],
@@ -6790,7 +6935,7 @@ ENRICH[19] = [
 [19,3,R(240, one("burst:red","switch","shock",null,"STORM!"), one("rays:rose","laptop","worried","Every link full of the same broadcast, going round and round!"))],
 [20,2,R(240, duo("rays:rose", ["switch","worried","My MAC table keeps changing its mind!"], ["laptop","worried","So frames for AA get sent the wrong way too. The loop breaks everything!"]))],
 [21,3,R(240, one("rays:sky","phone","happy","So the spare cable sleeps until it's needed!"), one("burst:blue","router","proud",null,"AUTOMATIC!"))],
-[22,3,R(240, duo("cafe", ["laptop","proud","Lowest total cost wins, like the GPS. The extra road just goes unused."], ["switch","proud","Unused, but ready. If the main road closes, we open it again."]))],
+[22,3,R(240, duo("room", ["laptop","proud","Lowest total cost wins, like the GPS. The extra road just goes unused."], ["switch","proud","Unused, but ready. If the main road closes, we open it again."]))],
 [23,1,R(220, one("rays:sky","laptop","proud","switchport mode trunk, on both ends."), one("rays:sun","switch","happy","Then ping across: VLAN 2 to VLAN 2 works over the trunk!"))],
 [23,3,R(220, one("burst:yellow","laptop","proud",null,"TRUNKED!"), one("rays:mint","switch","happy","And 'show interfaces trunk' proves which VLANs are crossing."))],
 [24,3,R(220, one("rays:sun","laptop","proud","Tags, trunks, native VLAN, voice VLAN. Done!"), one("burst:blue","switch","happy",null,"NEXT: STP!"))]
@@ -6799,7 +6944,7 @@ ENRICH[19] = [
 /* Issue 8: spanning tree and EtherChannel */
 ENRICH[20] = [
 [0,3,R(220, one("rays:rose","switch","worried","I still feel dizzy from yesterday's storm."), one("rays:sun","laptop","proud","Then let's make sure it never happens again, Sid."))],
-[1,3,R(220, duo("cafe", ["laptop","happy","So a tree is a map with no circles, but every town still reachable?"], ["van","proud","Exactly! You can reach anywhere, but you can't go round in a loop."]))],
+[1,3,R(220, duo("room", ["laptop","happy","So a tree is a map with no circles, but every town still reachable?"], ["van","proud","Exactly! You can reach anywhere, but you can't go round in a loop."]))],
 [2,3,R(220, one("rays:sky","laptop","proud","Bridge = switch. Root bridge = root switch."), one("rays:mint","switch","happy","Old name, same job!"))],
 [3,3,R(240, one("burst:yellow","switch","proud",null,"I'M ROOT!"), one("burst:yellow","switch","proud",null,"NO, ME!"))],
 [4,3,R(240, duo("blueprint", ["switch","proud","Patch: 32768 + MAC ending 1111. Lowest bridge ID!"], ["switch","happy","Sid: fine, you're the root. I'll stop shouting 'I'm root' now."]))],
@@ -6810,7 +6955,7 @@ ENRICH[20] = [
 [9,3,R(240, duo("rays:rose", ["switch","worried","Kit: so my port on the Sid link goes quiet?"], ["switch","proud","Sid: it's blocked, Kit. It still hears BPDUs, it just doesn't forward data."]))],
 [10,3,R(220, one("burst:blue","laptop","proud",null,"LOOP-FREE!"), one("rays:sun","switch","proud","Root, root ports, designated ports, one block. Done!"))],
 [11,3,R(240, one("burst:yellow","switch","proud",null,"WAKE UP!"), one("rays:mint","laptop","happy","The spare path took over by itself. That's the backup we wanted!"))],
-[12,3,R(240, duo("cafe", ["laptop","confused","So if hellos stop arriving, the switch knows something died?"], ["switch","proud","Right. After max age with no BPDUs, I recalculate the tree."]))],
+[12,3,R(240, duo("room", ["laptop","confused","So if hellos stop arriving, the switch knows something died?"], ["switch","proud","Right. After max age with no BPDUs, I recalculate the tree."]))],
 [13,3,R(240, one("rays:lilac","laptop","worried","Thirty seconds feels like forever!"), one("rays:sun","switch","proud","It's the price of making sure no loop appears. Next page has a shortcut!"))],
 [14,3,R(240, one("burst:yellow","laptop","proud",null,"INSTANT!"), one("rays:rose","switch","worried","Never on a cable to another switch, though!"))],
 [15,3,R(240, duo("blueprint", ["switch","proud","VLAN 10 uses Patch as root, VLAN 20 uses Sid."], ["laptop","happy","So the 'blocked' link carries one VLAN while the other VLAN uses the other path!"]))],
@@ -6822,7 +6967,7 @@ ENRICH[20] = [
 [21,1,R(240, duo("blueprint", ["switch","worried","Po1 and Po2 between the same two switches..."], ["switch","proud","...that's two links, so STP blocks one bundle. Same loop rule as single cables!"]))],
 [21,3,R(220, one("rays:sky","phone","proud","One bundle with all four cables!"), one("burst:blue","switch","happy",null,"ALL ACTIVE!"))],
 [22,3,R(240, one("rays:sky","laptop","proud","LACP = the open standard. PAgP = one vendor's own."), one("rays:mint","switch","proud","Both check the cables match before bundling."))],
-[23,3,R(220, duo("cafe", ["phone","confused","Passive on BOTH sides?"], ["switch","worried","Then nobody calls first, and the bundle never forms!"]))],
+[23,3,R(220, duo("room", ["phone","confused","Passive on BOTH sides?"], ["switch","worried","Then nobody calls first, and the bundle never forms!"]))],
 [24,3,R(220, one("rays:sky","switch","proud","Layer 2 bundle: just more lanes for frames."), one("rays:sun","router","proud","Layer 3 bundle: give the channel an IP and route over it."))],
 [25,3,R(220, one("burst:yellow","laptop","proud",null,"LAYER 2 DONE!"), one("rays:mint","switch","happy","Loops tamed, cables bundled. On to Layer 3!"))]
 ];
@@ -6830,7 +6975,7 @@ ENRICH[20] = [
 /* Issue 9: routing */
 ENRICH[21] = [
 [0,3,R(220, one("rays:sky","laptop","happy","Two offices, one company. Rooty, you're up!"), one("rays:sun","router","proud","Layer 3 day. My favorite!"))],
-[1,3,R(240, duo("cafe", ["laptop","confused","So a routing table is like Sid's MAC table, but for networks?"], ["router","proud","Yes! Instead of 'this MAC is on that port' it says 'this NETWORK is out that way'."]))],
+[1,3,R(240, duo("room", ["laptop","confused","So a routing table is like Sid's MAC table, but for networks?"], ["router","proud","Yes! Instead of 'this MAC is on that port' it says 'this NETWORK is out that way'."]))],
 [2,3,R(240, one("burst:yellow","router","proud",null,"CONNECTED!"), one("rays:mint","laptop","happy","Give an interface an IP and the route appears by itself!"))],
 [3,3,R(240, one("rays:rose","router","worried","No route? Then the packet is dropped. Sorry!"), one("rays:sky","laptop","proud","So we need to teach Rooty about Ruby's network."))],
 [4,3,R(240, duo("blueprint", ["router","proud","Rooty: 'For .7.0, hand it to Rex at .6.2.'"], ["router","happy","Rex: 'For .7.0? That's on my other port. Delivering!'"]))],
@@ -6841,7 +6986,7 @@ ENRICH[21] = [
 [9,3,R(240, one("rays:sky","phone","happy","Default route = 'when in doubt, send it to the ISP'."), one("burst:blue","router","proud",null,"0.0.0.0/0!"))],
 [10,0,R(230, duo("blueprint", ["router","proud","/0 matches every address. /32 matches exactly ONE."], ["laptop","happy","And everything in between is a bigger or smaller box of addresses!"]))],
 [10,3,R(230, one("rays:lilac","laptop","confused","Same start, different size... same route or not?"), one("rays:sun","router","proud","Different! The mask is part of the route."))],
-[11,3,R(240, duo("cafe", ["laptop","proud","So AD is how much you trust each source of a route?"], ["router","proud","Exactly. Lower AD = more trusted. Connected 0, static 1, then the routing protocols."]))],
+[11,3,R(240, duo("room", ["laptop","proud","So AD is how much you trust each source of a route?"], ["router","proud","Exactly. Lower AD = more trusted. Connected 0, static 1, then the routing protocols."]))],
 [12,3,R(240, one("rays:sky","phone","proud","Same network, same mask, two sources? Lower AD wins!"), one("rays:mint","router","happy","But a DIFFERENT mask is a different route."))],
 [13,1,R(240, duo("blueprint", ["laptop","confused","/24, /25, /26, /27... the packet fits in all of them!"], ["router","proud","All four go in my table. I choose per packet, by the longest match."]))],
 [14,3,R(240, one("burst:yellow","router","proud",null,"/27 WINS!"), one("rays:mint","laptop","happy","Most specific first, default route last!"))],
@@ -6860,7 +7005,7 @@ ENRICH[21] = [
 /* Issue 10: NAT, OSPF and HSRP */
 ENRICH[22] = [
 [0,3,R(240, one("rays:sky","person","#c0553a","Patient records online by 9 a.m., please!"), one("rays:sun","laptop","proud","Then we start with how your PCs reach the internet at all."))],
-[1,3,R(240, duo("cafe", ["phone","confused","So private IPs are like apartment numbers?"], ["router","proud","Yes! Apartment 12 exists in thousands of buildings. You need the building's street address to get mail from outside."]))],
+[1,3,R(240, duo("room", ["phone","confused","So private IPs are like apartment numbers?"], ["router","proud","Yes! Apartment 12 exists in thousands of buildings. You need the building's street address to get mail from outside."]))],
 [2,3,R(240, one("rays:rose","server","worried","Which 192.168.10.30? There are millions!"), one("burst:red","router","shock",null,"LOST!"))],
 [3,3,R(240, one("burst:yellow","router","proud",null,"SWAP!"), one("rays:mint","laptop","happy","Private inside, public outside. Rooty keeps the notes!"))],
 [4,3,R(240, duo("blueprint", ["router","worried","Three PCs, one public IP, three replies arriving..."], ["laptop","confused","...and nothing in the IP header says which reply belongs to which PC!"]))],
@@ -6869,19 +7014,19 @@ ENRICH[22] = [
 [7,3,R(220, duo("blueprint", ["switch","proud","Access: users plug in. Distribution: ties buildings together. Core: the fast backbone."], ["router","proud","Smaller budget? Merge core and distribution into one layer."]))],
 [8,3,R(220, one("rays:rose","router","worried","500 networks × 4 routers = 2000 typed routes?!"), one("rays:sun","laptop","proud","No way. Time for a routing protocol!"))],
 [9,3,R(240, one("rays:sky","router","proud","Rex: I know 20.0!"), one("rays:mint","router","happy","Ruby: and I'll pass that on!"))],
-[10,3,R(240, duo("cafe", ["laptop","proud","Lowest total metric = best path. Just like adding up road kilometers."], ["router","proud","And OSPF's metric is cost, based on link speed."]))],
+[10,3,R(240, duo("room", ["laptop","proud","Lowest total metric = best path. Just like adding up road kilometers."], ["router","proud","And OSPF's metric is cost, based on link speed."]))],
 [11,3,R(240, duo("blueprint", ["phone","confused","Rumors = 'I heard network X is that way'?"], ["router","proud","Yes. Link state means everyone gets the FULL map and works out the best path themselves."]))],
 [12,3,R(240, one("burst:yellow","router","proud",null,"FLOOD THE NOTES!"), one("rays:mint","laptop","happy","Every router gets the same set of notes: the same map!"))],
 [13,3,R(240, one("rays:sky","laptop","proud","Dots and lines, then shortest paths."), one("rays:sun","router","proud","Dijkstra's algorithm does the math for us."))],
 [14,3,R(220, duo("blueprint", ["laptop","proud","1. Find neighbors. 2. Share LSAs. 3. Build the map."], ["router","proud","4. Run SPF and put the best routes in the table. That's all of OSPF!"]))],
 [15,3,R(240, one("rays:sky","laptop","proud","Wildcard 0.0.0.255 = 'the last octet can be anything'."), one("burst:yellow","router","happy",null,"OSPF ON!"))],
-[16,3,R(240, duo("cafe", ["router","proud","Hello! Same area? Same timers? Same subnet?"], ["router","happy","Yes, yes, yes! Then we're neighbors. Let's swap notes."]))],
+[16,3,R(240, duo("room", ["router","proud","Hello! Same area? Same timers? Same subnet?"], ["router","happy","Yes, yes, yes! Then we're neighbors. Let's swap notes."]))],
 [17,3,R(240, one("burst:red","router","shock",null,"10 NEIGHBORS!"), one("rays:rose","laptop","worried","And every update copied ten ways. Messy!"))],
 [18,3,R(240, one("rays:sky","laptop","happy","So everyone just talks to the DR, like a team captain."), one("rays:sun","router","proud","Fewer conversations, same shared map."))],
 [19,3,R(240, one("rays:rose","router","worried","Unplugged... plugged... unplugged..."), one("burst:red","router","shock",null,"RE-RUN SPF!"))],
 [20,3,R(240, duo("blueprint", ["router","proud","Inside Area 1, we share every detail."], ["router","proud","Area 0 only gets a summary. Smaller tables, calmer CPUs!"]))],
 [21,3,R(240, one("burst:red","router","shock",null,"GATEWAY DOWN!"), one("rays:rose","laptop","worried","200 PCs, one gateway, no plan B?!"))],
-[22,3,R(240, duo("cafe", ["laptop","confused","So .1 isn't really Rooty's address anymore?"], ["router","proud","It belongs to the GROUP. Whoever is active answers for it, with a shared virtual MAC."]))],
+[22,3,R(240, duo("room", ["laptop","confused","So .1 isn't really Rooty's address anymore?"], ["router","proud","It belongs to the GROUP. Whoever is active answers for it, with a shared virtual MAC."]))],
 [23,3,R(220, one("burst:blue","router","proud",null,"TAKEOVER!"), one("rays:mint","phone","happy","Nobody had to change a single PC!"))],
 [24,3,R(240, one("rays:sky","laptop","proud","NAT, PAT, OSPF, HSRP. My brain is full!"), one("burst:yellow","router","happy",null,"GREAT WORK!"))]
 ];
@@ -6889,39 +7034,39 @@ ENRICH[22] = [
 /* Issue 11: automation and Wi-Fi */
 ENRICH[23] = [
 [0,3,R(240, one("rays:rose","laptop","worried","40 logins, 40 typos waiting to happen..."), one("rays:sun","router","proud","Or one program that does it the same way 40 times."))],
-[1,3,R(240, duo("cafe", ["laptop","confused","So a script reading CLI output is like me reading a messy note?"], ["router","proud","Yes, and if the note's wording changes after an upgrade, the script gets lost."]))],
+[1,3,R(240, duo("room", ["laptop","confused","So a script reading CLI output is like me reading a messy note?"], ["router","proud","Yes, and if the note's wording changes after an upgrade, the script gets lost."]))],
 [2,3,R(240, one("burst:red","server","shock",null,"TWO MORE WEEKS?!"), one("rays:rose","laptop","worried","Manual changes are slow, error-prone and don't scale."))],
 [3,3,R(240, duo("blueprint", ["laptop","proud","Config data: what I WANT the box to do."], ["router","proud","State data: what the box is ACTUALLY doing right now. Automation needs both."]))],
 [4,3,R(240, one("rays:sky","van","happy","The menu is the deal: order from it, get your dish."), one("rays:mint","router","proud","And an API is the menu between programs."))],
 [5,0,R(230, duo("blueprint", ["laptop","proud","Block 1: a data model, the rules for what data looks like."], ["router","proud","Block 2: an encoding (XML, JSON, YAML). Block 3: a protocol to carry it."]))],
 [5,3,R(230, one("rays:sky","van","happy","Grammar, handwriting, delivery!"), one("burst:yellow","laptop","proud",null,"3 BLOCKS!"))],
-[6,3,R(240, duo("cafe", ["laptop","confused","So a data model is like a form with fixed boxes?"], ["router","proud","Exactly. Each box has a name and a type, so both sides fill it in the same way."]))],
+[6,3,R(240, duo("room", ["laptop","confused","So a data model is like a form with fixed boxes?"], ["router","proud","Exactly. Each box has a name and a type, so both sides fill it in the same way."]))],
 [7,3,R(220, one("rays:sky","laptop","proud","Container holds things, a list holds many of the same thing."), one("rays:mint","router","happy","And each leaf is one single value."))],
 [8,0,R(230, duo("blueprint", ["laptop","happy","So the YANG model is the RULEBOOK, and the data is what I fill in?"], ["router","proud","Yes. The model says what's allowed. The data says what you actually want."]))],
 [8,3,R(230, one("rays:sky","laptop","proud","pyang turns a long model into a neat tree."), one("burst:yellow","router","happy",null,"TREE VIEW!"))],
 [9,3,R(240, one("rays:mint","phone","happy","Tags, braces or indents: same interface, same data!"), one("rays:sun","router","proud","Pick the one your tool speaks."))],
 [10,0,R(230, duo("blueprint", ["router","proud","JSON: keys and values inside curly braces."], ["laptop","happy","YAML: the same keys and values, but with indents instead of brackets!"]))],
 [10,3,R(230, one("rays:sky","laptop","proud","Machines love JSON. Humans love writing YAML."), one("burst:blue","phone","happy",null,"GOT IT!"))],
-[11,1,R(240, duo("cafe", ["laptop","proud","NETCONF carries XML over SSH."], ["router","proud","RESTCONF carries JSON or XML over HTTPS. Two trucks, same kind of cargo."]))],
+[11,1,R(240, duo("room", ["laptop","proud","NETCONF carries XML over SSH."], ["router","proud","RESTCONF carries JSON or XML over HTTPS. Two trucks, same kind of cargo."]))],
 [12,3,R(240, one("rays:sky","laptop","proud","Connect, ask for the config, get neat XML back."), one("burst:yellow","router","happy",null,"<OK/>"))],
 [13,3,R(240, duo("blueprint", ["laptop","proud","GET = read. POST = create. PUT/PATCH = change. DELETE = remove."], ["server","happy","The same verbs every web app already uses!"]))],
 [14,3,R(240, one("burst:yellow","laptop","proud",null,"200 OK!"), one("rays:mint","router","happy","And the reply is clean JSON. No messy parsing!"))],
 [15,0,R(230, duo("blueprint", ["laptop","proud","POST: here's a NEW interface, Loopback100, enabled, with this IP."], ["router","proud","Received, checked against the model, and created!"]))],
 [15,3,R(230, one("rays:sky","laptop","happy","One script, 40 switches, guest VLAN everywhere."), one("burst:blue","laptop","proud",null,"DONE BY FRIDAY!"))],
-[16,3,R(240, duo("cafe", ["server","proud","I'm the controller: the brains. I decide."], ["switch","proud","We're the muscles. We forward frames super fast, as the controller instructs."]))],
+[16,3,R(240, duo("room", ["server","proud","I'm the controller: the brains. I decide."], ["switch","proud","We're the muscles. We forward frames super fast, as the controller instructs."]))],
 [17,3,R(220, one("rays:sky","laptop","proud","North: apps talk to the controller. South: controller talks to devices."), one("rays:sun","router","happy","Fundamentals underneath, always."))],
 [18,3,R(240, one("rays:sky","phone","happy","No cable, no problem!"), one("rays:mint","laptop","proud","Same frames, same IPs. Just carried by radio."))],
 [19,0,R(240, duo("blueprint", ["phone","proud","IEEE writes the 802.11 standards."], ["laptop","happy","And the Wi-Fi Alliance tests devices so they really work together!"]))],
 [19,3,R(220, one("burst:yellow","phone","proud",null,"CERTIFIED!"), one("rays:mint","laptop","happy","So any certified laptop works with any certified AP!"))],
-[20,0,R(230, duo("cafe", ["phone","proud","802.11n, ac, ax... each letter added faster speeds and new tricks."], ["laptop","happy","And 2.4 GHz reaches farther through walls, while 5 GHz is quicker but shorter range."]))],
+[20,0,R(230, duo("room", ["phone","proud","802.11n, ac, ax... each letter added faster speeds and new tricks."], ["laptop","happy","And 2.4 GHz reaches farther through walls, while 5 GHz is quicker but shorter range."]))],
 [20,3,R(220, one("rays:sky","phone","happy","Near the AP? 5 GHz. Far away? 2.4 GHz."), one("burst:blue","laptop","proud",null,"BANDS!"))],
 [21,3,R(240, duo("blueprint", ["laptop","confused","So data rides on a wave by changing how the wave looks?"], ["router","proud","Yes. Changing amplitude, frequency or phase encodes the 1s and 0s."]))],
 [22,1,R(230, one("rays:rose","phone","worried","Walls ABSORB my signal. Metal REFLECTS it."), one("rays:sky","laptop","proud","And glass and water can bend or weaken it too."))],
-[23,3,R(240, duo("cafe", ["phone","proud","I join the SSID 'BrightTrail-Guest'."], ["switch","proud","And the AP turns your radio frames into Ethernet frames for me!"]))],
+[23,3,R(240, duo("room", ["phone","proud","I join the SSID 'BrightTrail-Guest'."], ["switch","proud","And the AP turns your radio frames into Ethernet frames for me!"]))],
 [24,0,R(230, duo("blueprint", ["laptop","proud","Autonomous APs: each one configured on its own."], ["server","proud","Controller-based: one WLC manages them all. Cloud-managed and FlexConnect are the others!"]))],
 [24,3,R(220, one("rays:sky","laptop","happy","Tiny café? Autonomous. Huge campus? Controller."), one("burst:yellow","router","proud",null,"FIT THE JOB!"))],
 [25,3,R(240, one("rays:sky","laptop","proud","Branch data goes straight out locally, not back to HQ."), one("burst:blue","phone","happy",null,"STILL ONLINE!"))],
-[26,0,R(220, duo("cafe", ["laptop","confused","What actually lives inside the controller?"], ["server","proud","The SSIDs, security settings and radio plans for every AP I manage."]))],
+[26,0,R(220, duo("room", ["laptop","confused","What actually lives inside the controller?"], ["server","proud","The SSIDs, security settings and radio plans for every AP I manage."]))],
 [26,2,R(230, one("rays:sky","phone","happy","One place to change settings for 200 APs!"), one("rays:sun","laptop","proud","That's automation for Wi-Fi."))],
 [27,3,R(240, one("burst:yellow","laptop","proud",null,"AUTOMATED!"), one("rays:mint","phone","happy","APIs, YANG, RESTCONF, radio waves. What a day!"))]
 ];
@@ -6930,29 +7075,29 @@ ENRICH[23] = [
 ENRICH[24] = [
 [0,3,R(240, one("rays:sky","laptop","proud","More offices, more customers, more to protect."), one("rays:sun","wall","proud","And I'm the first guard at the door!"))],
 [1,3,R(220, one("rays:rose","server","worried","Store down = zero sales."), one("rays:rose","server","worried","Finance down = no pay on Friday!"))],
-[2,3,R(220, duo("cafe", ["laptop","confused","So the internet links our sites, but anyone can see what's on it?"], ["router","proud","Right. That's why we'll protect what crosses it. Hold that thought until the VPN pages!"]))],
+[2,3,R(220, duo("room", ["laptop","confused","So the internet links our sites, but anyone can see what's on it?"], ["router","proud","Right. That's why we'll protect what crosses it. Hold that thought until the VPN pages!"]))],
 [3,2,R(240, one("rays:sky","switch","proud","Data center: switches and routers, just more of us, and faster."), one("rays:mint","server","happy","And all the servers in one well-guarded place!"))],
-[4,1,R(240, duo("cafe", ["nimbus","proud","Pay for what you use. Need more servers tomorrow? Click!"], ["laptop","happy","No waiting months for hardware. That's the cloud's big promise."]))],
+[4,1,R(240, duo("room", ["nimbus","proud","Pay for what you use. Need more servers tomorrow? Click!"], ["laptop","happy","No waiting months for hardware. That's the cloud's big promise."]))],
 [5,3,R(240, one("rays:rose","wall","worried","Most visitors are customers. A few are not."), one("rays:sky","laptop","proud","So security watches inside AND outside."))],
 [6,3,R(240, duo("blueprint", ["phone","shock","'DEPLOY FRIDAY'?! A lost packet changed the whole meaning!"], ["laptop","proud","That's why some apps need floor 4 to guarantee every piece arrives."]))],
 [7,3,R(240, one("burst:yellow","laptop","proud",null,"RESEND #2!"), one("rays:mint","phone","happy","ACK! Got everything, in order!"))],
-[8,0,R(230, duo("cafe", ["laptop","proud","SYN: 'Hi, let's talk. I'll start counting from 100.'"], ["phone","proud","SYN-ACK: 'Got it! I'll start from 300.' Then ACK: 'Great, let's go!'"]))],
+[8,0,R(230, duo("room", ["laptop","proud","SYN: 'Hi, let's talk. I'll start counting from 100.'"], ["phone","proud","SYN-ACK: 'Got it! I'll start from 300.' Then ACK: 'Great, let's go!'"]))],
 [8,3,R(230, one("burst:yellow","laptop","proud",null,"SYN!"), one("burst:blue","phone","happy",null,"SYN-ACK! ACK!"))],
 [9,3,R(240, one("rays:sky","phone","happy","Live calls and games: speed beats perfection."), one("rays:mint","laptop","proud","Files and web pages: every byte must arrive."))],
 [10,0,R(230, duo("blueprint", ["laptop","proud","TCP: web, email, file transfers. Reliable, ordered."], ["phone","proud","UDP: voice, video calls, DNS. Fast and light!"]))],
 [10,3,R(230, one("rays:sky","wall","proud","I check ports to know which app a packet is for."), one("burst:yellow","laptop","happy",null,"TCP + UDP!"))],
 [11,3,R(220, one("burst:yellow","wall","proud",null,"STATEFUL!"), one("rays:mint","laptop","happy","Replies to MY requests get in. Strangers don't!"))],
-[12,3,R(240, duo("cafe", ["wall","proud","Rule: engineering may reach the code server on port 22. Finance server? Denied."], ["laptop","happy","So each team only reaches what it actually needs!"]))],
+[12,3,R(240, duo("room", ["wall","proud","Rule: engineering may reach the code server on port 22. Finance server? Denied."], ["laptop","happy","So each team only reaches what it actually needs!"]))],
 [13,3,R(240, one("rays:sky","laptop","proud","Firewall reads the label. IPS sniffs the contents."), one("burst:blue","snoop","proud",null,"SNIFF!"))],
 [14,1,R(220, duo("blueprint", ["laptop","proud","Vulnerability: the weakness. Here, no password on privileged mode."], ["snoop","proud","Exploit: the trick that uses it. Attack: someone actually doing it!"]))],
 [15,3,R(240, one("rays:rose","laptop","worried","Admin/admin on 10,000 cameras..."), one("burst:red","snoop","shock",null,"BOTNET!"))],
 [16,3,R(240, one("burst:red","server","shock",null,"SYN SYN SYN!"), one("rays:rose","server","worried","Memory full of half-open chats. Real customers can't get in!"))],
 [17,0,R(220, duo("blueprint", ["laptop","confused","So the source IP on a packet can be fake?"], ["wall","proud","Yes. IP itself doesn't check it, so firewalls and providers filter impossible addresses."]))],
 [17,3,R(220, one("burst:red","laptop","shock",null,"NOT ME!"), one("rays:sky","wall","proud","Spoofed source. I'll watch for those."))],
-[18,0,R(230, duo("cafe", ["router","proud","C = Confidentiality: only the right people can READ it."], ["laptop","proud","I = Integrity: nobody changed it. A = Availability: it's there when you need it!"]))],
+[18,0,R(230, duo("room", ["router","proud","C = Confidentiality: only the right people can READ it."], ["laptop","proud","I = Integrity: nobody changed it. A = Availability: it's there when you need it!"]))],
 [18,3,R(230, one("rays:sky","phone","happy","Sneaky reader? C. Changed transfer? I. Store down? A!"), one("burst:yellow","router","proud",null,"CIA!"))],
 [19,3,R(240, one("rays:sky","phone","happy","So a certificate is a website's diploma!"), one("rays:mint","server","proud","Signed by a CA your browser already trusts."))],
-[20,3,R(240, duo("cafe", ["phone","proud","Padlock on: the bank proved who it is, and our chat is encrypted."], ["server","proud","And my private key never leaves me. That's what a copied certificate is missing!"]))],
+[20,3,R(240, duo("room", ["phone","proud","Padlock on: the bank proved who it is, and our chat is encrypted."], ["server","proud","And my private key never leaves me. That's what a copied certificate is missing!"]))],
 [21,3,R(240, one("rays:sky","laptop","happy","Café Wi-Fi, but my data rides an encrypted tunnel."), one("burst:blue","wall","proud",null,"WELCOME HOME!"))],
 [22,3,R(240, one("rays:sky","router","proud","Austin ↔ HQ: always-on tunnel."), one("rays:mint","laptop","happy","Staff just work. The routers do the encrypting!"))],
 [23,0,R(240, duo("blueprint", ["wall","proud","Firewall at the edge, IPS inside, VPNs for travelers..."], ["router","proud","...strong passwords, patches, VLANs and training. No single wall is enough!"]))],
@@ -6963,30 +7108,30 @@ ENRICH[24] = [
 /* Issue 13: ACLs, DHCP, DNS and QoS */
 ENRICH[25] = [
 [0,3,R(220, one("rays:sky","laptop","proud","A filter built into the router itself? No extra box?"), one("rays:sun","router","proud","Exactly. Simple rules, right where the traffic passes."))],
-[1,3,R(240, duo("cafe", ["laptop","proud","Staff → internet: yes. Staff → servers: no. Servers → backups: yes."], ["router","proud","Perfect. Once the flows are clear, the rules almost write themselves."]))],
+[1,3,R(240, duo("room", ["laptop","proud","Staff → internet: yes. Staff → servers: no. Servers → backups: yes."], ["router","proud","Perfect. Once the flows are clear, the rules almost write themselves."]))],
 [2,0,R(230, duo("blueprint", ["laptop","confused","A wildcard mask looks like a subnet mask upside down?"], ["router","proud","Yes! 0 = 'must match this bit', 1 = 'don't care'. 0.0.0.255 matches a whole /24."]))],
 [3,3,R(240, one("burst:red","router","proud",null,"DENIED!"), one("rays:mint","laptop","happy","Applied on the interface, in the right direction. Now it works!"))],
-[4,3,R(240, duo("cafe", ["laptop","shock","So an ACL with only 'deny' lines blocks EVERYTHING?"], ["router","proud","Yes, because of the invisible deny at the end. Always add the permits you need!"]))],
+[4,3,R(240, duo("room", ["laptop","shock","So an ACL with only 'deny' lines blocks EVERYTHING?"], ["router","proud","Yes, because of the invisible deny at the end. Always add the permits you need!"]))],
 [5,3,R(220, one("rays:sky","laptop","proud","Deny TCP from staff to host 10.10.20.20, port 443..."), one("rays:mint","router","happy","...then permit everything else. Precise!"))],
 [6,0,R(230, one("rays:rose","person","#5a4630","Nobody's looking. Plug in..."), one("burst:red","switch","shock",null,"UH-OH!"))],
 [6,3,R(240, duo("blueprint", ["laptop","worried","So a free wall jack is an open door into our network?"], ["switch","proud","Unless the port checks who's plugging in. Next page: one simple way!"]))],
 [7,3,R(240, one("burst:red","switch","proud",null,"SHUTDOWN!"), one("rays:mint","laptop","happy","Wrong MAC on that port? Blocked instantly!"))],
-[8,3,R(240, duo("cafe", ["laptop","happy","So one big server can pretend to be ten smaller ones?"], ["server","proud","Yes! Each VM gets its own share of my CPU, memory and disk."]))],
+[8,3,R(240, duo("room", ["laptop","happy","So one big server can pretend to be ten smaller ones?"], ["server","proud","Yes! Each VM gets its own share of my CPU, memory and disk."]))],
 [9,0,R(230, duo("blueprint", ["router","proud","Customer A and customer B both use 10.0.0.0/24?"], ["laptop","happy","No problem with VRFs: each one has its own separate routing table!"]))],
 [9,3,R(230, one("rays:sky","switch","proud","VLANs split a switch."), one("rays:sun","router","proud","VRFs split a router."))],
-[10,0,R(230, duo("cafe", ["laptop","proud","Switch ports, router, Wi-Fi, all in one box?"], ["modem","proud","And usually a DHCP server too. That's how your laptop gets online without typing anything!"]))],
+[10,0,R(230, duo("room", ["laptop","proud","Switch ports, router, Wi-Fi, all in one box?"], ["modem","proud","And usually a DHCP server too. That's how your laptop gets online without typing anything!"]))],
 [10,3,R(230, one("rays:sky","laptop","happy","So my IP is LENT to me, not burned in!"), one("rays:sun","router","proud","For a set time: the lease. Then it's renewed."))],
 [11,3,R(220, one("burst:yellow","laptop","proud",null,"DORA!"), one("rays:mint","server","happy","IP, mask, gateway, DNS. All yours, Lappy!"))],
 [12,0,R(230, duo("blueprint", ["router","proud","Pool: 10.10.10.0/24. Gateway: .1. DNS: Dee."], ["laptop","happy","And I exclude .1 to .9 so fixed devices never clash with DHCP!"]))],
 [12,3,R(230, one("rays:sky","laptop","proud","ip dhcp pool, network, default-router, dns-server."), one("burst:blue","router","happy",null,"LEASED!"))],
 [13,3,R(240, one("rays:sky","phone","happy","So I remember names and Dee remembers numbers!"), one("burst:yellow","dns","proud",null,"203.0.113.10!"))],
 [14,3,R(220, one("rays:sky","laptop","proud","Step 1: ask Dee for the IP."), one("rays:mint","dns","happy","Answered in milliseconds!"))],
-[15,3,R(220, duo("cafe", ["laptop","proud","DHCP, DNS, ARP, TCP, TLS, routing... one click uses them ALL."], ["router","proud","And now you know every step. That's real understanding."]))],
+[15,3,R(220, duo("room", ["laptop","proud","DHCP, DNS, ARP, TCP, TLS, routing... one click uses them ALL."], ["router","proud","And now you know every step. That's real understanding."]))],
 [16,3,R(220, one("rays:sky","router","proud","Broadcast in, unicast out to the central DHCP server."), one("burst:yellow","laptop","happy",null,"RELAYED!"))],
 [17,3,R(240, one("burst:red","laptop","shock",null,"FAKE GATEWAY!"), one("rays:rose","switch","worried","And I forwarded his Offer without a second thought..."))],
 [18,3,R(220, one("burst:red","switch","proud",null,"DROPPED!"), one("rays:mint","laptop","happy","Only the trusted uplink port may send DHCP Offers!"))],
 [19,3,R(220, duo("blueprint", ["phone","worried","My call stutters while the backup runs."], ["router","proud","With QoS, your voice packets jump the queue. The backup waits a few milliseconds."]))],
-[20,0,R(230, duo("cafe", ["phone","confused","Why does voice need to go first?"], ["router","proud","A late voice packet is useless, so it's dropped and you hear a glitch. A late backup packet just arrives a bit later."]))],
+[20,0,R(230, duo("room", ["phone","confused","Why does voice need to go first?"], ["router","proud","A late voice packet is useless, so it's dropped and you hear a glitch. A late backup packet just arrives a bit later."]))],
 [21,3,R(220, one("burst:yellow","laptop","proud",null,"NETWORK HERO!"), one("rays:mint","dns","happy","From cables to clouds. What a journey!"))]
 ];
 
@@ -6996,12 +7141,12 @@ ENRICH[26] = [
 [1,1,R(230, one("rays:sky","laptop","proud","Fonz's laptop: 192.168.0.50, mask 255.255.255.0. Now the printer's turn!"), one("burst:yellow","phone","shock",null,"PRINT-OUT!"))],
 [2,2,R(240, duo("rays:lilac", ["phone","confused","So the mask is like a ruler laid over the address?"], ["router","proud","Yes! Everything under the 1s is the STREET (network). Everything under the 0s is the HOUSE (host)."], "Same street = same network. Different street = you need a router."))],
 [3,1,R(240, one("rays:mint","router","proud","Count the 0 bits in the mask. That's how many bits are left for houses."), one("rays:sun","laptop","happy","/24 leaves 32 − 24 = 8 host bits. Easy!"))],
-[3,3,R(240, duo("cafe", ["phone","happy","256 addresses on our street. Can my printer, laptop and TV all live there?"], ["router","proud","Plenty of room! But careful: not all 256 can be used by devices. Next page!"]))],
+[3,3,R(240, duo("room", ["phone","happy","256 addresses on our street. Can my printer, laptop and TV all live there?"], ["router","proud","Plenty of room! But careful: not all 256 can be used by devices. Next page!"]))],
 [4,2,R(230, one("rays:lilac","phone","confused","Why waste two addresses?"), one("rays:sun","router","proud","The first NAMES the street. The last shouts to EVERY house on it. Neither can be one device."))],
 [5,2,R(240, duo("blueprint", ["laptop","proud","Borrow ONE host bit for the network: /24 becomes /25."], ["router","happy","Two streets of 128: .0 to .127 and .128 to .255. Same building, two networks!"]))],
 [6,2,R(240, one("rays:sun","laptop","proud","/26 = mask 255.255.255.192. Blocks start at .0, .64, .128, .192."), one("rays:mint","phone","happy","Each block has 64 addresses, so 62 usable. I'm getting fast at this!"))],
 [7,1,R(240, duo("blueprint", ["laptop","shock","Fonz's laptop with /24: street .0 to .255."], ["phone","shock","And the printer with /25 only believes in .128 to .255! They draw DIFFERENT maps!"], "Clue: two devices, two different ideas of 'my network'."))],
-[8,1,R(240, duo("cafe", ["laptop","proud","Fonz's laptop thinks the printer is local, so it ARPs and sends directly. That part works."], ["router","worried","But the printer thinks Fonz is on ANOTHER street, so it hands its reply to the gateway... which it can't even reach!"]))],
+[8,1,R(240, duo("room", ["laptop","proud","Fonz's laptop thinks the printer is local, so it ARPs and sends directly. That part works."], ["router","worried","But the printer thinks Fonz is on ANOTHER street, so it hands its reply to the gateway... which it can't even reach!"]))],
 [8,3,R(230, one("burst:red","phone","shock",null,"HALF-WAY!"), one("rays:sun","laptop","proud","One wrong mask, one broken direction. Let's fix it."))],
 [9,1,R(230, one("rays:sky","phone","proud","Printer menu → Network → Subnet mask: 255.255.255.0. Saved!"), one("burst:yellow","laptop","happy",null,"WHIRRR!"))],
 [10,2,R(240, duo("rays:mint", ["phone","confused","So a tiny network is better than one giant one?"], ["router","proud","Right-sized is best. Fewer devices sharing each broadcast means less noise for everyone."]))],
@@ -7017,7 +7162,7 @@ ENRICH[27] = [
 [2,1,R(240, one("rays:sky","laptop","proud","Ping = 'are you there?' Echo reply = 'yes, I'm here!'"), one("rays:mint","router","happy","It's the simplest test there is, so it's always clue number one."))],
 [2,3,R(240, duo("blueprint", ["laptop","confused","But to send the echo request I need more than the TV's IP..."], ["switch","proud","...because I don't read IPs at all! I need a destination MAC on every frame."]))],
 [3,2,R(240, one("rays:lilac","laptop","confused","I know my own MAC: AA. The TV's MAC? No idea!"), one("rays:sun","router","proud","That's exactly the job of ARP: IP in, MAC out."))],
-[4,1,R(240, duo("cafe", ["laptop","proud","WHO HAS 192.168.0.200? TELL 192.168.0.50!"], ["phone","happy","Not me, I'm .30. I'll ignore it!"], "Everyone hears a broadcast. Only the owner of the IP answers."))],
+[4,1,R(240, duo("room", ["laptop","proud","WHO HAS 192.168.0.200? TELL 192.168.0.50!"], ["phone","happy","Not me, I'm .30. I'll ignore it!"], "Everyone hears a broadcast. Only the owner of the IP answers."))],
 [5,2,R(230, one("rays:sun","switch","proud","My MAC table starts EMPTY. I fill it by watching who talks on which port."), one("rays:mint","laptop","happy","So every frame I send teaches you where I live!"))],
 [6,1,R(240, duo("blueprint", ["switch","proud","A broadcast? Out goes a copy on every port except the one it came in on."], ["phone","happy","Copy for me, copy for the TV, copy for the printer!"]))],
 [6,3,R(230, one("burst:yellow","switch","proud",null,"FLOOD!"), one("rays:lilac","laptop","confused","And a frame for a MAC you DON'T know yet? You flood that too, right?"))],
@@ -7025,7 +7170,7 @@ ENRICH[27] = [
 [8,1,R(240, duo("rays:mint", ["switch","proud","Now I know AA is on Fa0/1 and BB is on Fa0/2. No more flooding for these two!"], ["laptop","happy","Straight from my port to the TV's port. That's a happy switch."]))],
 [8,3,R(230, one("rays:sun","laptop","proud","My ARP cache: 192.168.0.200 → BB. Saved for next time."), one("burst:blue","switch","happy",null,"LEARNED!"))],
 [9,1,R(230, one("burst:yellow","laptop","proud",null,"PING!"), one("rays:mint","phone","happy","And PONG! Wait... it worked this time? Then what was wrong before?"))],
-[9,3,R(240, duo("cafe", ["phone","confused","So the 'unreachable' really was from Lappy himself?"], ["laptop","proud","Yep. My ARP got no reply, so I never even sent the ping. I reported it to myself!"]))],
+[9,3,R(240, duo("room", ["phone","confused","So the 'unreachable' really was from Lappy himself?"], ["laptop","proud","Yep. My ARP got no reply, so I never even sent the ping. I reported it to myself!"]))],
 [10,2,R(230, one("rays:lilac","phone","shock","The TV's cable was half out of the wall jack?!"), one("rays:sun","laptop","proud","No link, no frames, no learning. Physical layer first, always!"))],
 [11,1,R(240, duo("room", ["phone","happy","The TV is streaming! Ping, ARP, MAC table: I can explain all three now."], ["switch","proud","And next time 'unreachable' comes from your OWN address, you'll know: ARP got no answer."]))],
 [11,3,R(200, one("burst:yellow","switch","proud",null,"PONG!"), one("rays:mint","laptop","happy","Same network: ARP, then a frame straight to the MAC."))]
@@ -7035,7 +7180,7 @@ ENRICH[27] = [
 ENRICH[28] = [
 [0,2,R(230, one("rays:lilac","laptop","confused","'General failure'... not even a timeout? My ping never left the laptop!"), one("rays:sun","phone","worried","Is Servo broken already? He's brand new!"))],
 [1,1,R(240, duo("rays:mint", ["router","proud","Lappy's side: 192.168.10.0/24 on my g0/1."], ["server","happy","My side: 192.168.20.0/24 on his g0/2. Rooty sits right in the middle!"]))],
-[1,3,R(240, duo("cafe", ["laptop","confused","So I can't just shout across to Servo like I did with the TV?"], ["router","proud","Shouting (broadcasts) stops at my doors. To cross, you hand your packet to ME."]))],
+[1,3,R(240, duo("room", ["laptop","confused","So I can't just shout across to Servo like I did with the TV?"], ["router","proud","Shouting (broadcasts) stops at my doors. To cross, you hand your packet to ME."]))],
 [2,2,R(220, one("rays:sky","switch","proud","I move frames by MAC."), one("rays:sun","router","proud","I move packets by IP, between networks."))],
 [3,2,R(240, duo("blueprint", ["laptop","happy","So your table lists every network you're plugged into?"], ["router","proud","Right. And for each one, which door (interface) leads there. Two networks, two doors."]))],
 [4,2,R(230, one("burst:red","laptop","shock",null,"NO DOOR!"), one("rays:mint","phone","confused","So the laptop knew Servo was far away... and had nobody to give the packet to?"))],
@@ -7054,7 +7199,7 @@ ENRICH[29] = [
 [2,2,R(220, one("burst:red","switch","shock",null,"AGAIN!"), one("burst:red","switch","shock",null,"AND AGAIN!"))],
 [3,2,R(220, duo("rays:lilac", ["switch","worried","Sid: so I can't even trust my own MAC table now?"], ["laptop","proud","Not during a loop. The same MAC keeps arriving from different ports."]))],
 [4,1,R(220, one("rays:mint","phone","happy","The office is quiet again. Phew!"), one("rays:sun","laptop","proud","We stopped the storm. Now let's find out why it could START."))],
-[5,2,R(220, duo("cafe", ["laptop","confused","So in a loop, each extra host makes the storm even worse?"], ["switch","proud","Yes. Every broadcast copy hits every host in the domain. Smaller domains, less damage."]))],
+[5,2,R(220, duo("room", ["laptop","confused","So in a loop, each extra host makes the storm even worse?"], ["switch","proud","Yes. Every broadcast copy hits every host in the domain. Smaller domains, less damage."]))],
 [6,1,R(220, one("rays:sky","switch","proud","Port in VLAN 2? The broadcast stays in VLAN 2."), one("rays:mint","laptop","happy","Two VLANs on one switch = two separate broadcast domains!"))],
 [7,2,R(200, one("rays:lilac","laptop","confused","So who goes first?"), one("rays:sun","switch","proud","Patch: me! …:11 is the lowest. I'm the root."))],
 [8,2,R(180, one("rays:sky","switch","happy","Sid: my root port points straight at Patch."), one("rays:mint","switch","happy","Kit: mine too!"))],
@@ -7069,7 +7214,7 @@ ENRICH[29] = [
 /* Case 5: OSI vs TCP/IP */
 ENRICH[30] = [
 [0,1,R(220, duo("room", ["phone","worried","I press SEND, the little clock spins... and nothing."], ["laptop","proud","Hmm. Websites work for you? Then 'the whole network' can't be broken."]))],
-[1,2,R(220, duo("cafe", ["phone","confused","So one team built the wires and another built the apps?"], ["router","proud","Exactly. Nobody had to understand EVERYTHING. Each team owned one layer."]))],
+[1,2,R(220, duo("room", ["phone","confused","So one team built the wires and another built the apps?"], ["router","proud","Exactly. Nobody had to understand EVERYTHING. Each team owned one layer."]))],
 [2,1,R(240, duo("blueprint", ["laptop","proud","Top to bottom: the app writes, transport picks the app, network picks the host..."], ["switch","proud","...data link carries it one hop, and physical turns it into signals!"]))],
 [2,3,R(240, one("rays:lilac","phone","confused","Five floors, five jobs. And a broken floor breaks everything above it?"), one("rays:sun","router","proud","Yes! That's why we check from the bottom up."))],
 [3,1,R(200, one("burst:yellow","router","proud",null,"SHIP IT!"), one("rays:sky","phone","happy","So the one that WORKED first won!"))],
@@ -7077,11 +7222,11 @@ ENRICH[30] = [
 [5,1,R(200, one("rays:sky","phone","proud","Layer by layer, I wrap my message like a present."), one("burst:yellow","phone","happy",null,"WRAP!"))],
 [5,3,R(200, duo("blueprint", ["switch","proud","I only read the OUTER label: the Ethernet header."], ["router","proud","I peek one layer deeper: the IP header. Neither of us opens the app data."]))],
 [6,1,R(220, one("burst:blue","laptop","proud",null,"UNWRAP!"), one("rays:mint","laptop","happy","Ethernet: mine. IP: mine. TCP: port 5000, the chat app!"))],
-[6,3,R(220, duo("cafe", ["phone","confused","So if the chat app is closed..."], ["laptop","worried","...the message reaches me just fine, but stops at transport. Nobody's home on that port!"]))],
+[6,3,R(220, duo("room", ["phone","confused","So if the chat app is closed..."], ["laptop","worried","...the message reaches me just fine, but stops at transport. Nobody's home on that port!"]))],
 [7,1,R(200, one("rays:lilac","laptop","confused","So the MAC changes on each link type..."), one("rays:sun","router","proud","...but the IP rides along unchanged, end to end."))],
 [8,1,R(220, one("rays:sky","phone","happy","Wi-Fi bars? Full. Got an IP? Yes. Ping Lappy? Replies!"), one("rays:mint","laptop","proud","Then layers 1, 2 and 3 are working. Up we go!"))],
 [9,1,R(220, duo("rays:lilac", ["phone","confused","How did you check a port, though?"], ["laptop","proud","A port test tries to open a connection to that app. Nobody answered on 5000."]))],
-[10,1,R(240, duo("cafe", ["router","proud","Need to say WHERE a problem is? 'Layer 3' means the IP or routing part."], ["switch","proud","And 'Layer 2' means switches, MACs and VLANs. Instant understanding!"]))],
+[10,1,R(240, duo("room", ["router","proud","Need to say WHERE a problem is? 'Layer 3' means the IP or routing part."], ["switch","proud","And 'Layer 2' means switches, MACs and VLANs. Instant understanding!"]))],
 [10,3,R(240, one("rays:sun","phone","happy","OSI is the map, TCP/IP is the real road."), one("burst:blue","laptop","proud",null,"MAPPED!"))],
 [11,1,R(240, duo("room", ["phone","happy","Next time I won't say 'the network is broken'. I'll say WHICH LAYER."], ["router","proud","And you'll find it fast: bottom-up, one floor at a time."]))],
 [11,3,R(200, one("burst:yellow","phone","proud",null,"SENT!"), one("rays:mint","laptop","happy","Layers 1 to 4, all green. Chat away, Fonz!"))]
@@ -7433,7 +7578,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 19 issues are free, forever</li>
+          <li><i>\u2713</i>The first 20 issues are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>
