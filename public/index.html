@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 23 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 24 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 turns that knowledge into real fixes, one troubleshooting case at a time.</li>
-            <li>The first 23 issues are free. One payment opens the rest.</li>
+            <li>The first 24 issues are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first 23 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first 24 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first 23 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first 24 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole “Fix your own network” series</li><li>New troubleshooting cases as they are added</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -7223,6 +7223,167 @@ const FIX_10 = {no:"10", cover:COVERF10, t:"Why is DNS so important for the inte
  tip:"Run nslookup www.wikipedia.org, then nslookup www.wikipedia.org 1.1.1.1. Compare the 'Server' line in each answer: the first shows the resolver your computer normally uses.",
  q:{q:"ping 8.8.8.8 works, but ping www.example.com says 'could not find host'. What's most likely broken?",o:["DNS: the name can't be turned into an IP","The default gateway","The Wi-Fi signal"],why:"Reaching an IP proves the network path and gateway work. Only the name lookup fails, which is DNS's job."}};
 
+/* ---------- Fix your own network · Case 11: the one-second journey (original NetFixLab chapter) ---------- */
+const COVERF11 = {l:["THE","ONE-SECOND","JOURNEY"], t:["CASE #11: WHAT HAPPENS WHEN","YOU TYPE GOOGLE.COM?"], s:"yellow", a:"laptop", b:"router", ma:"confused", mb:"proud", sfx:"ENTER!"};
+const F11w = t => Math.max(8, Math.min(17, Math.round(Math.sqrt(t.length) * 1.75)));
+const F11one = (bg, ch, mood, t, fx) => ({bg, ch:[[ch, mood, 150, ch === "server" || ch === "phone" ? .5 : .56]], fx: fx ? [[fx, 150, 44, 22, -5, "#e63a2e", true]] : [], b: t ? [["s", t, 4, 4, F11w(t), "b", 55, ch]] : []});
+const F11duo = (bg, a, b, cap) => ({bg, ch:[[a[0], a[1], 110, .52], [b[0], b[1], 490, .52]], b:[["s", a[2], 2, 4, F11w(a[2]), "b", 18, a[0]], ["s", b[2], 97 - F11w(b[2]) * 2.3, 20, F11w(b[2]), "b", 80, b[0]]].concat(cap ? [["c", cap, 27, 78, 22]] : [])});
+/* the map: Lappy → Sid (switch) → Rooty (home router) → ISP cloud → internet → resolver / web server */
+const MAP11 = (m) => [["laptop",(m||[])[0]||"happy",50,.3,1,210],["switch",(m||[])[1]||"happy",150,.3,1,210],["router",(m||[])[2]||"proud",255,.32,1,210],["nimbus",(m||[])[3]||"happy",385,.36,1,190],["server",(m||[])[4]||"happy",545,.28,1,120],["dns",(m||[])[5]||"happy",545,.26,1,235]];
+const MAPL11 = (c) => [["zone",10,110,300,140,"#1f6fd1","HOME NETWORK","192.168.1.0/24"],["line",75,195,125,195,"#1f6fd1"],["line",180,195,225,195,"#1f6fd1"],["line",290,190,340,170,(c||"#f08a24")],["line",430,160,520,110,"#9aa3b5"],["line",430,180,520,220,"#9aa3b5"],["word",385,240,"ISP + INTERNET",12,0,"#fff3c4"],["word",530,60,"WEB SERVER",12,0,"#fff3c4"],["word",515,275,"RESOLVER 8.8.8.8",11,0,"#fff3c4"]];
+const PAGESF11 = [
+/* ===== 1 ===== */
+{title:"Case #11: one click, nothing happens", rows:[
+ {h:250, p:[{bg:"room", ch:[["laptop","confused",130,.55]], over:[["sweat",200,100,1.1]], fx:[["THIS SITE CAN'T BE REACHED",420,60,16,-3,"#e63a2e",true]],
+   b:[["s","I typed google.com and pressed Enter... and nothing! Our router came back from repair this morning.",30,30,17,"bl",8,"laptop"]]}]},
+ {h:240, p:[
+   F11one("rays:lilac","phone","worried","My phone says the same. Every site, every app. The whole house is offline!"),
+   F11one("rays:sun","router","proud","Rooty here, freshly repaired! My lights are all green. It can't be me... right?")]},
+ {h:240, p:[F11duo("room", ["laptop","proud","Then we'll find out properly. Typing a name and pressing Enter starts a whole JOURNEY."], ["router","proud","Follow every step, check each one, and the broken step will show itself."], "The detective's method: walk the path step by step.")]},
+ {h:230, p:[
+   F11one("burst:yellow","laptop","proud",null,"ENTER!"),
+   {bg:"chalk", over:[["chalktext",18,36,["CASE FILE #11","Symptom: no website loads anywhere","Tools: caches & hosts file · DNS","gateway & ARP · NAT/PAT","TCP · HTTPS · traceroute"],14]], b:[]}]}
+]},
+/* ===== 2 ===== */
+{title:"The map of the journey", rows:[
+ {h:280, p:[{bg:"blueprint", ch:MAP11(), over:[...MAPL11()], b:[]}]},
+ {h:240, p:[
+   F11one("rays:sky","switch","proud","At home, Sid (switch), Rooty (router) and the Wi-Fi access point are often ONE box: a 'wireless router'."),
+   F11one("rays:mint","laptop","happy","In an office they're separate: laptops join an access point, which is wired to a switch, then to a router.")]},
+ {h:240, p:[F11duo("room", ["phone","confused","And outside our house?"], ["router","proud","My outside port connects to the ISP, our internet service provider. ISPs connect to each other, and that web of networks IS the internet."])]},
+ {h:220, p:[
+   F11one("rays:sun","router","proud","Between big ISPs, routes are exchanged with BGP (Border Gateway Protocol)."),
+   F11one("rays:sky","dns","happy","And somewhere out there: me, a DNS resolver, and the web server Lappy wants.")]}
+]},
+/* ===== 3 ===== */
+{title:"Step 1: does anyone already know the IP?", rows:[
+ {h:240, p:[
+   F11one("rays:lilac","laptop","confused","Rule one: routers move packets by IP address, never by name. So I need the IP of google.com first!"),
+   F11one("rays:sun","router","proud","Right. A name means nothing to me. No IP, no packet.")]},
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["1. Browser cache","recently visited sites → their IPs"],["2. OS cache","answers the operating system saved"],["3. hosts file","a small local name → IP list"],["4. DNS resolver","ask the network (next step)"]],"WHERE LAPPY LOOKS, IN ORDER"]], b:[]}]},
+ {h:240, p:[
+   F11one("rays:sky","laptop","proud","Browser cache: nothing. OS cache: nothing. hosts file: no google.com line."),
+   F11one("rays:mint","phone","happy","So he has to ask DNS. Just like Case #10!")]},
+ {h:220, p:[F11duo("room", ["laptop","proud","Step 1 checked: no saved IP. That's normal, not the bug."], ["router","proud","Good detective work. Next: the DNS question."])]}
+]},
+/* ===== 4 ===== */
+{title:"Step 2: the DNS question", rows:[
+ {h:250, p:[{bg:"blueprint", over:[["stack",30,60,.9,[["IP: .1.10 → 8.8.8.8","#e63a2e",200],["UDP → 53","#1f6fd1",110],["DNS: A google.com?","#ffd23f",190]]]],
+   b:[["c","Lappy builds a DNS query (type A: 'give me the IPv4 address'), puts it in UDP to port 53, then in an IP packet to his resolver 8.8.8.8.",2,62,36]]}]},
+ {h:240, p:[
+   F11one("rays:sky","laptop","proud","Why UDP? One tiny question, one tiny answer. No handshake needed, fast!"),
+   F11one("rays:mint","dns","happy","And my address, 8.8.8.8, came with Lappy's settings from DHCP.")]},
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["laptop","shock",545,.38]], over:[["cli",14,44,["> nslookup google.com","*DNS request timed out.","*    timeout was 2 seconds."],14]],
+   b:[["c","CLUE #1: the DNS question goes out... and no answer ever comes back.",2,80,28]]}]},
+ {h:220, p:[
+   F11one("rays:lilac","phone","confused","Is the resolver down? Like in Case #10?"),
+   F11one("rays:sun","laptop","proud","Maybe. Or the question never reached it. Let's keep walking.")]}
+]},
+/* ===== 5 ===== */
+{title:"Step 3: different network → default gateway", rows:[
+ {h:250, p:[{bg:"blueprint", ch:[["laptop","proud",100,.4,1,230],["router","proud",480,.44,1,230]], over:[["line",145,210,430,210,"#1f6fd1"],["sign",180,40,240,90,["192.168.1.10/24 vs 8.8.8.8","→ NOT my network"],15]],
+   b:[["c","8.8.8.8 is on a different network, so the packet goes to the default gateway: Rooty, 192.168.1.1.",2,78,34]]}]},
+ {h:240, p:[
+   F11one("rays:sky","laptop","proud","But my frame needs Rooty's MAC address. So first: ARP, 'Who has 192.168.1.1?'"),
+   F11one("rays:mint","router","proud","'That's me! My MAC is CC-CC-CC-CC-CC-CC.'")]},
+ {h:240, p:[{bg:"blueprint", over:[["stack",30,60,.9,[["ETH: to CC (Rooty)","#9a7bff",180],["IP: to 8.8.8.8","#e63a2e",150],["UDP 53 + DNS","#ffd23f",140]]]],
+   b:[["c","MAC: to the next hop (Rooty). IP: to the final destination (8.8.8.8). Remember Case #3?",2,78,34]]}]},
+ {h:220, p:[{bg:"plain:#0e1530", ch:[["laptop","proud",545,.38]], over:[["cli",14,44,["> ping 192.168.1.1","Reply from 192.168.1.1: time=1ms","> ping 8.8.8.8","*Request timed out."],14]],
+   b:[["c","CLUE #2: Rooty answers. Anything past Rooty doesn't.",2,80,22]]}]}
+]},
+/* ===== 6 ===== */
+{title:"Step 4: where does it stop?", rows:[
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["laptop","shock",545,.38]], over:[["cli",14,36,["> tracert 8.8.8.8","  1    1 ms   192.168.1.1","*  2    *  *  *   Request timed out.","*  3    *  *  *   Request timed out."],14]],
+   b:[["c","Hop 1 (Rooty) answers. Then silence. The trail goes cold right after Rooty!",2,80,30]]}]},
+ {h:280, p:[{bg:"blueprint", ch:MAP11(["happy","happy","worried","worried","happy","happy"]), over:[...MAPL11("#e63a2e"),["word",315,150,"✗",30,0,"#e63a2e"]], b:[]}]},
+ {h:240, p:[
+   F11one("rays:rose","router","worried","My packets DO leave my outside port. I can see them go..."),
+   F11one("rays:sky","laptop","proud","So they leave you, but the ISP never forwards them. Why would an ISP drop a packet?")]},
+ {h:220, p:[F11duo("room", ["phone","confused","Look at the SOURCE address on that packet..."], ["laptop","shock","192.168.1.10. A PRIVATE address! Out on the internet, that means nothing."])]}
+]},
+/* ===== 7 ===== */
+{title:"Private addresses stay at home", rows:[
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["10.0.0.0/8","10.0.0.0 – 10.255.255.255"],["172.16.0.0/12","172.16.0.0 – 172.31.255.255"],["192.168.0.0/16","192.168.0.0 – 192.168.255.255"]],"PRIVATE IPv4 ADDRESS RANGES"]], b:[]}]},
+ {h:240, p:[
+   F11one("rays:sky","router","proud","Millions of homes and offices reuse these same {{private addresses}}. They're only unique INSIDE one network."),
+   F11one("rays:rose","server","worried","So if a reply had to go 'to 192.168.1.10', which of the millions would it go to? ISPs drop them.")]},
+ {h:240, p:[F11duo("room", ["laptop","confused","But at home I always have a 192.168 address, and the internet always works!"], ["router","proud","Because normally I TRANSLATE it on the way out. That's NAT, Network Address Translation."])]},
+ {h:220, p:[
+   F11one("rays:mint","router","happy","The ISP gives my outside port one PUBLIC address: 203.0.113.11."),
+   F11one("burst:yellow","laptop","proud",null,"TRANSLATE!")]}
+]},
+/* ===== 8 ===== */
+{title:"NAT and PAT: one family name", rows:[
+ {h:250, p:[{bg:"blueprint", ch:[["router","proud",300,.42,1,240]], over:[["envelope",120,110,.45,"from 192.168.1.10"],["arrow",180,110,240,110,"#ffd23f"],["arrow",360,110,420,110,"#ffd23f"],["envelope",490,110,.45,"from 203.0.113.11"]], fx:[["SWAP!",300,50,22,-5,"#e63a2e",true]],
+   b:[]}]},
+ {h:240, p:[{bg:"room", ch:[["phone","happy",110,.48],["laptop","happy",490,.48]],
+   b:[["s","Like a family: at home everyone has their own first name...",2,4,14,"b",18,"phone"],["s","...but outside we're all known by ONE family name. To tell us apart, each of us gets a different PORT!",48,20,17,"b",80,"laptop"]]}]},
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["Lappy 192.168.1.10:51000","203.0.113.11:32717"],["Fonz 192.168.1.20:51000","203.0.113.11:32718"],["TV 192.168.1.30:49152","203.0.113.11:32719"]],"ROOTY'S NAT TABLE (PAT, port address translation)"]], b:[]}]},
+ {h:220, p:[F11duo("room", ["laptop","proud","Many private addresses share one public address, told apart by port: that's PAT."], ["router","proud","Replies come back to 203.0.113.11:32717, I look it up, and hand them to Lappy!"])]}
+]},
+/* ===== 9 ===== */
+{title:"Step 5: the culprit", rows:[
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["router","shock",545,.38]], over:[["cli",14,36,["Rooty# show ip nat translations","*  (empty)","Rooty# show running-config | include nat","*  (nothing)"],14]],
+   b:[["c","FOUND IT! The repair reset Rooty's configuration. NAT is gone, so packets leave with private source addresses.",2,78,36]]}]},
+ {h:240, p:[
+   F11one("rays:rose","router","worried","Green lights, working ports... and no NAT. Every packet I sent out was dropped by the ISP!"),
+   F11one("rays:sun","laptop","proud","Which explains EVERYTHING: the DNS timeout, the failed ping, the trace dying after hop 1.")]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["router","proud",545,.38]], over:[["cli",12,30,["Rooty(config)# interface g0/0","Rooty(config-if)# ip nat inside","Rooty(config)# interface g0/1","Rooty(config-if)# ip nat outside","Rooty(config)# access-list 1 permit 192.168.1.0 0.0.0.255","Rooty(config)# ip nat inside source list 1 interface g0/1 overload"],11]],
+   b:[["c","'overload' = PAT: many inside hosts share the outside interface's one address.",2,80,32]]}]},
+ {h:220, p:[
+   F11one("burst:yellow","router","proud",null,"NAT IS BACK!"),
+   F11one("rays:mint","phone","happy","My phone's online! Lappy, let's watch the rest of the journey!")]}
+]},
+/* ===== 10 ===== */
+{title:"Step 6: the resolver answers", rows:[
+ {h:250, p:[{bg:"blueprint", ch:[["dns","proud",110,.42,1,240],["dns","happy",300,.3,1,90],["dns","happy",420,.3,1,165],["dns","proud",540,.3,1,240]], over:[["arrow",150,150,260,70,"#ffd23f"],["arrow",150,170,380,150,"#ffd23f"],["arrow",150,200,500,225,"#ffd23f"],["word",300,30,"ROOT",13,0,"#fff3c4"],["word",420,110,".COM",13,0,"#fff3c4"],["word",540,190,"AUTH",13,0,"#fff3c4"]], b:[]}]},
+ {h:240, p:[
+   F11one("rays:sky","dns","proud","Recursive resolver: root → .com → google.com's authoritative name server. Answer: 142.250.70.4!"),
+   F11one("rays:mint","router","happy","The reply comes to 203.0.113.11, my NAT table says 'that's Lappy', and in it goes.")]},
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["laptop","proud",545,.38]], over:[["cli",14,44,["> nslookup google.com","Server:  8.8.8.8","Name:    google.com","Address: 142.250.70.4"],14]],
+   b:[["c","The name is finally an IP. Lappy caches it for next time.",2,80,24]]}]},
+ {h:220, p:[F11duo("room", ["phone","happy","Done? The page appears now?"], ["laptop","proud","Not yet! I only have an ADDRESS. Now I need a CONNECTION to that server."])]}
+]},
+/* ===== 11 ===== */
+{title:"Step 7: TCP handshake, then HTTPS", rows:[
+ {h:260, p:[{bg:"blueprint", ch:[["laptop","proud",70,.36,1,240],["server","happy",530,.32,1,240]], over:[["arrow",120,70,480,70,"#ffd23f"],["word",300,55,"SYN → port 443",15,0,"#fff3c4"],["arrow",480,130,120,130,"#2bb673"],["word",300,115,"SYN, ACK",15,0,"#fff3c4"],["arrow",120,190,480,190,"#ffd23f"],["word",300,175,"ACK",15,0,"#fff3c4"]], b:[]}]},
+ {h:240, p:[
+   F11one("rays:sky","laptop","proud","Why TCP now, not UDP? A web page must arrive COMPLETE. Losing 'G' from 'GOOGLE' isn't OK!"),
+   F11one("rays:mint","server","proud","So TCP: three-way handshake, sequence numbers, acknowledgements. Case #8!")]},
+ {h:240, p:[
+   F11one("rays:sun","server","proud","HTTPS = HTTP over TLS. First a TLS handshake: I show my certificate and we agree on encryption keys."),
+   F11one("rays:sky","laptop","proud","Then the real request, encrypted: 'GET /', 'please send me your home page'.")]},
+ {h:240, p:[{bg:"blueprint", over:[["stack",20,60,.85,[["ETH","#9a7bff",55],["IP → 142.250.70.4","#e63a2e",180],["TCP 443","#1f6fd1",85],["TLS{GET /}","#ffd23f",120]]]],
+   b:[["c","Every layer we've studied, in one packet. (And Rooty swaps the source to 203.0.113.11 on the way out.)",2,78,34]]}]}
+]},
+/* ===== 12 ===== */
+{title:"Step 8: the page arrives", rows:[
+ {h:240, p:[
+   F11one("rays:sky","server","proud","My reply: the page's HTML, split into TCP segments, each one acknowledged."),
+   F11one("burst:yellow","laptop","proud",null,"IT LOADED!")]},
+ {h:240, p:[F11duo("room", ["laptop","shock","All of that... in about one second?"], ["router","proud","Every time. Plus more lookups and connections for the images and scripts on the page!"])]},
+ {h:260, p:[{bg:"plain:#fff3c4", over:[["rtable",15,12,570,[["1","browser cache → OS cache → hosts file"],["2","DNS query (UDP 53) to the resolver"],["3","other network → default gateway (ARP for its MAC)"],["4","router: NAT/PAT private → public, then the ISP"],["5","resolver: root → TLD → authoritative → IP"],["6","TCP handshake to port 443, then TLS"],["7","HTTP GET, the page comes back, the browser draws it"]],"WHAT HAPPENS WHEN YOU TYPE A NAME"]], b:[]}]},
+ {h:220, p:[
+   F11one("rays:mint","phone","happy","Caches, DNS, ARP, NAT, TCP, TLS... it's every case we've solved!"),
+   F11one("rays:sun","laptop","proud","That's why this one question covers so much networking.")]}
+]},
+/* ===== 13 ===== */
+{title:"Your fix-it checklist", rows:[
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["1","walk the journey: which step fails first?"],["2","gateway pings but 8.8.8.8 doesn't? look at the router"],["3","traceroute stops after hop 1? check NAT and the ISP link"],["4","private source leaving the router? NAT/PAT is missing"],["5","IP works but names don't? that's DNS (Case #10)"]],"'THE SITE CAN'T BE REACHED'?"]], b:[]}]},
+ {h:240, p:[F11duo("room", ["router","proud","Green lights don't mean a correct config. After a reset, check NAT!"], ["laptop","proud","And private addresses never travel the internet. NAT translates them at the edge."])]},
+ {h:240, p:[
+   F11one("rays:sky","phone","happy","Name → IP → gateway → NAT → internet → handshake → page."),
+   F11one("rays:mint","dns","proud","With DNS at the start of it all!")]},
+ {h:220, p:[
+   F11one("burst:blue","laptop","proud",null,"CASE CLOSED!"),
+   {bg:"rays:mint", ch:[["router","happy",150,.52]], b:[["c","Case #11 closed. See you at the next case!",4,4,13]]}]}
+]}
+];
+const FIX_11 = {no:"11", cover:COVERF11, t:"What happens when you type google.com?", b:"Case #11: after a router repair, no website loads. Walk the whole journey (caches, DNS, gateway, NAT, TCP, HTTPS) to find the broken step.", m:20, star:"router", part:2, pages:PAGESF11,
+ take:"Routers forward by IP address, so a name must first become an IP. The browser checks its cache, then the operating system checks its cache and the hosts file. If there's no answer, the OS sends a DNS query (type A, over UDP port 53) to its configured resolver, such as 8.8.8.8. The resolver is on a different network, so the packet goes to the default gateway: the host ARPs for the gateway's MAC, and the frame is addressed to the gateway's MAC while the IP packet is addressed to the final destination. Home networks use private IPv4 addresses (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16), which aren't routed on the internet, so the router performs NAT, translating the private source to its public address. PAT (NAT overload) lets many inside hosts share one public address, told apart by port numbers in the NAT table. ISPs connect to each other, exchanging routes with BGP. The recursive resolver walks root → TLD → authoritative and returns the IP. The browser then opens a TCP connection (three-way handshake) to port 443, because a web page must arrive reliably, runs a TLS handshake for HTTPS, sends an HTTP GET, and receives the page in TCP segments. Troubleshoot by walking these steps: if the gateway answers but nothing beyond it does and traceroute stops after hop 1, check NAT and the ISP link.",
+ tip:"Run tracert google.com (Windows) or traceroute google.com (Mac/Linux). Hop 1 is your own router, the next hops belong to your ISP, and the last is the server. Then run nslookup google.com to see the DNS answer your computer used.",
+ q:{q:"Your laptop can ping its default gateway, but not 8.8.8.8, and traceroute stops after hop 1. The router was just reset. What should you check first?",o:["NAT/PAT on the router","The laptop's MAC address","The browser cache"],why:"The LAN and gateway work. Packets leave the router but nothing comes back: without NAT, they carry private source addresses that the ISP drops."}};
+
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
@@ -7245,9 +7406,10 @@ FIX_7.id = 32; FIX_7.part = 2; FIX_7.free = true;
 FIX_8.id = 33; FIX_8.part = 2; FIX_8.free = true;
 FIX_9.id = 34; FIX_9.part = 2; FIX_9.free = true;
 FIX_10.id = 35; FIX_10.part = 2; FIX_10.free = true;
+FIX_11.id = 36; FIX_11.part = 2; FIX_11.free = true;
 LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I, ISSUE_J, ISSUE_K, ISSUE_L, ISSUE_M);
 COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover, ISSUE_J.cover, ISSUE_K.cover, ISSUE_L.cover, ISSUE_M.cover);
-LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7, FIX_8, FIX_9, FIX_10); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover, FIX_8.cover, FIX_9.cover, FIX_10.cover);
+LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7, FIX_8, FIX_9, FIX_10, FIX_11); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover, FIX_8.cover, FIX_9.cover, FIX_10.cover, FIX_11.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
@@ -8033,7 +8195,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 23 issues are free, forever</li>
+          <li><i>\u2713</i>The first 24 issues are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>
