@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 27 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 28 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 turns that knowledge into real fixes, one troubleshooting case at a time.</li>
-            <li>The first 27 issues are free. One payment opens the rest.</li>
+            <li>The first 28 issues are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first 27 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first 28 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first 27 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first 28 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole “Fix your own network” series</li><li>New troubleshooting cases as they are added</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -7854,6 +7854,178 @@ const FIX_14 = {no:"14", cover:COVERF14, t:"Can you design a network for a small
  tip:"In a network simulator, build two distribution and three access switches, create VLANs 10, 20 and 30, configure trunks, add SVIs with HSRP on both distribution switches, then shut down one distribution switch and check that a PC can still ping its gateway 192.168.10.1.",
  q:{q:"Why does the design connect every access switch to BOTH distribution switches?",o:["So no single distribution switch is a single point of failure","So STP is no longer needed","So each floor gets twice the IP addresses"],why:"If one distribution switch fails, traffic uses the other. The extra links create loops, which is exactly why STP is still needed, and IP addressing is set by the subnet, not by links."}};
 
+/* ---------- Fix your own network · Case 15: troubleshoot the office network (original NetFixLab chapter) ---------- */
+const COVERF15 = {l:["SIX","TICKETS"], t:["CASE #15: HOW TO","TROUBLESHOOT A NETWORK"], s:"yellow", a:"switch", b:"wall", ma:"worried", mb:"proud", sfx:"TICKET!"};
+const F15w = t => Math.max(8, Math.min(17, Math.round(Math.sqrt(t.length) * 1.75)));
+const F15one = (bg, ch, mood, t, fx) => ({bg, ch:[[ch, mood, 150, ch === "server" || ch === "phone" ? .5 : .56]], fx: fx ? [[fx, 150, 44, 22, -5, "#e63a2e", true]] : [], b: t ? [["s", t, 4, 4, F15w(t), "b", 55, ch]] : []});
+const F15duo = (bg, a, b, cap) => ({bg, ch:[[a[0], a[1], 110, .52], [b[0], b[1], 490, .52]], b:[["s", a[2], 2, 4, F15w(a[2]), "b", 18, a[0]], ["s", b[2], 97 - F15w(b[2]) * 2.3, 20, F15w(b[2]), "b", 80, b[0]]].concat(cap ? [["c", cap, 27, 78, 22]] : [])});
+const F15cli = (ch, mood, lines) => ({bg:"plain:#0e1530", ch:[[ch, mood, 548, .36]], over:[["cli",14,34,lines,13]], b:[]});
+/* inside: DS1/DS2 distribution, AS1–AS3 access; PC1 (V10) on AS1, PC2 (V20) on AS2, PC3 (V30) + PC4 (V10) on AS3 */
+const IN15 = (m) => [["switch",(m||[])[0]||"proud",200,.38,1,95],["switch",(m||[])[1]||"proud",400,.38,1,95],["switch",(m||[])[2]||"happy",100,.36,1,215],["switch",(m||[])[3]||"happy",300,.36,1,215],["switch",(m||[])[4]||"happy",500,.36,1,215]];
+const INL15 = (c) => { c = c || []; return [["line",250,85,350,85,"#2bb673"],["line",185,103,105,195,c[0]||"#f08a24"],["line",210,103,290,195,c[1]||"#f08a24"],["line",230,100,485,195,c[2]||"#f08a24"],["line",370,100,115,195,c[3]||"#9aa3b5"],["line",390,103,310,195,c[4]||"#9aa3b5"],["line",415,103,495,195,c[5]||"#9aa3b5"],
+ ["pc",100,300,.5,O7,""],["pc",300,300,.5,T7,""],["pc",460,300,.5,P7,""],["pc",545,300,.5,O7,""],
+ ["word",200,55,"DS1",13,0,"#fff3c4"],["word",400,55,"DS2",13,0,"#fff3c4"],["word",100,315,"PC1 · 10.10",10,0,"#fff3c4"],["word",300,315,"PC2 · 20.10",10,0,"#fff3c4"],["word",460,315,"PC3 · 30.10",10,0,"#fff3c4"],["word",545,315,"PC4 · 10.150",10,0,"#fff3c4"],
+ ["word",40,215,"AS1",12,0,"#ffd23f"],["word",245,240,"AS2",12,0,"#ffd23f"],["word",565,240,"AS3",12,0,"#ffd23f"]]; };
+/* edge: DS1/DS2 → firewall (OSPF) → ISP A / ISP B (BGP) → internet server / internet user */
+const EDGE15 = (m) => [["switch",(m||[])[0]||"proud",80,.34,1,115],["switch",(m||[])[1]||"proud",80,.34,1,240],["server",(m||[])[2]||"proud",200,.26,1,90],["wall",(m||[])[3]||"proud",290,.3,1,200],["nimbus",(m||[])[4]||"happy",440,.24,1,105],["nimbus",(m||[])[5]||"happy",440,.24,1,265],["server",(m||[])[6]||"happy",560,.24,1,105],["laptop",(m||[])[7]||"happy",560,.26,1,265]];
+const EDGEL15 = (c) => { c = c || []; return [["line",115,110,255,180,c[0]||"#1f6fd1"],["line",115,235,255,200,c[1]||"#1f6fd1"],["line",110,95,180,75,"#1f6fd1"],["line",325,180,400,105,c[2]||"#2bb673"],["line",325,200,400,255,c[3]||"#2bb673"],["line",480,95,535,90,c[4]||"#9aa3b5"],["line",480,255,530,250,c[5]||"#9aa3b5"],
+ ["word",80,150,"DS1",11,0,"#fff3c4"],["word",80,275,"DS2",11,0,"#fff3c4"],["word",200,30,"WEBSITE .40.200",10,0,"#ffd23f"],["word",290,240,"FIREWALL",11,0,"#ffd23f"],["word",190,150,"OSPF",12,0,"#2bb673"],["word",380,180,"BGP",12,0,"#2bb673"],["word",440,140,"ISP A",11,0,"#fff3c4"],["word",440,300,"ISP B",11,0,"#fff3c4"],["word",560,140,"SERVER",10,0,"#fff3c4"],["word",560,300,"USER",10,0,"#fff3c4"]]; };
+const PAGESF15 = [
+/* ===== 1 ===== */
+{title:"Case #15: the office network, built for real", rows:[
+ {h:250, p:[{bg:"room", ch:[["laptop","proud",130,.55]], fx:[["IT'S ALIVE!",440,60,22,-3,"#2bb673",true]],
+   b:[["s","Rooty! I built the Fieldstar office network from Case #14 in a network simulator. Every switch, every VLAN!",30,24,17,"bl",8,"laptop"]]}]},
+ {h:240, p:[
+   F15one("rays:sky","router","proud","Great. Before we break anything, we learn the network when it WORKS. That's its baseline: the known good state."),
+   F15one("rays:mint","laptop","confused","Why look at a network that has no problems?")]},
+ {h:240, p:[F15duo("room", ["router","proud","Because troubleshooting means spotting what's DIFFERENT. If you know what 'good' looks like, 'broken' jumps out."], ["laptop","happy","So first the healthy network, then the faults. Got it!"])]},
+ {h:230, p:[
+   F15one("burst:yellow","router","proud",null,"KNOW YOUR BASELINE!"),
+   {bg:"chalk", over:[["chalktext",18,38,["CASE FILE #15","Part 1: the working network","Part 2: six trouble tickets","Tools: ping · traceroute","show commands · logs · debug"],14]], b:[]}]}
+]},
+/* ===== 2 ===== */
+{title:"Baseline 1: the inside of the network", rows:[
+ {h:325, p:[{bg:"blueprint", ch:IN15(), over:INL15(), b:[]}]},
+ {h:240, p:[
+   F15one("rays:sky","switch","proud","One access switch per floor: AS1, AS2, AS3. Users sit anywhere, so every access switch has VLANs 10, 20 and 30."),
+   F15one("rays:mint","laptop","happy","PC1 and PC4 are Engineering, VLAN 10. PC2 is Sales, VLAN 20. PC3 is HR, VLAN 30.")]},
+ {h:180, p:[{bg:"plain:#fff3c4", over:[["rtable",15,12,570,[["VLAN 10 · ENGINEERING","192.168.10.0/24"],["VLAN 20 · SALES","192.168.20.0/24"],["VLAN 30 · HR","192.168.30.0/24"],["VLAN 40 · WEBSITE SERVER","192.168.40.0/24"]],"IP PLAN: 3RD OCTET = VLAN"]], b:[]}]},
+ {h:220, p:[F15duo("room", ["laptop","confused","And the links between access and distribution?"], ["switch","proud","Trunks! They carry all the VLANs, tagged with 802.1Q."])]}
+]},
+/* ===== 3 ===== */
+{title:"Baseline 2: gateways and HSRP", rows:[
+ {h:250, p:[F15duo("room", ["switch","proud","DS1 and DS2 each have SVIs for VLANs 10, 20, 30 and 40. For VLAN 10: DS1 is 192.168.10.2, DS2 is 192.168.10.3."], ["laptop","confused","So which one is PC1's default gateway?"])]},
+ {h:240, p:[
+   F15one("rays:sky","router","proud","Neither! HSRP gives them a VIRTUAL IP, 192.168.10.1. It belongs to HSRP, not to a switch. The ACTIVE router answers for it."),
+   F15one("rays:mint","switch","happy","DS1 is active, DS2 is standby. If DS1 dies, DS2 takes over the virtual IP. PCs never notice!")]},
+ {h:240, p:[F15cli("switch","proud",["DS1# show standby brief","Interface  Grp  State    Virtual IP","*Vl10       10   Active   192.168.10.1","Vl20       20   Active   192.168.20.1","Vl30       30   Active   192.168.30.1"])]},
+ {h:240, p:[F15cli("laptop","happy",["PC1# show ip route","*S*  0.0.0.0/0 via 192.168.10.1","PC1# ping 192.168.10.1","!!!!!  Success rate is 100 percent"])]}
+]},
+/* ===== 4 ===== */
+{title:"Baseline 3: the edge of the network", rows:[
+ {h:310, p:[{bg:"blueprint", ch:EDGE15(), over:EDGEL15(), b:[]}]},
+ {h:240, p:[
+   F15one("rays:sky","wall","proud","Wally: I run OSPF area 0 with DS1 and DS2, so I learn all the inside networks: 192.168.10, 20, 30 and 40."),
+   F15one("rays:mint","wall","happy","And I run BGP with ISP A and ISP B. BGP is the routing protocol that connects networks across the internet.")]},
+ {h:250, p:[F15duo("room", ["wall","proud","I also do NAT. The website server is 192.168.40.200 inside, but the internet sees it as 203.0.113.200."], ["laptop","happy","So an internet user types the public address, and you translate it to the private one. Static NAT!"])]},
+ {h:240, p:[F15cli("wall","proud",["FW# show ip route ospf","*O  192.168.10.0/24 via 10.1.1.2","O  192.168.20.0/24 via 10.1.1.2","O  192.168.30.0/24 via 10.1.1.2","O  192.168.40.0/24 via 10.1.1.2"])]}
+]},
+/* ===== 5 ===== */
+{title:"Baseline 4: the traffic paths", rows:[
+ {h:250, p:[F15cli("laptop","proud",["PC1# traceroute 198.51.100.8","  1  192.168.10.2   (DS1)","  2  10.1.1.1       (firewall)","  3  100.64.1.1     (ISP A)","*  4  198.51.100.8   (internet server) ✓"])]},
+ {h:240, p:[
+   F15one("rays:lilac","laptop","confused","Hop 1 is 192.168.10.2? But my gateway is 192.168.10.1!"),
+   F15one("rays:sky","switch","proud","The reply comes from my PHYSICAL SVI address. The virtual IP is the gateway, but it's not used to source those replies.")]},
+ {h:250, p:[F15cli("laptop","happy",["USER> traceroute 203.0.113.200","  1  100.64.2.1     (ISP B)","  2  100.64.2.2     (firewall)","  3  10.1.1.2       (DS1)","*  4  203.0.113.200  (website) ✓"])]},
+ {h:220, p:[F15duo("room", ["laptop","proud","PCs reach the internet, and the internet reaches the website. All green!"], ["router","proud","Now remember this picture. Time for the trouble tickets!"])]}
+]},
+/* ===== 6 ===== */
+{title:"Ticket 1: same VLAN, no ping", rows:[
+ {h:250, p:[{bg:"street", ch:[["laptop","shock",130,.55]], fx:[["TICKET #1",450,60,22,-3,"#e63a2e",true]],
+   b:[["s","PC1 (192.168.10.10) can't ping PC4 (192.168.10.150). We're both in VLAN 10!",30,24,16,"bl",8,"laptop"]]}]},
+ {h:240, p:[
+   F15one("rays:sky","router","proud","Same VLAN means same network. The default gateway isn't involved at all! This is layer 2: ARP and switching."),
+   F15one("rays:mint","switch","happy","The path: AS1 → DS1 → AS3. STP blocks the other uplinks. So check VLANs, trunks and IP settings along that path.")]},
+ {h:250, p:[F15cli("laptop","worried",["PC1# ping 192.168.10.150",".....  Success rate is 0 percent","PC1# show ip arp","*Internet 192.168.10.150   0   Incomplete","PC1# debug arp","*ARP: sent req for 192.168.10.150 ... no reply"])]},
+ {h:220, p:[F15duo("room", ["laptop","worried","My ARP requests get no reply!"], ["router","proud","So the ARP broadcast isn't reaching PC4, or PC4 won't answer. Walk the path step by step."])]}
+]},
+/* ===== 7 ===== */
+{title:"Ticket 1: two faults, not one", rows:[
+ {h:250, p:[F15cli("switch","worried",["AS3# show interfaces trunk","Port     Vlans allowed on trunk","*Gi0/0    1-9,11-4094","*Gi0/1    1-9,11-4094"])]},
+ {h:240, p:[
+   F15one("rays:rose","switch","shock","VLAN 10 is NOT allowed on my trunks! AS1 and DS1 allow all VLANs, but mine block 10."),
+   F15one("rays:mint","switch","proud","Fix: on both uplinks, switchport trunk allowed vlan all. Now VLAN 10 frames can cross.")]},
+ {h:250, p:[F15cli("laptop","confused",["PC1# ping 192.168.10.150",".....  still failing!","PC4# show ip interface Gi0/0","*  Internet address is 192.168.10.150/25","PC1# show ip interface Gi0/0","  Internet address is 192.168.10.10/24"])]},
+ {h:240, p:[F15duo("room", ["laptop","shock","A /25! So 192.168.10.150 is in 192.168.10.128/25. PC4 thinks PC1 is on ANOTHER network!"], ["router","proud","Second fault: a subnet mask mismatch. Fix PC4's mask to /24. A ticket can have more than one fault!"], "Fix → ARP resolves → ping works ✓")]}
+]},
+/* ===== 8 ===== */
+{title:"Ticket 2: different VLANs, no ping", rows:[
+ {h:250, p:[{bg:"street", ch:[["laptop","worried",130,.55]], fx:[["TICKET #2",450,60,22,-3,"#e63a2e",true]],
+   b:[["s","PC1 (VLAN 10) can't ping PC2 (192.168.20.10, VLAN 20).",30,24,15,"bl",8,"laptop"]]}]},
+ {h:240, p:[
+   F15one("rays:sky","router","proud","Different networks, so traffic MUST go through the default gateway. Check each side's path to its gateway."),
+   F15one("rays:mint","laptop","happy","From PC1 I can ping 192.168.10.1 and even 192.168.20.1. My side is fine!")]},
+ {h:250, p:[F15cli("phone","worried",["PC2# ping 192.168.20.1","!!!!!  gateway reachable","PC2# show ip route","*S*  0.0.0.0/0 via 192.168.20.254"])]},
+ {h:240, p:[F15duo("room", ["phone","shock","My default route points to .254! Nothing lives there, so my replies to PC1 go nowhere."], ["router","proud","Fix: point the default gateway to the HSRP virtual IP, 192.168.20.1. Replies flow, ping works!"])]}
+]},
+/* ===== 9 ===== */
+{title:"Ticket 3: draw the spanning tree", rows:[
+ {h:250, p:[{bg:"street", ch:[["switch","confused",130,.55]], fx:[["TICKET #3",450,60,22,-3,"#e63a2e",true]],
+   b:[["s","Not a fault, a question: who is the STP root bridge for VLAN 10, and what does the tree look like?",30,24,16,"bl",8,"switch"]]}]},
+ {h:240, p:[
+   F15one("rays:rose","switch","worried","Our uplinks form loops. Layer 2 frames have no TTL, so a loop means broadcast storms and switches at 100%!"),
+   F15one("rays:mint","switch","proud","STP finds the loops and blocks ports so the network becomes a loop-free tree.")]},
+ {h:325, p:[{bg:"blueprint", ch:IN15(), over:[...INL15(["#2bb673","#2bb673","#2bb673","#e63a2e","#e63a2e","#e63a2e"]),["word",300,35,"ROOT = DS1 · GREEN FORWARDS · RED BLOCKED",11,0,"#ffd23f"]], b:[]}]},
+ {h:240, p:[F15cli("switch","proud",["AS1# show spanning-tree vlan 10","  Root ID  Address  (DS1)","Gi0/0  Root  FWD","*Gi0/1  Altn  BLK","DS1# show spanning-tree vlan 10","  This bridge is the root · all ports FWD"])]}
+]},
+/* ===== 10 ===== */
+{title:"Ticket 3: why root and HSRP match", rows:[
+ {h:240, p:[F15duo("room", ["laptop","confused","Why is DS1 BOTH the STP root AND the HSRP active router?"], ["switch","proud","So traffic takes the forwarding path straight to the gateway. If the gateway sat on DS2, frames would detour through DS1 first."])]},
+ {h:240, p:[
+   F15one("rays:sky","switch","happy","On the root bridge, all ports forward. Each access switch has one root port forwarding and one blocked port."),
+   F15one("rays:mint","router","proud","Every switch still reaches every other switch, just with no loop. That's the 'tree' in spanning tree!")]},
+ {h:240, p:[
+   F15one("burst:blue","switch","proud",null,"LOOP-FREE!"),
+   F15one("rays:sun","laptop","happy","So the troubleshooter knows which links SHOULD be blocked before calling them broken!")]},
+ {h:220, p:[F15duo("room", ["phone","happy","Layer 2 done. Next stop: routing?"], ["router","proud","Yes! Ticket 4 leaves the building."])]}
+]},
+/* ===== 11 ===== */
+{title:"Ticket 4: no way out", rows:[
+ {h:250, p:[{bg:"street", ch:[["laptop","worried",130,.55]], fx:[["TICKET #4",450,60,22,-3,"#e63a2e",true]],
+   b:[["s","PC1 can't reach the internet user at 192.0.2.99!",30,24,14,"bl",8,"laptop"]]}]},
+ {h:250, p:[F15cli("laptop","worried",["PC1# traceroute 192.0.2.99","  1  192.168.10.2   (DS1)","*  2  *  *  *","*  3  *  *  *"])]},
+ {h:240, p:[
+   F15one("rays:sky","router","proud","Traceroute stops after DS1. So the problem starts at DS1: it doesn't know where to send the packet next."),
+   F15one("rays:rose","switch","worried","My routing table has no default route... and no OSPF neighbor! DS2 has none either.")]},
+ {h:240, p:[F15cli("wall","worried",["FW# logging console","*%OSPF-4-ERRRCV: Received invalid packet:","*  mismatched area ID from 10.1.1.2","FW# show run | section ospf","*  network 10.1.1.0 0.0.0.3 area 10"])]}
+]},
+/* ===== 12 ===== */
+{title:"Ticket 4: the area mismatch", rows:[
+ {h:240, p:[F15duo("room", ["wall","shock","I put my links in OSPF area 10! DS1 and DS2 use area 0."], ["router","proud","OSPF neighbors must agree on the area ID on a link. A mismatch means no adjacency, so no routes."])]},
+ {h:240, p:[
+   F15one("rays:mint","wall","proud","Fix: remove 'area 10' and add the networks to area 0. Neighbors come up: FULL!"),
+   F15one("rays:sky","switch","happy","And now I learn a default route from Wally through OSPF. Traceroute reaches 192.0.2.99!")]},
+ {h:250, p:[F15duo("room", ["laptop","confused","Do I have to read every line of config to find faults?"], ["router","proud","No! Logs, show commands and debug (like debug ip ospf adj) tell you what's wrong. Compare their output to your baseline."])]},
+ {h:220, p:[
+   F15one("burst:yellow","wall","proud",null,"ADJACENCY UP!"),
+   F15one("rays:sun","laptop","happy","Show commands show BEHAVIOR. Config only shows intent.")]}
+]},
+/* ===== 13 ===== */
+{title:"Ticket 5: the website disappears", rows:[
+ {h:250, p:[{bg:"street", ch:[["laptop","shock",130,.55]], fx:[["TICKET #5",450,60,22,-3,"#e63a2e",true]],
+   b:[["s","An internet user can't open the Fieldstar website at 203.0.113.200. That's how they earn money!",30,24,16,"bl",8,"laptop"]]}]},
+ {h:250, p:[F15cli("laptop","worried",["USER> traceroute 203.0.113.200","  1  100.64.2.1     (ISP B)","  2  100.64.2.2     (firewall)","*  3  *  *  *"])]},
+ {h:250, p:[F15cli("wall","worried",["FW# show ip nat translations","Inside global     Inside local","*203.0.113.200    192.168.40.210","WEB# show ip interface brief","  Gi0/0   192.168.40.200   up   up"])]},
+ {h:240, p:[F15duo("room", ["wall","shock","My static NAT points to 192.168.40.210. The server is .200! Traffic goes to an empty address."], ["router","proud","Fix: remove the wrong static NAT and map 203.0.113.200 to 192.168.40.200. The website is back!"])]}
+]},
+/* ===== 14 ===== */
+{title:"Ticket 6: the missing BGP route", rows:[
+ {h:250, p:[{bg:"street", ch:[["phone","shock",130,.55]], fx:[["TICKET #6",450,60,22,-3,"#e63a2e",true]],
+   b:[["s","No PC can reach the internet server at 198.51.100.8!",30,24,14,"bl",8,"phone"]]}]},
+ {h:250, p:[F15cli("wall","worried",["PC2# traceroute 198.51.100.8","  1  192.168.20.2   2  10.1.1.1   3  * * *","FW# show ip route 198.51.100.8","*% Network not in table","FW# show ip bgp summary","  100.64.1.1  ... Established ✓"])]},
+ {h:240, p:[
+   F15one("rays:sky","wall","worried","My BGP session with ISP A is up, but ISP A never sent me a route to 198.51.100.0/24!"),
+   F15one("rays:rose","router","proud","Then look at ISP A. Its BGP config advertises 198.51.10.0/24: a typo! The real network is never advertised.")]},
+ {h:240, p:[F15duo("room", ["router","proud","Fix on ISP A: remove the wrong network statement and advertise 198.51.100.0/24. The firewall learns it in BGP."], ["laptop","proud","Ping works, and traceroute shows the same path as the baseline!"])]}
+]},
+/* ===== 15 ===== */
+{title:"Your troubleshooting checklist", rows:[
+ {h:300, p:[{bg:"plain:#fff3c4", over:[["rtable",15,12,570,[["1","know the baseline: working pings, paths, outputs"],["2","same network? think layer 2: ARP, VLANs, trunks"],["3","different networks? check the default gateway"],["4","traceroute: where does the path stop?"],["5","at that device: routes, neighbors, NAT, BGP"],["6","read logs, show commands, debug output"],["7","fix one thing, test, and look for more faults"],["8","confirm: same result as the baseline"]],"SOLVE ANY TICKET"]], b:[]}]},
+ {h:240, p:[F15duo("room", ["laptop","proud","Six tickets: allowed VLANs, subnet mask, gateway, STP, OSPF area, static NAT, BGP advertisement."], ["router","proud","And every one was solved with fundamentals you already know."])]},
+ {h:240, p:[
+   F15one("rays:sky","switch","happy","Build this network yourself in a simulator, break it, and fix it again."),
+   F15one("rays:sun","router","proud","That's how confidence is built: one ticket at a time.")]},
+ {h:220, p:[
+   F15one("burst:blue","router","proud",null,"CASE CLOSED!"),
+   {bg:"rays:mint", ch:[["laptop","happy",150,.52]], b:[["c","Case #15 closed. See you at the next case!",4,4,13]]}]}
+]}
+];
+PAGESF15.forEach(pg => pg.rows.forEach(rw => { if (rw.p.length === 1 && rw.p[0].bg === "plain:#0e1530") rw.h = Math.max(160, 60 + rw.p[0].over[0][3].length * 20); }));
+const FIX_15 = {no:"15", cover:COVERF15, t:"How to troubleshoot a network", b:"Case #15: the small office network from Case #14 is built for real. Learn its working baseline, then solve six trouble tickets: VLANs, subnet masks, gateways, STP, OSPF, NAT and BGP.", m:22, star:"wall", part:2, pages:PAGESF15,
+ take:"Start by knowing the baseline: how the network looks when it works (ping and traceroute results, show command output). Then a fault stands out as a difference. Ticket 1, same VLAN with no ping: the gateway isn't involved, so it's layer 2. 'show ip arp' showing Incomplete means ARP requests get no reply; walk the path checking VLAN assignment ('show vlan brief'), trunks ('show interfaces trunk': the allowed VLAN list was missing VLAN 10) and IP settings (PC4 had a /25 mask, putting 192.168.10.150 in 192.168.10.128/25, a different network). A ticket can have more than one fault. Ticket 2, different VLANs: traffic must use the default gateway; PC2's default route pointed to .254 instead of the HSRP virtual IP .1. Ticket 3: STP turns the looped topology into a loop-free tree; on the root bridge all ports forward and each access switch has one root port forwarding and one blocked port. Making the STP root the HSRP active router keeps traffic on the shortest path to the gateway. In traceroute, the first hop shows the switch's physical SVI address, not the virtual IP. Ticket 4: traceroute stopped at DS1; there was no OSPF neighbor because the firewall's links were in area 10 instead of area 0 (the log said 'mismatched area ID'). OSPF neighbors must agree on the area. Ticket 5: the website was unreachable because the static NAT mapped the public address to 192.168.40.210 instead of the server's 192.168.40.200 ('show ip nat translations'). Ticket 6: the BGP session was established, but ISP A advertised the wrong prefix, so the route to the internet server never arrived. Use logs, show commands and debug to see behavior rather than reading all the configuration, fix one thing at a time, and confirm the result matches the baseline.",
+ tip:"Build the Case #14 network in a network simulator and save its baseline: 'show vlan brief', 'show interfaces trunk', 'show standby brief', 'show ip ospf neighbor', 'show ip bgp summary' and a traceroute. Then ask a friend to break one thing and find it by comparing.",
+ q:{q:"PC1 and PC4 are in the same VLAN but can't ping, and PC1's ARP entry for PC4 stays Incomplete. Which is the LEAST likely cause?",o:["A wrong default gateway on PC1","The VLAN not allowed on a trunk in the path","A subnet mask mismatch on PC4"],why:"Within the same network, hosts talk directly using ARP, so the default gateway isn't used. A trunk blocking the VLAN or a mask mismatch can both break the ARP exchange."}};
+
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
@@ -7880,9 +8052,10 @@ FIX_11.id = 36; FIX_11.part = 2; FIX_11.free = true;
 FIX_12.id = 37; FIX_12.part = 2; FIX_12.free = true;
 FIX_13.id = 38; FIX_13.part = 2; FIX_13.free = true;
 FIX_14.id = 39; FIX_14.part = 2; FIX_14.free = true;
+FIX_15.id = 40; FIX_15.part = 2; FIX_15.free = true;
 LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I, ISSUE_J, ISSUE_K, ISSUE_L, ISSUE_M);
 COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover, ISSUE_J.cover, ISSUE_K.cover, ISSUE_L.cover, ISSUE_M.cover);
-LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7, FIX_8, FIX_9, FIX_10, FIX_11, FIX_12, FIX_13, FIX_14); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover, FIX_8.cover, FIX_9.cover, FIX_10.cover, FIX_11.cover, FIX_12.cover, FIX_13.cover, FIX_14.cover);
+LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7, FIX_8, FIX_9, FIX_10, FIX_11, FIX_12, FIX_13, FIX_14, FIX_15); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover, FIX_8.cover, FIX_9.cover, FIX_10.cover, FIX_11.cover, FIX_12.cover, FIX_13.cover, FIX_14.cover, FIX_15.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
@@ -8668,7 +8841,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 27 issues are free, forever</li>
+          <li><i>\u2713</i>The first 28 issues are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>
