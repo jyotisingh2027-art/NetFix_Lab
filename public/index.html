@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 25 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 26 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 turns that knowledge into real fixes, one troubleshooting case at a time.</li>
-            <li>The first 25 issues are free. One payment opens the rest.</li>
+            <li>The first 26 issues are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first 25 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first 26 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first 25 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first 26 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole “Fix your own network” series</li><li>New troubleshooting cases as they are added</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -7539,6 +7539,156 @@ const FIX_12 = {no:"12", cover:COVERF12, t:"How do you connect your network to t
  tip:"On a home network, open your router's status page and find its WAN (internet) IP address. Then search 'what is my IP' in a browser: you'll usually see that same public address, shared by every device at home thanks to PAT.",
  q:{q:"A router can ping an internet server itself, but the PCs behind it can't. It has a default route to the ISP. What's most likely missing?",o:["NAT/PAT for the inside private addresses","A static route to the server","A default gateway on the router"],why:"The router's own pings use its public outside address, so replies return. The PCs' packets carry private source addresses, which need NAT before the internet will handle them."}};
 
+/* ---------- Fix your own network · Case 13: routing by rumor (original NetFixLab chapter) ---------- */
+const COVERF13 = {l:["ROUTING","BY","RUMOR"], t:["CASE #13: OSPF LINK-STATE","HOW IT AVOIDS LOOPS"], s:"red", a:"router", b:"router", ma:"worried", mb:"proud", sfx:"PING-PONG!"};
+const F13w = t => Math.max(8, Math.min(17, Math.round(Math.sqrt(t.length) * 1.75)));
+const F13one = (bg, ch, mood, t, fx) => ({bg, ch:[[ch, mood, 150, ch === "server" || ch === "phone" ? .5 : .56]], fx: fx ? [[fx, 150, 44, 22, -5, "#e63a2e", true]] : [], b: t ? [["s", t, 4, 4, F13w(t), "b", 55, ch]] : []});
+const F13duo = (bg, a, b, cap) => ({bg, ch:[[a[0], a[1], 110, .52], [b[0], b[1], 490, .52]], b:[["s", a[2], 2, 4, F13w(a[2]), "b", 18, a[0]], ["s", b[2], 97 - F13w(b[2]) * 2.3, 20, F13w(b[2]), "b", 80, b[0]]].concat(cap ? [["c", cap, 27, 78, 22]] : [])});
+/* topology: R1 Rooty (LAN 192.168.1.0/24) — R2 Rex — R3 Ruby, R2 — R4 Rio, R3 — R4 (slow backup, cost 100); R4 has LAN 172.16.0.0/24. Other links cost 10. */
+const NET13 = (m) => [["router",(m||[])[0]||"proud",75,.3,1,190],["router",(m||[])[1]||"happy",215,.3,1,190],["router",(m||[])[2]||"happy",370,.3,1,105],["router",(m||[])[3]||"happy",370,.3,1,280]];
+const NETL13 = (c) => [["line",105,172,180,172,(c||[])[0]||"#1f6fd1"],["line",245,160,335,95,(c||[])[1]||"#1f6fd1"],["line",245,182,335,262,(c||[])[2]||"#1f6fd1"],["line",370,122,370,240,(c||[])[3]||"#1f6fd1"],["line",405,268,470,268,"#2bb673"],["line",40,172,10,172,"#2bb673"],
+ ["word",75,215,"R1 ROOTY",11,0,"#fff3c4"],["word",215,215,"R2 REX",11,0,"#fff3c4"],["word",450,90,"R3 RUBY",11,0,"#fff3c4"],["word",450,300,"R4 RIO",11,0,"#fff3c4"],["word",535,268,"172.16.0.0/24",11,0,"#ffd23f"],["word",75,140,"192.168.1.0/24",10,0,"#ffd23f"],
+ ["word",142,160,"10",11,0,"#ffd23f"],["word",280,115,"10",11,0,"#ffd23f"],["word",280,240,"10",11,0,"#ffd23f"],["word",395,182,"100",11,0,"#ffd23f"]];
+const PAGESF13 = [
+/* ===== 1 ===== */
+{title:"Case #13: the packet that never arrives", rows:[
+ {h:250, p:[{bg:"room", ch:[["laptop","shock",130,.55]], over:[["sweat",200,100,1.1]], fx:[["TTL EXPIRED IN TRANSIT",430,60,18,-3,"#e63a2e",true]],
+   b:[["s","I can't reach the warehouse network, 172.16.0.0! And ping says 'TTL expired in transit'?!",30,30,17,"bl",8,"laptop"]]}]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["laptop","worried",545,.38]], over:[["cli",14,34,["> tracert 172.16.0.10","  1  192.168.1.1   (Rooty)","  2  10.1.12.2     (Rex)","  3  10.1.23.3     (Ruby)","*  4  10.1.23.2     (Rex)","*  5  10.1.23.3     (Ruby)  ...again and again"],13]], b:[]}]},
+ {h:240, p:[
+   F13one("rays:rose","router","worried","Rex → Ruby → Rex → Ruby... the packet bounces between us until its TTL hits 0!"),
+   F13one("rays:sun","laptop","proud","Remember TTL from Case #7? It's what stops a looping packet. So this is a ROUTING LOOP!")]},
+ {h:230, p:[
+   F13one("rays:lilac","phone","confused","Last night Rio's link to Rex went down. Since then: this."),
+   {bg:"chalk", over:[["chalktext",18,38,["CASE FILE #13","Symptom: loop after a link failed","Tools: distance vector vs link state","neighbors · LSAs · flooding","LSDB · SPF · areas"],14]], b:[]}]}
+]},
+/* ===== 2 ===== */
+{title:"Step 1: the network map", rows:[
+ {h:310, p:[{bg:"blueprint", ch:NET13(), over:[...NETL13()], b:[]}]},
+ {h:240, p:[
+   F13one("rays:sky","router","proud","Four routers. Each link between two of us is its own /24 subnet, like 10.1.12.0/24 between R1 and R2."),
+   F13one("rays:mint","laptop","happy","The third octet tells you who's on the link: 12 = R1–R2, 23 = R2–R3, 34 = R3–R4. Neat!")]},
+ {h:240, p:[F13duo("room", ["laptop","confused","And how do the routers learn about each other's networks?"], ["router","proud","Our old setup ran a DISTANCE VECTOR routing protocol. Links cost 10, except Ruby–Rio: a slow backup link, cost 100. Lower total cost = better path."])]}
+]},
+/* ===== 3 ===== */
+{title:"Distance vector: routing by rumor", rows:[
+ {h:250, p:[{bg:"blueprint", ch:[["router","happy",100,.4,1,230],["router","happy",300,.4,1,230],["router","proud",500,.4,1,230]], over:[["arrow",460,110,340,110,"#ffd23f"],["word",400,90,"'172.16 is 10 away'",12,0,"#fff3c4"],["arrow",260,150,140,150,"#ffd23f"],["word",200,130,"'172.16 is 20 away'",12,0,"#fff3c4"]], b:[]}]},
+ {h:240, p:[
+   F13one("rays:sky","router","proud","Distance vector: each router picks its best routes, then tells its neighbors only 'network X, this far, via me'."),
+   F13one("rays:rose","router","worried","Rex: so I only know what Ruby TELLS me. I never see the whole map. I just trust my neighbor!")]},
+ {h:240, p:[F13duo("room", ["phone","confused","Like passing a message along a line of people?"], ["router","proud","Exactly. And every router recalculates before passing anything on. Slow, and if a rumor is wrong, everyone believes it."])]},
+ {h:220, p:[
+   F13one("burst:yellow","router","worried",null,"RUMOR!"),
+   F13one("rays:lilac","laptop","confused","So when Rio's link failed, somebody passed on an old rumor?")]}
+]},
+/* ===== 4 ===== */
+{title:"Step 2: how the loop formed", rows:[
+ {h:300, p:[{bg:"blueprint", ch:NET13(["happy","worried","worried","happy"]), over:[...NETL13([null,"#e63a2e","#9aa3b5",null]),["word",300,225,"✗",26,0,"#e63a2e"]], b:[]}]},
+ {h:240, p:[
+   F13one("rays:rose","router","worried","Rex: my link to Rio died. 'No problem! Ruby told me SHE reaches 172.16 at cost 30. I'll send it to her!'"),
+   F13one("rays:rose","router","worried","Ruby: but my cost 30 was a route VIA REX, not my slow backup link! So I sent it right back.")]},
+ {h:240, p:[{bg:"blueprint", ch:[["router","shock",150,.42,1,220],["router","shock",450,.42,1,220]], over:[["arrow",200,110,400,110,"#e63a2e"],["arrow",400,160,200,160,"#e63a2e"],["envelope",300,135,.38,"→ 172.16"]], fx:[["PING-PONG!",300,50,22,-4,"#e63a2e",true]], b:[]}]},
+ {h:220, p:[F13duo("room", ["laptop","shock","Each one thinks the OTHER is the way out!"], ["router","proud","Until the rumors slowly count up past Ruby's backup path (cost 110). Meanwhile: a loop, and TTL kills every packet."])]}
+]},
+/* ===== 5 ===== */
+{title:"The fix: a LINK-STATE protocol", rows:[
+ {h:240, p:[
+   F13one("rays:sun","router","proud","Instead of rumors about ROUTES, let's share FACTS about LINKS. That's a {{link-state}} routing protocol."),
+   F13one("rays:mint","router","happy","The one we'll run: {{OSPF}}, Open Shortest Path First.")]},
+ {h:150, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["Distance vector","shares ROUTES, trusts neighbors"],["Link state (OSPF)","shares LINK facts, builds the full map"]],"TWO WAYS TO LEARN ROUTES"]], b:[]}]},
+ {h:240, p:[F13duo("room", ["laptop","confused","Is OSPF always link-state?"], ["router","proud","Inside an AREA, fully link-state. Between areas it passes summaries, a bit like distance vector. Today: one area, pure link state!"])]},
+ {h:220, p:[
+   F13one("burst:yellow","router","proud",null,"FACTS, NOT RUMORS!"),
+   F13one("rays:lilac","phone","happy","Show me how it works, step by step!")]}
+]},
+/* ===== 6 ===== */
+{title:"OSPF step 1: find your neighbors", rows:[
+ {h:250, p:[{bg:"blueprint", ch:[["router","proud",120,.42,1,230],["router","happy",480,.42,1,230]], over:[["line",160,210,440,210,"#1f6fd1"],["envelope",300,120,.42,"HELLO"],["word",300,185,"10.1.12.0/24",13,0,"#ffd23f"]], b:[["c","OSPF routers send HELLO packets on each link to discover neighbors.",2,4,30]]}]},
+ {h:240, p:[
+   F13one("rays:sky","router","proud","A {{neighbor}} = another router on the SAME link, running the SAME routing protocol."),
+   F13one("rays:mint","router","happy","On Rooty's LAN link there's no OSPF router, so no neighbor there. Just PCs!")]},
+ {h:240, p:[F13duo("room", ["phone","confused","And how do routers tell each other apart?"], ["router","proud","Each has a unique ROUTER ID, written like an IP address: I'm 1.1.1.1, Rex is 2.2.2.2, Ruby 3.3.3.3, Rio 4.4.4.4."])]},
+ {h:220, p:[
+   F13one("burst:blue","router","proud",null,"HELLO!"),
+   F13one("rays:sky","router","happy","Rex: Hello back! We're neighbors now.")]}
+]},
+/* ===== 7 ===== */
+{title:"OSPF step 2: describe your links (LSAs)", rows:[
+ {h:260, p:[{bg:"plain:#fff3c4", over:[["rtable",15,12,570,[["I am","router 1.1.1.1 (Rooty)"],["link 1","192.168.1.0/24 · cost 10 · no neighbor"],["link 2","10.1.12.0/24 · cost 10 · neighbor 2.2.2.2"]],"ROOTY'S LSA (LINK-STATE ADVERTISEMENT)"]], b:[]}]},
+ {h:240, p:[
+   F13one("rays:sky","router","proud","An {{LSA}}, link-state advertisement: 'Here's who I am, my links, my neighbors, and each link's cost.'"),
+   F13one("rays:mint","router","happy","Facts about MY OWN links only. No guesses about anyone else's routes!")]},
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["rtable",15,12,570,[["I am","router 2.2.2.2 (Rex)"],["link to R1","10.1.12.0/24 · cost 10 · neighbor 1.1.1.1"],["link to R3","10.1.23.0/24 · cost 10 · neighbor 3.3.3.3"],["link to R4","10.1.24.0/24 · cost 10 · neighbor 4.4.4.4"]],"REX'S LSA"]], b:[]}]},
+ {h:220, p:[F13duo("room", ["laptop","confused","What does the cost mean?"], ["router","proud","Like kilometers between towns. OSPF sets it from link speed: faster link, lower cost. Ruby–Rio is slow: cost 100."])]}
+]},
+/* ===== 8 ===== */
+{title:"OSPF step 3: flood it everywhere", rows:[
+ {h:300, p:[{bg:"blueprint", ch:NET13(["proud","happy","happy","happy"]), over:[...NETL13(),["envelope",142,135,.3,"LSA R1"],["envelope",290,95,.3,"LSA R1"],["envelope",290,250,.3,"LSA R1"],["envelope",410,180,.3,"LSA R1"]], fx:[["FLOOD!",470,40,20,-4,"#e63a2e",true]], b:[]}]},
+ {h:240, p:[
+   F13one("rays:sky","router","proud","Rex: I get Rooty's LSA, copy it into my database, and pass it on unchanged. No calculating first!"),
+   F13one("rays:mint","router","happy","Ruby: already have this one? Then I don't send it again. The flooding stops by itself.")]},
+ {h:240, p:[F13duo("room", ["phone","happy","So it travels as fast as a normal packet?"], ["router","proud","Yes! Distance vector waits at every router to recalculate. Link-state info just gets copied and forwarded."], "This is called FLOODING: every router sends its LSA to every other router.")]},
+ {h:220, p:[
+   F13one("rays:lilac","laptop","happy","And every router floods its own LSA the same way."),
+   F13one("burst:blue","router","proud",null,"4 LSAs!")]}
+]},
+/* ===== 9 ===== */
+{title:"Step 4: the same database everywhere", rows:[
+ {h:260, p:[{bg:"blueprint", over:[["stack",15,40,.8,[["LSA R1","#ffd23f",90],["LSA R2","#ffd23f",90],["LSA R3","#ffd23f",90],["LSA R4","#ffd23f",90]]],["word",210,110,"Rooty's LSDB",13,0,"#fff3c4"],["stack",15,150,.8,[["LSA R1","#ffd23f",90],["LSA R2","#ffd23f",90],["LSA R3","#ffd23f",90],["LSA R4","#ffd23f",90]]],["word",210,220,"Rio's LSDB",13,0,"#fff3c4"]], fx:[["IDENTICAL!",470,130,22,-5,"#2bb673",true]], b:[]}]},
+ {h:240, p:[
+   F13one("rays:sky","router","proud","After flooding, every router holds ALL the LSAs: its {{link-state database}} (LSDB)."),
+   F13one("rays:mint","router","happy","And within one area, every router's LSDB is EXACTLY the same.")]},
+ {h:240, p:[F13duo("room", ["laptop","shock","So every router has the same view of the network?"], ["router","proud","Yes! Nobody depends on a neighbor's opinion. Everyone has the same facts."])]},
+ {h:220, p:[
+   F13one("rays:lilac","phone","confused","But a list of LSAs isn't a map... is it?"),
+   F13one("rays:sun","router","proud","It is, if you draw it. Watch!")]}
+]},
+/* ===== 10 ===== */
+{title:"Step 5: draw the map, run SPF", rows:[
+ {h:310, p:[{bg:"chalk", ch:NET13(), over:[...NETL13()], b:[["c","From the four LSAs alone, Rio redraws the WHOLE network: every router, link, network and cost.",2,3,30]]}]},
+ {h:240, p:[
+   F13one("rays:sky","router","proud","Then each router runs the {{SPF}} algorithm (shortest path first, by Dijkstra) with ITSELF at the root."),
+   F13one("rays:mint","laptop","proud","Like finding the shortest drive between towns on a map with kilometers marked!")]},
+ {h:150, p:[{bg:"plain:#fff3c4", over:[["rtable",15,12,570,[["R1 → R2 → R4 → LAN","10 + 10 + 10 = 30 ✓ best"],["R1 → R2 → R3 → R4 → LAN","10 + 10 + 100 + 10 = 130"]],"ROOTY'S SPF: TO REACH 172.16.0.0/24"]], b:[]}]},
+ {h:220, p:[F13duo("room", ["phone","happy","And the result goes in the routing table?"], ["router","proud","Yes: '172.16.0.0/24 via Rex, cost 30'. Calculated by ME, from the full map."])]}
+]},
+/* ===== 11 ===== */
+{title:"Step 6: why no loop now", rows:[
+ {h:300, p:[{bg:"blueprint", ch:NET13(["proud","proud","proud","proud"]), over:[...NETL13([null,null,"#9aa3b5",null]),["word",300,225,"✗",26,0,"#e63a2e"]], b:[]}]},
+ {h:240, p:[
+   F13one("rays:sky","router","proud","Rex's link to Rio fails again. Rex floods a NEW LSA: higher sequence number, that link removed."),
+   F13one("rays:mint","router","happy","Newer sequence number = more recent. Everyone replaces the old LSA and runs SPF again.")]},
+ {h:240, p:[
+   F13one("rays:sun","router","proud","Same map for all: Ruby now goes straight to Rio over the backup link (110), Rex goes via Ruby (120). No ping-pong!"),
+   F13one("rays:sky","laptop","proud","Nobody sends a packet back to a router that would send it back again. Everyone sees the whole picture!")]},
+ {h:220, p:[F13duo("room", ["phone","confused","Can OSPF ever loop?"], ["router","proud","Only briefly while LSAs are still flooding. Once every LSDB matches, every router agrees on the paths."])]}
+]},
+/* ===== 12 ===== */
+{title:"Step 7: confirm the fix", rows:[
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["laptop","proud",545,.38]], over:[["cli",14,36,["> tracert 172.16.0.10","  1  192.168.1.1   (Rooty)","  2  10.1.12.2     (Rex)","  3  10.1.23.3     (Ruby)","  4  10.1.34.4     (Rio)","  5  172.16.0.10   ✓"],13]], b:[]}]},
+ {h:240, p:[
+   F13one("burst:yellow","laptop","proud",null,"NO MORE LOOP!"),
+   F13one("rays:mint","router","happy","Rio: and when my link to Rex comes back, one new LSA and everyone switches to the shorter path again.")]},
+ {h:240, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["1","find neighbors (hello packets)"],["2","flood LSAs: my links, neighbors, costs"],["3","build the LSDB: identical in the area"],["4","run SPF (Dijkstra) from myself"],["5","install the best routes in the routing table"]],"OSPF IN FIVE STEPS"]], b:[]}]},
+ {h:220, p:[F13duo("room", ["laptop","proud","Areas keep the LSDB small, so huge networks don't flood everything everywhere."], ["router","proud","Exactly. We'll meet multi-area OSPF another day."])]}
+]},
+/* ===== 13 ===== */
+{title:"Your fix-it checklist", rows:[
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["1","'TTL expired in transit'? suspect a routing loop"],["2","traceroute repeats the same two hops? that's the loop"],["3","check what each router's table says for that network"],["4","distance vector after a failure? old rumors can loop"],["5","link state (OSPF): check neighbors and LSDB are complete"]],"PACKETS DYING IN THE MIDDLE?"]], b:[]}]},
+ {h:240, p:[F13duo("room", ["phone","proud","Distance vector shares routes and trusts neighbors. Link state shares link facts."], ["router","proud","And with the same LSDB, every router draws the same map and calculates loop-free paths."])]},
+ {h:240, p:[
+   F13one("rays:sky","laptop","happy","Hello, LSA, flood, LSDB, SPF, routing table!"),
+   F13one("rays:sun","router","proud","That's OSPF's link-state nature.")]},
+ {h:220, p:[
+   F13one("burst:blue","router","proud",null,"CASE CLOSED!"),
+   {bg:"rays:mint", ch:[["laptop","happy",150,.52]], b:[["c","Case #13 closed. See you at the next case!",4,4,13]]}]}
+]}
+];
+const FIX_13 = {no:"13", cover:COVERF13, t:"OSPF link-state nature: how does it avoid loops?", b:"Case #13: after a link failure, packets bounce between two routers until TTL expires. Solve it with link-state routing: OSPF neighbors, LSAs, the LSDB and SPF.", m:18, star:"router", part:2, pages:PAGESF13,
+ take:"A routing loop shows up as 'TTL expired in transit' and a traceroute that repeats the same hops. Distance vector protocols share each router's best routes ('network X, this far, via me') and every router trusts its neighbors and recalculates before passing anything on: slow, and after a failure an outdated route can bounce between routers until it dies out. Link-state protocols such as OSPF (Open Shortest Path First) share facts about links instead. Step 1: find neighbors with hello packets; a neighbor is a router on the same link running the same protocol, and each router has a unique router ID (e.g. 1.1.1.1). Step 2: each router creates a link-state advertisement (LSA) listing its router ID, its links (networks), neighbors and each link's cost (based on link speed; lower is better). Step 3: LSAs are flooded to every router, copied and forwarded unchanged without calculation, so they spread at packet speed; a router doesn't resend an LSA it already has. Step 4: every router stores all LSAs in its link-state database (LSDB), which is identical for all routers in an area. Step 5: each router draws the full map from the LSDB and runs the SPF (shortest path first, Dijkstra) algorithm with itself as the root, then installs the best routes. When a link fails, the router floods a new LSA with a higher sequence number; everyone updates and reruns SPF. Because all routers share the same map, they agree on loop-free paths. OSPF is fully link-state within an area; between areas it passes summaries. Areas keep the LSDB small.",
+ tip:"In a network simulator, connect four routers in a square, enable OSPF on all links, then run 'show ip ospf neighbor' and 'show ip ospf database'. Notice that the database lists one router LSA per router, the same on every router.",
+ q:{q:"In an OSPF area, what do all routers have in common once flooding has finished?",o:["An identical link-state database","An identical routing table","The same router ID"],why:"Every router stores the same LSAs (the LSDB). Each then runs SPF from its own position, so their routing tables differ, and router IDs must be unique."}};
+
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
@@ -7563,9 +7713,10 @@ FIX_9.id = 34; FIX_9.part = 2; FIX_9.free = true;
 FIX_10.id = 35; FIX_10.part = 2; FIX_10.free = true;
 FIX_11.id = 36; FIX_11.part = 2; FIX_11.free = true;
 FIX_12.id = 37; FIX_12.part = 2; FIX_12.free = true;
+FIX_13.id = 38; FIX_13.part = 2; FIX_13.free = true;
 LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I, ISSUE_J, ISSUE_K, ISSUE_L, ISSUE_M);
 COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover, ISSUE_J.cover, ISSUE_K.cover, ISSUE_L.cover, ISSUE_M.cover);
-LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7, FIX_8, FIX_9, FIX_10, FIX_11, FIX_12); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover, FIX_8.cover, FIX_9.cover, FIX_10.cover, FIX_11.cover, FIX_12.cover);
+LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7, FIX_8, FIX_9, FIX_10, FIX_11, FIX_12, FIX_13); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover, FIX_8.cover, FIX_9.cover, FIX_10.cover, FIX_11.cover, FIX_12.cover, FIX_13.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
@@ -8351,7 +8502,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 25 issues are free, forever</li>
+          <li><i>\u2713</i>The first 26 issues are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>
