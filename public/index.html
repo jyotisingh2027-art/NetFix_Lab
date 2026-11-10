@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 26 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 27 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 turns that knowledge into real fixes, one troubleshooting case at a time.</li>
-            <li>The first 26 issues are free. One payment opens the rest.</li>
+            <li>The first 27 issues are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first 26 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first 27 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first 26 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first 27 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole “Fix your own network” series</li><li>New troubleshooting cases as they are added</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -7689,6 +7689,171 @@ const FIX_13 = {no:"13", cover:COVERF13, t:"OSPF link-state nature: how does it 
  tip:"In a network simulator, connect four routers in a square, enable OSPF on all links, then run 'show ip ospf neighbor' and 'show ip ospf database'. Notice that the database lists one router LSA per router, the same on every router.",
  q:{q:"In an OSPF area, what do all routers have in common once flooding has finished?",o:["An identical link-state database","An identical routing table","The same router ID"],why:"Every router stores the same LSAs (the LSDB). Each then runs SPF from its own position, so their routing tables differ, and router IDs must be unique."}};
 
+/* ---------- Fix your own network · Case 14: design a small office network (original NetFixLab chapter) ---------- */
+const COVERF14 = {l:["THE","OFFICE","BLUEPRINT"], t:["CASE #14: DESIGN A","SMALL OFFICE NETWORK"], s:"blue", a:"switch", b:"router", ma:"confused", mb:"proud", sfx:"BLUEPRINT!"};
+const F14w = t => Math.max(8, Math.min(17, Math.round(Math.sqrt(t.length) * 1.75)));
+const F14one = (bg, ch, mood, t, fx) => ({bg, ch:[[ch, mood, 150, ch === "server" || ch === "phone" ? .5 : .56]], fx: fx ? [[fx, 150, 44, 22, -5, "#e63a2e", true]] : [], b: t ? [["s", t, 4, 4, F14w(t), "b", 55, ch]] : []});
+const F14duo = (bg, a, b, cap) => ({bg, ch:[[a[0], a[1], 110, .52], [b[0], b[1], 490, .52]], b:[["s", a[2], 2, 4, F14w(a[2]), "b", 18, a[0]], ["s", b[2], 97 - F14w(b[2]) * 2.3, 20, F14w(b[2]), "b", 80, b[0]]].concat(cap ? [["c", cap, 27, 78, 22]] : [])});
+/* topology: DS1/DS2 distribution switches on top, AS1–AS3 access switches (one per floor) below; every access switch uplinks to both distribution switches */
+const TOPO14 = (m) => [["switch",(m||[])[0]||"proud",200,.38,1,110],["switch",(m||[])[1]||"proud",400,.38,1,110],["switch",(m||[])[2]||"happy",100,.36,1,272],["switch",(m||[])[3]||"happy",300,.36,1,272],["switch",(m||[])[4]||"happy",500,.36,1,272]];
+const TOPOL14 = (c) => { c = c || []; return [["line",250,100,350,100,c[5]||"#2bb673"],["line",185,118,105,252,c[0]||"#f08a24"],["line",210,118,290,252,c[1]||"#f08a24"],["line",230,115,485,252,c[2]||"#f08a24"],["line",370,115,115,252,c[3]||"#9aa3b5"],["line",390,118,310,252,c[6]||"#9aa3b5"],["line",415,118,495,252,c[4]||"#9aa3b5"],
+ ["word",200,75,"DS1",13,0,"#fff3c4"],["word",400,75,"DS2",13,0,"#fff3c4"],["word",100,300,"AS1 · FLOOR 1",11,0,"#fff3c4"],["word",300,300,"AS2 · FLOOR 2",11,0,"#fff3c4"],["word",500,300,"AS3 · FLOOR 3",11,0,"#fff3c4"],["word",300,35,"DISTRIBUTION LAYER",13,0,"#ffd23f"]]; };
+const PAGESF14 = [
+/* ===== 1 ===== */
+{title:"Case #14: a whole office, from nothing", rows:[
+ {h:250, p:[{bg:"street", ch:[["laptop","shock",130,.55]], over:[["sweat",200,100,1.1]], fx:[["A BLANK PAGE!",430,60,22,-3,"#e63a2e",true]],
+   b:[["s","Rooty! A new company just rented three floors and asked: 'Can you design our office network?' And my mind went BLANK!",30,24,17,"bl",8,"laptop"]]}]},
+ {h:240, p:[
+   F14one("rays:sky","laptop","confused","I know subnets, VLANs, STP, routing... but a design question with no instructions? I freeze!"),
+   F14one("rays:sun","router","proud","Good news: strong fundamentals are the one thing a design truly needs. And you have them.")]},
+ {h:240, p:[F14duo("room", ["laptop","worried","So where do I start? Draw switches right away?"], ["router","proud","NO! Never jump straight into the design. First, research the business. Then collect the requirements."])]},
+ {h:230, p:[
+   F14one("rays:mint","router","happy","The company is Fieldstar Sports. It makes sporting goods: bats, balls, rackets, nets. Customers order on its website."),
+   {bg:"chalk", over:[["chalktext",18,38,["CASE FILE #14","Task: design a small office network","Step 0: research the business","Step 1: collect requirements","Step 2: high-level design"],14]], b:[]}]}
+]},
+/* ===== 2 ===== */
+{title:"Step 1: the site visit", rows:[
+ {h:250, p:[{bg:"room", ch:[["router","proud",120,.5],["person","#3a6fc0",470,.85]], over:[["paper",300,70,.6,["NOTES"]]],
+   b:[["s","We call this an on-site meeting. I go to the customer, ask questions, and write down every answer.",3,4,15,"b",18,"router"],["s","Ask away! We just want a network that works.",60,20,12,"b",82]]}]},
+ {h:240, p:[F14duo("room", ["router","proud","Question 1: how many people will work here?"], ["laptop","happy","Customer: 40 to 50. On floors 1, 2 and 3. The ground floor is parking."])]},
+ {h:250, p:[{bg:"blueprint", ch:[["laptop","happy",80,.32,1,150],["phone","happy",180,.3,1,150],["server","proud",520,.3,1,150]], over:[["pc",300,150,.8,"#9aa3b5","PC"],["printer",410,150,.55,"happy"],["word",80,200,"LAPTOPS",12,0,"#fff3c4"],["word",180,200,"PHONES · TABLETS",12,0,"#fff3c4"],["word",410,200,"3 PRINTERS",12,0,"#fff3c4"],["word",520,200,"SERVERS",12,0,"#fff3c4"],["word",300,240,"+ IP CAMERAS",14,0,"#ffd23f"]],
+   b:[["c","Question 2: which DEVICES? We connect devices, not people!",3,4,22]]}]},
+ {h:240, p:[
+   F14one("rays:rose","server","worried","And one server runs the company website. That's how Fieldstar earns money. It must NEVER go down!"),
+   F14one("rays:sky","router","proud","Noted. That sentence will shape the whole design.")]}
+]},
+/* ===== 3 ===== */
+{title:"More questions, more answers", rows:[
+ {h:240, p:[F14duo("room", ["router","proud","Question 3: are people in different departments?"], ["laptop","happy","Yes: HR, Sales and Engineering."], "Departments → VLANs and IP addressing!")]},
+ {h:240, p:[F14duo("room", ["router","proud","Question 4: how will devices get IP addresses? Should they reach each other by name?"], ["laptop","confused","We don't know IP addressing. But yes: devices should talk using names."], "So we need DHCP and DNS on premises (inside the building)")]},
+ {h:240, p:[
+   F14one("rays:lilac","phone","happy","Email and file transfer? They're cloud services, out on the internet."),
+   F14one("rays:rose","router","worried","So the INTERNET must always be up too: the website AND the cloud apps depend on it.")]},
+ {h:240, p:[F14duo("room", ["router","proud","Question 5: how many employees in two or three years?"], ["laptop","happy","Maybe 100. Oh, and only about 30 come in each day. About 20 work from home."], "A good designer asks about the FUTURE too")]}
+]},
+/* ===== 4 ===== */
+{title:"The requirements list", rows:[
+ {h:300, p:[{bg:"plain:#fff3c4", over:[["rtable",15,12,570,[["website","always up and running"],["no single point of failure","one failure ≠ whole network down"],["~120 devices","40–50 people × 2–3 devices each"],["3 departments","HR · Sales · Engineering"],["DHCP + DNS","on premises"],["internet","always up (cloud apps)"],["growth","scale to 100+ people"],["remote workers","secure access from home"]],"FIELDSTAR REQUIREMENTS"]], b:[]}]},
+ {h:240, p:[
+   F14one("rays:sun","laptop","shock","Wait. It's not 50 connections. It's around 120 DEVICE connections!"),
+   F14one("rays:mint","router","proud","Right. And now that the requirements are clear, we can start the high-level design.")]},
+ {h:240, p:[F14duo("room", ["phone","confused","What's a 'single point of failure'?"], ["router","proud","Any one device or link that, if it goes down, takes the whole network down with it. The customer said: none!"])]},
+ {h:200, p:[
+   F14one("burst:yellow","router","proud",null,"ASK FIRST!"),
+   F14one("rays:sky","laptop","happy","You can't design a network until the requirements are clear.")]}
+]},
+/* ===== 5 ===== */
+{title:"Step 2: the access layer", rows:[
+ {h:300, p:[{bg:"blueprint", ch:[["switch","happy",470,.4,1,100],["switch","happy",470,.4,1,185],["switch","happy",470,.4,1,270]], over:[["pc",80,110,.6,O7,""],["pc",160,110,.6,T7,""],["printer",250,110,.42,"happy"],["pc",80,280,.6,P7,""],["pc",160,280,.6,O7,""],["ap",250,240,.7,""],["word",330,85,"FLOOR 3 · AS3",13,0,"#fff3c4"],["word",330,170,"FLOOR 2 · AS2",13,0,"#fff3c4"],["word",330,255,"FLOOR 1 · AS1",13,0,"#fff3c4"],["word",470,40,"48 PORTS EACH",14,0,"#ffd23f"]], b:[]}]},
+ {h:240, p:[
+   F14one("rays:sky","switch","proud","One 48-port switch per floor. 3 × 48 = 144 ports for about 120 devices. Room to spare!"),
+   F14one("rays:mint","switch","happy","PCs, printers and access points plug into us. Users ACCESS the network through us: we're the ACCESS LAYER.")]},
+ {h:250, p:[{bg:"blueprint", ch:[["switch","happy",100,.38,1,190],["switch","shock",300,.38,1,190],["switch","happy",500,.38,1,190]], over:[["line",145,175,255,175,"#e63a2e"],["line",345,175,455,175,"#e63a2e"],["word",300,140,"✗",36,0,"#e63a2e"],["word",100,240,"FLOOR 1",12,0,"#fff3c4"],["word",500,240,"FLOOR 3",12,0,"#fff3c4"]], fx:[["SPLIT!",480,110,24,-4,"#ffd23f",true]],
+   b:[["c","Why not chain the floors together? If the middle switch dies, floor 1 and floor 3 are cut off!",3,4,24]]}]},
+ {h:220, p:[F14duo("room", ["laptop","worried","So the middle switch is a single point of failure."], ["router","proud","Exactly. We connect the floors through another layer instead."])]}
+]},
+/* ===== 6 ===== */
+{title:"Step 3: the distribution layer", rows:[
+ {h:300, p:[{bg:"blueprint", ch:[["switch","proud",300,.38,1,110],["switch","happy",100,.36,1,272],["switch","happy",300,.36,1,272],["switch","happy",500,.36,1,272]], over:[["line",285,118,110,252,"#f08a24"],["line",300,118,300,252,"#f08a24"],["line",315,118,490,252,"#f08a24"],["word",300,40,"ONE DISTRIBUTION SWITCH?",13,0,"#ffd23f"],["word",100,300,"FLOOR 1",11,0,"#fff3c4"],["word",500,300,"FLOOR 3",11,0,"#fff3c4"]], b:[]}]},
+ {h:240, p:[
+   F14one("rays:sky","switch","proud","Floor 3 to floor 1: up to me, then down. I DISTRIBUTE traffic between floors: the DISTRIBUTION LAYER."),
+   F14one("rays:rose","laptop","worried","But if YOU fail, nobody reaches another floor. Another single point of failure!")]},
+ {h:310, p:[{bg:"blueprint", ch:TOPO14(), over:TOPOL14(), fx:[["+1!",470,40,20,-4,"#ffd23f",true]], b:[]}]},
+ {h:220, p:[F14duo("room", ["router","proud","So add a second distribution switch, and connect EVERY access switch to BOTH."], ["switch","happy","If DS1 goes down, the traffic goes through DS2. No single point of failure!"])]}
+]},
+/* ===== 7 ===== */
+{title:"Step 4: VLANs, subnets and trunks", rows:[
+ {h:200, p:[{bg:"plain:#fff3c4", over:[["rtable",15,12,570,[["VLAN 10 · HR","192.168.10.0/24 · gateway .1"],["VLAN 20 · ENGINEERING","192.168.20.0/24 · gateway .1"],["VLAN 30 · SALES","192.168.30.0/24 · gateway .1"]],"FIELDSTAR VLAN PLAN"]], b:[["c","Three departments → three VLANs, each with its own subnet",3,72,22]]}]},
+ {h:240, p:[
+   F14one("rays:sky","router","proud","A /24 has 256 addresses. The first is the network address, the last is broadcast: 254 usable hosts."),
+   F14one("rays:mint","laptop","happy","And the first usable one, .1, becomes the default gateway. Plenty for 100 people per department!")]},
+ {h:240, p:[F14duo("room", ["phone","confused","But a PC on floor 2 could be HR or Sales. How does one cable carry both?"], ["switch","proud","Ports to PCs are ACCESS ports, one VLAN each. Links between switches are TRUNKS: 802.1Q tags carry every VLAN."])]},
+ {h:220, p:[
+   F14one("burst:blue","switch","proud",null,"TAGGED!"),
+   F14one("rays:sun","router","happy","See? Every design decision is a fundamental you already know.")]}
+]},
+/* ===== 8 ===== */
+{title:"Step 5: gateways, STP and HSRP", rows:[
+ {h:250, p:[F14duo("room", ["laptop","confused","Where do the default gateways live?"], ["switch","proud","On us distribution switches! I create a switch virtual interface (SVI) per VLAN, like interface VLAN 10 at 192.168.10.1."])]},
+ {h:310, p:[{bg:"blueprint", ch:TOPO14(), over:[...TOPOL14(["#e63a2e","#9aa3b5","#9aa3b5","#e63a2e","#9aa3b5","#e63a2e"]),["word",105,185,"LOOP!",22,0,"#e63a2e"]], b:[]}]},
+ {h:240, p:[
+   F14one("rays:rose","switch","worried","Access to DS1, DS1 to DS2, DS2 back to access: that's a LOOP! Remember Case #4?"),
+   F14one("rays:mint","switch","proud","So Spanning Tree Protocol (STP) runs here. It blocks one port so the loop can't cause a broadcast storm.")]},
+ {h:240, p:[F14duo("room", ["laptop","worried","But if the gateway SVI is only on DS1 and DS1 dies, no one can leave their subnet!"], ["router","proud","Gateway redundancy! A first hop redundancy protocol, HSRP or VRRP, lets DS1 and DS2 share one virtual gateway IP, like 192.168.10.1."])]}
+]},
+/* ===== 9 ===== */
+{title:"Step 6: shared services, DHCP and DNS", rows:[
+ {h:310, p:[{bg:"blueprint", ch:[...TOPO14(), ["server","proud",55,.3,1,130],["dns","happy",545,.3,1,130]], over:[...TOPOL14(),["line",85,110,160,110,"#2bb673"],["line",440,110,515,110,"#2bb673"],["word",55,160,"DHCP",13,0,"#ffd23f"],["word",545,160,"DNS",13,0,"#ffd23f"]], b:[]}]},
+ {h:240, p:[
+   F14one("rays:sky","server","proud","Servo: I'm the DHCP server. Every PC, laptop, printer and phone gets its IP address from me."),
+   F14one("rays:mint","router","happy","Servers plug into the distribution switches: fewer hops than hanging them off one access switch.")]},
+ {h:250, p:[F14duo("room", ["dns","proud","Dee: I'm the LOCAL DNS server. I map internal names, like 'printer-2', to their IP addresses."], ["laptop","confused","Why not just use a public DNS server?"])]},
+ {h:240, p:[
+   F14one("rays:lilac","dns","happy","Public DNS has no idea about your private devices! For internet names I don't know, I forward the query to a public DNS server."),
+   F14one("rays:sun","router","proud","DHCP and DNS are called SHARED SERVICES: everyone needs them. For redundancy, companies often run more than one server.")]}
+]},
+/* ===== 10 ===== */
+{title:"Step 7: the network room", rows:[
+ {h:280, p:[{bg:"blueprint", ch:[["switch","happy",120,.38,1,110],["switch","happy",120,.38,1,175],["switch","happy",120,.38,1,240],["switch","proud",310,.38,1,140],["switch","proud",310,.38,1,205],["server","happy",430,.3,1,215],["wall","happy",530,.34,1,215]], over:[["word",120,268,"ACCESS",13,0,"#ffd23f"],["word",310,240,"DISTRIBUTION",13,0,"#ffd23f"],["word",430,250,"SERVERS",13,0,"#ffd23f"],["word",530,250,"FIREWALL",13,0,"#ffd23f"]],
+   b:[["c","The NETWORK ROOM: switches, servers and firewall sit in racks",3,4,22]]}]},
+ {h:240, p:[
+   F14one("rays:sky","laptop","confused","But I don't see any cables in the office!"),
+   F14one("rays:mint","router","proud","They run inside walls, above the ceiling or under the floor, all the way back to the network room. Like electrical wiring at home.")]},
+ {h:240, p:[F14duo("room", ["phone","happy","Is the network room called anything special?"], ["router","proud","Often a wiring closet, or MDF and IDF: main and intermediate distribution frames, the rooms where cabling ends in racks."])]},
+ {h:220, p:[
+   F14one("burst:yellow","switch","proud",null,"CABLE CLEAN!"),
+   F14one("rays:sun","laptop","happy","A real network engineer understands the cabling too!")]}
+]},
+/* ===== 11 ===== */
+{title:"Step 8: wireless", rows:[
+ {h:270, p:[{bg:"blueprint", ch:[["switch","proud",470,.34,1,200],["laptop","happy",80,.3,1,250],["phone","happy",180,.28,1,250]], over:[["ap",290,150,.9,"AP"],["line",330,170,420,190,"#f08a24"],["word",375,160,"TRUNK + PoE",13,0,"#ffd23f"],["word",130,110,"SSIDs: HR · ENG · SALES",13,0,"#fff3c4"]], b:[]}]},
+ {h:240, p:[
+   F14one("rays:sky","switch","proud","An access point (AP) per floor plugs into the access switch with an Ethernet cable. Wireless is only between the laptop and the AP!"),
+   F14one("rays:mint","switch","happy","And I power the AP through that same cable: Power over Ethernet, PoE. No extra power cable!")]},
+ {h:250, p:[F14duo("room", ["laptop","confused","How does the AP know I'm Engineering?"], ["switch","proud","The AP broadcasts three SSIDs: HR → VLAN 10, Engineering → VLAN 20, Sales → VLAN 30. Its uplink is a trunk, so frames arrive tagged."])]},
+ {h:240, p:[
+   F14one("rays:lilac","router","proud","For a few APs, standalone (autonomous) APs are fine. Big networks with hundreds of APs use a wireless LAN controller (WLC)."),
+   F14one("rays:sun","laptop","happy","Same design, it just scales up!")]}
+]},
+/* ===== 12 ===== */
+{title:"Step 9: internet, firewall and NAT", rows:[
+ {h:290, p:[{bg:"blueprint", ch:[["switch","proud",80,.26,1,150],["switch","proud",80,.26,1,250],["wall","proud",270,.3,1,210],["nimbus","happy",470,.26,1,110],["nimbus","happy",470,.26,1,260]], over:[["line",115,135,235,195,"#1f6fd1"],["line",115,240,235,215,"#1f6fd1"],["line",305,195,420,110,"#2bb673"],["line",305,215,420,255,"#9aa3b5"],["word",560,105,"ISP A",12,0,"#2bb673"],["word",560,255,"ISP B",12,0,"#fff3c4"],["word",375,135,"ACTIVE",11,0,"#2bb673"],["word",375,260,"STANDBY",11,0,"#fff3c4"],["word",270,255,"FIREWALL",12,0,"#ffd23f"]], b:[]}]},
+ {h:240, p:[
+   F14one("rays:sky","router","proud","Two internet service providers. ISP A is primary (active), ISP B is backup (standby). One ISP down ≠ internet down!"),
+   F14one("rays:mint","wall","proud","Wally: I track a reachable public server through ISP A. If the tracking fails, I switch traffic over to ISP B.")]},
+ {h:250, p:[F14duo("room", ["wall","proud","I also do NAT: private 192.168.x.x addresses become a public address on the way out."], ["laptop","happy","And you're the security guard. Internet = good people AND bad people!"])]},
+ {h:240, p:[
+   F14one("rays:rose","wall","worried","By default I let inside traffic out, but nothing from outside comes in. For the website, I open only port 443 (HTTPS)."),
+   F14one("rays:sun","router","proud","Best practice: put the public website server in a DMZ (demilitarized zone), separate from the internal network.")]}
+]},
+/* ===== 13 ===== */
+{title:"Step 10: remote workers and VPN", rows:[
+ {h:250, p:[{bg:"blueprint", ch:[["laptop","happy",70,.36,1,200],["nimbus","happy",300,.34,1,215],["wall","proud",525,.36,1,200]], over:[["tunnel",115,115,485,"#2bb673"],["padlock",300,65,.7],["word",70,240,"AT HOME",12,0,"#fff3c4"],["word",520,240,"OFFICE",12,0,"#fff3c4"]], b:[]}]},
+ {h:240, p:[
+   F14one("rays:sky","laptop","proud","The 20 people at home reach the office over a secure, encrypted tunnel across the internet to the firewall: a remote access VPN!"),
+   F14one("rays:mint","router","happy","Between the firewall and the distribution switches: static routes or OSPF. For a network this small, either works.")]},
+ {h:240, p:[F14duo("room", ["laptop","worried","Wait... there's only ONE firewall. Single point of failure!"], ["router","proud","Correct. The customer has no budget for a second one yet. So I write that down, and add an active/standby pair later."])]},
+ {h:240, p:[
+   F14one("rays:lilac","router","proud","Real designs have constraints: money, time, politics. A good design meets the requirements as well as it can, and says what's missing."),
+   F14one("rays:sun","switch","happy","And no firewall at all? Then no security and no VPN. One firewall is the right call for now.")]}
+]},
+/* ===== 14 ===== */
+{title:"Your design checklist", rows:[
+ {h:300, p:[{bg:"plain:#fff3c4", over:[["rtable",15,12,570,[["1","research the business"],["2","ask questions: people, devices, departments, growth"],["3","list business + technical requirements"],["4","access layer: one switch per floor"],["5","distribution layer: two switches, dual uplinks"],["6","VLANs, subnets, trunks, STP, SVIs, HSRP/VRRP"],["7","shared services: DHCP + DNS"],["8","wireless, firewall + NAT, two ISPs, VPN"]],"DESIGN A SMALL OFFICE"]], b:[]}]},
+ {h:240, p:[F14duo("room", ["phone","confused","And if someone just says 'design a small network' and won't answer questions?"], ["router","proud","Then state your assumptions out loud: 'By small, I mean 50 people on three floors.' The design changes with the answer!"])]},
+ {h:240, p:[
+   F14one("rays:sky","laptop","proud","Design questions don't test memory. They test how you THINK and connect the concepts."),
+   F14one("rays:sun","router","proud","And next time, we break this network on purpose and troubleshoot it!")]},
+ {h:220, p:[
+   F14one("burst:blue","switch","proud",null,"CASE CLOSED!"),
+   {bg:"rays:mint", ch:[["laptop","happy",150,.52]], b:[["c","Case #14 closed. See you at the next case!",4,4,13]]}]}
+]}
+];
+const FIX_14 = {no:"14", cover:COVERF14, t:"Can you design a network for a small office?", b:"Case #14: a new company rents three floors and needs a network. Collect the requirements first, then build the design: access and distribution layers, VLANs, STP, HSRP, DHCP, DNS, wireless, firewall, two ISPs and VPN.", m:20, star:"switch", part:2, pages:PAGESF14,
+ take:"Never jump straight into a design. First research the business, then collect requirements (an on-site meeting): number of people, floors, devices (laptops, PCs, phones, printers, IP cameras, servers), departments, how devices get IP addresses, name resolution, which apps are in the cloud, remote workers and growth. Count device connections, not people (50 people × 2–3 devices ≈ 120). Turn the answers into business and technical requirements, e.g. the website always up and no single point of failure (one device whose failure takes the whole network down). High-level design: the access layer is one 48-port switch per floor (3 × 48 = 144 ports) where users connect; don't chain access switches together, because the middle switch would be a single point of failure. The distribution layer connects the floors; use two distribution switches and connect every access switch to both. Give each department a VLAN and a subnet (e.g. VLAN 10 HR 192.168.10.0/24; a /24 has 254 usable hosts and .1 is the default gateway). PC ports are access ports; switch-to-switch links are 802.1Q trunks. Default gateways are SVIs on the distribution switches, and a first hop redundancy protocol (HSRP or VRRP) shares a virtual gateway IP between both, so one failure doesn't take down the gateway. The redundant links form loops, so STP blocks a port. DHCP and DNS are shared services connected to the distribution switches; the local DNS server resolves internal names and forwards internet names to public DNS. Cabling runs through walls, ceilings and floors to the network room (wiring closet, MDF/IDF). Wireless: an AP per floor connects to the access switch, powered by PoE; each SSID maps to a VLAN and the AP uplink is a trunk; large networks use a WLC. Internet: two ISPs in active/standby, with tracking of a reachable server to fail over. The firewall performs NAT, blocks unsolicited inbound traffic, opens only needed ports (443 for the website, ideally in a DMZ) and terminates remote access VPN for home workers. Routing between the firewall and distribution: static routes or OSPF. Note constraints honestly (one firewall is a single point of failure until budget allows an active/standby pair), and in an interview, ask questions and state your assumptions.",
+ tip:"In a network simulator, build two distribution and three access switches, create VLANs 10, 20 and 30, configure trunks, add SVIs with HSRP on both distribution switches, then shut down one distribution switch and check that a PC can still ping its gateway 192.168.10.1.",
+ q:{q:"Why does the design connect every access switch to BOTH distribution switches?",o:["So no single distribution switch is a single point of failure","So STP is no longer needed","So each floor gets twice the IP addresses"],why:"If one distribution switch fails, traffic uses the other. The extra links create loops, which is exactly why STP is still needed, and IP addressing is set by the subnet, not by links."}};
+
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
@@ -7714,9 +7879,10 @@ FIX_10.id = 35; FIX_10.part = 2; FIX_10.free = true;
 FIX_11.id = 36; FIX_11.part = 2; FIX_11.free = true;
 FIX_12.id = 37; FIX_12.part = 2; FIX_12.free = true;
 FIX_13.id = 38; FIX_13.part = 2; FIX_13.free = true;
+FIX_14.id = 39; FIX_14.part = 2; FIX_14.free = true;
 LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I, ISSUE_J, ISSUE_K, ISSUE_L, ISSUE_M);
 COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover, ISSUE_J.cover, ISSUE_K.cover, ISSUE_L.cover, ISSUE_M.cover);
-LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7, FIX_8, FIX_9, FIX_10, FIX_11, FIX_12, FIX_13); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover, FIX_8.cover, FIX_9.cover, FIX_10.cover, FIX_11.cover, FIX_12.cover, FIX_13.cover);
+LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7, FIX_8, FIX_9, FIX_10, FIX_11, FIX_12, FIX_13, FIX_14); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover, FIX_8.cover, FIX_9.cover, FIX_10.cover, FIX_11.cover, FIX_12.cover, FIX_13.cover, FIX_14.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
@@ -8502,7 +8668,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 26 issues are free, forever</li>
+          <li><i>\u2713</i>The first 27 issues are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>
