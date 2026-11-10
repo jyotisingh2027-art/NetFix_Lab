@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 24 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 25 free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 turns that knowledge into real fixes, one troubleshooting case at a time.</li>
-            <li>The first 24 issues are free. One payment opens the rest.</li>
+            <li>The first 25 issues are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first 24 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first 25 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first 24 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first 25 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole “Fix your own network” series</li><li>New troubleshooting cases as they are added</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -7384,6 +7384,161 @@ const FIX_11 = {no:"11", cover:COVERF11, t:"What happens when you type google.co
  tip:"Run tracert google.com (Windows) or traceroute google.com (Mac/Linux). Hop 1 is your own router, the next hops belong to your ISP, and the last is the server. Then run nslookup google.com to see the DNS answer your computer used.",
  q:{q:"Your laptop can ping its default gateway, but not 8.8.8.8, and traceroute stops after hop 1. The router was just reset. What should you check first?",o:["NAT/PAT on the router","The laptop's MAC address","The browser cache"],why:"The LAN and gateway work. Packets leave the router but nothing comes back: without NAT, they carry private source addresses that the ISP drops."}};
 
+/* ---------- Fix your own network · Case 12: the office with no way out (original NetFixLab chapter) ---------- */
+const COVERF12 = {l:["THE OFFICE","WITH NO","WAY OUT"], t:["CASE #12: CONNECT YOUR","NETWORK TO THE INTERNET"], s:"blue", a:"router", b:"laptop", ma:"worried", mb:"proud", sfx:"0.0.0.0/0!"};
+const F12w = t => Math.max(8, Math.min(17, Math.round(Math.sqrt(t.length) * 1.75)));
+const F12one = (bg, ch, mood, t, fx) => ({bg, ch:[[ch, mood, 150, ch === "server" || ch === "phone" ? .5 : .56]], fx: fx ? [[fx, 150, 44, 22, -5, "#e63a2e", true]] : [], b: t ? [["s", t, 4, 4, F12w(t), "b", 55, ch]] : []});
+const F12duo = (bg, a, b, cap) => ({bg, ch:[[a[0], a[1], 110, .52], [b[0], b[1], 490, .52]], b:[["s", a[2], 2, 4, F12w(a[2]), "b", 18, a[0]], ["s", b[2], 97 - F12w(b[2]) * 2.3, 20, F12w(b[2]), "b", 80, b[0]]].concat(cap ? [["c", cap, 27, 78, 22]] : [])});
+/* topology: PC-A .10, PC-B .20 → Sid → Rooty (g0/1 .1 inside, g0/0 203.0.113.100 outside) → ISP router 203.0.113.200 → internet → video server 198.51.100.9 */
+const TOPO12 = (m) => [["laptop",(m||[])[0]||"happy",45,.27,1,150],["laptop",(m||[])[1]||"happy",45,.27,1,265],["switch",(m||[])[2]||"happy",150,.3,1,210],["router",(m||[])[3]||"proud",265,.32,1,210],["router",(m||[])[4]||"happy",395,.32,1,210],["nimbus",(m||[])[5]||"happy",490,.28,1,120],["server",(m||[])[6]||"happy",555,.26,1,235]];
+const TOPOL12 = (c) => [["zone",5,60,300,240,"#1f6fd1","OFFICE LAN","192.168.0.0/24"],["line",70,145,125,195,"#1f6fd1"],["line",70,255,125,215,"#1f6fd1"],["line",180,205,230,205,"#1f6fd1"],["line",300,205,360,205,(c||"#f08a24")],["line",420,190,470,130,"#9aa3b5"],["line",420,215,530,230,"#9aa3b5"],["word",265,250,"ROOTY",11,0,"#fff3c4"],["word",395,250,"ISP .200",11,0,"#ffd23f"],["word",330,185,"203.0.113.0/24",10,0,"#ffd23f"],["word",555,285,"198.51.100.9",10,0,"#fff3c4"]];
+const PAGESF12 = [
+/* ===== 1 ===== */
+{title:"Case #12: day one at the new office", rows:[
+ {h:250, p:[{bg:"room", ch:[["laptop","proud",120,.5],["router","proud",480,.5]], fx:[["GRAND OPENING!",300,50,22,-3,"#e63a2e",true]],
+   b:[["s","New office, new desks! PC-A, PC-B, a switch, and Rooty as our router.",2,30,14,"b",18,"laptop"],["s","And the ISP cable just got plugged into my outside port!",58,30,12,"b",80,"router"]]}]},
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["laptop","shock",545,.38]], over:[["cli",14,40,["PC-A> ping 198.51.100.9","*Request timed out.","*Request timed out.","PC-A> ping 192.168.0.1   → Reply ✓"],13]],
+   b:[["c","The video server 198.51.100.9 can't be reached. But the gateway answers.",2,80,30]]}]},
+ {h:240, p:[
+   F12one("rays:lilac","phone","confused","And the boss's rule for this office: NO routing protocols. No OSPF, no EIGRP, no BGP!"),
+   F12one("rays:sun","router","proud","Fine by me. Everything can be done by hand: static routes and NAT.")]},
+ {h:230, p:[
+   F12one("rays:mint","laptop","proud","Let's trace the packet step by step and fix each problem we find."),
+   {bg:"chalk", over:[["chalktext",18,38,["CASE FILE #12","Symptom: LAN works, internet doesn't","Tools: routing table · static route","default route 0.0.0.0/0","private IPs · NAT/PAT · config"],14]], b:[]}]}
+]},
+/* ===== 2 ===== */
+{title:"Step 1: the office map", rows:[
+ {h:300, p:[{bg:"blueprint", ch:TOPO12(), over:[...TOPOL12()], b:[]}]},
+ {h:240, p:[
+   F12one("rays:sky","switch","proud","Inside: 192.168.0.0/24. That's 254 usable host addresses: .0 is the network, .255 the broadcast."),
+   F12one("rays:mint","router","proud","PC-A is .10, PC-B is .20, and I'm .1: their default gateway.")]},
+ {h:240, p:[F12duo("room", ["laptop","confused","And the outside part?"], ["router","proud","The ISP gave us 203.0.113.0/24. I took 203.0.113.100 on my outside port g0/0. The ISP's router is 203.0.113.200."], "Public addresses from the ISP. (Lucky office: whole /24 blocks are rare now!)")]},
+ {h:220, p:[
+   F12one("rays:lilac","phone","confused","Two different networks: the office and the server. So we need a router."),
+   F12one("burst:yellow","router","proud",null,"THAT'S ME!")]}
+]},
+/* ===== 3 ===== */
+{title:"Step 2: follow the packet", rows:[
+ {h:250, p:[{bg:"blueprint", ch:[["laptop","proud",90,.42,1,230],["router","proud",480,.44,1,230]], over:[["line",140,210,430,210,"#1f6fd1"],["envelope",280,110,.45,".0.10 → 198.51.100.9"]],
+   b:[["c","PC-A: 198.51.100.9 isn't on my network, so the packet goes to my default gateway, Rooty. (ARP for his MAC first!)",2,4,34]]}]},
+ {h:240, p:[
+   F12one("rays:sky","switch","proud","I deliver the frame to Rooty's port, by destination MAC. My job's done!"),
+   F12one("rays:rose","router","worried","Now I check my routing table for 198.51.100.9... and find NOTHING.")]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["router","shock",545,.38]], over:[["cli",12,34,["Rooty# show ip route","  C   192.168.0.0/24 is directly connected, g0/1","  C   203.0.113.0/24 is directly connected, g0/0","*  Gateway of last resort is not set"],12]],
+   b:[["c","Only two CONNECTED routes. No route to 198.51.100.9, so the packet is dropped.",2,78,32]]}]},
+ {h:220, p:[F12duo("room", ["laptop","shock","So Rooty throws my packet away?!"], ["router","proud","A router forwards only by its routing table. No matching route = drop. Problem #1!"])]}
+]},
+/* ===== 4 ===== */
+{title:"Teach Rooty a route", rows:[
+ {h:240, p:[
+   F12one("rays:sky","router","proud","Two ways to learn routes: DYNAMIC, with routing protocols (OSPF, EIGRP, BGP)..."),
+   F12one("rays:mint","router","happy","...or STATIC: an engineer types the route in by hand. That's our only option today.")]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["router","proud",545,.38]], over:[["cli",12,34,["Rooty(config)# ip route 198.51.100.0 255.255.255.0 203.0.113.200","Rooty# show ip route","  S   198.51.100.0/24 [1/0] via 203.0.113.200"],12]],
+   b:[["c","'To reach 198.51.100.0/24, hand the packet to the next hop: the ISP router at 203.0.113.200.'",2,78,34]]}]},
+ {h:240, p:[F12duo("room", ["phone","confused","Why the ISP router as the next hop?"], ["router","proud","It's my only way out! The ISP's network knows how to reach the rest of the internet."], "S = static route. [1/0] = administrative distance 1, metric 0.")]},
+ {h:220, p:[
+   F12one("burst:yellow","router","proud",null,"ROUTE ADDED!"),
+   F12one("rays:lilac","laptop","worried","Good for ONE server... but PC-A also wants email, news, maps, and thousands more sites!")]}
+]},
+/* ===== 5 ===== */
+{title:"A route for every network on Earth?", rows:[
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["router","shock",545,.38]], over:[["cli",12,30,["ip route 198.51.100.0 255.255.255.0 203.0.113.200","ip route 192.0.2.0 255.255.255.0 203.0.113.200","ip route 100.64.10.0 255.255.255.0 203.0.113.200","ip route 172.217.0.0 255.255.0.0 203.0.113.200","... hundreds of thousands more?!"],12]], fx:[["NO WAY!",470,40,20,-4,"#e63a2e",true]], b:[]}]},
+ {h:240, p:[
+   F12one("rays:rose","router","worried","The internet has hundreds of thousands of networks. I can't have each one typed in!"),
+   F12one("rays:sun","laptop","proud","And they ALL leave the same way: out g0/0, to the ISP. One exit for everything.")]},
+ {h:240, p:[F12duo("room", ["phone","confused","Is there one route that means 'the whole internet'?"], ["router","proud","Yes! The DEFAULT ROUTE: 0.0.0.0 with mask 0.0.0.0. Written 0.0.0.0/0."])]},
+ {h:220, p:[
+   F12one("burst:blue","router","proud",null,"0.0.0.0/0!"),
+   F12one("rays:mint","laptop","happy","But how can 0.0.0.0 mean EVERYTHING?")]}
+]},
+/* ===== 6 ===== */
+{title:"Why 0.0.0.0/0 matches everything", rows:[
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["/24 (255.255.255.0)","the first 24 bits must match"],["/16 (255.255.0.0)","the first 16 bits must match"],["/8 (255.0.0.0)","the first 8 bits must match"],["/0 (0.0.0.0)","ZERO bits must match → every address fits"]],"A MASK SAYS HOW MANY BITS MUST MATCH"]], b:[]}]},
+ {h:240, p:[
+   F12one("rays:sky","router","proud","Mask 0.0.0.0 checks no bits at all. So EVERY destination address matches the route 0.0.0.0/0."),
+   F12one("rays:mint","laptop","proud","One line instead of hundreds of thousands!")]},
+ {h:240, p:[F12duo("room", ["laptop","confused","But if 0.0.0.0/0 matches everything, does it beat my office route?"], ["router","proud","Never! Longest prefix match: /24 beats /0. The default route is used only when nothing more specific matches."], "That's why it's called the gateway of last resort.")]},
+ {h:220, p:[
+   F12one("rays:lilac","phone","happy","So: specific routes first, the default route for 'everything else'."),
+   F12one("burst:yellow","router","proud",null,"LAST RESORT!")]}
+]},
+/* ===== 7 ===== */
+{title:"Step 3: the default route", rows:[
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["router","proud",545,.38]], over:[["cli",12,34,["Rooty(config)# no ip route 198.51.100.0 255.255.255.0 203.0.113.200","Rooty(config)# ip route 0.0.0.0 0.0.0.0 203.0.113.200","Rooty# show ip route","  Gateway of last resort is 203.0.113.200 to network 0.0.0.0","  S*  0.0.0.0/0 [1/0] via 203.0.113.200"],11]], b:[]}]},
+ {h:240, p:[
+   F12one("rays:sky","router","proud","S* = static DEFAULT route. Any destination I don't know goes to the ISP."),
+   F12one("rays:mint","router","happy","Let me test it myself first...")]},
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["router","happy",545,.38]], over:[["cli",14,40,["Rooty# ping 198.51.100.9","!!!!!","Success rate is 100 percent (5/5)"],14]],
+   b:[["c","Rooty himself can reach the server now!",2,80,18]]}]},
+ {h:240, p:[{bg:"plain:#0e1530", ch:[["laptop","shock",545,.38]], over:[["cli",14,40,["PC-A> ping 198.51.100.9","*Request timed out.","*Request timed out."],14]],
+   b:[["c","CLUE: Rooty can reach it... but PC-A still can't! Why the difference?",2,80,30]]}]}
+]},
+/* ===== 8 ===== */
+{title:"Step 4: the private source", rows:[
+ {h:250, p:[{bg:"blueprint", ch:TOPO12(["happy","happy","happy","proud","worried","happy","happy"]), over:[...TOPOL12(),["envelope",330,110,.4,"from 192.168.0.10"],["word",395,150,"✗ DROP",14,0,"#e63a2e"]], b:[]}]},
+ {h:240, p:[
+   F12one("rays:sky","router","proud","When I ping, my source is 203.0.113.100: PUBLIC. Replies can find their way back to me."),
+   F12one("rays:rose","router","worried","PC-A's packets keep their source 192.168.0.10: a PRIVATE address.")]},
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["10.0.0.0/8","private"],["172.16.0.0/12","private"],["192.168.0.0/16","private (our office LAN)"]],"PRIVATE RANGES: NOT ROUTED ON THE INTERNET"]], b:[]}]},
+ {h:220, p:[F12duo("room", ["laptop","shock","So the ISP drops packets from private addresses?"], ["router","proud","Yes. Thousands of offices use 192.168.0.10. A reply 'to 192.168.0.10' could never find the right one. Problem #2!"])]}
+]},
+/* ===== 9 ===== */
+{title:"NAT: swap the source on the way out", rows:[
+ {h:250, p:[{bg:"blueprint", over:[["envelope",110,100,.42,"192.168.0.10 → .9"],["arrow",175,100,240,100,"#ffd23f"],["arrow",360,100,425,100,"#ffd23f"],["envelope",490,100,.42,"203.0.113.100 → .9"]], fx:[["SWAP!",300,40,22,-5,"#e63a2e",true]],
+   b:[["c","{{NAT}} (Network Address Translation): Rooty replaces the private source with his public address and saves the mapping in his NAT table.",2,78,36]]}]},
+ {h:240, p:[
+   F12one("rays:sky","server","proud","The server replies to 203.0.113.100. That's a public address on Rooty's connected network, so it gets back to him."),
+   F12one("rays:mint","router","proud","I look up my NAT table, swap the destination back to 192.168.0.10, and hand it to PC-A.")]},
+ {h:240, p:[F12duo("room", ["phone","confused","Does each PC need its own public address?"], ["router","proud","With STATIC NAT, yes: one-to-one. But with PAT (NAT overload), ALL our PCs share one public address, told apart by port number!"])]},
+ {h:150, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["PC-A 192.168.0.10:51000","203.0.113.100:1024"],["PC-B 192.168.0.20:51000","203.0.113.100:1025"]],"ROOTY'S NAT TABLE (PAT)"]], b:[]}]}
+]},
+/* ===== 10 ===== */
+{title:"Step 5: configure NAT/PAT", rows:[
+ {h:260, p:[{bg:"plain:#0e1530", ch:[["router","proud",550,.36]], over:[["cli",10,26,["Rooty(config)# interface g0/1","Rooty(config-if)# ip nat inside","Rooty(config)# interface g0/0","Rooty(config-if)# ip nat outside","Rooty(config)# access-list 1 permit 192.168.0.0 0.0.0.255","Rooty(config)# ip nat inside source list 1 interface g0/0 overload"],11]], b:[]}]},
+ {h:240, p:[
+   F12one("rays:sky","router","proud","'ip nat inside' = the LAN side, whose sources get translated. 'ip nat outside' = the internet side."),
+   F12one("rays:mint","laptop","proud","The access list here doesn't block anything: it just IDENTIFIES which addresses to translate.")]},
+ {h:240, p:[F12duo("room", ["phone","confused","And 'interface g0/0 overload'?"], ["router","proud","'Use g0/0's address (203.0.113.100) for everyone', and overload = PAT, sharing it by port."])]},
+ {h:220, p:[
+   F12one("burst:yellow","router","proud",null,"TRANSLATING!"),
+   F12one("rays:lilac","laptop","happy","Two PCs or two hundred: the same two commands cover them all.")]}
+]},
+/* ===== 11 ===== */
+{title:"Step 6: test it", rows:[
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["laptop","proud",545,.38]], over:[["cli",14,36,["PC-A> ping 198.51.100.9","Reply from 198.51.100.9: time=21ms","Reply from 198.51.100.9: time=20ms","PC-A> (opens the video site) ✓"],13]], b:[]}]},
+ {h:250, p:[{bg:"plain:#0e1530", ch:[["router","proud",545,.38]], over:[["cli",10,30,["Rooty# show ip nat translations","Pro  Inside global        Inside local       Outside global","icmp 203.0.113.100:1024 192.168.0.10:1     198.51.100.9:1","tcp  203.0.113.100:1025 192.168.0.20:51000 198.51.100.9:443"],10]],
+   b:[["c","Inside local = the real private address. Inside global = how it looks on the internet.",2,78,34]]}]},
+ {h:240, p:[
+   F12one("burst:yellow","laptop","proud",null,"ONLINE!"),
+   F12one("rays:mint","phone","happy","Video's playing on PC-B too. Both PCs, one public address!")]},
+ {h:220, p:[F12duo("room", ["laptop","proud","Two problems, two fixes: a default route to get OUT, NAT so replies come BACK."], ["router","proud","And not a single routing protocol. The boss will be happy!"])]}
+]},
+/* ===== 12 ===== */
+{title:"The whole picture", rows:[
+ {h:300, p:[{bg:"blueprint", ch:TOPO12(["proud","proud","happy","proud","happy","happy","proud"]), over:[...TOPOL12("#2bb673"),["word",330,150,"0.0.0.0/0 → .200",11,0,"#ffd23f"],["word",330,166,"+ NAT overload",11,0,"#ffd23f"]], b:[]}]},
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["rtable",15,12,570,[["1","PC: other network → default gateway (Rooty)"],["2","Rooty: no specific route → default route to the ISP"],["3","Rooty: NAT/PAT swaps private source → 203.0.113.100"],["4","ISP + internet carry it to 198.51.100.9"],["5","reply → 203.0.113.100 → NAT table → back to the PC"]],"ONE PACKET, START TO FINISH"]], b:[]}]},
+ {h:240, p:[
+   F12one("rays:sky","router","proud","The ISP knows the internet's routes, so I don't have to. That's why we pay for the service!"),
+   F12one("rays:sun","laptop","proud","One default route + PAT: how almost every home and small office connects.")]},
+ {h:220, p:[F12duo("room", ["phone","confused","And a big company with many ISPs?"], ["router","proud","Then routing protocols like BGP earn their place. For one exit, a default route is all you need."])]}
+]},
+/* ===== 13 ===== */
+{title:"Your fix-it checklist", rows:[
+ {h:250, p:[{bg:"plain:#fff3c4", over:[["rtable",15,16,570,[["1","gateway answers, internet doesn't? check 'show ip route'"],["2","'Gateway of last resort is not set'? add 0.0.0.0/0"],["3","router can ping out but PCs can't? NAT is missing"],["4","check ip nat inside / outside on the RIGHT interfaces"],["5","check the access list matches the LAN range"]],"NEW SITE CAN'T REACH THE INTERNET?"]], b:[]}]},
+ {h:240, p:[F12duo("room", ["phone","proud","0.0.0.0/0 matches every address, but only wins when nothing better matches."], ["router","proud","And NAT overload lets a whole private LAN share one public address."])]},
+ {h:240, p:[
+   F12one("rays:sky","laptop","happy","Static route: typed by hand. Dynamic: learned by a protocol."),
+   F12one("rays:mint","switch","proud","And private addresses stay inside the office!")]},
+ {h:220, p:[
+   F12one("burst:blue","router","proud",null,"CASE CLOSED!"),
+   {bg:"rays:mint", ch:[["laptop","happy",150,.52]], b:[["c","Case #12 closed. See you at the next case!",4,4,13]]}]}
+]}
+];
+const FIX_12 = {no:"12", cover:COVERF12, t:"How do you connect your network to the internet?", b:"Case #12: a new office's PCs can't reach the internet, and routing protocols aren't allowed. Fix it with a static default route and NAT/PAT.", m:18, star:"router", part:2, pages:PAGESF12,
+ take:"Hosts send traffic for other networks to their default gateway, the router. A router forwards only by its routing table; with just its connected routes (the LAN and the ISP link), a packet for an internet server has no matching route and is dropped. Routes are learned dynamically (routing protocols such as OSPF, EIGRP, BGP) or statically, typed by an engineer: ip route <network> <mask> <next hop>. A static route per internet network would mean hundreds of thousands of lines, but every one leaves via the ISP, so a single default route does it: ip route 0.0.0.0 0.0.0.0 <ISP next hop>. A mask says how many bits must match; /0 checks none, so 0.0.0.0/0 matches every destination, but by longest prefix match it's used only when nothing more specific matches, which is why it's called the gateway of last resort (S* in the table). The ISP knows the internet's routes. Inside hosts use private addresses (10/8, 172.16/12, 192.168/16), which aren't routed on the internet, so the router must NAT the source to its public address and record the mapping; replies come back to that public address and are translated back. Static NAT is one-to-one; PAT (NAT overload) lets many hosts share one public address by port. Configure: ip nat inside on the LAN interface, ip nat outside on the ISP interface, an access list identifying the inside range, and ip nat inside source list 1 interface g0/0 overload. In the NAT table, inside local is the private address and inside global is the translated public one.",
+ tip:"On a home network, open your router's status page and find its WAN (internet) IP address. Then search 'what is my IP' in a browser: you'll usually see that same public address, shared by every device at home thanks to PAT.",
+ q:{q:"A router can ping an internet server itself, but the PCs behind it can't. It has a default route to the ISP. What's most likely missing?",o:["NAT/PAT for the inside private addresses","A static route to the server","A default gateway on the router"],why:"The router's own pings use its public outside address, so replies return. The PCs' packets carry private source addresses, which need NAT before the internet will handle them."}};
+
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = true;
@@ -7407,9 +7562,10 @@ FIX_8.id = 33; FIX_8.part = 2; FIX_8.free = true;
 FIX_9.id = 34; FIX_9.part = 2; FIX_9.free = true;
 FIX_10.id = 35; FIX_10.part = 2; FIX_10.free = true;
 FIX_11.id = 36; FIX_11.part = 2; FIX_11.free = true;
+FIX_12.id = 37; FIX_12.part = 2; FIX_12.free = true;
 LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I, ISSUE_J, ISSUE_K, ISSUE_L, ISSUE_M);
 COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover, ISSUE_J.cover, ISSUE_K.cover, ISSUE_L.cover, ISSUE_M.cover);
-LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7, FIX_8, FIX_9, FIX_10, FIX_11); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover, FIX_8.cover, FIX_9.cover, FIX_10.cover, FIX_11.cover);
+LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7, FIX_8, FIX_9, FIX_10, FIX_11, FIX_12); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover, FIX_8.cover, FIX_9.cover, FIX_10.cover, FIX_11.cover, FIX_12.cover);
 /* Lesson ids are permanent: saved progress and analytics use them. The issue number on screen is the position in LESSONS.
    Adding a lesson: give it the next unused id (16, 17, ...) and free:true if it should be free.
    Supabase only accepts ids 1-200, and only ids listed in is_free_lesson() count as free there. */
@@ -8195,7 +8351,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 24 issues are free, forever</li>
+          <li><i>\u2713</i>The first 25 issues are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>
