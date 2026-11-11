@@ -8063,6 +8063,7 @@ const FIX_15 = {no:"15", cover:COVERF15, t:"How to troubleshoot a network", b:"C
  q:{q:"PC1 and PC4 are in the same VLAN but can't ping, and PC1's ARP entry for PC4 stays Incomplete. Which is the LEAST likely cause?",o:["A wrong default gateway on PC1","The VLAN not allowed on a trunk in the path","A subnet mask mismatch on PC4"],why:"Within the same network, hosts talk directly using ARP, so the default gateway isn't used. A trunk blocking the VLAN or a mask mismatch can both break the ARP exchange."}};
 
 ISSUE_A.video = {src:"video/ch1/index.m3u8", poster:"video/ch1/poster.jpg", m:13};
+ISSUE_B.video = {src:"video/ch2/index.m3u8", poster:"video/ch2/poster.jpg", m:12};
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = false;
