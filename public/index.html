@@ -521,7 +521,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <button class="btn" data-open="1">Read issue 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
-      <p class="facts"><span data-count></span> comic lessons · first 28 free · one payment, no subscription</p>
+      <p class="facts"><span data-count></span> comic lessons · first 3 of each part free · one payment, no subscription</p>
     </div>
     <div class="fan" id="fan" aria-hidden="true"></div>
   </section>
@@ -563,7 +563,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 turns that knowledge into real fixes, one troubleshooting case at a time.</li>
-            <li>The first 28 issues are free. One payment opens the rest.</li>
+            <li>The first 3 issues of each part are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -602,7 +602,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <details><summary>Do I need to know anything about computers?</summary><p>No. If you can connect a phone to Wi-Fi, you can start. Every new word shows up in a comic first.</p></details>
     <details><summary>Do I need an account?</summary><p>Not to read the free lessons. You need a free account to unlock the full course, so your purchase and progress follow you to any device.</p></details>
     <details><summary>Is this a subscription?</summary><p>No. You pay once and read every lesson.</p></details>
-    <details><summary>Can I get a refund?</summary><p>The first 28 lessons are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
+    <details><summary>Can I get a refund?</summary><p>The first 3 lessons of each part are free so you can try the course before buying, so all sales are final. If you are charged twice or your lessons do not unlock, write to support@netfixlab.tech and we will fix it or refund you. See the <a href="/refunds">refund policy</a>.</p></details>
     <details><summary>Will it fix my exact problem?</summary><p>It teaches the checks that solve the most common home problems, and what to tell your provider when the fault is on their side.</p></details>
     <details><summary>Is it only for people who want to become network engineers?</summary><p>No. It is for anyone curious about the thing their whole home depends on. It is also a friendly first step if the job sounds interesting.</p></details>
   </section>
@@ -648,7 +648,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first 28 lessons are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first 3 lessons of each part are free. Unlock the rest with one payment of <b data-price></b>.</p>
     <ul><li>The whole “Fix your own network” series</li><li>New troubleshooting cases as they are added</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
@@ -8028,31 +8028,31 @@ const FIX_15 = {no:"15", cover:COVERF15, t:"How to troubleshoot a network", b:"C
 
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
-ISSUE_D.part = 1; ISSUE_D.free = true;
-ISSUE_E.part = 1; ISSUE_E.free = true;
-ISSUE_F.part = 1; ISSUE_F.free = true;
-ISSUE_G.part = 1; ISSUE_G.free = true;
-ISSUE_H.part = 1; ISSUE_H.free = true;
-ISSUE_I.part = 1; ISSUE_I.free = true;
-ISSUE_J.part = 1; ISSUE_J.free = true;
-ISSUE_K.part = 1; ISSUE_K.free = true;
-ISSUE_L.part = 1; ISSUE_L.free = true;
-ISSUE_M.part = 1; ISSUE_M.free = true;
+ISSUE_D.part = 1; ISSUE_D.free = false;
+ISSUE_E.part = 1; ISSUE_E.free = false;
+ISSUE_F.part = 1; ISSUE_F.free = false;
+ISSUE_G.part = 1; ISSUE_G.free = false;
+ISSUE_H.part = 1; ISSUE_H.free = false;
+ISSUE_I.part = 1; ISSUE_I.free = false;
+ISSUE_J.part = 1; ISSUE_J.free = false;
+ISSUE_K.part = 1; ISSUE_K.free = false;
+ISSUE_L.part = 1; ISSUE_L.free = false;
+ISSUE_M.part = 1; ISSUE_M.free = false;
 FIX_1.id = 26; FIX_1.part = 2; FIX_1.free = true;
 FIX_2.id = 27; FIX_2.part = 2; FIX_2.free = true;
 FIX_3.id = 28; FIX_3.part = 2; FIX_3.free = true;
-FIX_4.id = 29; FIX_4.part = 2; FIX_4.free = true;
-FIX_5.id = 30; FIX_5.part = 2; FIX_5.free = true;
-FIX_6.id = 31; FIX_6.part = 2; FIX_6.free = true;
-FIX_7.id = 32; FIX_7.part = 2; FIX_7.free = true;
-FIX_8.id = 33; FIX_8.part = 2; FIX_8.free = true;
-FIX_9.id = 34; FIX_9.part = 2; FIX_9.free = true;
-FIX_10.id = 35; FIX_10.part = 2; FIX_10.free = true;
-FIX_11.id = 36; FIX_11.part = 2; FIX_11.free = true;
-FIX_12.id = 37; FIX_12.part = 2; FIX_12.free = true;
-FIX_13.id = 38; FIX_13.part = 2; FIX_13.free = true;
-FIX_14.id = 39; FIX_14.part = 2; FIX_14.free = true;
-FIX_15.id = 40; FIX_15.part = 2; FIX_15.free = true;
+FIX_4.id = 29; FIX_4.part = 2; FIX_4.free = false;
+FIX_5.id = 30; FIX_5.part = 2; FIX_5.free = false;
+FIX_6.id = 31; FIX_6.part = 2; FIX_6.free = false;
+FIX_7.id = 32; FIX_7.part = 2; FIX_7.free = false;
+FIX_8.id = 33; FIX_8.part = 2; FIX_8.free = false;
+FIX_9.id = 34; FIX_9.part = 2; FIX_9.free = false;
+FIX_10.id = 35; FIX_10.part = 2; FIX_10.free = false;
+FIX_11.id = 36; FIX_11.part = 2; FIX_11.free = false;
+FIX_12.id = 37; FIX_12.part = 2; FIX_12.free = false;
+FIX_13.id = 38; FIX_13.part = 2; FIX_13.free = false;
+FIX_14.id = 39; FIX_14.part = 2; FIX_14.free = false;
+FIX_15.id = 40; FIX_15.part = 2; FIX_15.free = false;
 LESSONS.unshift(ISSUE_A, ISSUE_B, ISSUE_C, ISSUE_D, ISSUE_E, ISSUE_F, ISSUE_G, ISSUE_H, ISSUE_I, ISSUE_J, ISSUE_K, ISSUE_L, ISSUE_M);
 COVERS.unshift(ISSUE_A.cover, ISSUE_B.cover, ISSUE_C.cover, ISSUE_D.cover, ISSUE_E.cover, ISSUE_F.cover, ISSUE_G.cover, ISSUE_H.cover, ISSUE_I.cover, ISSUE_J.cover, ISSUE_K.cover, ISSUE_L.cover, ISSUE_M.cover);
 LESSONS.push(FIX_1, FIX_2, FIX_3, FIX_4, FIX_5, FIX_6, FIX_7, FIX_8, FIX_9, FIX_10, FIX_11, FIX_12, FIX_13, FIX_14, FIX_15); COVERS.push(FIX_1.cover, FIX_2.cover, FIX_3.cover, FIX_4.cover, FIX_5.cover, FIX_6.cover, FIX_7.cover, FIX_8.cover, FIX_9.cover, FIX_10.cover, FIX_11.cover, FIX_12.cover, FIX_13.cover, FIX_14.cover, FIX_15.cover);
@@ -8841,7 +8841,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 28 issues are free, forever</li>
+          <li><i>\u2713</i>The first 3 issues of each part are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>

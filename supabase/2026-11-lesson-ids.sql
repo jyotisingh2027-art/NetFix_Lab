@@ -1,7 +1,6 @@
--- NetFixLab: November 2026 course update
--- Lessons now have permanent ids. Part 1 is the new comic issues (ids 13, 14, 15, free);
--- Part 2 keeps ids 8 to 12 (paid). The old Part 1 lessons (ids 1 to 7) were removed from the site;
--- their old progress rows are kept but no longer shown.
+-- NetFixLab: lesson ids and free lessons
+-- Lessons have permanent ids: Part 1 is ids 13 to 25, Part 2 is ids 26 to 40.
+-- Free: the first 3 lessons of each part (ids 13, 14, 15 and 26, 27, 28). The rest need the one-time payment.
 -- Run this once in Supabase: SQL Editor -> New query -> paste -> Run.
 
 -- 1. Accept lesson ids 1 to 200 (was 1 to 12)
@@ -16,7 +15,7 @@ returns boolean
 language sql
 immutable
 set search_path = ''
-as $$ select p_lesson in (13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40) $$;
+as $$ select p_lesson in (13, 14, 15, 26, 27, 28) $$;
 
 -- 3. Save progress: free lessons for everyone signed in, the rest only after payment
 create or replace function public.record_progress(p_lesson int, p_action text)
