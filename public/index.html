@@ -331,6 +331,18 @@ footer{border-top:3px solid var(--ink);padding-block:22px 36px;display:flex;flex
 .sheet{position:relative;width:min(520px,100%);background:var(--paper);border:3px solid var(--ink);box-shadow:8px 8px 0 var(--shadow);border-radius:8px;padding:28px 24px 24px;display:flex;flex-direction:column;gap:14px}
 .sheet h2{font-size:1.7rem}
 .sheet ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
+.was{color:var(--muted);font-weight:400;text-decoration-thickness:2px;margin-right:.15em}
+.offtag{display:inline-block;align-self:flex-start;background:#e63a2e;color:#fff;font:800 .8rem/1 var(--body);letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border:2px solid var(--ink);transform:rotate(-2deg)}
+#offer{z-index:9500}
+.sheet.offer{text-align:center;align-items:center;background:#fff3c4;color:#14213d;border-width:4px}
+.sheet.offer .fine{color:#5b6478}
+.offbadge{background:#e63a2e;color:#fff;font:800 .9rem/1 var(--body);letter-spacing:.1em;text-transform:uppercase;padding:8px 14px;border:3px solid #14213d;transform:rotate(-3deg);box-shadow:3px 3px 0 #14213d}
+.sheet.offer h2{margin:0;color:#14213d}
+.sheet.offer .big{color:#e63a2e}
+.offprice{font:400 2.4rem/1 var(--disp);margin:0}
+.offprice small{font:700 .9rem var(--body);color:#5b6478}
+.offprice .was{color:#8a90a0}
+.offact{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
 .x{position:absolute;top:8px;right:8px;width:40px;height:40px;border:3px solid var(--ink);border-radius:6px;background:var(--bg);color:var(--fg);font:700 1.4rem/1 var(--body);cursor:pointer}
 .fine{font-size:.85rem;color:var(--muted)}
 </style>
@@ -584,12 +596,13 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
       <article class="plan">
         <h3>Free preview</h3>
         <p class="price">Free</p>
-        <ul><li>Issues 1 to 13: why networks exist, the TCP/IP model, IP addresses and subnetting, routers and switches, the packet walk, VLANs, trunks, Spanning Tree, routing, OSPF and HSRP, automation and Wi-Fi, security, ACLs and IP services</li><li>Comics, takeaways and quizzes included</li><li>No sign-up needed to read</li></ul>
+        <ul><li>Issues 1 to 3 of each part: why networks exist, the TCP/IP model, IP addresses and subnetting, and your first three troubleshooting cases</li><li>Comics, takeaways and quizzes included</li><li>No sign-up needed to read</li></ul>
         <button class="btn alt" data-open="1">Start issue 1</button>
       </article>
       <article class="plan featured">
         <h3>Full course</h3>
-        <p class="price"><span data-price></span> <small>one-time</small></p>
+        <p class="offtag" data-offer-only><span data-offer-name></span></p>
+        <p class="price"><s class="was" data-list-price></s> <span data-price></span> <small>one-time</small></p>
         <ul><li>Every lesson, including the whole troubleshooting part</li><li>A comic, a quiz and a try-it task in every lesson</li><li>Saved to your account, so you can read on any device</li><li>Pay once. No subscription.</li></ul>
         <button class="btn ink" data-buy>Unlock all lessons</button>
       </article>
@@ -648,10 +661,21 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <button class="x" id="payX" aria-label="Close">&times;</button>
     <p class="kicker">The full course</p>
     <h2 id="payT">Keep reading?</h2>
-    <p>The first 3 lessons of each part are free. Unlock the rest with one payment of <b data-price></b>.</p>
+    <p>The first 3 lessons of each part are free. Unlock the rest with one payment of <s class="was" data-list-price></s> <b data-price></b>.</p>
     <ul><li>The whole “Fix your own network” series</li><li>New troubleshooting cases as they are added</li><li>No subscription, ever</li></ul>
     <div id="payAct"></div>
     <p class="fine" id="payNote"></p>
+  </div>
+</div>
+<div class="overlay" id="offer" hidden role="dialog" aria-modal="true" aria-labelledby="offerT">
+  <div class="sheet offer">
+    <button class="x" id="offerX" aria-label="Close">&times;</button>
+    <p class="offbadge"><span data-offer-name></span> ✨</p>
+    <h2 id="offerT">The full course for <span class="big" data-price></span></h2>
+    <p class="offprice"><s class="was" data-list-price></s> <b data-price></b> <small>one-time · launch price</small></p>
+    <p>NetFixLab is live! Celebrate with us: unlock all <span data-count></span> comic lessons, Part 1 and Part 2, with one small payment. No subscription.</p>
+    <div class="offact"><button class="btn" data-buy>Unlock all for <span data-price></span></button> <button class="btn alt" data-open="1">Read 3 free issues first</button></div>
+    <p class="fine">Limited-time launch offer.</p>
   </div>
 </div>
 <script>
@@ -660,7 +684,9 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
 // e.g. https://checkout.dodopayments.com/buy/pdt_xxx (empty = payments not open yet).
 // With supabaseUrl/supabaseKey empty the site falls back to a browser-only demo.
 const CONFIG = {
-  price: "$6",              // shown on the site (USD, one-time)
+  price: "$2",              // shown on the site (USD, one-time). Must match the Dodo product price.
+  listPrice: "$6",          // regular price shown crossed out during an offer ("" = no offer)
+  offerName: "Festive offer", // name of the launch offer; "" turns off the offer popup
   // Dodo Payments link for the full-course product (LIVE: real payments).
   // Test mode link was https://test.checkout.dodopayments.com/buy/pdt_0NqeoLFwchKisY2Dd0pUD
   paymentLink: "https://checkout.dodopayments.com/buy/pdt_0NqfRKUMMpNNhjEP89Y29",
@@ -8766,7 +8792,7 @@ function renderHome(){
   LESSONS.forEach((L,i) => { (L.part === 1 ? (g1 += card(i+1)) : (g2 += card(i+1))); });
   $("#grid1").innerHTML = g1; $("#grid2").innerHTML = g2;
   $("#prog").textContent = `${S.done.length} of ${LESSONS.length} lessons read` + (S.unlocked ? " · full course unlocked" : "");
-  document.querySelectorAll("[data-price]").forEach(e => e.textContent = CONFIG.price);
+  fillPrices();
   document.querySelectorAll("[data-count]").forEach(e => e.textContent = LESSONS.length);
   $("#topBuy").hidden = S.unlocked;
 }
@@ -9097,7 +9123,7 @@ async function afterCheckout(){
 }
 function openPay(n){
   pending = n || null; lastFocus = document.activeElement;
-  document.querySelectorAll("[data-price]").forEach(e => e.textContent = CONFIG.price);
+  fillPrices();
   if(!USER){
     $("#payAct").innerHTML = `<button class="btn" data-view="signup" data-after="pay">Create a free account to unlock</button> <button class="linkbtn" data-view="login" data-after="pay">I already have an account</button>`;
     $("#payNote").textContent = "Your purchase is saved to your account, so you can read on any device.";
@@ -9115,6 +9141,26 @@ function openPay(n){
   $("#pay").hidden = false; $("#payX").focus();
   Track.event("paywall_viewed", n || null);
 }
+function fillPrices(){
+  const on = !!(CONFIG.offerName && CONFIG.listPrice);
+  document.querySelectorAll("[data-price]").forEach(e => e.textContent = CONFIG.price);
+  document.querySelectorAll("[data-list-price]").forEach(e => { e.textContent = on ? CONFIG.listPrice : ""; e.hidden = !on; });
+  document.querySelectorAll("[data-offer-name]").forEach(e => e.textContent = CONFIG.offerName);
+  document.querySelectorAll("[data-offer-only]").forEach(e => e.hidden = !on);
+}
+const Offer = {
+  shown(){ try{ return sessionStorage.getItem("nfl_offer") === "1"; }catch(e){ return Offer._s; } },
+  mark(){ try{ sessionStorage.setItem("nfl_offer", "1"); }catch(e){} Offer._s = true; },
+  show(){
+    if(!CONFIG.offerName || !CONFIG.listPrice || S.unlocked || Offer.shown()) return;
+    if([...document.querySelectorAll(".overlay")].some(o => !o.hidden)) return;
+    Offer.mark(); fillPrices(); document.querySelectorAll("#offer [data-count]").forEach(e => e.textContent = LESSONS.length);
+    $("#offer").hidden = false; $("#offerX").focus(); Track.event("offer_viewed", null);
+  },
+  close(){ $("#offer").hidden = true; }
+};
+$("#offer").addEventListener("click", e => { if(e.target.id === "offer" || e.target.closest("#offerX,[data-buy],[data-open]")) Offer.close(); });
+document.addEventListener("keydown", e => { if(e.key === "Escape" && !$("#offer").hidden) Offer.close(); });
 function closePay(){ $("#pay").hidden = true; if(lastFocus && lastFocus.focus) lastFocus.focus(); }
 function unlock(){
   if(!USER || USE_SB) return;
@@ -9182,6 +9228,7 @@ function startPage(){
   if(RECOVERY){ if(USER) { openNewPassword(); return; } RECOVERY = false; openAuth("login", "That reset link has expired. Enter your email and tap \u201cForgot your password?\u201d for a new one."); return; }
   if(/[?&]paid=1\b/.test(location.search)){ afterCheckout(); return; }
   const aft = lsGet("nfl_after", null); if(aft){ lsSet("nfl_after", null); if(USER){ if(aft.pay){ openPay(aft.lesson); } else openProfile(); } }
+  setTimeout(() => Offer.show(), 900);
 })();
 </script>
 
