@@ -530,7 +530,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
       <h1>Your home runs on a network. <mark>Learn it from a comic.</mark></h1>
       <p class="lead">NetFixLab teaches you how the internet reaches your devices and how to fix common problems yourself. One short comic lesson at a time, no jargon, no tech background needed.</p>
       <div class="cta">
-        <button class="btn" data-open="1">Read issue 1, free</button>
+        <button class="btn" data-open="1">Read chapter 1, free</button>
         <a class="btn alt" href="#lessons" data-go="lessons">See all <span data-count></span> lessons</a>
       </div>
       <p class="facts"><span data-count></span> comic lessons · first 3 of each part free · one payment, no subscription</p>
@@ -571,11 +571,11 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
       <div class="abouttext">
         <div>
           <h3>About NetFixLab</h3>
-          <p>NetFixLab explains networking the way a comic would. Devices talk, argue, break and get fixed, and you learn what is really happening along the way. Every issue ends with a takeaway, a try-it-yourself task and a quick quiz.</p>
+          <p>NetFixLab explains networking the way a comic would. Devices talk, argue, break and get fixed, and you learn what is really happening along the way. Every lesson ends with a takeaway, a try-it-yourself task and a quick quiz.</p>
           <ul>
             <li>Part 1 builds the basics, one picture at a time.</li>
             <li>Part 2 turns that knowledge into real fixes, one troubleshooting case at a time.</li>
-            <li>The first 3 issues of each part are free. One payment opens the rest.</li>
+            <li>The first 3 lessons of each part are free. One payment opens the rest.</li>
           </ul>
         </div>
         <div class="me">
@@ -596,8 +596,8 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
       <article class="plan">
         <h3>Free preview</h3>
         <p class="price">Free</p>
-        <ul><li>Issues 1 to 3 of each part: why networks exist, the TCP/IP model, IP addresses and subnetting, and your first three troubleshooting cases</li><li>Comics, takeaways and quizzes included</li><li>No sign-up needed to read</li></ul>
-        <button class="btn alt" data-open="1">Start issue 1</button>
+        <ul><li>Lessons 1 to 3 of each part: why networks exist, the TCP/IP model, IP addresses and subnetting, and your first three troubleshooting cases</li><li>Comics, takeaways and quizzes included</li><li>No sign-up needed to read</li></ul>
+        <button class="btn alt" data-open="1">Start chapter 1</button>
       </article>
       <article class="plan featured">
         <h3>Full course</h3>
@@ -627,7 +627,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
         <p>Stuck on a lesson? Have a home-network problem you would like turned into a comic? Tell me. I read every message.</p>
         <ul>
           <li>Questions about the course or your account</li>
-          <li>Ideas for new issues</li>
+          <li>Ideas for new lessons</li>
           <li>Something in a lesson that is unclear or wrong</li>
         </ul>
         <p class="fine" id="contactMail"></p>
@@ -674,7 +674,7 @@ footer .legal{display:flex;flex-wrap:wrap;gap:6px 16px}footer .legal a{color:var
     <h2 id="offerT">The full course for <span class="big" data-price></span></h2>
     <p class="offprice"><s class="was" data-list-price></s> <b data-price></b> <small>one-time · launch price</small></p>
     <p>NetFixLab is live! Celebrate with us: unlock all <span data-count></span> comic lessons, Part 1 and Part 2, with one small payment. No subscription.</p>
-    <div class="offact"><button class="btn" data-buy>Unlock all for <span data-price></span></button> <button class="btn alt" data-open="1">Read 3 free issues first</button></div>
+    <div class="offact"><button class="btn" data-buy>Unlock all for <span data-price></span></button> <button class="btn alt" data-open="1">Read 3 free lessons first</button></div>
     <p class="fine">Limited-time launch offer.</p>
   </div>
 </div>
@@ -1796,7 +1796,7 @@ const MacPet = (() => {
     if(busy()){ setTimeout(intro, 2500); return; }
     const back = get("nfl_mac_met") === "1";
     set("nfl_mac_met", "1");
-    if(back) arrive("right", {who: true, text: "Welcome back! Ready for the next issue? Click me if you want a joke.", mood: "happy", ms: 6500});
+    if(back) arrive("right", {who: true, text: "Welcome back! Ready for the next lesson? Click me if you want a joke.", mood: "happy", ms: 6500});
     else arrive("right", {who: true, big: "HI! I'M MAC!", text: "I'm a retro computer, so I've seen a LOT of networks. I'll pop by with jokes now and then, and cheer when you finish a chapter!", mood: "happy", ms: 0, acts: [["Nice to meet you!", "close"]]});
     setTimeout(() => anim("wave", 2000), 500);
   }
@@ -1815,7 +1815,7 @@ const MacPet = (() => {
     build();
     const L = (typeof LESSONS !== "undefined" && LESSONS[n - 1]) || {t: "this chapter"};
     const big = CHEERS[Math.floor(Math.random() * CHEERS.length)];
-    arrive("right", {who: true, kind: "cheer", big, text: `You finished Issue ${typeof pn === "function" && LESSONS[n - 1] ? pn(n) : n}: ${L.t} Your network brain just levelled up!`, mood: "happy", ms: 7500, acts: [["Yay!", "close"]]});
+    arrive("right", {who: true, kind: "cheer", big, text: `You finished ${typeof UNIT === "function" ? UNIT(n) : "lesson"} ${typeof pn === "function" && LESSONS[n - 1] ? pn(n) : n}: ${L.t} Your network brain just levelled up!`, mood: "happy", ms: 7500, acts: [["Yay!", "close"]]});
     setTimeout(() => { el.dataset.mood = "happy"; anim("spin", 1950); confetti(); }, 450);
     setTimeout(() => anim("hop", 1600), 2000);
   }
@@ -2090,9 +2090,9 @@ const PAGES0 = [
    {bg:"room", ch:[["laptop","confused",70,.58],["router","proud",225,.58]], over:[["appicon",160,70,.75,"#2bb673","CHAT"]],
      b:[["c","3. The writer is an APP.",3,4,9],["s","Wait, Rooty, I TYPED it!",3,22,6,"b",40,"laptop"],["s","You typed, Lappy. The {{app}} built the message.",46,22,10,"b",75,"router"]]},
    {bg:"blueprint", over:[["label",40,92,220,["TO: 203.0.113.7"]]],
-     b:[["c","4. Street addresses become {{IP addresses}}.",3,4,13],["s","They have a logical structure too, Lappy, like street addresses. That gets its own issue.",8,56,15,null,null,"router"]]}]},
+     b:[["c","4. Street addresses become {{IP addresses}}.",3,4,13],["s","They have a logical structure too, Lappy, like street addresses. That gets its own chapter.",8,56,15,null,null,"router"]]}]},
  {h:250, p:[{bg:"burst:lilac", ch:[["laptop","confused",100,.62],["router","worried",490,.62]], over:[["sweat",555,120,1.3]], fx:[["UH-OH",300,200,34,-6,"#ffd23f"]],
-   b:[["s","Hold on, Rooty. What's a MAC address? I've seen THAT too!",2,4,11,"b",40,"laptop"],["s","Ooh, Lappy. Devices have BOTH an IP and a MAC address. WHY they need two deserves its own issue. Hold that thought!",42,4,19,"b",80,"router"]]}]},
+   b:[["s","Hold on, Rooty. What's a MAC address? I've seen THAT too!",2,4,11,"b",40,"laptop"],["s","Ooh, Lappy. Devices have BOTH an IP and a MAC address. WHY they need two deserves its own chapter. Hold that thought!",42,4,19,"b",80,"router"]]}]},
  {h:240, p:[
    {bg:"rays:mint", ch:[["server","happy",70,.56],["laptop","shock",235,.48]],
      b:[["s","Lappy, two famous layer models: {{OSI}} has 7 layers. {{TCP/IP}} has 4 or 5, depending who's counting.",3,3,14,"b",25,"server"],["s","4 OR 5, SERVO?!",56,58,5,"b",60,"laptop"]]},
@@ -2240,7 +2240,7 @@ const PAGES1 = [
    {bg:"office:2", ch:[["laptop","confused",230,.6]], over:[["door",90,226,1]],
      b:[["c","Floor 2: Data link.",3,4,8],["s","Rooty, why is THIS door locked?",40,22,8,"b",65,"laptop"]]},
    {bg:"rays:lilac", ch:[["router","happy",150,.62]], fx:[["LATER!",230,190,26,-8,"#ffd23f"]],
-     b:[["s","Floor 2 is where MAC addresses live, Lappy. Why we need them AND IP addresses, and if they change on the way, gets its own issue.",3,3,17,"b",60,"router"]]}]},
+     b:[["s","Floor 2 is where MAC addresses live, Lappy. Why we need them AND IP addresses, and if they change on the way, gets its own chapter.",3,3,17,"b",60,"router"]]}]},
  {h:240, p:[
    {bg:"office:1", props:[["cable",10,206,290,206,"#c96b2c"]], over:[["wave",30,150,240,50,"#ffd23f"]],
      b:[["s","Lappy, floor 1 is {{physical}}: bits become electricity, light or radio, and go out onto the medium.",3,3,16,null,null,"router"]]},
@@ -2313,7 +2313,7 @@ const PAGES1 = [
    b:[["s","Modo here, Lappy! Internet providers build Nimbus: fiber, cables and buildings full of routers. You don't get your OWN cable to Seattle...",2,3,22,"b",92,"modem"],["s","...but it FEELS like you do.",62,48,8,"b",60,"modem"]]}]},
  {h:220, p:[
    {bg:"rays:mint", ch:[["laptop","happy",150,.62]],
-     b:[["s","Rooty, so Nimbus is like the delivery company from last issue!",8,4,13,"b",55,"laptop"]]},
+     b:[["s","Rooty, so Nimbus is like the delivery company from last chapter!",8,4,13,"b",55,"laptop"]]},
    {bg:"rays:sun", ch:[["nimbus","happy",150,.8,1,196]],
      b:[["s","Exactly, Lappy! And I only care about the OUTSIDE label.",8,4,12,"b",55,"nimbus"]]}]}
 ]},
@@ -2390,7 +2390,7 @@ const PAGES1 = [
    {bg:"rays:sun", ch:[["router","proud",150,.62]],
      b:[["s","Great question, Lappy! The app TELLS the floors below who it wants. But only floor 3 knows how to write the address so the network understands it.",3,3,17,"b",60,"router"]]}]},
  {h:250, p:[{bg:"plain:sun", over:[["sign",14,70,186,150,["WRITE + NAME","the app","(floor 5)"],24],["sign",207,70,186,150,["CHECK FIRST","transport","(parcels lacked this)"],24,"#e63a2e"],["sign",400,70,186,150,["DELIVERY","network","(floor 3)"],24]],
-   b:[["c","Remember the parcel from last issue?",2,3,13]]}]},
+   b:[["c","Remember the parcel from last chapter?",2,3,13]]}]},
  {h:240, p:[
    {bg:"rays:mint", ch:[["laptop","confused",150,.62]],
      b:[["s","Rooty, couldn't one GIANT floor do everything?",12,5,12,"b",55,"laptop"]]},
@@ -2607,7 +2607,7 @@ const PAGES2 = [
    {bg:"rays:rose", ch:[["laptop","worried",150,.6]],
      b:[["s","Rooty, numbers are SO hard to remember, though.",8,5,12,"b",55,"laptop"]]},
    {bg:"rays:sun", ch:[["dns","proud",150,.66]],
-     b:[["s","Hi, Lappy, Dee here! That's why people type NAMES. I turn names into numbers. My own issue, coming up!",3,3,16,"b",60,"dns"]]}]}
+     b:[["s","Hi, Lappy, Dee here! That's why people type NAMES. I turn names into numbers. My own chapter, coming up!",3,3,16,"b",60,"dns"]]}]}
 ]},
 /* ===== 12 ===== */
 {title:"Too many addresses", rows:[
@@ -2703,7 +2703,7 @@ const PAGES2 = [
      b:[["s","256 × 256 = 65,536, Lappy. Same logic as /24, just two host octets instead of one. Not scary at all.",3,3,17,"b",60,"router"]]}]},
  {h:250, p:[
    {bg:"hub", ch:[["server","worried",70,.62]], over:[["sign",30,30,240,64,["MEGA CORP","55,000 employees"],22]],
-     b:[["s","Rooty, one giant network for everyone? Big networks have big problems. More next issue.",36,33,11,"bl",8,"server"]]},
+     b:[["s","Rooty, one giant network for everyone? Big networks have big problems. More next chapter.",36,33,11,"bl",8,"server"]]},
    {bg:"rays:mint", over:[["net",15,62,130,96,"HR",2],["net",160,62,130,96,"SALES",2],["net",70,164,170,90,"ENGINEERING",2,"#ffe9a8"]],
      b:[["s","Split by department instead, Servo!",4,3,14,null,null,"router"]]}]}
 ]},
@@ -2713,7 +2713,7 @@ const PAGES2 = [
    b:[["c","Sneak peek: R1 reads the destination and checks its table.",2,3,13],["s","Hi, Lappy! The 70 network? Off to R2!",44,40,7,"b",30,"router"]]}]},
  {h:240, p:[
    {bg:"rays:mint", over:[["routers",50,200,4,70,.34]], fx:[["HOP! HOP!",160,90,28,-6,"#ffd23f"]],
-     b:[["s","R2, R3, R4... hop by hop, Lappy! How tables get built: next issue.",3,3,14,null,null,"router"]]},
+     b:[["s","R2, R3, R4... hop by hop, Lappy! How tables get built: next chapter.",3,3,14,null,null,"router"]]},
    {bg:"rays:sun", ch:[["laptop","confused",150,.62]],
      b:[["s","Servo, who hands out IP addresses anyway?",8,5,12,"b",55,"laptop"]]}]},
  {h:250, p:[{bg:"sepia", ch:[["server","proud",520,.6]], over:[["globe",130,130,70],["word",300,120,"2³² ≈ 4.3 BILLION",34,-4,"#fff3c4"]],
@@ -2769,7 +2769,7 @@ const PAGES3 = [
    {bg:"rays:sky", ch:[["laptop","confused",150,.62]],
      b:[["s","Rooty, who WROTE that table for you?",8,5,12,"b",55,"laptop"]]},
    {bg:"rays:lilac", ch:[["router","proud",150,.62]],
-     b:[["s","Routers chat using rulebooks called {{routing protocols}}, like OSPF and BGP. That's a later issue, Lappy.",4,3,16,"b",60,"router"]]}]},
+     b:[["s","Routers chat using rulebooks called {{routing protocols}}, like OSPF and BGP. That's a later chapter, Lappy.",4,3,16,"b",60,"router"]]}]},
  {h:250, p:[
    {bg:"office:3", ch:[["router","happy",80,.6]], over:[["envelope",210,180,.6]],
      b:[["c","At R2...",3,3,4],["s","50.0 is directly connected to me. Delivering!",34,20,10,"bl",8,"router"]]},
@@ -3026,7 +3026,7 @@ const PAGES4 = [
    {bg:"room", ch:[["phone","happy",70,.5],["router","proud",230,.55]],
      b:[["y","WHAT SHOULD MY IP BE?!",2,4,7,null,null,"phone"],["s","Here, Fonz: 192.168.10.200!",44,40,9,"b",80,"router"]]}]},
  {h:240, p:[{bg:"chalk", ch:[["router","happy",530,.55]], over:[["chalktext",30,104,["DHCP hands out addresses automatically.","Many homes keep a few addresses for manual use","(say .1 to .99), and let DHCP give out the rest."],17]],
-   b:[["c","Dynamic Host Configuration Protocol: its own issue soon!",3,4,16]]}]}
+   b:[["c","Dynamic Host Configuration Protocol: its own chapter soon!",3,4,16]]}]}
 ]},
 /* ===== 3 ===== */
 {title:"Two addresses, one card", rows:[
@@ -3125,7 +3125,7 @@ const PAGES4 = [
    {bg:"rays:mint", ch:[["laptop","proud",150,.62]], over:[["rtable",20,30,250,[["192.168.10.200","BB:BB:BB"]],"ARP CACHE"]],
      b:[["s","Nope! I remember answers in my {{ARP cache}}. I check it first.",4,44,15,null,null,"laptop"]]}]},
  {h:260, p:[{bg:"night", ch:[["snoop","happy",90,.75],["wall","worried",520,.6]], fx:[["PEEK!",190,90,26,-8,"#ffd23f",true]],
-   b:[["s","Careful, Lappy: ARP broadcasts reach EVERYONE on the network, including someone up to no good.",32,4,18,"b",86,"wall"],["s","Many attacks come from INSIDE. Switches have features to fight back. Security issue later!",32,54,15,null,null,"wall"]]}]}
+   b:[["s","Careful, Lappy: ARP broadcasts reach EVERYONE on the network, including someone up to no good.",32,4,18,"b",86,"wall"],["s","Many attacks come from INSIDE. Switches have features to fight back. Security chapter later!",32,54,15,null,null,"wall"]]}]}
 ]},
 /* ===== 11 ===== */
 {title:"Out of ports", rows:[
@@ -3135,7 +3135,7 @@ const PAGES4 = [
    {bg:"blueprint", ch:[["switch","happy",80,.4],["switch","happy",230,.4]], props:[["cable",120,190,190,190,"#2bb673"]],
      b:[["c","Connect more switches together: a switched network.",3,3,14]]},
    {bg:"rays:sun", ch:[["switch","proud",150,.62]],
-     b:[["s","All switches in one network share it, Servo. Linking them well, and {{VLANs}}, come in later issues.",4,3,16,"b",55,"switch"]]}]},
+     b:[["s","All switches in one network share it, Servo. Linking them well, and {{VLANs}}, come in later chapters.",4,3,16,"b",55,"switch"]]}]},
  {h:240, p:[{bg:"rays:sky", ch:[["laptop","happy",90,.55],["router","proud",500,.55]],
    b:[["s","So inside one network, ARP and Sid do all the work!",20,6,13,"bl",6,"laptop"],["s","Right. But what if Fonz were in ANOTHER network?",58,48,12,"b",70,"router"]]}]}
 ]},
@@ -3588,7 +3588,7 @@ const PAGES5 = [
    {bg:"rays:sun", over:[["sign",20,40,260,110,["OPTION 1","a router","beside the switch"],26]],
      b:[]},
    {bg:"rays:mint", over:[["sign",20,40,260,110,["OPTION 2","a Layer 3 switch","with routing built in"],26]],
-     b:[["c","Inter-VLAN routing: its own issue soon!",8,76,13]]}]}
+     b:[["c","Inter-VLAN routing: its own chapter soon!",8,76,13]]}]}
 ]},
 /* ===== 27 ===== */
 {title:"Why this matters", rows:[
@@ -3763,7 +3763,7 @@ const PAGES6 = [
    {bg:"rays:mint", ch:[["laptop","confused",150,.6]],
      b:[["s","Rooty, do you need one cable per VLAN too?",8,5,13,"b",55,"laptop"]]},
    {bg:"rays:sun", ch:[["router","happy",150,.58]],
-     b:[["s","I can use a trunk as well! It's called {{router-on-a-stick}}. Its own issue soon.",4,4,15,"b",55,"router"]]}]}
+     b:[["s","I can use a trunk as well! It's called {{router-on-a-stick}}. Its own chapter soon.",4,4,15,"b",55,"router"]]}]}
 ]},
 /* ===== 12 ===== */
 {title:"VLAN or subnet?", rows:[
@@ -3907,7 +3907,7 @@ const PAGES6 = [
      b:[["s","Switches do the same. Every link gets a cost, they find the best paths, and they block what makes a loop.",4,3,17,"b",50,"switch"]]},
    {bg:"rays:mint", ch:[["router","proud",150,.58]],
      b:[["s","That standard is the {{Spanning Tree Protocol}}. A tree has no loops!",6,4,14,"b",55,"router"]]}]},
- {h:230, p:[{bg:"chalk", over:[["chalktext",30,62,["Even if you never build a loop, a customer might plug one in.","So switches run STP by default, just in case.","How the algorithm works: next issue!"],17]],
+ {h:230, p:[{bg:"chalk", over:[["chalktext",30,62,["Even if you never build a loop, a customer might plug one in.","So switches run STP by default, just in case.","How the algorithm works: next chapter!"],17]],
    b:[]}]}
 ]},
 /* ===== 24 ===== */
@@ -4354,7 +4354,7 @@ const PAGES8 = [
    {bg:"rays:sun", ch:[["router","proud",150,.58]],
      b:[["s","'Hey, 192.168.7.0 is behind me!' Routers pass that along, router to router.",4,4,15,"b",55,"router"],["c","Ruby",4,82,5]]},
    {bg:"rays:mint", ch:[["router","happy",150,.58]],
-     b:[["s","They need a shared language: OSPF, RIP, EIGRP, BGP, IS-IS. OSPF is next issue!",4,4,16,"b",55,"router"]]}]}
+     b:[["s","They need a shared language: OSPF, RIP, EIGRP, BGP, IS-IS. OSPF is next chapter!",4,4,16,"b",55,"router"]]}]}
 ]},
 /* ===== 8 ===== */
 {title:"Tiny links: /30", rows:[
@@ -4558,7 +4558,7 @@ const PAGES8 = [
      b:[["s","One default route from me to the ISP, and every VLAN can reach the internet.",4,4,15,"b",55,"router"]]},
    {bg:"rays:mint", ch:[["switch","proud",150,.55]],
      b:[["s","One switch, three VLANs, one trunk up to Rooty. Simple and cheap!",4,3,15,"b",50,"switch"]]}]},
- {h:200, p:[{bg:"chalk", over:[["chalktext",30,56,["Guests can reach the internet, but not staff PCs?","That's a filtering rule on Rooty: coming in a later issue!"],17]],
+ {h:200, p:[{bg:"chalk", over:[["chalktext",30,56,["Guests can reach the internet, but not staff PCs?","That's a filtering rule on Rooty: coming in a later chapter!"],17]],
    b:[]}]}
 ]},
 /* ===== 25 ===== */
@@ -5702,7 +5702,7 @@ const PAGES12 = [
    {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
      b:[["s","Why the gateway's MAC, not the store's? Oh, it's on ANOTHER network!",4,4,15,"b",55,"laptop"]]},
    {bg:"rays:sun", ch:[["router","proud",150,.58]],
-     b:[["s","Then: ARP, TCP handshake, TLS certificate check, routing hop by hop, NAT... Every issue we've done!",4,4,16,"b",55,"router"]]}]},
+     b:[["s","Then: ARP, TCP handshake, TLS certificate check, routing hop by hop, NAT... Every chapter we've done!",4,4,16,"b",55,"router"]]}]},
  {h:220, p:[{bg:"chalk", over:[["chalktext",30,62,["'What happens when you type a website?' You can now answer in","3 minutes... or keep going for 3 hours. That's real understanding!"],18]],
    b:[]}]}
 ]},
@@ -8154,7 +8154,7 @@ ENRICH[17] = [
 [6,3,R(200, one("rays:sky","switch","proud","Learn from the SOURCE, forward by the DESTINATION."), one("burst:yellow","switch","happy",null,"FLOOD!"))],
 [7,3,R(200, one("rays:mint","laptop","happy","My ARP cache: .200 → BB. Got it!"), one("rays:sun","phone","proud","And I learned Lappy's MAC from his question. Fair trade!"))],
 [8,3,R(200, one("burst:yellow","laptop","proud",null,"!!!!!"), one("rays:mint","phone","happy","Five replies, zero lost. Happy Thanksgiving, network!"))],
-[9,3,R(200, duo("rays:mint", ["phone","confused","So a stranger on the same network could answer an ARP and lie?"], ["switch","proud","That's why networks add protections. You'll meet them in the security issue."]))],
+[9,3,R(200, duo("rays:mint", ["phone","confused","So a stranger on the same network could answer an ARP and lie?"], ["switch","proud","That's why networks add protections. You'll meet them in the security chapter."]))],
 [10,3,R(220, one("rays:sky","switch","happy","Me plus another switch = 48 ports, one network."), one("rays:sun","server","proud","And ARP still works across both. Same broadcast domain!"))],
 [11,3,R(220, duo("rays:lilac", ["phone","confused","So my ARP for Servo would just die in my own network?"], ["router","proud","Yes. Broadcasts never cross me. That's what keeps the whole internet from drowning."]))],
 [12,3,R(220, one("rays:mint","router","proud","Port 0/1: 192.168.10.1. Port 0/2: 192.168.20.1."), one("burst:blue","router","happy",null,"CONNECTED!"))],
@@ -8776,14 +8776,15 @@ function updateHeader(){
 
 /* ---------- home ---------- */
 const LOCK = '<svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" fill="currentColor"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="3"/></svg>';
-/* Issue numbers on screen restart at 1 in each part */
+/* Lesson numbers on screen restart at 1 in each part; Part 1 lessons are chapters, Part 2 lessons are cases */
+function UNIT(n){ const L = LESSONS[n - 1]; return L && L.part === 2 ? "Case" : "Chapter"; }
 function pn(n){ const P = LESSONS[n-1].part; return LESSONS.slice(0, n).filter(x => x.part === P).length; }
 function card(n){
   const L = LESSONS[n-1], done = S.done.includes(L.id), locked = isLocked(n);
   const tag = done ? ["read","Read"] : L.free ? ["free","Free"] : locked ? ["lock", LOCK+" Locked"] : ["open","Open"];
   return `<button class="card" data-open="${n}" aria-label="Lesson ${pn(n)}: ${L.t}${locked ? ", locked" : ""}">
     <span class="cv">${cover(n,true)}</span>
-    <span class="ctext"><span class="tag ${tag[0]} tagpos">${tag[1]}</span><span class="meta">Issue ${pn(n)} · ${L.m} min read</span><span class="cb">${L.b}</span></span></button>`;
+    <span class="ctext"><span class="tag ${tag[0]} tagpos">${tag[1]}</span><span class="meta">${UNIT(n)} ${pn(n)} · ${L.m} min read</span><span class="cb">${L.b}</span></span></button>`;
 }
 function renderHome(){
   $("#ph1").textContent = PARTS[1].n; $("#pd1").textContent = PARTS[1].d;
@@ -8807,7 +8808,7 @@ function openLesson(n){
   const L = LESSONS[n-1];
   const opts = shuffle(L.q.o.map((t,i) => ({t, ok: i === 0})));
   const last = n === LESSONS.length;
-  const kick = `${PARTS[L.part].n} · Issue ${pn(n)} of ${LESSONS.filter(x => x.part === L.part).length} · ${L.m} min`;
+  const kick = `${PARTS[L.part].n} · ${UNIT(n)} ${pn(n)} of ${LESSONS.filter(x => x.part === L.part).length} · ${L.m} min`;
   $("#reader").innerHTML = `
     <div class="cover-view" id="cv">
       <div class="bigcover">${cover(n,false)}</div>
@@ -8835,8 +8836,8 @@ function openLesson(n){
         <div class="opts">${opts.map(o => `<button class="opt" data-ok="${o.ok ? 1 : 0}">${o.t}</button>`).join("")}</div>
         <p class="fb" id="fb" aria-live="polite"></p></div>
       <div class="rnav">
-        ${n > 1 ? `<button class="btn alt" data-open="${n-1}">← Previous issue</button>` : "<span></span>"}
-        <button class="btn" data-next="${n}">${last ? "Finish the course" : "Next issue →"}</button>
+        ${n > 1 ? `<button class="btn alt" data-open="${n-1}">← Previous lesson</button>` : "<span></span>"}
+        <button class="btn" data-next="${n}">${last ? "Finish the course" : "Next lesson →"}</button>
       </div>
       </div>
     </div>`;
@@ -8867,7 +8868,7 @@ function openAuth(tab, msg){
       <div class="authside">
         ${panel(art)}
         <ul class="perks">
-          <li><i>\u2713</i>The first 3 issues of each part are free, forever</li>
+          <li><i>\u2713</i>The first 3 lessons of each part are free, forever</li>
           <li><i>\u2713</i>Your progress is saved on every device</li>
           <li><i>\u2713</i>Pay once and the full course stays unlocked</li>
         </ul>
@@ -9003,9 +9004,9 @@ function openProfile(note, bad){
   const joined = USER.joined ? new Date(USER.joined).toLocaleDateString("en", {month:"long", year:"numeric"}) : "";
   const minis = LESSONS.map((L,i) => {
     const n = i+1, d = S.done.includes(L.id), lk = isLocked(n);
-    return `<button class="mini ${d ? "is-done" : ""}" data-open="${n}" aria-label="Issue ${pn(n)}: ${L.t}${d ? ", read" : lk ? ", locked" : ""}"><span class="cv">${cover(n,true)}</span><span class="mk">${d ? "✓ Read" : lk ? LOCK + " Locked" : "Unread"}</span></button>`;
+    return `<button class="mini ${d ? "is-done" : ""}" data-open="${n}" aria-label="${UNIT(n)} ${pn(n)}: ${L.t}${d ? ", read" : lk ? ", locked" : ""}"><span class="cv">${cover(n,true)}</span><span class="mk">${d ? "✓ Read" : lk ? LOCK + " Locked" : "Unread"}</span></button>`;
   }).join("");
-  const cont = nxt ? `<button class="btn" data-open="${nxt}">${done ? "Continue reading" : "Start reading"}</button>` : `<span class="tag read">You finished every issue</span>`;
+  const cont = nxt ? `<button class="btn" data-open="${nxt}">${done ? "Continue reading" : "Start reading"}</button>` : `<span class="tag read">You finished every lesson</span>`;
   const buy = S.unlocked ? "" : `<button class="btn alt" data-buy>Unlock all lessons</button>` + (USE_SB && CONFIG.paymentLink ? `<button class="btn alt" id="checkPay">I have paid, check my account</button>` : "");
   $("#profile").innerHTML = `
     <div class="profile">
@@ -9026,8 +9027,8 @@ function openProfile(note, bad){
       </aside>
       <section class="box">
         <h2>Your progress</h2>
-        <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${done}" aria-label="Issues read"><i style="width:${pct}%"></i></div>
-        <p><b>${done} of ${total}</b> issues read</p>
+        <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${done}" aria-label="Lessons read"><i style="width:${pct}%"></i></div>
+        <p><b>${done} of ${total}</b> lessons read</p>
         <div class="prow">${cont}${buy}</div>
         ${purchaseList()}
         <h3 style="margin-top:14px">Your shelf</h3>
@@ -9090,7 +9091,7 @@ function renderReceipt(r){
       ${ok ? `<p class="fine">Dodo Payments has also emailed a receipt to ${esc(r.email || USER.email)}. Keep this page or that email as your proof of purchase.</p>` : ""}
       ${bad ? `<p class="fine">If money left your account, it is released automatically by your bank. Questions? Use the Contact form and quote the payment ID.</p>` : ""}
       <div class="prow">
-        ${ok ? `<button class="btn" data-open="${FIRST_PAID}">Start issue ${pn(FIRST_PAID)} ▸</button>` : ""}
+        ${ok ? `<button class="btn" data-open="${FIRST_PAID}">Start ${UNIT(FIRST_PAID).toLowerCase()} ${pn(FIRST_PAID)} ▸</button>` : ""}
         ${bad ? `<button class="btn" data-buy>Try again</button>` : ""}
         ${r.state === "pending" ? `<button class="btn" id="recheck">Check again</button>` : ""}
         ${ok ? `<button class="btn alt" type="button" onclick="window.print()">Print or save as PDF</button>` : ""}
