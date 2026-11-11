@@ -77,7 +77,8 @@ create table if not exists public.lesson_events (
   lesson     smallint check (lesson between 1 and 200),
   event      text not null check (event in (
                'cover_viewed', 'comic_opened', 'quiz_wrong', 'quiz_passed',
-               'lesson_completed', 'paywall_viewed', 'signed_up', 'checkout_started')),
+               'lesson_completed', 'paywall_viewed', 'signed_up', 'checkout_started',
+               'video_opened', 'offer_viewed')),
   created_at timestamptz not null default now()
 );
 create index if not exists lesson_events_created_idx on public.lesson_events (created_at);

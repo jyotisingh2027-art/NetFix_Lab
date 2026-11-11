@@ -406,6 +406,16 @@ code{background:#fff3c4;color:#14213d;border-color:#14213d}
 @media (min-width:800px){.cover-view{grid-template-columns:minmax(0,430px) minmax(0,1fr);justify-items:start}}
 .bigcover{width:min(100%,430px);aspect-ratio:3/4;border:5px solid var(--ink);box-shadow:11px 11px 0 var(--shadow);background:#fff;overflow:hidden}
 .cinfo{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.cbtns{display:flex;flex-wrap:wrap;gap:12px}
+.cbtns .btn small{font-weight:600;opacity:.7;margin-left:4px}
+#vidv{display:flex;flex-direction:column;gap:18px;max-width:1100px;margin:0 auto}
+#vidv[hidden]{display:none}
+.vwrap{position:relative;width:100%;aspect-ratio:16/9;background:#14213d;border:3px solid var(--ink,#14213d);box-shadow:8px 8px 0 var(--shadow,#14213d);border-radius:6px;overflow:hidden}
+.vwrap video{width:100%;height:100%;display:block;background:#14213d}
+.vwrap video::-internal-media-controls-download-button{display:none}
+.vwrap video::-webkit-media-controls-enclosure{overflow:hidden}
+.vshield{position:absolute;left:0;right:0;top:0;bottom:64px;pointer-events:none}
+.vnote{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:0}
 .cinfo h1{font-size:clamp(2.6rem,5.4vw,4rem);line-height:1}
 .rhead h1{font-size:clamp(2.2rem,4.8vw,3.4rem)}
 .box{border-radius:0;border-width:4px}
@@ -8052,6 +8062,7 @@ const FIX_15 = {no:"15", cover:COVERF15, t:"How to troubleshoot a network", b:"C
  tip:"Build the Case #14 network in a network simulator and save its baseline: 'show vlan brief', 'show interfaces trunk', 'show standby brief', 'show ip ospf neighbor', 'show ip bgp summary' and a traceroute. Then ask a friend to break one thing and find it by comparing.",
  q:{q:"PC1 and PC4 are in the same VLAN but can't ping, and PC1's ARP entry for PC4 stays Incomplete. Which is the LEAST likely cause?",o:["A wrong default gateway on PC1","The VLAN not allowed on a trunk in the path","A subnet mask mismatch on PC4"],why:"Within the same network, hosts talk directly using ARP, so the default gateway isn't used. A trunk blocking the VLAN or a mask mismatch can both break the ARP exchange."}};
 
+ISSUE_A.video = {src:"video/ch1/index.m3u8", poster:"video/ch1/poster.jpg", m:13};
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = false;
@@ -8802,10 +8813,24 @@ function go(id){ if($("#home").hidden) showHome(); const el = document.getElemen
 
 /* ---------- reader ---------- */
 function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; } return a; }
+/* lesson videos: streamed in small HLS pieces (no single file to save), view only */
+const LessonVideo = {
+  hls: null,
+  start(L){
+    const v = $("#lv"); if(!v || !L || !L.video) return;
+    if(v.dataset.ready){ v.play().catch(() => {}); return; }
+    v.dataset.ready = "1";
+    v.addEventListener("contextmenu", e => e.preventDefault());
+    if(v.canPlayType("application/vnd.apple.mpegurl")){ v.src = L.video.src; v.play().catch(() => {}); return; }
+    const go = () => { if(!window.Hls || !Hls.isSupported()) return; LessonVideo.hls = new Hls({maxBufferLength: 30}); LessonVideo.hls.loadSource(L.video.src); LessonVideo.hls.attachMedia(v); LessonVideo.hls.on(Hls.Events.MANIFEST_PARSED, () => v.play().catch(() => {})); };
+    if(window.Hls) go(); else { const sc = document.createElement("script"); sc.src = "lib/hls.min.js"; sc.onload = go; document.head.appendChild(sc); }
+  },
+  stop(){ const v = $("#lv"); if(v) v.pause(); }
+};
 function openLesson(n){
   if(n < 1 || n > LESSONS.length) return;
   if(isLocked(n)){ openPay(n); return; }
-  const L = LESSONS[n-1];
+  const L = LESSONS[n-1]; LessonVideo.cur = n;
   const opts = shuffle(L.q.o.map((t,i) => ({t, ok: i === 0})));
   const last = n === LESSONS.length;
   const kick = `${PARTS[L.part].n} · ${UNIT(n)} ${pn(n)} of ${LESSONS.filter(x => x.part === L.part).length} · ${L.m} min`;
@@ -8817,9 +8842,14 @@ function openLesson(n){
         <p class="kicker">${kick}</p>
         <h1>${L.t}</h1>
         <p class="lead">${L.b}</p>
-        <button class="btn" data-read>Open the comic ▸</button>
+        <div class="cbtns"><button class="btn" data-read>Open the comic ▸</button>${L.video ? `<button class="btn alt" data-watch>▶ Watch the video lesson <small>${L.video.m} min</small></button>` : ""}</div>
       </div>
     </div>
+    ${L.video ? `<div id="vidv" hidden>
+      <div class="rhead"><button class="btn alt sm" data-cover>← Back to cover</button><p class="kicker">${kick} · video lesson</p><h1>${L.t}</h1></div>
+      <div class="vwrap" oncontextmenu="return false"><video id="lv" controls playsinline preload="none" controlslist="nodownload noremoteplayback" disablepictureinpicture disableremoteplayback poster="${L.video.poster}"></video><div class="vshield" aria-hidden="true"></div></div>
+      <p class="vnote">Prefer reading? The same story is in the comic. <button class="btn alt sm" data-read>Read the comic ▸</button></p>
+    </div>` : ""}
     <div id="pages" hidden>
       <div ${L.pages ? 'class="desk"' : 'style="display:contents"'}>
       <div class="rhead">
@@ -9172,7 +9202,7 @@ function unlock(){
 
 /* ---------- events ---------- */
 document.addEventListener("click", async e => {
-  const t = e.target.closest("[data-social],[data-open],[data-go],[data-buy],[data-next],[data-read],[data-cover],[data-view],.opt,#demoUnlock,#payX,#payGo,#recheck,#logout,#forgot,#checkPay");
+  const t = e.target.closest("[data-social],[data-open],[data-go],[data-buy],[data-next],[data-read],[data-cover],[data-watch],[data-view],.opt,#demoUnlock,#payX,#payGo,#recheck,#logout,#forgot,#checkPay");
   if(!t) return;
   if(t.matches("[data-social]")) await socialLogin(t.dataset.social);
   else if(t.matches("[data-go]")){ e.preventDefault(); go(t.dataset.go); }
@@ -9182,10 +9212,11 @@ document.addEventListener("click", async e => {
   }
   else if(t.matches("[data-open]")) openLesson(+t.dataset.open);
   else if(t.matches("[data-buy]")) openPay(null);
-  else if(t.matches("[data-read]")){ $("#cv").hidden = true; $("#pages").hidden = false; window.scrollTo(0,0); if(Book.el && $("#bookv")){ if(window.innerWidth >= 880) BookFS.enter($("#pages .desk")); Book.render(); Book.align(false); } Track.event("comic_opened", +$("#reader").dataset.n); }
+  else if(t.matches("[data-watch]")){ $("#cv").hidden = true; $("#pages").hidden = true; $("#vidv").hidden = false; window.scrollTo(0,0); LessonVideo.start(LESSONS[LessonVideo.cur - 1] || null); Track.event("video_opened", LessonVideo.cur); }
+  else if(t.matches("[data-read]")){ LessonVideo.stop(); if($("#vidv")) $("#vidv").hidden = true; $("#cv").hidden = true; $("#pages").hidden = false; window.scrollTo(0,0); if(Book.el && $("#bookv")){ if(window.innerWidth >= 880) BookFS.enter($("#pages .desk")); Book.render(); Book.align(false); } Track.event("comic_opened", +$("#reader").dataset.n); }
   else if(t.id === "payGo") Track.event("checkout_started", pending);
   else if(t.id === "recheck"){ RECEIPT.state = "confirming"; renderReceipt(RECEIPT); await confirmUnlock(); }
-  else if(t.matches("[data-cover]")){ BookFS.exit(); $("#pages").hidden = true; $("#cv").hidden = false; window.scrollTo(0,0); }
+  else if(t.matches("[data-cover]")){ BookFS.exit(); LessonVideo.stop(); if($("#vidv")) $("#vidv").hidden = true; $("#pages").hidden = true; $("#cv").hidden = false; window.scrollTo(0,0); }
   else if(t.matches("[data-next]")) finishLesson(+t.dataset.next);
   else if(t.id === "demoUnlock") unlock();
   else if(t.id === "payX") closePay();

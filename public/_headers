@@ -1,0 +1,8 @@
+/video/*
+  Cache-Control: public, max-age=604800
+  X-Content-Type-Options: nosniff
+  Content-Disposition: inline
+/video/*.m3u8
+  Content-Type: application/vnd.apple.mpegurl
+/video/*.m4s
+  Content-Type: video/iso.segment
