@@ -5327,7 +5327,7 @@ const PAGES11 = [
 ]},
 /* ===== 9 ===== */
 {title:"The three-way handshake", rows:[
- {h:280, p:[{bg:"blueprint", ch:[["laptop","happy",90,.42],["phone","happy",510,.45]], over:[["arrow",160,90,440,90,"#ffd23f"],["arrow",440,150,160,150,"#2bb673"],["arrow",160,210,440,210,"#ffd23f"],["word",300,75,"1. SYN · 'I'll start at #100'",15,0,"#ffd23f"],["word",300,135,"2. SYN-ACK · 'Got it. I'll start at #900'",15,0,"#2bb673"],["word",300,195,"3. ACK · 'Got yours too'",15,0,"#ffd23f"]],
+ {h:280, p:[{bg:"blueprint", ch:[["laptop","happy",90,.42],["phone","happy",510,.45]], over:[["arrow",160,90,440,90,"#ffd23f"],["arrow",440,150,160,150,"#2bb673"],["arrow",160,210,440,210,"#ffd23f"],["word",300,75,"1. SYN · 'I'll start at #100'",15,0,"#ffd23f"],["word",300,135,"2. SYN-ACK · 'Got it. I'll start at #300'",15,0,"#2bb673"],["word",300,195,"3. ACK · 'Got yours too'",15,0,"#ffd23f"]],
    b:[]}]},
  {h:250, p:[
    {bg:"rays:sun", ch:[["router","proud",150,.58]],
@@ -5441,7 +5441,7 @@ const PAGES11 = [
 ]},
 /* ===== 19 ===== */
 {title:"The three goals: CIA", rows:[
- {h:280, p:[{bg:"plain:#fff3c4", over:[["sign",10,24,185,190,["CONFIDENTIALITY","only the right person","can READ it","(encryption)"],16,"#1f6fd1"],["sign",207,24,185,190,["INTEGRITY","nobody can CHANGE it","on the way"],16,"#2bb673"],["sign",404,24,185,190,["AUTHENTICATION","you're talking to who","you THINK you are"],16,"#e63a2e"]],
+ {h:280, p:[{bg:"plain:#fff3c4", over:[["sign",10,24,185,190,["CONFIDENTIALITY","only the right person","can READ it","(encryption)"],16,"#1f6fd1"],["sign",207,24,185,190,["INTEGRITY","nobody can CHANGE it","on the way"],16,"#2bb673"],["sign",404,24,185,190,["AVAILABILITY","it's there when","you NEED it"],16,"#e63a2e"]],
    b:[]}]},
  {h:250, p:[
    {bg:"rays:rose", ch:[["phone","shock",150,.62]], fx:[["$10 → $1,000?!",150,40,18,-4,"#ffd23f",true]],
@@ -5471,7 +5471,7 @@ const PAGES11 = [
    {bg:"rays:lilac", ch:[["laptop","confused",150,.6]],
      b:[["s","But couldn't an attacker just COPY the bank's certificate file?",6,4,14,"b",55,"laptop"]]}]},
  {h:220, p:[{bg:"rays:mint", ch:[["router","proud",110,.55]],
-   b:[["s","Great question! Only the real bank holds the secret PRIVATE KEY that goes with it. TLS covers all three CIA goals.",30,8,24,"bl",6,"router"]]}]}
+   b:[["s","Great question! Only the real bank holds the secret PRIVATE KEY that goes with it. TLS keeps it confidential, checks its integrity, and proves who you're talking to.",30,8,24,"bl",6,"router"]]}]}
 ]},
 /* ===== 22 ===== */
 {title:"Remote access VPN", rows:[
@@ -5521,7 +5521,7 @@ const PAGES11 = [
 ]}
 ];
 const ISSUE_L = {no:"12", cover:COVER11, t:"Why network security?", b:"How a real company network fits together, why TCP numbers its packets, and how firewalls, certificates and VPNs keep attackers out.", m:25, star:"wall", part:1, pages:PAGES11,
- take:"A company network has campuses (people), a WAN linking branches (often over the internet, sometimes SD-WAN), and data centers or cloud servers (IaaS) running the apps the business depends on; on-prem means on your own premises. IP can drop packets, so TCP numbers them (sequence numbers), acknowledges them and retransmits what's lost, after a SYN, SYN-ACK, ACK three-way handshake. UDP is connectionless (source port, destination port, length, checksum) and suits live calls and video. A stateful firewall allows inside-to-outside traffic and its replies, blocks outside-to-inside by default, and applies rules that can also stop insiders. An IPS checks traffic against signatures of known attacks. A vulnerability is a weakness, an exploit uses it, and an attack is the event. Default passwords let attackers build botnets; a SYN flood exhausts a server's memory (DoS, or DDoS from many bots); spoofing fakes the source IP. Security aims for confidentiality, integrity and authentication. Digital certificates signed by a trusted Certificate Authority prove a server's identity in TLS (HTTPS). VPNs build encrypted tunnels over the internet: remote access for one user (often TLS), site-to-site between routers or firewalls (often IPsec).",
+ take:"A company network has campuses (people), a WAN linking branches (often over the internet, sometimes SD-WAN), and data centers or cloud servers (IaaS) running the apps the business depends on; on-prem means on your own premises. IP can drop packets, so TCP numbers them (sequence numbers), acknowledges them and retransmits what's lost, after a SYN, SYN-ACK, ACK three-way handshake. UDP is connectionless (source port, destination port, length, checksum) and suits live calls and video. A stateful firewall allows inside-to-outside traffic and its replies, blocks outside-to-inside by default, and applies rules that can also stop insiders. An IPS checks traffic against signatures of known attacks. A vulnerability is a weakness, an exploit uses it, and an attack is the event. Default passwords let attackers build botnets; a SYN flood exhausts a server's memory (DoS, or DDoS from many bots); spoofing fakes the source IP. Security aims for confidentiality, integrity and availability (CIA), plus authentication: proving who you're talking to. Digital certificates signed by a trusted Certificate Authority prove a server's identity in TLS (HTTPS). VPNs build encrypted tunnels over the internet: remote access for one user (often TLS), site-to-site between routers or firewalls (often IPsec).",
  tip:"Click the padlock next to any HTTPS website address and open its certificate: find who it was issued to, which Certificate Authority signed it, and when it expires. Then, in Packet Tracer, add enable secret to a router and check you're asked for it the next time you type enable.",
  q:{q:"Thousands of bots send SYN messages to the store server but never send the final ACK. Real customers can't connect. What is this?",o:["A SYN flood (distributed denial of service)","IP spoofing alone","A remote access VPN"],why:"Each SYN makes the server reserve resources and wait for an ACK that never comes. From many machines at once, it denies service to real users: a DDoS."}};
 
@@ -8073,6 +8073,7 @@ ISSUE_H.video = {src:"video/ch8/index.m3u8", poster:"video/ch8/poster.jpg", m:18
 ISSUE_I.video = {src:"video/ch9/index.m3u8", poster:"video/ch9/poster.jpg", m:19};
 ISSUE_J.video = {src:"video/ch10/index.m3u8", poster:"video/ch10/poster.jpg", m:18};
 ISSUE_K.video = {src:"video/ch11/index.m3u8", poster:"video/ch11/poster.jpg", m:20};
+ISSUE_L.video = {src:"video/ch12/index.m3u8", poster:"video/ch12/poster.jpg", m:18};
 ISSUE_A.id = 13; ISSUE_B.id = 14; ISSUE_C.id = 15; ISSUE_D.id = 16; ISSUE_E.id = 17; ISSUE_F.id = 18; ISSUE_G.id = 19; ISSUE_H.id = 20; ISSUE_I.id = 21; ISSUE_J.id = 22; ISSUE_K.id = 23; ISSUE_L.id = 24; ISSUE_M.id = 25;
 [ISSUE_A, ISSUE_B, ISSUE_C].forEach(L => { L.free = true; L.part = 1; });
 ISSUE_D.part = 1; ISSUE_D.free = false;
